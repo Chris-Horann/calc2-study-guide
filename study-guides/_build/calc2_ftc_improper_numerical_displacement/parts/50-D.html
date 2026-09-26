@@ -1,0 +1,295 @@
+<section id="D" class="topic">
+  <div class="topic-banner">
+    <div class="topic-letter sec" aria-hidden="true">3.1</div>
+    <div><h2>Displacement &amp; distance traveled</h2>
+    <div class="sources">Notes pp. 40–41 + new notes pp. 1–3 · Textbook §3.1 (Propositions 3.1.1 &amp; 3.1.3; Examples 3.1.2 &amp; 3.1.5)</div></div>
+  </div>
+  <nav class="stagebar" data-topic="D" aria-label="Stages in §3.1">
+    <a href="#D-learn"><span class="n">1</span>Learn</a><a href="#D-understand"><span class="n">2</span>Understand</a><a href="#D-explore"><span class="n">3</span>Explore</a><a href="#D-attempt"><span class="n">4</span>Attempt</a><a href="#D-compare"><span class="n">5</span>Compare</a><a href="#D-practice"><span class="n">6</span>Practice</a><a href="#D-master"><span class="n">7</span>Master</a>
+  </nav>
+
+  <!-- ============================== 1 LEARN -->
+  <div class="stage" id="D-learn">
+    <div class="stage-head"><span class="n">Stage 1 · Learn</span><h3>The big idea</h3></div>
+    <div class="callout big">
+      <div class="label">Big idea</div>
+      <p>Velocity is the rate of change of position: $v(t)=p'(t)$. By the FTC, adding up $v(t)\,dt$ over a time interval gives the <b>net change in position</b>, the <b>displacement</b>. Moving forward adds and moving backward subtracts.</p>
+      <p style="margin:0">An odometer, though, doesn't run backward when you reverse. <b>Total distance traveled</b> adds up the <em>speed</em> $|v(t)|$, so every stretch counts positively. Notes p. 41: 10 ft/s forward for 30 s, then 10 ft/s back for 30 s gives a displacement of <b>0 ft</b> but a distance of <b>600 ft</b>.</p>
+    </div>
+    <div class="card tight">
+      <div class="small muted" style="margin-bottom:6px"><b>What to notice:</b> this is the velocity graph from notes p. 41. The two rectangles have the same size but opposite signs. The signed areas cancel (displacement 0); the actual areas add (distance 600 ft).</div>
+      <div data-fig="motion41"></div>
+    </div>
+    <label class="toggle"><input type="checkbox" data-self="D"> I can explain, without looking, why displacement can be 0 while the distance traveled is large.</label>
+  </div>
+
+  <!-- ============================== 2 UNDERSTAND -->
+  <div class="stage" id="D-understand">
+    <div class="stage-head"><span class="n">Stage 2 · Understand</span><h3>It's the FTC (§2.4) again, applied to motion</h3></div>
+    <div class="grid-2">
+      <div class="card tight">
+        <h4>Prerequisite map</h4>
+        <div class="tree"><ul><li class="root">Displacement &amp; distance
+          <ul>
+            <li>$v(t)=p'(t)$: velocity is a derivative, and its sign is the direction (notes p. 40)</li>
+            <li>The FTC: $\int_a^b v\,dt=p(b)-p(a)$ (§2.4)</li>
+            <li>Solving $v(t)=0$: where the object can turn around<br><span class="qc">Quick check: $v=t^2-4t+3$? <details class="qcheck"><summary>show</summary>$(t-1)(t-3)=0$, so $t=1,3$</details></span></li>
+            <li>Splitting $|\,\cdot\,|$ where the sign changes (§2.4)</li>
+          </ul></li></ul></div>
+      </div>
+      <div class="card tight">
+        <h4>Why it works</h4>
+        <p>This is the FTC with $f=v$ and $F=p$, since position is an antiderivative of velocity. On the velocity graph:</p>
+        <ul style="margin:0">
+          <li><b>Displacement</b> = <em>signed</em> area between the $v$-graph and the $t$-axis.</li>
+          <li><b>Distance</b> = <em>actual</em> area, with every piece counted positively.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="formula-card">
+      <div class="fc-title">Displacement and distance <span>notes pp. 40–41 · Props. 3.1.1 &amp; 3.1.3</span></div>
+      $$\text{displacement}=\int_a^b \htmlClass{fp fp-1}{v(t)}\,dt=\htmlClass{fp fp-2}{p(b)-p(a)}\qquad\qquad \text{distance}=\int_a^b \htmlClass{fp fp-3}{|v(t)|}\,dt$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="<b>Velocity</b> can be positive (forward), negative (backward), or 0 (notes p. 40).">v(t): velocity</button>
+        <button class="fp-chip" data-part="2" data-explain="The <b>shift in position</b>: where it ended minus where it started. Backward motion cancels forward motion.">p(b) − p(a)</button>
+        <button class="fp-chip" data-part="3" data-explain="<b>Speed</b> = |velocity| (notes p. 41). Integrating speed counts every stretch of motion, like an odometer.">|v(t)|: speed</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+      <div class="fc-meta">
+        <div><b>Final position</b>Rearranging the FTC: $p(b)=p(a)+\int_a^bv(t)\,dt$. You need the starting position for this.</div>
+        <div><b>Always true</b>$\left|\int_a^bv\,dt\right|\le\int_a^b|v|\,dt$, with equality exactly when $v$ doesn't change sign.</div>
+      </div>
+    </div>
+    <div class="card">
+      <h4>Recognition: which integral does the question want?</h4>
+      <div class="table-scroll"><table>
+        <thead><tr><th>The question says…</th><th>Use…</th></tr></thead>
+        <tbody>
+          <tr><td>“displacement,” “net change in position,” “where is it at time $b$” (given the start)</td><td>$\int v\,dt$, plus the starting position if it asks <em>where</em></td></tr>
+          <tr><td>“total distance traveled,” “how far did it travel,” “odometer”</td><td>$\int|v|\,dt$: find where $v=0$, split, make each piece positive</td></tr>
+          <tr><td>velocity given only as a table</td><td>A numerical rule on the data (§2.6)</td></tr>
+          <tr><td>$v$ never changes sign on $[a,b]$</td><td>distance $=|\text{displacement}|$, no splitting needed</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout warn" style="margin-bottom:0"><div class="label">Tempting alternatives, and why to reject them</div>
+        <ul style="margin:0"><li><b>“Distance $=\left|\int_a^b v\,dt\right|$.”</b> The absolute value belongs <em>inside</em> the integral. Outside, cancellations have already happened.</li>
+        <li><b>“Split where $p(t)=0$.”</b> $p=0$ just means passing the starting point or origin. Direction changes happen where $v=0$.</li></ul></div>
+    </div>
+  </div>
+
+  <!-- ============================== 3 EXPLORE -->
+  <div class="stage" id="D-explore">
+    <div class="stage-head"><span class="n">Stage 3 · Explore</span><h3>Motion simulator</h3></div>
+    <div class="widget">
+      <div class="w-head"><h4>Play the motion; watch displacement and distance separate</h4><span class="small muted">presets · play/pause · scrub time · hover the graph</span></div>
+      <div class="w-sub">Top: velocity, with the area so far shaded (blue +, orange −). Bottom: the object's actual back-and-forth path.</div>
+      <div id="widget-motion"></div>
+      <div class="try"><h5>What to notice</h5><ol>
+        <li>The dot turns around exactly when the velocity curve crosses 0, at the “turns” markers.</li>
+        <li>While $v&lt;0$, displacement <b>shrinks</b> but distance keeps <b>growing</b>. Distance can never decrease.</li>
+        <li><b>Notes p. 41:</b> at $t=60$ the displacement is back to 0 while the distance is 600 ft.</li>
+        <li><b>Textbook Example 3.1.2:</b> from $t=2$ to $t=4$ the displacement is 0, yet the particle moves. Scrub the time slider to see it.</li>
+        <li><b>New notes p. 1: v = eᵗ − 2</b>. The object turns at $t=\ln2\approx0.693$, which is inside $[0,1]$ because $e^0=1&lt;2&lt;e^1$. The displacement is $e-3\approx-0.282$ and the distance $4\ln2+e-5\approx0.491$.</li>
+        <li><b>New notes p. 2: v = t² − t − 2</b>. $v=0$ at $t=2$ (and at $t=-1$, outside the interval). The displacement is $\tfrac{16}{3}$ but the distance is 12.</li>
+        <li><b>New notes p. 3: v = 1 − 2cos t</b>. It starts out moving backward, turns at $t=\tfrac\pi3$, and ends with displacement $\pi$ but distance $2\sqrt3+\tfrac\pi3\approx4.511$.</li>
+      </ol></div>
+    </div>
+  </div>
+
+  <!-- ============================== 4 ATTEMPT -->
+  <div class="stage" id="D-attempt">
+    <div class="stage-head"><span class="n">Stage 4 · Attempt</span><h3>Guided example, then your turn</h3></div>
+    <div class="guided" data-gid="D-guided">
+      <div class="g-intro"><span class="badge">Guided example</span>
+        <p style="margin-top:8px">An object moves with velocity $v(t)=t^2-4t+3$ m/s for $0\le t\le4$. Find its displacement and its total distance traveled.</p></div>
+      <div class="gstep"><span class="g-label">Step 1</span>
+        <p><label class="inline">Displacement $=\displaystyle\int_0^4 (t^2-4t+3)\,dt=$ <input class="ans" data-vid="D-guided-disp" data-answer="1.333333333333"></label></p>
+        <div class="greveal">$\left[\tfrac{t^3}{3}-2t^2+3t\right]_0^4=\tfrac{64}{3}-32+12=\tfrac43$ m. No splitting needed for displacement.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 2</span>
+        <div class="mcq" data-qid="D-g2"><div class="q">When does the object turn around?</div><div class="opts cols-2">
+          <button class="opt" data-correct>$t=1$ and $t=3$</button>
+          <button class="opt" data-why="t = 2 is where v is smallest (v = −1), not where it's 0.">$t=2$</button>
+          <button class="opt" data-why="Those are the start and end times; v isn't 0 there.">$t=0$ and $t=4$</button>
+          <button class="opt" data-why="v = (t − 1)(t − 3) is 0 twice.">never</button>
+        </div></div>
+        <div class="greveal">$v=(t-1)(t-3)=0$ at $t=1$ and $t=3$. Direction can only change where $v=0$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 3</span>
+        <div class="mcq" data-qid="D-g3"><div class="q">On $(1,3)$, the object is moving…</div><div class="opts cols-2">
+          <button class="opt" data-correct>backward ($v&lt;0$)</button>
+          <button class="opt" data-why="Test t = 2: v(2) = 4 − 8 + 3 = −1.">forward ($v&gt;0$)</button>
+        </div></div>
+        <div class="greveal">$v(2)=-1<0$: backward on $(1,3)$, and forward on $(0,1)$ and $(3,4)$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 4</span>
+        <p><label class="inline">Distance on $[0,1]$: $\displaystyle\int_0^1 v\,dt=$ <input class="ans" data-vid="D-guided-piece1" data-answer="1.333333333333"></label></p>
+        <div class="greveal">$F(1)-F(0)=\left(\tfrac13-2+3\right)-0=\tfrac43$, where $F(t)=\tfrac{t^3}{3}-2t^2+3t$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 5</span>
+        <p><label class="inline">Distance on $[1,3]$: $\displaystyle\left|\int_1^3 v\,dt\right|=$ <input class="ans" data-vid="D-guided-piece2" data-answer="1.333333333333"></label></p>
+        <div class="greveal">$F(3)-F(1)=(9-18+9)-\tfrac43=-\tfrac43$. It moved backward $\tfrac43$ m, which contributes $+\tfrac43$ to the distance.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 6</span>
+        <p><label class="inline">Distance on $[3,4]$: <input class="ans" data-vid="D-guided-piece3" data-answer="1.333333333333"></label></p>
+        <div class="greveal">$F(4)-F(3)=\tfrac43-0=\tfrac43$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 7</span>
+        <p><label class="inline">Total distance traveled: <input class="ans" data-vid="D-guided-dist" data-answer="4"></label></p>
+        <div class="greveal">$\tfrac43+\tfrac43+\tfrac43=4$ m, versus a displacement of $\tfrac43$ m. It went forward $\tfrac43$, back $\tfrac43$, then forward $\tfrac43$ again.</div>
+      </div>
+      <div class="takeaway"><b>Takeaway.</b> Displacement is one integral. Distance means splitting at the zeros of $v$, then adding the absolute values of the pieces. It's the same move as total area in §2.4.</div>
+    </div>
+
+    <div class="problem" data-pid="D-indep" data-topic="D" data-level="4" data-title="Independent attempt" data-src="Your turn" data-prompt="A particle has velocity v(t) = 6 - 2t m/s for 0 &lt;= t &lt;= 5. Find its displacement and its total distance traveled.">
+      <div class="p-body">A particle moves with velocity $v(t)=6-2t$ m/s for $0\le t\le5$. Find (a) its displacement and (b) its total distance traveled.</div>
+      <div class="answers"><label>(a) <input class="ans" data-label="(a) displacement" data-vid="D-indep-disp" data-answer="5" data-exact="5 m"></label><label>(b) <input class="ans" data-label="(b) distance" data-vid="D-indep-dist" data-answer="13" data-exact="13 m" data-wrong='[{"v":5,"m":"That is the displacement. The particle turns around, so the distance is larger. When is v(t) = 0?"},{"v":9,"m":"That is only the forward part, on [0, 3]."},{"v":4,"m":"That is only the backward part, on [3, 5]."},{"v":-4,"m":"Distance can never be negative. Take the absolute value of each piece."}]'></label></div>
+      <ol class="know">
+        <li>Which quantity needs splitting, and which doesn't?</li>
+        <li>When is $v(t)=0$? What's the sign of $v$ on each side?</li>
+      </ol>
+      <div class="hint">Displacement needs no splitting. For distance, find when $v(t)=6-2t=0$.</div>
+      <div class="hint">$t=3$. $v&gt;0$ before it and $v&lt;0$ after. Split $\int_0^5|v|\,dt=\int_0^3(6-2t)\,dt+\int_3^5(2t-6)\,dt$.</div>
+      <div class="hint">$\int_0^3(6-2t)\,dt=9$ and $\int_3^5(6-2t)\,dt=-4$.</div>
+      <div class="solution">(a) $\big[6t-t^2\big]_0^5=30-25=5$ m. (b) $9+|-4|=13$ m. It went 9 m forward, then 4 m back: net 5 m, total 13 m.</div>
+      <div class="reflect"><h5>Compare your approach</h5>
+        <label><input type="checkbox"> I found the turning point before computing the distance.</label>
+        <label><input type="checkbox"> I made the backward piece positive.</label>
+        <label><input type="checkbox"> I checked that distance ≥ |displacement|: 13 ≥ 5 ✓.</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 5 COMPARE -->
+  <div class="stage" id="D-compare">
+    <div class="stage-head"><span class="n">Stage 5 · Compare</span><h3>Tempting approaches vs. correct reasoning</h3></div>
+    <div class="spot" data-sid="D-spot1">
+      <p><b>Spot the error.</b> A student finds the distance traveled for $v(t)=t^2-4t+3$ on $[0,4]$:</p>
+      <button class="sline" data-bad><span class="ln">Line 1</span><span>distance $=\left|\displaystyle\int_0^4 v(t)\,dt\right|$</span></button>
+      <button class="sline"><span class="ln">Line 2</span><span>$=\left|\tfrac43\right|$</span></button>
+      <button class="sline"><span class="ln">Line 3</span><span>$=\tfrac43$ m.</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout warn"><div class="label">What went wrong</div><p style="margin:0">The absolute value must go <b>inside</b>: distance $=\int_0^4|v(t)|\,dt=4$ m. By the time you take $|\,\cdot\,|$ of the whole integral, the backward motion has already cancelled some of the forward motion. The textbook warns (Example 3.1.5) that you definitely don't find an antiderivative of $v$ and then take its absolute value.</p></div>
+    </div>
+    <div class="vs">
+      <div class="tempt"><h5>✗ Tempting</h5>“$p(t)=0$ at $t=0$ and $t=3$, so I'll split at those times.”</div>
+      <div class="right"><h5>✓ Correct</h5>The pieces must be where the <b>direction</b> is constant, so split where $v(t)=0$. Passing through the origin ($p=0$) doesn't change direction.</div>
+      <div class="clue"><b>Clue for next time:</b> “turns around” means $v=0$ and $v$ changes sign.</div>
+    </div>
+    <h4 style="margin-top:22px">Common mistakes: why they happen and how to prevent them</h4>
+    <details class="mistake"><summary>Giving displacement when distance is asked</summary><div class="m-body"><p><b>Why it happens</b><br>$\int v\,dt$ is the natural first computation.</p><p><b>Prevent it</b><br>Circle the word in the question. “Distance” means $|v|$ and a split.</p></div></details>
+    <details class="mistake"><summary>Missing a turning point</summary><div class="m-body"><p><b>Why it happens</b><br>Trig velocities can have several zeros. $\sin3t$ is 0 at both $\frac\pi3$ and $\frac{2\pi}3$ inside $(0,\pi)$.</p><p><b>Prevent it</b><br>Solve $v=0$ over the <em>whole</em> interval, then test the sign on each piece. (Even computer algebra can miss these: our own verification script did, until it was fixed.)</p></div></details>
+    <details class="mistake"><summary>Forgetting the starting position</summary><div class="m-body"><p><b>Why it happens</b><br>Displacement and position blur together.</p><p><b>Prevent it</b><br>“Where is it at time $b$?” means $p(b)=p(a)+\int_a^bv\,dt$.</p></div></details>
+    <details class="mistake"><summary>Units</summary><div class="m-body"><p><b>Why it happens</b><br>Integrating a rate changes the units.</p><p><b>Prevent it</b><br>$\text{(ft/s)}\times\text{s}=\text{ft}$: the answer is a length, not a speed.</p></div></details>
+  </div>
+
+  <!-- ============================== 6 PRACTICE -->
+  <div class="stage" id="D-practice">
+    <div class="stage-head"><span class="n">Stage 6 · Practice</span><h3>Practice</h3></div>
+    <div class="problem" data-pid="D-p1" data-topic="D" data-title="Practice 1" data-src="Like notes p. 41" data-prompt="An object moves at 8 ft/s for 15 seconds, then moves in the opposite direction at 4 ft/s for 10 seconds. Find the displacement and the total distance.">
+      <div class="p-body">An object moves at 8 ft/s for 15 s, then in the opposite direction at 4 ft/s for 10 s. Find (a) its displacement and (b) its total distance traveled.</div>
+      <div class="answers"><label>(a) <input class="ans" data-label="(a)" data-vid="D-p1-disp" data-answer="80" data-exact="80 ft"></label><label>(b) <input class="ans" data-label="(b)" data-vid="D-p1-dist" data-answer="160" data-exact="160 ft"></label></div>
+      <div class="hint">Sketch $v$: 8 on $[0,15)$ and $-4$ on $[15,25]$. Each integral is the area of a rectangle.</div>
+      <div class="solution">(a) $8\cdot15+(-4)\cdot10=120-40=80$ ft. (b) $120+40=160$ ft.</div>
+    </div>
+    <div class="problem" data-pid="D-p2" data-topic="D" data-title="Practice 2" data-src="Textbook §3.1 Suggested Ex. 6" data-prompt="v(t) = t^2 - 9 on [0, 5]: find the displacement and the distance traveled.">
+      <div class="p-body">$v(t)=t^2-9$ on $[0,5]$. Find (a) the displacement and (b) the distance traveled.</div>
+      <div class="answers"><label>(a) <input class="ans" data-label="(a)" data-vid="D-p2-disp" data-answer="-3.333333333333" data-exact="−10/3"></label><label>(b) <input class="ans" data-label="(b)" data-vid="D-p2-dist" data-answer="32.666666666667" data-exact="98/3" data-wrong='[{"v":3.333333333333,"m":"That is |displacement|. The particle turns around at t = 3."}]'></label></div>
+      <div class="hint">$v=0$ at $t=3$ (in the interval). $v&lt;0$ before and $v&gt;0$ after.</div>
+      <div class="hint">$\int_0^3(9-t^2)\,dt=18$ and $\int_3^5(t^2-9)\,dt=\tfrac{44}{3}$.</div>
+      <div class="solution">(a) $\left[\tfrac{t^3}3-9t\right]_0^5=\tfrac{125}3-45=-\tfrac{10}3$. (b) $18+\tfrac{44}3=\tfrac{98}3\approx32.67$.</div>
+    </div>
+    <div class="problem" data-pid="D-p3" data-topic="D" data-title="Practice 3" data-src="Textbook §3.1 Suggested Ex. 3" data-prompt="v(t) = t^2 - 5t + 6 on [0, 3]: find the displacement and the total distance traveled.">
+      <div class="p-body">$v(t)=t^2-5t+6$ on $[0,3]$. Find (a) the displacement and (b) the total distance traveled.</div>
+      <div class="answers"><label>(a) <input class="ans" data-label="(a)" data-vid="D-p3-disp" data-answer="4.5" data-exact="9/2"></label><label>(b) <input class="ans" data-label="(b)" data-vid="D-p3-dist" data-answer="4.833333333333" data-exact="29/6"></label></div>
+      <div class="hint">$v=(t-2)(t-3)$: zero at $t=2$ (inside) and $t=3$ (the endpoint).</div>
+      <div class="hint">$\int_0^2v\,dt=\tfrac{14}3$ and $\int_2^3v\,dt=-\tfrac16$.</div>
+      <div class="solution">(a) $\left[\tfrac{t^3}3-\tfrac52t^2+6t\right]_0^3=9-22.5+18=\tfrac92$. (b) $\tfrac{14}3+\tfrac16=\tfrac{29}6\approx4.833$.</div>
+    </div>
+    <div class="problem" data-pid="D-p4" data-topic="D" data-title="Practice 4" data-src="Textbook §3.1 Suggested Ex. 4" data-prompt="v(t) = sin 3t on [0, pi]: find the displacement and the total distance traveled.">
+      <div class="p-body">$v(t)=\sin3t$ on $[0,\pi]$. Find (a) the displacement and (b) the total distance traveled. (Count the turning points carefully!)</div>
+      <div class="answers"><label>(a) <input class="ans" data-label="(a)" data-vid="D-p4-disp" data-answer="0.666666666667" data-exact="2/3"></label><label>(b) <input class="ans" data-label="(b)" data-vid="D-p4-dist" data-answer="2" data-exact="2" data-wrong='[{"v":0.666666666667,"m":"That is the displacement. It is also what you get if you split at only one turning point: sin 3t = 0 at both π/3 and 2π/3 inside (0, π)."}]'></label></div>
+      <div class="hint">$\sin3t=0$ when $3t=\pi,2\pi$, so at $t=\frac\pi3$ and $\frac{2\pi}3$: <b>two</b> turning points.</div>
+      <div class="hint">Each hump has area $\int_0^{\pi/3}\sin3t\,dt=\left[-\tfrac{\cos3t}{3}\right]_0^{\pi/3}=\tfrac23$, and there are three humps.</div>
+      <div class="solution">(a) $\left[-\tfrac{\cos3t}{3}\right]_0^{\pi}=\tfrac{1+1}{3}=\tfrac23$ (up, down, up: net one hump). (b) $3\cdot\tfrac23=2$.</div>
+    </div>
+    <div class="problem" data-pid="D-p5" data-topic="D" data-title="Practice 5" data-src="Final position" data-prompt="p(0) = 10 and v(t) = 2t - 6 for 0 &lt;= t &lt;= 4. Where is the object at t = 4, and how far did it travel?">
+      <div class="p-body">An object starts at position $p(0)=10$ with $v(t)=2t-6$ for $0\le t\le4$. Find (a) its position at $t=4$ and (b) its total distance traveled.</div>
+      <div class="answers"><label>(a) $p(4)=$ <input class="ans" data-label="(a)" data-vid="D-p5-final-position" data-answer="2" data-exact="2" data-wrong='[{"v":-8,"m":"That is the displacement. Add the starting position p(0) = 10."}]'></label><label>(b) <input class="ans" data-label="(b)" data-vid="D-p5-dist" data-answer="10" data-exact="10"></label></div>
+      <div class="hint">$p(4)=p(0)+\int_0^4v\,dt$.</div>
+      <div class="hint">$v=0$ at $t=3$: $\int_0^3(6-2t)\,dt=9$ and $\int_3^4(2t-6)\,dt=1$.</div>
+      <div class="solution">(a) $10+\big[t^2-6t\big]_0^4=10-8=2$. (b) $9+1=10$.</div>
+    </div>
+    <div class="problem" data-pid="D-p6" data-topic="D" data-title="Practice 6" data-src="Textbook Example 3.1.5" data-prompt="v(t) = 3t^2 - 12t + 8 on [2, 4]: find the total distance traveled.">
+      <div class="p-body">$v(t)=3t^2-12t+8$ m/s on $[2,4]$. The displacement is 0 (textbook Example 3.1.2). Find the <b>distance</b> traveled.</div>
+      <div class="answers"><label>Distance <input class="ans" data-vid="D-p6-tb315-dist" data-answer="6.158402871356" data-exact="32√3/9 ≈ 6.1584 m" data-wrong='[{"v":0,"m":"That is the displacement. The particle turns around inside [2, 4]."}]'></label></div>
+      <div class="hint">Solve $3t^2-12t+8=0$ with the quadratic formula. Which root is in $[2,4]$?</div>
+      <div class="hint">$t=2+\frac{2\sqrt3}{3}\approx3.155$. Here $v(2)=-4&lt;0$ and $v(4)=8&gt;0$. An antiderivative is $F(t)=t(t-2)(t-4)$.</div>
+      <div class="solution">With $c=2+\frac{2\sqrt3}{3}$: distance $=-\big(F(c)-F(2)\big)+\big(F(4)-F(c)\big)=-2F(c)=\frac{32\sqrt3}{9}\approx6.158$ m (since $F(2)=F(4)=0$).</div>
+    </div>
+
+    <div class="problem" data-pid="D-p7" data-topic="D" data-title="Practice 7" data-src="New notes p. 1 · redo your professor’s example" data-prompt="v(t) = e^t - 2 for 0 &lt;= t &lt;= 1: find the displacement and the total distance traveled.">
+      <div class="p-body">A particle moving along a line has $v(t)=e^t-2$ for $0\le t\le1$. Find (a) the displacement and (b) the total distance traveled.</div>
+      <div class="answers"><label>(a) <input class="ans" data-label="(a)" data-vid="D-p7-disp" data-answer="-0.281718171541" data-exact="e − 3"></label><label>(b) <input class="ans" data-label="(b)" data-vid="D-p7-dist" data-answer="0.490870550699" data-exact="4 ln 2 + e − 5" data-wrong='[{"v":0.281718171541,"m":"That is |displacement|. The particle turns around inside [0, 1], so the backward part has cancelled some of the forward part."},{"v":-0.281718171541,"m":"That is the displacement. Distance uses |v|: split where v = 0."}]'></label></div>
+      <div class="hint">(a) An antiderivative of $e^t-2$ is $e^t-2t$.</div>
+      <div class="hint">(b) Solve $e^t-2=0$: $t=\ln2$. Is it inside $[0,1]$? The professor checks $e^0=1&lt;2&lt;e^1$. Test a point on each side.</div>
+      <div class="hint">$v&lt;0$ on $(0,\ln2)$ and $v&gt;0$ on $(\ln2,1)$. So distance $=\int_0^{\ln2}(2-e^t)\,dt+\int_{\ln2}^1(e^t-2)\,dt$.</div>
+      <div class="solution">(a) $\big[e^t-2t\big]_0^1=(e-2)-1=e-3\approx-0.282$. (b) $\big[2t-e^t\big]_0^{\ln2}+\big[e^t-2t\big]_{\ln2}^1=(2\ln2-1)+\big(e-4+2\ln2\big)=4\ln2+e-5\approx0.491$. This is the professor’s work on new notes p. 1 (verified by hand, SymPy and Wolfram).</div>
+    </div>
+    <div class="problem" data-pid="D-p8" data-topic="D" data-title="Practice 8" data-src="New notes p. 2 · redo your professor’s example" data-prompt="v(t) = t^2 - t - 2 for 0 &lt;= t &lt;= 4: find the displacement and the total distance traveled.">
+      <div class="p-body">A particle moving along a line has $v(t)=t^2-t-2$. Find (a) the displacement and (b) the total distance traveled on $0\le t\le4$.</div>
+      <div class="answers"><label>(a) <input class="ans" data-label="(a)" data-vid="D-p8-disp" data-answer="5.333333333333" data-exact="16/3"></label><label>(b) <input class="ans" data-label="(b)" data-vid="D-p8-dist" data-answer="12" data-exact="12" data-wrong='[{"v":5.333333333333,"m":"That is the displacement. The particle moves backward until t = 2."}]'></label></div>
+      <div class="hint">Factor: $t^2-t-2=(t-2)(t+1)$. Which root lies in $[0,4]$?</div>
+      <div class="hint">Only $t=2$. Test points: $t=1$ gives $-2&lt;0$ and $t=3$ gives $4&gt;0$.</div>
+      <div class="hint">Distance $=\int_0^2(-t^2+t+2)\,dt+\int_2^4(t^2-t-2)\,dt$.</div>
+      <div class="solution">(a) $\big[\tfrac{t^3}{3}-\tfrac{t^2}{2}-2t\big]_0^4=\tfrac{64}{3}-8-8=\tfrac{16}{3}$. (b) $\tfrac{10}{3}+\tfrac{26}{3}=12$ (new notes p. 2).</div>
+    </div>
+    <div class="problem" data-pid="D-p9" data-topic="D" data-title="Practice 9" data-src="New notes p. 3 · redo your professor’s example" data-prompt="v(t) = 1 - 2 cos t for 0 &lt;= t &lt;= pi: find the displacement and the total distance traveled.">
+      <div class="p-body">A particle moving along a line has $v(t)=1-2\cos t$. Find (a) the displacement and (b) the total distance traveled on $0\le t\le\pi$.</div>
+      <div class="answers"><label>(a) <input class="ans" data-label="(a)" data-vid="D-p9-disp" data-answer="3.141592653590" data-exact="π"></label><label>(b) <input class="ans" data-label="(b)" data-vid="D-p9-dist" data-answer="4.511299166335" data-exact="2√3 + π/3" data-wrong='[{"v":3.141592653590,"m":"That is the displacement. The particle moves backward at first: v(0) = 1 − 2 = −1."}]'></label></div>
+      <div class="hint">(a) An antiderivative is $t-2\sin t$, and $\sin\pi=\sin0=0$.</div>
+      <div class="hint">(b) $1-2\cos t=0$ means $\cos t=\tfrac12$, so $t=\tfrac\pi3$ in $[0,\pi]$. The sign is $-$ before and $+$ after.</div>
+      <div class="hint">Distance $=\int_0^{\pi/3}(2\cos t-1)\,dt+\int_{\pi/3}^{\pi}(1-2\cos t)\,dt$.</div>
+      <div class="solution">(a) $\big[t-2\sin t\big]_0^\pi=\pi$. (b) $\big[2\sin t-t\big]_0^{\pi/3}+\big[t-2\sin t\big]_{\pi/3}^{\pi}=2\sin\tfrac\pi3-\tfrac\pi3+\pi-\tfrac\pi3+2\sin\tfrac\pi3=2\sqrt3+\tfrac\pi3\approx4.511$ (new notes p. 3).</div>
+    </div>
+  </div>
+
+  <!-- ============================== 7 MASTER -->
+  <div class="stage" id="D-master">
+    <div class="stage-head"><span class="n">Stage 7 · Master</span><h3>Mastery check</h3></div>
+    <div class="grid-2">
+      <div class="mcq" data-qid="D-m1" data-topic="D" data-level="1" data-count><div class="q">If $v(t)&gt;0$ for every $t$ in $[a,b]$, the distance traveled is ___ the displacement.</div><div class="opts cols-2">
+        <button class="opt" data-correct data-why="With no backward motion, nothing cancels.">equal to</button><button class="opt">greater than</button><button class="opt">less than</button><button class="opt">unrelated to</button></div></div>
+      <div class="mcq" data-qid="D-m2" data-topic="D" data-level="2" data-count data-multi><div class="q">Which of these can be <b>negative</b>? Select all that apply.</div><div class="opts cols-2">
+        <button class="opt" data-correct>velocity</button><button class="opt" data-correct>displacement</button><button class="opt">speed</button><button class="opt">distance traveled</button></div>
+        <div class="why callout why"><div class="label">Why</div><p style="margin:0">Velocity and displacement carry a direction. Speed $=|v|$ and distance $=\int|v|$ never go below 0.</p></div></div>
+    </div>
+    <div class="problem" data-pid="D-m3" data-topic="D" data-level="6" data-title="Unfamiliar problem" data-src="Textbook §3.1 Additional Ex. 8" data-prompt="v(t) = sin t + cos t on [0, 2pi]: find the total distance traveled.">
+      <div class="p-body">$v(t)=\sin t+\cos t$ on $[0,2\pi]$. Find the total distance traveled.</div>
+      <div class="answers"><label>Distance <input class="ans" data-vid="D-master-sincos-dist" data-answer="5.656854249492" data-exact="4√2" data-wrong='[{"v":0,"m":"That is the displacement over a full period. Where does sin t + cos t = 0?"}]'></label></div>
+      <div class="hint">$\sin t+\cos t=0$ means $\tan t=-1$. Which $t$ in $[0,2\pi]$?</div>
+      <div class="hint">$t=\frac{3\pi}4$ and $\frac{7\pi}4$. An antiderivative is $-\cos t+\sin t$. Integrate over the three pieces.</div>
+      <div class="solution">The pieces are $\sqrt2+1$, $-2\sqrt2$, and $\sqrt2-1$ (check these!), so distance $=(\sqrt2+1)+2\sqrt2+(\sqrt2-1)=4\sqrt2\approx5.657$. (Slicker: $\sin t+\cos t=\sqrt2\sin(t+\frac\pi4)$, and $|\sin|$ over a full period has area 4.)</div>
+    </div>
+    <div class="problem" data-pid="D-m4" data-topic="D" data-level="6" data-title="Unfamiliar problem" data-src="Textbook §3.1 Suggested Ex. 9 · combines §2.5" data-help='A number, or "diverges".' data-prompt="v(t) = e^(-t): find the limit, as t1 goes to infinity, of the distance traveled between t = 0 and t = t1.">
+      <div class="p-body">A particle has velocity $v(t)=e^{-t}$. What is the limit, as $t_1\to\infty$, of the distance it travels between $t=0$ and $t=t_1$? (It never stops moving. Does it go infinitely far?)</div>
+      <div class="answers"><label>Answer <input class="ans" data-accept="div" data-vid="D-master-exp-dist" data-answer="1" data-exact="1" data-convmsg="The particle keeps moving, but it slows down fast. Compute the limit of the integral of e^(−t) from 0 to t1."></label></div>
+      <div class="hint">$v&gt;0$ always, so distance = displacement $=\int_0^{t_1}e^{-t}\,dt$.</div>
+      <div class="hint">That's $1-e^{-t_1}$. Now take the limit (§2.5, Type I).</div>
+      <div class="solution">$\lim_{t_1\to\infty}\big(1-e^{-t_1}\big)=1$. It moves forever but covers only 1 unit in total: an infinitely long time with finite distance, the same idea as an infinitely long region with finite area.</div>
+    </div>
+    <div class="problem" data-pid="D-m5" data-topic="D" data-level="6" data-title="Unfamiliar problem" data-src="New variant of new notes p. 1 · is the root inside?" data-prompt="v(t) = e^t - 3 for 0 &lt;= t &lt;= 1: find the total distance traveled.">
+      <div class="p-body">A particle has $v(t)=e^t-3$ for $0\le t\le1$. Find the total distance traveled. (Compare new notes p. 1, where $v=e^t-2$.)</div>
+      <div class="answers"><label>Distance <input class="ans" data-vid="D-m5-dist" data-answer="1.281718171541" data-exact="4 − e" data-wrong='[{"v":1.309955560468,"m":"It looks like you split at t = ln 3 ≈ 1.099, which is outside [0, 1]. Check that the root is inside the interval first, as the professor does on new notes p. 1."},{"v":-1.281718171541,"m":"Distance can’t be negative. v &lt; 0 on the whole interval, so distance = −(displacement)."}]'></label></div>
+      <div class="hint">Where is $e^t-3=0$? Is that time inside $[0,1]$?</div>
+      <div class="hint">$t=\ln3\approx1.099&gt;1$: no turning point inside. What is the sign of $v$ on the whole interval?</div>
+      <div class="solution">$v(0)=-2$ and $v(1)=e-3&lt;0$, so $v&lt;0$ throughout and distance $=-\int_0^1(e^t-3)\,dt=-\big[(e-3)-(1-0)\big]=4-e\approx1.282$. The professor’s check $e^0&lt;2&lt;e^1$ is what decides whether to split. Here $3&gt;e^1$, so there’s nothing to split.</div>
+    </div>
+    <div class="explain card" data-eid="D-explain" data-topic="D">
+      <h4>Explain why (Level 7)</h4>
+      <p>Give an example where $\left|\int_a^b v(t)\,dt\right|\neq\int_a^b|v(t)|\,dt$, and explain in general when the two are equal. (Textbook §3.1 Additional Ex. 12.)</p>
+      <textarea aria-label="Your explanation"></textarea>
+      <div class="model callout why"><div class="label">A model explanation</div><p style="margin:0">Notes p. 41: $v=10$ for 30 s, then $-10$ for 30 s. Then $\left|\int_0^{60}v\,dt\right|=|300-300|=0$ but $\int_0^{60}|v|\,dt=600$. They differ whenever $v$ changes sign, because the integral lets forward and backward motion cancel before the absolute value is taken. They're equal exactly when $v$ keeps one sign ($\ge0$ or $\le0$) on the whole interval, since then there's nothing to cancel.</p></div>
+    </div>
+  </div>
+</section>

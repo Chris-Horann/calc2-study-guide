@@ -1,0 +1,355 @@
+<section id="B" class="topic">
+  <div class="topic-banner">
+    <div class="topic-letter sec" aria-hidden="true">2.5</div>
+    <div><h2>Improper integrals</h2>
+    <div class="sources">Notes pp. 27–33 · Textbook §2.5 (Definitions 2.5.7, 2.5.8, 2.5.11; Examples 2.5.5, 2.5.6, 2.5.9)</div></div>
+  </div>
+  <nav class="stagebar" data-topic="B" aria-label="Stages in §2.5">
+    <a href="#B-learn"><span class="n">1</span>Learn</a><a href="#B-understand"><span class="n">2</span>Understand</a><a href="#B-explore"><span class="n">3</span>Explore</a><a href="#B-attempt"><span class="n">4</span>Attempt</a><a href="#B-compare"><span class="n">5</span>Compare</a><a href="#B-practice"><span class="n">6</span>Practice</a><a href="#B-master"><span class="n">7</span>Master</a>
+  </nav>
+
+  <!-- ============================== 1 LEARN -->
+  <div class="stage" id="B-learn">
+    <div class="stage-head"><span class="n">Stage 1 · Learn</span><h3>The big idea</h3></div>
+    <div class="callout big">
+      <div class="label">Big idea</div>
+      <p>Your notes ask (p. 27): <em>“What if we have some ‘infinity’ in the area under the curve?”</em> The region might be <b>infinitely long</b> (the interval runs off to ∞) or <b>infinitely tall</b> (the graph shoots up at a point). You can't plug ∞ into $F$. So do what the notes do: <b>stop at a finite stand-in</b>, compute the area up to there, then <b>let the stand-in move toward the problem</b> and watch what the areas do.</p>
+      <p>If the areas settle down to a number, the integral <b>converges</b> to that number. If they grow without bound, or never settle, it <b>diverges</b>.</p>
+      <p style="margin:0">The surprise: an infinitely long region <em>can</em> have finite area, if the curve thins out fast enough ($\int_1^\infty e^{-x}\,dx=e^{-1}$, notes p. 28). But getting thinner isn't enough by itself: $\frac1x\to0$, yet $\int_1^\infty\frac{dx}{x}$ diverges.</p>
+    </div>
+    <div class="card tight">
+      <div class="small muted" style="margin-bottom:6px"><b>What to notice:</b> both shaded regions are infinite in extent, one to the right and one upward, yet each has a finite area.</div>
+      <div data-fig="infinite"></div>
+    </div>
+    <div class="grid-2">
+      <div class="callout why"><div class="label">Type I (notes p. 27)</div><p style="margin:0">“Infinity happens in the <b>horizontal</b> direction”: the domain of integration is unbounded, e.g. $\int_1^\infty e^{-x}\,dx$.</p></div>
+      <div class="callout why"><div class="label">Type II (notes p. 30)</div><p style="margin:0">“Infinity happens in the <b>vertical</b> direction”: the integrand is unbounded, with an infinite discontinuity at some $x=c$, e.g. $\int_9^{10}3(x-9)^{-1/3}\,dx$.</p></div>
+    </div>
+    <div class="callout"><div class="label">Definition (notes p. 28)</div><p style="margin:0">An improper integral <b>converges</b> (is convergent) if the limit exists as a finite number, and <b>diverges</b> (is divergent) if the limit does not exist as a finite number.</p></div>
+    <label class="toggle"><input type="checkbox" data-self="B"> I can explain why we never plug ∞ into $F$, and what “converges” means, without looking.</label>
+  </div>
+
+  <!-- ============================== 2 UNDERSTAND -->
+  <div class="stage" id="B-understand">
+    <div class="stage-head"><span class="n">Stage 2 · Understand</span><h3>What it's built from, and why the definition makes sense</h3></div>
+    <div class="grid-2">
+      <div class="card tight">
+        <h4>Prerequisite map</h4>
+        <div class="tree"><ul><li class="root">Improper integrals
+          <ul>
+            <li>FTC on a finite interval (§2.4)</li>
+            <li>Limits at infinity: $e^{-b}\to0$, $\tfrac{1}{b^k}\to0$ $(k&gt;0)$, $\ln b\to\infty$<br><span class="qc">Quick check: $\lim\limits_{b\to\infty}\left(1-e^{-b}\right)$? <details class="qcheck"><summary>show</summary>$1$</details></span></li>
+            <li>One-sided limits and the sign of a quantity heading to 0<br><span class="qc">Quick check: as $b\to1^-$, what does $\frac{1}{b-1}$ do? <details class="qcheck"><summary>show</summary>$b-1\to0^-$, so $\frac{1}{b-1}\to-\infty$</details></span></li>
+            <li>Finding problem points: zero denominators, negative powers, $\ln$ near 0</li>
+            <li>Antiderivatives and substitution <span class="tag prev">prerequisite from §1.1</span></li>
+          </ul></li></ul></div>
+      </div>
+      <div class="card tight">
+        <h4>Why this definition?</h4>
+        <p>The ordinary integral is built from strips over a <b>closed, bounded</b> interval, and it can't handle an unbounded function or interval. The textbook (§2.5) points out that the Riemann integral of an unbounded function doesn't even exist. So we need a new definition, and there's really only one sensible choice:</p>
+        <p style="margin:0">The area over $[1,\infty)$ <em>should be</em> whatever the areas over $[1,b]$ approach as $b$ grows. Every one of those finite pieces is an ordinary integral, so you compute it with the FTC and take a limit <b>last</b>.</p>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <div class="fc-title">Type I: an infinite limit <span>notes p. 27</span></div>
+      $$\int_a^{\infty} f(x)\,dx=\htmlClass{fp fp-1}{\lim_{b\to\infty}}\int_a^{\htmlClass{fp fp-2}{b}} f(x)\,dx \qquad\qquad \int_{-\infty}^{b} f(x)\,dx=\htmlClass{fp fp-1}{\lim_{a\to-\infty}}\int_{\htmlClass{fp fp-2}{a}}^{b} f(x)\,dx$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="2" data-explain="A finite <b>stand-in</b> for ∞. With a finite endpoint the inside is an ordinary integral, so the FTC works.">b (or a): stand-in</button>
+        <button class="fp-chip" data-part="1" data-explain="Take the limit <b>last</b>, after the FTC has turned the integral into a formula in b.">lim: take it last</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+    </div>
+    <div class="formula-card">
+      <div class="fc-title">Type II: an infinite discontinuity at $c$ <span>notes p. 30</span></div>
+      $$\int_a^{c} f(x)\,dx=\lim_{b\to \htmlClass{fp fp-1}{c^-}}\int_a^{b} f(x)\,dx \qquad\qquad \int_{c}^{b} f(x)\,dx=\lim_{a\to \htmlClass{fp fp-2}{c^+}}\int_{a}^{b} f(x)\,dx$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="The problem is at the <b>right</b> end, so you approach c from inside the interval, from the left: c⁻.">c⁻: problem at the right end</button>
+        <button class="fp-chip" data-part="2" data-explain="The problem is at the <b>left</b> end, so you approach c from the right: c⁺.">c⁺: problem at the left end</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means. Rule of thumb: always approach the problem <em>from inside the interval</em>.</div>
+    </div>
+    <div class="formula-card">
+      <div class="fc-title">More than one “problematic point” <span>notes p. 32 · Definition 2.5.11</span></div>
+      <p style="margin:0">Isolate the problems by <b>splitting</b> the integral so that each piece has exactly one problem, at one end. The integral <b>converges if and only if every piece converges</b>; it diverges as soon as one piece diverges. For $\int_{-\infty}^{\infty}$, split at any convenient point (such as 0) and use <b>two separate limits</b>.</p>
+    </div>
+
+    <div class="card">
+      <h4>A pattern you can rebuild: $\int x^{-p}\,dx$ at ∞ and near 0</h4>
+      <p>Your notes don't state this as a rule, but two of their examples show it: $p=\tfrac32$ at ∞ converges (p. 29), and $p=0.8$ diverges at ∞ but converges near 0 (p. 32). The textbook's §2.5 Additional Exercises 8–10 ask about exactly this. Don't memorize it; derive it in two lines with the definition:</p>
+      $$\int_1^b x^{-p}\,dx=\frac{b^{1-p}-1}{1-p}\ (p\ne1),\qquad \int_1^b \frac{dx}{x}=\ln b .$$
+      <div class="table-scroll"><table class="data-table">
+        <thead><tr><th></th><th>$p&lt;1$</th><th>$p=1$</th><th>$p&gt;1$</th></tr></thead>
+        <tbody>
+          <tr><td>$\int_1^{\infty}x^{-p}\,dx$ (Type I)</td><td>diverges ($b^{1-p}\to\infty$)</td><td>diverges ($\ln b\to\infty$)</td><td><b>converges</b> to $\frac{1}{p-1}$</td></tr>
+          <tr><td>$\int_0^{1}x^{-p}\,dx$ (Type II)</td><td><b>converges</b> to $\frac{1}{1-p}$</td><td>diverges</td><td>diverges</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted" style="margin:8px 0 0">Notice there's no $p$ that works at both ends, so $\int_0^{\infty}x^{-p}\,dx$ always diverges. That's the point of notes p. 32. You'll see it happen in the explorer.</p>
+    </div>
+
+    <div class="card">
+      <h4>Recognition: is it improper, and what kind?</h4>
+      <div class="table-scroll"><table>
+        <thead><tr><th>You notice…</th><th>It's…</th><th>So you…</th></tr></thead>
+        <tbody>
+          <tr><td>$\infty$ or $-\infty$ as a limit of integration</td><td>Type I</td><td>Replace it with $b$ (or $a$) and take $\lim$ at the end.</td></tr>
+          <tr><td>The integrand is undefined or unbounded at an <b>endpoint</b></td><td>Type II</td><td>Use a one-sided limit toward that endpoint, from inside.</td></tr>
+          <tr><td>The integrand blows up <b>inside</b> $[a,b]$</td><td>hidden Type II</td><td>Split at that point. Two limits, and <b>both</b> must exist.</td></tr>
+          <tr><td>Several of the above</td><td>combination</td><td>Split so each piece has exactly one problem (notes p. 32).</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small" style="margin:8px 0 0"><b>How to find hidden problem points:</b> set denominators to 0; look for $(\text{something})^{\text{negative power}}$, $\ln(\text{something}\to0)$, or $\tan$ at $\tfrac\pi2$.</p>
+      <div class="callout warn" style="margin-bottom:0"><div class="label">Tempting alternatives, and why to reject them</div>
+        <ul style="margin:0">
+          <li><b>“Just plug in ∞.”</b> ∞ isn't a number. Plugging it in can hide $\infty-\infty$ or an oscillation (like $\cos b$).</li>
+          <li><b>“The integrand goes to 0, so it converges.”</b> False: $\frac1x\to0$ but $\int_1^\infty\frac{dx}{x}=\infty$. <em>How fast</em> it goes to 0 is what matters.</li>
+          <li><b>“It's symmetric, so it cancels.”</b> $\int_{-\infty}^{\infty}x\,dx$ is <em>not</em> 0. Each half diverges, so the integral diverges.</li>
+        </ul></div>
+    </div>
+  </div>
+
+  <!-- ============================== 3 EXPLORE -->
+  <div class="stage" id="B-explore">
+    <div class="stage-head"><span class="n">Stage 3 · Explore</span><h3>Moving-endpoint explorer</h3></div>
+    <div class="widget">
+      <div class="w-head"><h4>Move the endpoint toward the problem: does the area settle?</h4><span class="small muted">Type I / Type II · power p · log-scale endpoint</span></div>
+      <div class="w-sub">Top: the region whose area you're computing. Bottom: the area as the endpoint moves. A dashed line means there is a limit.</div>
+      <div id="widget-improper"></div>
+      <div class="try"><h5>What to notice</h5><ol>
+        <li>With <b>1/x^1.5</b>, the area creeps toward 2 but never passes it. Same shape as notes p. 29, where $\int_3^\infty (x-2)^{-3/2}\,dx=2$.</li>
+        <li>With <b>1/x</b>, the area at $b=10^6$ is only about 13.8, yet it never levels off: $\ln b\to\infty$. Slow growth still diverges.</li>
+        <li>Compare the two <b>notes p. 32</b> presets: $x^{-0.8}$ diverges at ∞ but converges (to 5) near 0. So $\int_0^\infty x^{-0.8}\,dx$ diverges.</li>
+        <li>Try to find a $p$ that converges in <em>both</em> modes. (You can't. Why not?)</li>
+      </ol></div>
+    </div>
+  </div>
+
+  <!-- ============================== 4 ATTEMPT -->
+  <div class="stage" id="B-attempt">
+    <div class="stage-head"><span class="n">Stage 4 · Attempt</span><h3>Guided example, then your turn</h3></div>
+    <div class="guided" data-gid="B-guided">
+      <div class="g-intro"><span class="badge">Guided example</span>
+        <p style="margin-top:8px">Evaluate $\displaystyle\int_0^3\frac{dx}{\sqrt[3]{(x-1)^2}}$ if it converges.</p></div>
+      <div class="gstep"><span class="g-label">Step 1</span>
+        <div class="mcq" data-qid="B-g1"><div class="q">Is this integral proper or improper?</div>
+          <div class="opts">
+            <button class="opt" data-why="Finite limits are not enough. Check the integrand on the whole interval.">Proper: the limits 0 and 3 are finite.</button>
+            <button class="opt" data-correct>Improper: the integrand blows up at $x=1$, inside $[0,3]$.</button>
+            <button class="opt" data-why="Cube roots are fine by themselves (∛ of a negative is defined). The problem is a zero in the denominator.">Improper, because of the cube root.</button>
+          </div></div>
+        <div class="greveal">At $x=1$ the denominator is $\sqrt[3]{0}=0$, so the integrand $\to+\infty$ from both sides. A problem point <em>inside</em> the interval is the easiest kind to miss, because the limits look innocent.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 2</span>
+        <div class="mcq" data-qid="B-g2"><div class="q">How should you split it?</div>
+          <div class="opts">
+            <button class="opt" data-correct>$\displaystyle\int_0^1+\int_1^3$</button>
+            <button class="opt" data-why="That applies the FTC straight across the blow-up. It's the same trap as the spot-the-error example in §2.4.">No split: compute $F(3)-F(0)$.</button>
+            <button class="opt" data-why="x = 1 must be an endpoint of a piece, so the problem sits at one end.">$\displaystyle\int_0^{1.5}+\int_{1.5}^3$</button>
+            <button class="opt" data-why="Not symmetric: [0, 3] reaches 1 unit left of the problem but 2 units right.">$\displaystyle 2\int_0^1$</button>
+          </div></div>
+        <div class="greveal">Each piece must have its problem at exactly one end (notes p. 32): $\int_0^1$ has it at the right end and $\int_1^3$ at the left end.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 3</span>
+        <div class="mcq" data-qid="B-g3"><div class="q">An antiderivative of $(x-1)^{-2/3}$ is…</div>
+          <div class="opts cols-2">
+            <button class="opt" data-correct>$3(x-1)^{1/3}$</button>
+            <button class="opt" data-why="That's the derivative, not an antiderivative.">$-\tfrac23(x-1)^{-5/3}$</button>
+            <button class="opt" data-why="Add 1 to the exponent: −2/3 + 1 = 1/3, not 5/3.">$\tfrac35(x-1)^{5/3}$</button>
+            <button class="opt" data-why="Differentiate it to check: you get (x − 1)^(−4/3), not (x − 1)^(−2/3).">$-3(x-1)^{-1/3}$</button>
+          </div></div>
+        <div class="greveal">Power rule: $\frac{(x-1)^{1/3}}{1/3}=3(x-1)^{1/3}=3\sqrt[3]{x-1}$. Use the <em>real</em> cube root: the cube root of a negative number is negative.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 4</span>
+        <p><label class="inline">$\displaystyle\int_0^1 = \lim_{b\to1^-}\Big[3\sqrt[3]{x-1}\Big]_0^b =$ <input class="ans" data-vid="B-guided-piece1" data-answer="3"></label></p>
+        <div class="greveal">$\lim_{b\to1^-}3\sqrt[3]{b-1}-3\sqrt[3]{-1}=0-(-3)=3.$ The limit exists, so this piece converges.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 5</span>
+        <p><label class="inline">$\displaystyle\int_1^3 = \lim_{a\to1^+}\Big[3\sqrt[3]{x-1}\Big]_a^3 =$ <input class="ans" data-vid="B-guided-piece2" data-answer="3.779763149660"></label></p>
+        <div class="greveal">$3\sqrt[3]{2}-\lim_{a\to1^+}3\sqrt[3]{a-1}=3\sqrt[3]2-0\approx3.780.$ This piece converges too.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 6</span>
+        <p>So the integral converges to: <label class="inline"><input class="ans" data-vid="B-guided" data-answer="6.779763149660"></label></p>
+        <div class="greveal">$3+3\sqrt[3]{2}\approx6.780$. Both pieces converge, so the whole integral converges. This is the same pattern as textbook Example 2.5.9, $\int_{-1}^8x^{-2/3}\,dx=9$.</div>
+      </div>
+      <div class="takeaway"><b>Takeaway.</b> Scan for problem points <em>before</em> integrating. Split so each piece has one. Take a one-sided limit toward each problem, from inside. The integral converges only if every piece does.</div>
+    </div>
+
+    <div class="problem" data-pid="B-indep" data-topic="B" data-level="4" data-title="Independent attempt" data-src="Your turn: converge or diverge?" data-help='Type a number, or "diverges".' data-prompt="Determine whether the integral from 0 to 2 of 1/(x-1)^2 dx converges; if it does, find its value.">
+      <div class="p-body">Does $\displaystyle\int_0^2\frac{dx}{(x-1)^2}$ converge? If so, find its value. If not, type <kbd>diverges</kbd>.</div>
+      <div class="answers"><label>Answer <input class="ans" data-accept="div" data-vid="B-indep" data-answer="diverges" data-convmsg="You got a finite number. Look at ∫ from 0 to 1 on its own: as b → 1⁻, what does −1/(b − 1) do?" data-wrong='[{"v":-2,"m":"That is F(2) − F(0) applied straight across x = 1. A positive integrand cannot have a negative integral, so something is wrong. What happens at x = 1?"}]'></label></div>
+      <ol class="know">
+        <li>Is the integrand defined and bounded on all of $[0,2]$?</li>
+        <li>If there's a problem point, how does the definition say to handle it?</li>
+        <li>What does “diverges” mean, precisely?</li>
+      </ol>
+      <div class="hint">Scan $[0,2]$ before integrating: is $\frac{1}{(x-1)^2}$ defined everywhere?</div>
+      <div class="hint">$x=1$ is a problem point inside the interval. Split: $\int_0^1+\int_1^2$. The whole thing converges only if <b>both</b> pieces converge.</div>
+      <div class="hint">$\displaystyle\int_0^1=\lim_{b\to1^-}\left[-\frac{1}{x-1}\right]_0^b=\lim_{b\to1^-}\left(-\frac{1}{b-1}\right)-1.$ As $b\to1^-$, $b-1\to0^-$, so $-\frac1{b-1}\to\,?$</div>
+      <div class="solution">
+        <p>$-\frac{1}{b-1}\to+\infty$ as $b\to1^-$, so $\int_0^1\frac{dx}{(x-1)^2}$ diverges. One divergent piece is enough: the integral <b>diverges</b> (notes p. 32). You don't even need $\int_1^2$.</p>
+        <p style="margin:0"><b>The trap:</b> $F(2)-F(0)=\left[-\frac1{x-1}\right]_0^2=-1-1=-2$, a negative “answer” for a positive integrand. Always scan for problem points first.</p>
+      </div>
+      <div class="reflect"><h5>Compare your approach</h5>
+        <label><input type="checkbox"> I checked the integrand on the whole interval before integrating.</label>
+        <label><input type="checkbox"> I split at $x=1$ and used a one-sided limit.</label>
+        <label><input type="checkbox"> I stopped as soon as one piece diverged.</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 5 COMPARE -->
+  <div class="stage" id="B-compare">
+    <div class="stage-head"><span class="n">Stage 5 · Compare</span><h3>Tempting approaches vs. correct reasoning</h3></div>
+    <div class="vs">
+      <div class="tempt"><h5>✗ Tempting</h5>“$\frac1x\to0$ as $x\to\infty$, so $\int_1^\infty\frac{dx}{x}$ converges.”</div>
+      <div class="right"><h5>✓ Correct</h5>$\int_1^b\frac{dx}{x}=\ln b\to\infty$, so it <b>diverges</b>. By contrast $\int_1^b\frac{dx}{x^2}=1-\frac1b\to1$.</div>
+      <div class="clue"><b>Clue for next time:</b> shrinking to 0 is necessary but not enough. Compute the limit; don't judge by the integrand alone.</div>
+    </div>
+    <div class="spot" data-sid="B-spot1">
+      <p><b>Spot the error.</b> A student claims $\displaystyle\int_{-\infty}^{\infty}x\,dx=0$. Click the first line that breaks the rules.</p>
+      <button class="sline"><span class="ln">Line 1</span><span>The integrand $x$ is odd: its graph is symmetric about the origin.</span></button>
+      <button class="sline" data-bad><span class="ln">Line 2</span><span>$\displaystyle\int_{-\infty}^{\infty}x\,dx=\lim_{b\to\infty}\int_{-b}^{b}x\,dx$</span></button>
+      <button class="sline"><span class="ln">Line 3</span><span>$\displaystyle=\lim_{b\to\infty}\left[\tfrac{x^2}{2}\right]_{-b}^{b}=\lim_{b\to\infty}\left(\tfrac{b^2}{2}-\tfrac{b^2}{2}\right)$</span></button>
+      <button class="sline"><span class="ln">Line 4</span><span>$=\lim_{b\to\infty}0=0.$</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout warn"><div class="label">What went wrong</div><p style="margin:0">Line 2 uses <b>one</b> symmetric limit. The definition splits the integral at a point, say 0, into $\int_{-\infty}^0x\,dx+\int_0^\infty x\,dx$, with <b>separate</b> limits. Since $\int_0^\infty x\,dx=\lim\frac{b^2}{2}=\infty$, one piece diverges, so the whole integral <b>diverges</b> (notes p. 32). The symmetric shortcut hides two infinite pieces cancelling.</p></div>
+    </div>
+    <div class="vs">
+      <div class="tempt"><h5>✗ Tempting</h5>“$\int_0^\infty\sin x\,dx=\big[-\cos x\big]_0^\infty=-\cos(\infty)+1$… which is about 1?”</div>
+      <div class="right"><h5>✓ Correct</h5>$\int_0^b\sin x\,dx=1-\cos b$ bounces between 0 and 2 forever, so there's no limit and the integral <b>diverges</b> (textbook §2.5 Suggested Ex. 3). “Diverges” means <em>no finite limit</em>, and that includes oscillating.</div>
+    </div>
+    <div class="spot" data-sid="B-spot2">
+      <p><b>Spot the error.</b> Notes p. 30 evaluates $\displaystyle\int_9^{10}3(x-9)^{-1/3}\,dx$. Here's a student's start:</p>
+      <button class="sline"><span class="ln">Line 1</span><span>The problem point is $x=9$, the left endpoint.</span></button>
+      <button class="sline" data-bad><span class="ln">Line 2</span><span>$\displaystyle=\lim_{a\to9^-}\int_a^{10}3(x-9)^{-1/3}\,dx$</span></button>
+      <button class="sline"><span class="ln">Line 3</span><span>$\displaystyle=\lim\Big[\tfrac92(x-9)^{2/3}\Big]_a^{10}$</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout warn"><div class="label">What went wrong</div><p style="margin:0">It should be $a\to9^{+}$. You approach the problem from <b>inside</b> the interval $[9,10]$, which means from the right. Values $a&lt;9$ aren't even in the interval. With $a\to9^+$: $\tfrac92\left(1-\lim(a-9)^{2/3}\right)=\tfrac92$ (notes p. 30).</p></div>
+    </div>
+    <h4 style="margin-top:22px">Common mistakes: why they happen and how to prevent them</h4>
+    <details class="mistake"><summary>Missing an interior problem point</summary><div class="m-body"><p><b>Why it happens</b><br>The limits look fine, so it's tempting to go straight to $F(b)-F(a)$.</p><p><b>Prevent it</b><br>Before any improper-or-not decision, set every denominator to 0 and check whether that $x$ lies in $[a,b]$.</p></div></details>
+    <details class="mistake"><summary>Doing arithmetic with ∞</summary><div class="m-body"><p><b>Why it happens</b><br>Shortcuts like “$e^{-\infty}=0$” feel natural.</p><p><b>Prevent it</b><br>Write the limit explicitly, $\lim_{b\to\infty}(\dots)$, as the notes do on every example. It catches $\infty-\infty$ and oscillation.</p></div></details>
+    <details class="mistake"><summary>Using symmetry to cancel two infinite pieces</summary><div class="m-body"><p><b>Why it happens</b><br>For proper integrals, odd symmetry really does give 0.</p><p><b>Prevent it</b><br>For improper integrals, first check that each piece converges <em>on its own</em>. Only then can you add them. (Mixed practice has one where symmetry does work, because each half converges.)</p></div></details>
+    <details class="mistake"><summary>Approaching from the wrong side</summary><div class="m-body"><p><b>Why it happens</b><br>The minus-or-plus superscript looks arbitrary.</p><p><b>Prevent it</b><br>Approach from inside the interval. A problem at the left end means $a\to c^+$; at the right end, $b\to c^-$.</p></div></details>
+    <details class="mistake"><summary>Sign slips as something goes to 0</summary><div class="m-body"><p><b>Why it happens</b><br>$\frac{1}{\text{small}}$ is huge, but is it $+$ or $-$?</p><p><b>Prevent it</b><br>Ask whether the small quantity is $0^+$ or $0^-$. Notes p. 31: $b\to1^-$ makes $b^2-1\to0^-$, so $(b^2-1)^{-1}\to-\infty$.</p></div></details>
+    <details class="mistake"><summary>Thinking one convergent piece rescues a divergent one</summary><div class="m-body"><p><b>Why it happens</b><br>“Part of it has a nice value.”</p><p><b>Prevent it</b><br>Notes p. 32: the integral converges <b>if and only if all</b> parts converge. $\int_0^1x^{-0.8}\,dx=5$ doesn't save $\int_1^\infty x^{-0.8}\,dx=\infty$.</p></div></details>
+  </div>
+
+  <!-- ============================== 6 PRACTICE -->
+  <div class="stage" id="B-practice">
+    <div class="stage-head"><span class="n">Stage 6 · Practice</span><h3>Practice: evaluate or show divergence</h3></div>
+    <p class="muted small">For every problem, first name the type (I, II at an endpoint, or a problem inside) and where the limit goes. Type a number, or <kbd>diverges</kbd>.</p>
+    <div class="problem" data-pid="B-p1" data-topic="B" data-title="Practice 1" data-src="Type I" data-help='A number, or "diverges".' data-prompt="Evaluate the integral from 1 to infinity of 1/x^3 dx or show it diverges.">
+      <div class="p-body">$\displaystyle\int_1^\infty\frac{dx}{x^3}$</div>
+      <div class="answers"><label>Answer <input class="ans" data-accept="div" data-vid="B-p1" data-answer="0.5" data-exact="1/2"></label></div>
+      <div class="hint">Write it as $\lim_{b\to\infty}\int_1^bx^{-3}\,dx$.</div>
+      <div class="hint">An antiderivative is $-\frac{1}{2x^2}$. What happens to $-\frac{1}{2b^2}$ as $b\to\infty$?</div>
+      <div class="solution">$\lim_{b\to\infty}\left(-\frac1{2b^2}+\frac12\right)=\frac12$. It converges ($p=3&gt;1$).</div>
+    </div>
+    <div class="problem" data-pid="B-p2" data-topic="B" data-title="Practice 2" data-src="Textbook §2.5 Suggested Ex. 1" data-help='A number, or "diverges".' data-prompt="Evaluate the integral from 0 to infinity of dx/(2x+5)^2 or show it diverges.">
+      <div class="p-body">$\displaystyle\int_0^\infty\frac{dx}{(2x+5)^2}$</div>
+      <div class="answers"><label>Answer <input class="ans" data-accept="div" data-vid="B-p2" data-answer="0.1" data-exact="1/10"></label></div>
+      <div class="hint">Substitute $u=2x+5$ (or just guess and check). An antiderivative is $-\frac{1}{2(2x+5)}$.</div>
+      <div class="hint">$\lim_{b\to\infty}\left[-\frac{1}{2(2x+5)}\right]_0^b$. What are the two terms?</div>
+      <div class="solution">$\lim_{b\to\infty}\left(-\frac{1}{2(2b+5)}\right)+\frac1{10}=0+\frac1{10}=\frac1{10}.$</div>
+    </div>
+    <div class="problem" data-pid="B-p3" data-topic="B" data-title="Practice 3" data-src="Textbook §2.5 Suggested Ex. 2" data-help='A number, or "diverges".' data-prompt="Evaluate the integral from 1 to infinity of dy/sqrt(4y-3) or show it diverges.">
+      <div class="p-body">$\displaystyle\int_1^\infty\frac{dy}{\sqrt{4y-3}}$</div>
+      <div class="answers"><label>Answer <input class="ans" data-accept="div" data-vid="B-p3" data-answer="diverges" data-convmsg="Check the antiderivative ½√(4y − 3). What does it do as b → ∞?"></label></div>
+      <div class="hint">An antiderivative is $\frac12\sqrt{4y-3}$.</div>
+      <div class="hint">What does $\frac12\sqrt{4b-3}$ do as $b\to\infty$?</div>
+      <div class="solution">$\frac12\sqrt{4b-3}-\frac12\to\infty$, so it <b>diverges</b>. It behaves like $\frac{1}{2\sqrt y}$, which is $p=\frac12\le1$.</div>
+    </div>
+    <div class="problem" data-pid="B-p4" data-topic="B" data-title="Practice 4" data-src="Textbook §2.5 Suggested Ex. 6" data-help='A number, or "diverges".' data-prompt="Evaluate the integral from 1 to 9 of 2/cuberoot(x-1) dx or show it diverges.">
+      <div class="p-body">$\displaystyle\int_1^9\frac{2}{\sqrt[3]{x-1}}\,dx$</div>
+      <div class="answers"><label>Answer <input class="ans" data-accept="div" data-vid="B-p4" data-answer="12" data-exact="12"></label></div>
+      <div class="hint">The problem is at $x=1$, the left end, so use $\lim_{a\to1^+}$.</div>
+      <div class="hint">An antiderivative is $2\cdot\frac32(x-1)^{2/3}=3(x-1)^{2/3}$.</div>
+      <div class="solution">$3\cdot8^{2/3}-\lim_{a\to1^+}3(a-1)^{2/3}=3\cdot4-0=12.$</div>
+    </div>
+    <div class="problem" data-pid="B-p5" data-topic="B" data-title="Practice 5" data-src="Textbook §2.5 Suggested Ex. 4" data-help='A number, or "diverges".' data-prompt="Evaluate the integral from 1/2 to 1 of dt/sqrt(1-t^2) or show it diverges.">
+      <div class="p-body">$\displaystyle\int_{1/2}^{1}\frac{dt}{\sqrt{1-t^2}}$</div>
+      <div class="answers"><label>Answer <input class="ans" data-accept="div" data-vid="B-p5" data-answer="1.047197551197" data-exact="π/3"></label></div>
+      <div class="hint">Where is the problem? (The denominator is 0 at $t=1$.) So use $\lim_{b\to1^-}$.</div>
+      <div class="hint">An antiderivative is $\sin^{-1}t$ (notes p. 1).</div>
+      <div class="solution">$\lim_{b\to1^-}\sin^{-1}b-\sin^{-1}\tfrac12=\frac\pi2-\frac\pi6=\frac\pi3.$</div>
+    </div>
+    <div class="problem" data-pid="B-p6" data-topic="B" data-title="Practice 6" data-src="Both ends infinite" data-help='A number, or "diverges".' data-prompt="Evaluate the integral from -infinity to infinity of dx/(1+x^2) or show it diverges.">
+      <div class="p-body">$\displaystyle\int_{-\infty}^{\infty}\frac{dx}{1+x^2}$</div>
+      <div class="answers"><label>Answer <input class="ans" data-accept="div" data-vid="B-p6" data-answer="3.141592653590" data-exact="π"></label></div>
+      <div class="hint">Split at 0: two Type I pieces, each with its own limit.</div>
+      <div class="hint">$\int_0^\infty\frac{dx}{1+x^2}=\lim_{b\to\infty}\tan^{-1}b$. What is that limit?</div>
+      <div class="solution">Each half is $\frac\pi2$ (both converge), so the total is $\pi$.</div>
+    </div>
+    <div class="problem" data-pid="B-p7" data-topic="B" data-title="Practice 7" data-src="Textbook §2.5 Additional Ex. 7" data-help='A number, or "diverges".' data-prompt="Evaluate the integral from 3 to infinity of dx/(x (ln x)^2) or show it diverges.">
+      <div class="p-body">$\displaystyle\int_3^\infty\frac{dx}{x(\ln x)^2}$</div>
+      <div class="answers"><label>Answer <input class="ans" data-accept="div" data-vid="B-p7" data-answer="0.910239226627" data-exact="1/ln 3"></label></div>
+      <div class="hint">Substitute $u=\ln x$, $du=\frac{dx}{x}$.</div>
+      <div class="hint">An antiderivative is $-\frac{1}{\ln x}$. What happens as $b\to\infty$?</div>
+      <div class="solution">$\lim_{b\to\infty}\left(-\frac1{\ln b}\right)+\frac1{\ln3}=\frac1{\ln3}\approx0.910.$</div>
+    </div>
+    <div class="problem" data-pid="B-p8" data-topic="B" data-title="Practice 8" data-src="Compare with Practice 7" data-help='A number, or "diverges".' data-prompt="Evaluate the integral from 2 to infinity of dx/(x ln x) or show it diverges.">
+      <div class="p-body">$\displaystyle\int_2^\infty\frac{dx}{x\ln x}$. Compare it with Practice 7: only one power of $\ln x$ is missing.</div>
+      <div class="answers"><label>Answer <input class="ans" data-accept="div" data-vid="B-p8" data-answer="diverges" data-convmsg="With u = ln x the antiderivative is ln(ln x). What does ln(ln b) do as b → ∞?"></label></div>
+      <div class="hint">Same substitution: $u=\ln x$.</div>
+      <div class="hint">An antiderivative is $\ln(\ln x)$. As $b\to\infty$?</div>
+      <div class="solution">$\ln(\ln b)\to\infty$ (very slowly), so it <b>diverges</b>. One power of $\ln x$ is the difference between converging and diverging.</div>
+    </div>
+    <div class="problem" data-pid="B-p9" data-topic="B" data-title="Practice 9" data-src="Type I + substitution" data-help='A number, or "diverges".' data-prompt="Evaluate the integral from 0 to infinity of x e^(-x^2) dx or show it diverges.">
+      <div class="p-body">$\displaystyle\int_0^\infty x\,e^{-x^2}\,dx$</div>
+      <div class="answers"><label>Answer <input class="ans" data-accept="div" data-vid="B-p9" data-answer="0.5" data-exact="1/2"></label></div>
+      <div class="hint">$u=-x^2$, $du=-2x\,dx$. An antiderivative is $-\frac12e^{-x^2}$.</div>
+      <div class="solution">$\lim_{b\to\infty}\left(-\frac12e^{-b^2}\right)+\frac12=\frac12.$</div>
+    </div>
+    <div class="problem" data-pid="B-p10" data-topic="B" data-title="Practice 10" data-src="Textbook §2.5 Suggested Ex. 10" data-help='A number, or "diverges".' data-prompt="Evaluate the integral from 0 to infinity of arctan(z)/(1+z^2) dz or show it diverges.">
+      <div class="p-body">$\displaystyle\int_0^\infty\frac{\tan^{-1}z}{1+z^2}\,dz$</div>
+      <div class="answers"><label>Answer <input class="ans" data-accept="div" data-vid="B-p10" data-answer="1.233700550136" data-exact="π²/8"></label></div>
+      <div class="hint">$u=\tan^{-1}z$, $du=\frac{dz}{1+z^2}$. An antiderivative is $\frac12(\tan^{-1}z)^2$.</div>
+      <div class="hint">As $z\to\infty$, $\tan^{-1}z\to\frac\pi2$.</div>
+      <div class="solution">$\frac12\left(\frac\pi2\right)^2-0=\frac{\pi^2}{8}\approx1.234.$</div>
+    </div>
+    <div class="problem" data-pid="B-p11" data-topic="B" data-title="Practice 11" data-src="Textbook §2.5 Suggested Ex. 7" data-help='A number, or "diverges".' data-prompt="Evaluate the integral from 3 to 4 of x/(x^2-9)^3 dx or show it diverges.">
+      <div class="p-body">$\displaystyle\int_3^4\frac{x}{(x^2-9)^3}\,dx$</div>
+      <div class="answers"><label>Answer <input class="ans" data-accept="div" data-vid="B-p11" data-answer="diverges" data-convmsg="The problem is at x = 3 (the left end). As a → 3⁺, x² − 9 → 0⁺. What does 1/(x² − 9)² do?"></label></div>
+      <div class="hint">The problem is at $x=3$, the left end: $\lim_{a\to3^+}$.</div>
+      <div class="hint">$u=x^2-9$ gives the antiderivative $-\frac{1}{4(x^2-9)^2}$.</div>
+      <div class="solution">$-\frac{1}{4\cdot49}+\lim_{a\to3^+}\frac{1}{4(a^2-9)^2}=+\infty$, so it <b>diverges</b>.</div>
+    </div>
+  </div>
+
+  <!-- ============================== 7 MASTER -->
+  <div class="stage" id="B-master">
+    <div class="stage-head"><span class="n">Stage 7 · Master</span><h3>Mastery check</h3></div>
+    <p class="muted">Classify first; the method follows from the classification.</p>
+    <div class="grid-2">
+      <div class="mcq" data-qid="B-m1" data-topic="B" data-level="1" data-count><div class="q">$\displaystyle\int_0^3\frac{dx}{x-2}$ is…</div><div class="opts">
+        <button class="opt">proper</button><button class="opt">Type I only</button><button class="opt">Type II at an endpoint</button><button class="opt" data-correct data-why="x = 2 is inside [0, 3]: split into ∫₀² + ∫₂³.">a problem inside $[a,b]$: split</button></div></div>
+      <div class="mcq" data-qid="B-m2" data-topic="B" data-level="1" data-count><div class="q">$\displaystyle\int_1^5\sqrt{x-1}\,dx$ is…</div><div class="opts">
+        <button class="opt" data-correct data-why="√(x − 1) is continuous on [1, 5]; √0 = 0 is harmless.">proper</button><button class="opt">Type I only</button><button class="opt">Type II at an endpoint</button><button class="opt">a problem inside $[a,b]$: split</button></div></div>
+      <div class="mcq" data-qid="B-m3" data-topic="B" data-level="1" data-count><div class="q">$\displaystyle\int_0^\infty\frac{dx}{\sqrt x}$ is…</div><div class="opts">
+        <button class="opt">Type I only</button><button class="opt">Type II only</button><button class="opt" data-correct data-why="Blows up at 0 (Type II) and has an infinite limit (Type I). Split, e.g. ∫₀¹ + ∫₁^∞.">both Type I and Type II: split</button><button class="opt">proper</button></div></div>
+      <div class="mcq" data-qid="B-m4" data-topic="B" data-level="1" data-count><div class="q">$\displaystyle\int_0^{\pi/2}\tan x\,dx$ is…</div><div class="opts">
+        <button class="opt">proper</button><button class="opt" data-correct data-why="tan x → ∞ as x → π/2⁻: Type II at the right endpoint.">Type II at an endpoint</button><button class="opt">a problem inside: split</button><button class="opt">Type I</button></div></div>
+    </div>
+    <div class="grid-2">
+      <div class="mcq" data-qid="B-m5" data-topic="B" data-level="2" data-count><div class="q">$\displaystyle\int_1^\infty x^{-p}\,dx$ converges exactly when…</div><div class="opts cols-2">
+        <button class="opt" data-correct>$p&gt;1$</button><button class="opt" data-why="p = 1 gives ln b → ∞.">$p\ge1$</button><button class="opt">$p&lt;1$</button><button class="opt">$p&gt;0$</button></div></div>
+      <div class="mcq" data-qid="B-m6" data-topic="B" data-level="2" data-count><div class="q">$\displaystyle\int_0^1 x^{-p}\,dx$ converges exactly when…</div><div class="opts cols-2">
+        <button class="opt" data-correct data-why="Near 0 the rule reverses: a^(1−p) → 0 only if 1 − p &gt; 0.">$p&lt;1$</button><button class="opt">$p&gt;1$</button><button class="opt" data-why="p = 1 gives −ln a → ∞.">$p\le1$</button><button class="opt">always</button></div></div>
+    </div>
+    <div class="problem" data-pid="B-m7" data-topic="B" data-level="6" data-title="Unfamiliar problem" data-src="Textbook Example 2.5.9" data-help='A number, or "diverges".' data-prompt="Evaluate the integral from -1 to 8 of x^(-2/3) dx or show it diverges.">
+      <div class="p-body">Evaluate $\displaystyle\int_{-1}^{8}\frac{dx}{x^{2/3}}$ or show it diverges. (Here $x^{2/3}=\sqrt[3]{x^2}$, which is positive for negative $x$ too.)</div>
+      <div class="answers"><label>Answer <input class="ans" data-accept="div" data-vid="B-master-tb259" data-answer="9" data-exact="9"></label></div>
+      <div class="hint">Where does the integrand blow up? Is that point inside $[-1,8]$?</div>
+      <div class="hint">Split at 0: $\lim_{b\to0^-}\int_{-1}^b+\lim_{a\to0^+}\int_a^8$. An antiderivative is $3x^{1/3}$.</div>
+      <div class="solution">$\lim_{b\to0^-}\left(3b^{1/3}-3(-1)^{1/3}\right)+\lim_{a\to0^+}\left(3\cdot8^{1/3}-3a^{1/3}\right)=3+6=9.$ Both pieces converge.</div>
+    </div>
+    <div class="explain card" data-eid="B-explain" data-topic="B">
+      <h4>Explain why (Level 7)</h4>
+      <p>How can a region that is infinitely long have a finite area? Use $\int_1^\infty e^{-x}\,dx$ or $\int_1^\infty\frac{dx}{x^2}$, and contrast it with $\int_1^\infty\frac{dx}{x}$.</p>
+      <textarea aria-label="Your explanation"></textarea>
+      <div class="model callout why"><div class="label">A model explanation</div><p style="margin:0">“Area over $[1,\infty)$” means the limit of the areas over $[1,b]$. Each extra stretch of the region adds a little area. If the curve thins out fast enough, those additions shrink so quickly that the running total levels off: $\int_1^b\frac{dx}{x^2}=1-\frac1b\to1$. The total is like a sum whose terms shrink fast. For $\frac1x$ the thinning is too slow: $\int_1^b\frac{dx}{x}=\ln b$ keeps growing, because each doubling of $b$ adds the same amount, $\ln2$.</p></div>
+    </div>
+  </div>
+</section>

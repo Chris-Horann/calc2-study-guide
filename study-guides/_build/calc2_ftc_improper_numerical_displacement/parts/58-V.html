@@ -1,0 +1,402 @@
+<section id="V" class="topic">
+  <div class="topic-banner">
+    <div class="topic-letter sec" aria-hidden="true">3.5</div>
+    <div><h2>Volume by slicing: disks and washers</h2>
+    <div class="sources">3.3–3.5 notes pp. 5–7 · Textbook §3.5 (Proposition 3.5.1, Remark 3.5.2; Examples 3.5.3, 3.5.6–3.5.10, 3.5.14; Suggested Ex. 1, 2, 4, 7, 9; Additional Ex. 1, 9, 13, 14). Cylindrical shells aren't in your notes, so they're left out.</div></div>
+  </div>
+  <nav class="stagebar" data-topic="V" aria-label="Stages in §3.5 (volume)">
+    <a href="#V-learn"><span class="n">1</span>Learn</a><a href="#V-understand"><span class="n">2</span>Understand</a><a href="#V-explore"><span class="n">3</span>Explore</a><a href="#V-attempt"><span class="n">4</span>Attempt</a><a href="#V-compare"><span class="n">5</span>Compare</a><a href="#V-practice"><span class="n">6</span>Practice</a><a href="#V-master"><span class="n">7</span>Master</a>
+  </nav>
+
+  <!-- ============================== 1 LEARN -->
+  <div class="stage" id="V-learn">
+    <div class="stage-head"><span class="n">Stage 1 · Learn</span><h3>The big idea</h3></div>
+    <div class="callout big">
+      <div class="label">Big idea</div>
+      <p>Slice the solid like a loaf of bread. If you know the area $A(x)$ of the slice at position $x$, a thin slice of thickness $\Delta x$ has volume about $A(x)\,\Delta x$. Adding the slices gives a Riemann sum, and making them thinner turns it into $V=\int_a^bA(x)\,dx$ (3.3–3.5 notes p. 5).</p>
+      <p style="margin:0">Spin a flat region around a line and you get a <b>solid of revolution</b>. Every slice perpendicular to that line is a <b>disk</b>, or, if the region doesn't reach the line, a <b>washer</b> (a disk with a hole). A washer's area is the big disk minus the hole: $\pi(R^2-r^2)$ (3.3–3.5 notes p. 7).</p>
+    </div>
+    <div class="card tight">
+      <div class="small muted" style="margin-bottom:6px"><b>What to notice:</b> the triangle from 3.3–3.5 notes p. 6 (under $y=2x$, from $x=0$ to $x=2$) spins around the $x$-axis into a cone. The thin strip at $x$ sweeps out a thin disk of radius $2x$. The cone is a stack of such disks.</div>
+      <div data-fig="coneslices"></div>
+    </div>
+    <div class="grid-2">
+      <div class="callout why">
+        <div class="label">An everyday version</div>
+        <p style="margin:0">A stack of equal coins is a cylinder: every slice has the same area $A$, so $V=A\cdot h$. A stack of shrinking coins is a cone. A stack of washers (the metal rings under a bolt) is a pipe, with the hole running all the way through.</p>
+      </div>
+      <div class="callout">
+        <div class="label">Three questions to ask every time</div>
+        <ol style="margin:0">
+          <li><b>Which way do I slice?</b> Always perpendicular to the axis of rotation: $dx$ for a horizontal axis, $dy$ for a vertical one.</li>
+          <li><b>Disk or washer?</b> Does the region reach the axis all along the slice? If not, there's a hole.</li>
+          <li><b>What are $R$ and $r$?</b> The distances from the axis to the far edge and the near edge of the region. For an axis like $y=-2$, measure from $y=-2$, not from the $x$-axis (the green note on 3.3–3.5 notes p. 7).</li>
+        </ol>
+      </div>
+    </div>
+    <label class="toggle"><input type="checkbox" data-self="V"> I can explain why $V=\int_a^bA(x)\,dx$, and how to find $R$ and $r$ for a horizontal or vertical axis.</label>
+  </div>
+
+  <!-- ============================== 2 UNDERSTAND -->
+  <div class="stage" id="V-understand">
+    <div class="stage-head"><span class="n">Stage 2 · Understand</span><h3>What it's built from, and why it works</h3></div>
+    <div class="grid-2">
+      <div class="card tight">
+        <h4>Prerequisite map</h4>
+        <div class="tree"><ul><li class="root">Volume by slicing
+          <ul>
+            <li><a href="#C-understand">Riemann sums (notes p. 34)</a>: slice, add up, take the limit</li>
+            <li>The area of a circle, $\pi r^2$<br><span class="qc">Quick check: a washer with $R=3$ and $r=2$? <details class="qcheck"><summary>show</summary>$\pi(9-4)=5\pi$, not $\pi(3-2)^2=\pi$</details></span></li>
+            <li>Reading a region between curves<br><span class="qc">Quick check: where do $y=\sqrt x$ and $y=x^2$ meet? <details class="qcheck"><summary>show</summary>at $x=0$ and $x=1$, with $\sqrt x$ on top in between</details></span></li>
+            <li>The distance from a curve to a line<br><span class="qc">Quick check: from $y=x^2$ up to the line $y=2$, for $0\le x\le1$? <details class="qcheck"><summary>show</summary>$2-x^2$</details></span></li>
+            <li><a href="#A-learn">The FTC (§2.4)</a>, and <a href="#B-learn">improper integrals (§2.5)</a> for solids that go out to infinity</li>
+          </ul></li></ul></div>
+      </div>
+      <div class="card tight">
+        <h4>From slices to an integral <span class="small muted">(3.3–3.5 notes p. 5)</span></h4>
+        $$\Delta x=\frac{b-a}{n},\qquad V_{\text{slice }i}\approx A(x_i)\,\Delta x,\qquad V\approx\sum_{i=1}^{n}A(x_i)\,\Delta x\ \longrightarrow\ \int_a^bA(x)\,dx$$
+        <p class="small" style="margin:6px 0 0">It's the notes p. 34 move (§2.6) again. There, strips of area $f(x_i)\,\Delta x$ add up to an area. Here, slabs of volume $A(x_i)\,\Delta x$ add up to a volume. The page shows two textbook figures: a solid cut at $x$, with face area $A(x)$, and one slab of width $\Delta x$.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>Why a washer's area is $\pi(R^2-r^2)$</h4>
+      <p>A washer is a disk of radius $R$ with a disk of radius $r$ cut out of its middle. Areas subtract: $\pi R^2-\pi r^2=\pi(R^2-r^2)$. When the region reaches the axis there's no hole, so $r=0$ and the slice is a disk, $\pi R^2$. That's notes p. 6; the notes never say “disk,” they just use $r=0$.</p>
+      <p style="margin:0">It is <em>not</em> $\pi(R-r)^2$. That would be one disk whose radius is the ring's width. For $R=2$ and $r=1$, the ring has area $3\pi$, but $\pi(R-r)^2=\pi$. The textbook calls this “a common, but terrible, mistake.”</p>
+    </div>
+
+    <div class="formula-card">
+      <div class="fc-title">Volume by slicing <span>3.3–3.5 notes p. 5 · Proposition 3.5.1</span></div>
+      $$V=\htmlClass{fp fp-3}{\int_a^b}\htmlClass{fp fp-1}{A(x)}\,\htmlClass{fp fp-2}{dx}$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="The <b>area of the slice’s face</b> at position x: the cross-section perpendicular to the x-axis.">A(x): slice area</button>
+        <button class="fp-chip" data-part="2" data-explain="The slice’s <b>thickness</b>. Face area × thickness = the volume of one thin slab.">dx: thickness</button>
+        <button class="fp-chip" data-part="3" data-explain="<b>Add the slabs</b> from where the solid starts (x = a) to where it ends (x = b).">∫ from a to b</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+      <div class="fc-meta">
+        <div><b>When it applies</b>You know the area of every cross-section perpendicular to one axis: disks, washers, squares, triangles (textbook §3.5 Suggested Ex. 1–2).</div>
+        <div><b>Watch out</b>The slices must be perpendicular to the axis you integrate along, and $a$, $b$ are where the solid starts and ends.</div>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <div class="fc-title">Washer method <span>3.3–3.5 notes p. 7 · textbook Examples 3.5.7–3.5.10</span></div>
+      $$V=\int_a^b\htmlClass{fp fp-3}{\pi\big(\htmlClass{fp fp-1}{R}^2-\htmlClass{fp fp-2}{r}^2\big)}\,dx$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="<b>Outer radius</b>: the distance from the axis of rotation to the <b>far</b> edge of the region.">R: outer radius</button>
+        <button class="fp-chip" data-part="2" data-explain="<b>Inner radius</b>: the distance from the axis to the <b>near</b> edge. It’s 0 when the region reaches the axis (a disk).">r: inner radius</button>
+        <button class="fp-chip" data-part="3" data-explain="<b>Big disk minus hole</b>: πR² − πr². It is not π(R − r)².">π(R² − r²)</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+      <div class="fc-meta">
+        <div><b>Disks</b>When the region reaches the axis, $r=0$ and $V=\int_a^b\pi R^2\,dx$ (notes p. 6's cone).</div>
+        <div><b>Other axes</b>For the axis $y=k$, measure $R$ and $r$ from $y=k$: for example $2-x^2$ for the axis $y=2$. For a vertical axis, slice horizontally and integrate in $y$.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>Recognition: what does the question want?</h4>
+      <div class="table-scroll"><table>
+        <thead><tr><th>You notice…</th><th>So you…</th></tr></thead>
+        <tbody>
+          <tr><td>A region between a curve and the axis, spun about that axis</td><td>Disks: $\int\pi R^2\,dx$ with $r=0$ (notes p. 6).</td></tr>
+          <tr><td>A region between two curves, or a gap between the region and the axis</td><td>Washers: $\int\pi(R^2-r^2)\,dx$ (notes p. 7).</td></tr>
+          <tr><td>The axis is a horizontal line $y=k$, not the $x$-axis</td><td>Still slice in $x$, but $R$ and $r$ are distances to $y=k$ (textbook Ex. 3.5.9).</td></tr>
+          <tr><td>The axis is vertical: the $y$-axis or a line $x=h$</td><td>Slice horizontally, write $x$ in terms of $y$, and integrate $dy$ with $y$-limits (textbook Ex. 3.5.10).</td></tr>
+          <tr><td>The cross-sections are squares, half-disks and so on, with no spinning</td><td>Find $A(x)$ from geometry, then compute $\int A(x)\,dx$ (textbook Suggested Ex. 1).</td></tr>
+          <tr><td>The region runs off to infinity</td><td>An improper integral (§2.5). Gabriel's horn has finite volume $\pi$.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout warn" style="margin-bottom:0">
+        <div class="label">Tempting alternative, and why to reject it</div>
+        <p style="margin:0">“A washer's area is $\pi(R-r)^2$.” For the notes p. 7 region that gives $\pi\int_0^2x^2\,dx=\frac{8\pi}3$ instead of $8\pi$. A ring isn't a disk whose radius is the ring's width. Subtract the areas instead.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 3 EXPLORE -->
+  <div class="stage" id="V-explore">
+    <div class="stage-head"><span class="n">Stage 3 · Explore</span><h3>Volume explorer</h3></div>
+    <div class="widget">
+      <div class="w-head"><h4>Spin a region: find R and r, stack the slabs, and watch the sum approach the integral</h4><span class="small muted">presets · move the axis · number of slabs · slice position</span></div>
+      <div class="w-sub">Left: the flat region, the axis of rotation (dashed), and the slice at one position, with $R$ (orange) to the far edge and $r$ (green) to the near edge. Right: the solid as a stack of $n$ slabs, seen at an angle. Below: the slice area $A$. The area under it is the volume.</div>
+      <div id="widget-volume">
+        <div class="w-formula">$$R=2x,\ \ r=0\ \text{(a disk)},\quad A(x)=\pi(2x)^2=4\pi x^2,\quad V=\int_0^2 4\pi x^2\,dx=\tfrac{32\pi}{3}$$</div>
+        <div class="w-formula">$$R=2x,\ \ r=x,\quad A(x)=\pi\big((2x)^2-x^2\big)=3\pi x^2,\quad V=\int_0^2 3\pi x^2\,dx=8\pi$$</div>
+        <div class="w-formula">$$R=x^2,\ \ r=0,\quad A(x)=\pi x^4,\quad V=\int_0^2\pi x^4\,dx=\tfrac{32\pi}{5}$$</div>
+        <div class="w-formula">$$R=x,\ \ r=x^2,\quad A(x)=\pi\big(x^2-x^4\big),\quad V=\int_0^1\pi(x^2-x^4)\,dx=\tfrac{2\pi}{15}$$</div>
+        <div class="w-formula">$$R=2-x^2,\ \ r=2-x,\quad A(x)=\pi\big((2-x^2)^2-(2-x)^2\big),\quad V=\int_0^1A(x)\,dx=\tfrac{8\pi}{15}$$</div>
+        <div class="w-formula">$$\text{slice in }y:\ \ R=\sqrt y,\ \ r=y,\quad A(y)=\pi\big(y-y^2\big),\quad V=\int_0^1\pi(y-y^2)\,dy=\tfrac{\pi}{6}$$</div>
+      </div>
+      <div class="try"><h5>What to notice</h5><ol>
+        <li>With <b>3.3–3.5 notes p. 6: y = 2x, y = 0, x = 2</b>, every slice is a disk: the region reaches the axis, so $r=0$. The bottom graph shows $A(x)=4\pi x^2$. The area under it, $\frac{32\pi}3\approx33.51$, is the cone formula $\frac13\pi(4)^2(2)$.</li>
+        <li>With <b>3.3–3.5 notes p. 7: between y = 2x and y = x</b>, the region starts at $y=x$, above the axis, so every slice has a hole: $R=2x$ (far edge) and $r=x$ (near edge). The volume is $8\pi\approx25.13$: the p. 6 cone minus an inner cone.</li>
+        <li>Raise $n$. The stack of slabs, $\sum A(x_i)\,\Delta x$ with right endpoints as on notes p. 5, approaches the exact volume, just as Riemann sums approach an area.</li>
+        <li>Drag the axis. For the notes p. 7 region, move it down to $y=-1$: $R$ and $r$ both grow by 1, and the volume jumps. Move it into the region and the explorer refuses, because the slices would no longer be washers.</li>
+        <li>Compare <b>Textbook Ex. 3.5.8: between y = x and y = x²</b> with <b>Textbook Ex. 3.5.9: same region, axis y = 2</b>. Around $y=2$ the far edge is the <em>lower</em> curve, so $R=2-x^2$ and $r=2-x$. The volume grows from $\frac{2\pi}{15}$ to $\frac{8\pi}{15}$ because the region is farther from the axis.</li>
+        <li><b>Textbook Ex. 3.5.10: same region, the y-axis</b> spins the same region around the $y$-axis. Slices perpendicular to the $y$-axis are horizontal, so everything is written in $y$: $R=\sqrt y$, $r=y$, $V=\frac\pi6$.</li>
+      </ol></div>
+    </div>
+
+    <div class="tryout" data-topic="V">
+      <div class="q">The notes p. 7 region (between $y=2x$ and $y=x$, $0\le x\le2$) spins about the $x$-axis. Which slice area is right? Try each one.</div>
+      <div class="try-opts">
+        <button class="try-opt">$\pi(2x-x)^2=\pi x^2$</button>
+        <button class="try-opt">$\pi\big((2x)^2-x^2\big)=3\pi x^2$</button>
+        <button class="try-opt">$\pi(2x)^2=4\pi x^2$</button>
+        <button class="try-opt">$2x-x=x$</button>
+      </div>
+      <div class="try-res" data-verdict="bad">That's $\pi(R-r)^2$: a disk whose radius is the ring's width. It gives $V=\frac{8\pi}3\approx8.38$, too small.</div>
+      <div class="try-res" data-verdict="good">Big disk minus hole. $V=\int_0^23\pi x^2\,dx=8\pi\approx25.13$.</div>
+      <div class="try-res" data-verdict="bad">That ignores the hole. It's the solid cone of notes p. 6, $\frac{32\pi}3\approx33.51$.</div>
+      <div class="try-res" data-verdict="bad">That's the height of the region's strip. $\int_0^2x\,dx=2$ is the area of the flat region, not a volume.</div>
+    </div>
+
+    <div class="tryout" data-topic="V">
+      <div class="q">The same region now spins about the line $y=5$, above it. What are $R$ and $r$?</div>
+      <div class="try-opts">
+        <button class="try-opt">$R=5-x,\ \ r=5-2x$</button>
+        <button class="try-opt">$R=5-2x,\ \ r=5-x$</button>
+        <button class="try-opt">$R=2x,\ \ r=x$</button>
+      </div>
+      <div class="try-res" data-verdict="good">Now the far edge is the lower line $y=x$. $V=\pi\int_0^2\big((5-x)^2-(5-2x)^2\big)\,dx=12\pi\approx37.70$.</div>
+      <div class="try-res" data-verdict="bad">Swapped: $y=2x$ is the edge closer to $y=5$. You'd get $-12\pi$, and a negative volume is the red flag.</div>
+      <div class="try-res" data-verdict="bad">Those are distances from the $x$-axis. They give $8\pi$, the answer for the $x$-axis, not for $y=5$.</div>
+    </div>
+  </div>
+
+  <!-- ============================== 4 ATTEMPT -->
+  <div class="stage" id="V-attempt">
+    <div class="stage-head"><span class="n">Stage 4 · Attempt</span><h3>Guided example, then your turn</h3></div>
+    <div class="guided" data-gid="V-guided">
+      <div class="g-intro"><span class="badge">Guided example</span>
+        <p style="margin-top:8px">Let $S$ be the region between $y=2x$ and $y=x$ for $0\le x\le2$. Find the volume of the solid obtained by rotating $S$ about the $x$-axis. 3.3–3.5 notes p. 7 leaves this blank, then states the washer method below it. Finish it here.</p></div>
+      <div class="gstep"><span class="g-label">Step 1 · Slice</span>
+        <div class="mcq" data-qid="V-g1"><div class="q">How should you slice?</div>
+          <div class="opts">
+            <button class="opt" data-correct>Perpendicular to the axis of rotation: vertical slices of thickness $dx$, for $0\le x\le2$</button>
+            <button class="opt" data-why="Those are parallel to the x-axis. Slices must be perpendicular to the axis of rotation (notes p. 7).">Horizontal slices of thickness $dy$</button>
+            <button class="opt" data-why="Only slices perpendicular to the axis are disks or washers. Other slices aren’t simple shapes.">It doesn't matter</button>
+          </div></div>
+        <div class="greveal">The notes' rule: “slice perpendicular to axis of rotation.” For the $x$-axis, that means a vertical slice at each $x$ in $[0,2]$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 2 · Disk or washer?</span>
+        <div class="mcq" data-qid="V-g2"><div class="q">Spun around the $x$-axis, each slice is a…</div>
+          <div class="opts">
+            <button class="opt" data-correct>washer: there's a gap of height $x$ between the axis and the region</button>
+            <button class="opt" data-why="A disk needs the region to reach the axis. Here the region starts at y = x, above the axis.">disk</button>
+            <button class="opt" data-why="Shells come from slices parallel to the axis, and they aren’t in your notes.">cylindrical shell</button>
+          </div></div>
+        <div class="greveal">At position $x$ the region runs from $y=x$ up to $y=2x$. Spinning that segment sweeps out a ring.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 3 · Outer radius</span>
+        <p><label class="inline">$R(x)=$ <input class="ans" data-vid="V-guided-R" data-kind="expr" data-var="x" data-answer="2*x" data-dom="0.2,2" data-show="2x" placeholder="in terms of x" data-wrong='[{"f":"x","m":"That’s the near edge. R is the distance from the axis to the far edge, y = 2x."}]'></label></p>
+        <div class="greveal">The far edge is $y=2x$ and the axis is $y=0$, so $R=2x-0=2x$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 4 · Inner radius</span>
+        <p><label class="inline">$r(x)=$ <input class="ans" data-vid="V-guided-r" data-kind="expr" data-var="x" data-answer="x" data-dom="0.2,2" data-show="x" placeholder="in terms of x" data-wrong='[{"f":"0","m":"r = 0 only when the region reaches the axis. Here the region starts at y = x."},{"f":"2*x","m":"That’s the far edge. r is the distance to the near edge, y = x."}]'></label></p>
+        <div class="greveal">The near edge is $y=x$, so $r=x$. The green arrows on notes p. 7 mark exactly these two radii.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 5 · Slice area</span>
+        <p><label class="inline">$A(x)=\pi(R^2-r^2)=$ <input class="ans" data-vid="V-guided-A" data-kind="expr" data-var="x" data-answer="3*pi*x^2" data-dom="0.2,2" data-show="3πx²" placeholder="e.g. pi*(...)" data-wrong='[{"f":"pi*x^2","m":"That’s π(R − r)² = π(2x − x)². A washer is the big disk minus the hole: π((2x)² − x²)."},{"f":"4*pi*x^2","m":"That ignores the hole. Subtract its area, πx²."},{"f":"3*x^2","m":"Don’t forget the π: the slice is made of circles."}]'></label></p>
+        <div class="greveal">$\pi\big((2x)^2-x^2\big)=\pi(4x^2-x^2)=3\pi x^2$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 6 · Integrate</span>
+        <p><label class="inline">$V=\int_0^23\pi x^2\,dx=$ <input class="ans" data-vid="V-guided-val" data-answer="25.132741228718" data-exact="8π" data-wrong='[{"v":8.377580409573,"m":"That is π times the integral of (R − r)². Use π(R² − r²)."},{"v":33.510321638291,"m":"That is the whole cone, with no hole. Subtract the hole."},{"v":8,"m":"Don’t forget the π."}]'></label></p>
+        <div class="greveal">$\pi\big[x^3\big]_0^2=8\pi\approx25.13$ (verified by hand, SymPy and Wolfram).</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 7 · Check with geometry</span>
+        <div class="mcq" data-qid="V-g7"><div class="q">The solid is a cone of radius 4 and height 2 with a cone-shaped hole of radius 2 and height 2. Does $8\pi$ fit?</div>
+          <div class="opts">
+            <button class="opt" data-correct>Yes: $\tfrac13\pi(4^2)(2)-\tfrac13\pi(2^2)(2)=\tfrac{32\pi}{3}-\tfrac{8\pi}{3}=8\pi$</button>
+            <button class="opt" data-why="The hole alone is 8π/3. The solid is what’s left of the big cone after removing it.">No: with the hole, it should be smaller than $\tfrac{8\pi}{3}$</button>
+            <button class="opt" data-why="Here both edges are lines through the origin, so both solids are cones with a known formula.">You can't check: washers have no geometric formula</button>
+          </div></div>
+        <div class="greveal">Two routes, one answer. When a solid turns out to be a familiar shape, check your integral against its formula.</div>
+      </div>
+      <div class="takeaway"><b>Takeaway.</b> Slice perpendicular to the axis. $R$ is the distance to the far edge and $r$ the distance to the near edge ($r=0$ for a disk). Then $A=\pi(R^2-r^2)$; integrate it over the region's $x$-range.</div>
+    </div>
+
+    <div class="problem" data-pid="V-indep" data-topic="V" data-level="4" data-title="Independent attempt" data-src="Your turn: a region between two curves" data-prompt="Let S be the region between y = sqrt(x) and y = x^2 for 0 &lt;= x &lt;= 1. Find the volume of the solid obtained by rotating S about the x-axis.">
+      <div class="p-body">Let $S$ be the region between $y=\sqrt x$ and $y=x^2$ for $0\le x\le1$. Find the volume of the solid obtained by rotating $S$ about the $x$-axis.</div>
+      <div class="answers"><label>Volume <input class="ans" data-vid="V-indep" data-answer="0.942477796077" data-exact="3π/10" data-wrong='[{"v":0.403919055462,"m":"That is π times the integral of (√x − x²)², the (R − r)² mistake. A washer’s area is π(R² − r²)."},{"v":1.570796326795,"m":"That ignores the hole: π∫x dx is the solid under √x alone. Subtract π∫x⁴ dx."},{"v":-0.942477796077,"m":"A negative volume means R and r are swapped. On (0, 1), √x is above x², so √x is the far edge."},{"v":0.3,"m":"Don’t forget the π."},{"v":0.333333333333,"m":"That is the area of the flat region S. Spin it: each slice is a washer of area π(R² − r²)."}]'></label></div>
+      <ol class="know">
+        <li>Sketch both curves on $[0,1]$. Which one is on top?</li>
+        <li>Slice perpendicular to the $x$-axis. Which edge is far from the axis ($R$), and which is near ($r$)?</li>
+        <li>$A(x)=\pi(R^2-r^2)$. Integrate it from 0 to 1.</li>
+      </ol>
+      <div class="hint">The curves meet at $x=0$ and $x=1$, and $\sqrt x\ge x^2$ in between. Try $x=\frac14$: $\frac12$ vs. $\frac1{16}$.</div>
+      <div class="hint">$R=\sqrt x$ and $r=x^2$, so $A(x)=\pi(x-x^4)$.</div>
+      <div class="hint">$\int_0^1\pi(x-x^4)\,dx=\pi\big(\frac12-\frac15\big)$.</div>
+      <div class="solution">
+        <p>$V=\pi\int_0^1(x-x^4)\,dx=\pi\big(\frac12-\frac15\big)=\frac{3\pi}{10}\approx0.9425$.</p>
+        <p style="margin:0"><b>Sanity check:</b> without the hole, the solid under $\sqrt x$ alone has volume $\pi\int_0^1x\,dx=\frac\pi2\approx1.571$. The hole removes $\pi\int_0^1x^4\,dx=\frac\pi5$, leaving $\frac{3\pi}{10}$ ✓.</p>
+      </div>
+      <div class="reflect"><h5>Compare your approach</h5>
+        <label><input type="checkbox"> I sketched the region and found which curve is on top.</label>
+        <label><input type="checkbox"> I used $\pi(R^2-r^2)$, not $\pi(R-r)^2$.</label>
+        <label><input type="checkbox"> I checked the answer against the solid with no hole.</label>
+        <p class="small muted" style="margin:6px 0 0">The clue to recognize next time: <b>“region between two curves, spun about an axis” → washers, with $R$ = the far curve and $r$ = the near curve</b>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 5 COMPARE -->
+  <div class="stage" id="V-compare">
+    <div class="stage-head"><span class="n">Stage 5 · Compare</span><h3>Tempting approaches vs. correct reasoning</h3></div>
+    <div class="vs">
+      <div class="tempt"><h5>✗ Tempting</h5>“A washer's area is $\pi(R-r)^2$,” so for the notes p. 7 region $V=\pi\int_0^2(2x-x)^2\,dx=\frac{8\pi}{3}$.</div>
+      <div class="right"><h5>✓ Correct</h5>A washer is a big disk minus a hole: $\pi R^2-\pi r^2$. So $V=\pi\int_0^2\big((2x)^2-x^2\big)\,dx=8\pi$ (3.3–3.5 notes p. 7).</div>
+      <div class="clue"><b>Clue for next time:</b> subtract the <em>areas</em>, not the radii: $\pi(R^2-r^2)$.</div>
+    </div>
+
+    <div class="spot" data-sid="V-spot1">
+      <p><b>Spot the error.</b> A student spins the region between $y=x$ and $y=x^2$ ($0\le x\le1$) around the line $y=2$ (textbook Ex. 3.5.9):</p>
+      <button class="sline"><span class="ln">Line 1</span><span>Slice perpendicular to $y=2$: vertical slices, $0\le x\le1$.</span></button>
+      <button class="sline" data-bad><span class="ln">Line 2</span><span>$R=x$ and $r=x^2$ (the top and bottom curves).</span></button>
+      <button class="sline"><span class="ln">Line 3</span><span>$V=\pi\int_0^1\big(x^2-x^4\big)\,dx=\frac{2\pi}{15}$.</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout warn"><div class="label">What went wrong</div><p style="margin:0">Line 2 measures from the $x$-axis, but the axis is $y=2$. Measured from $y=2$, the far edge is the <em>lower</em> curve, so $R=2-x^2$, and the near edge is the upper curve, so $r=2-x$. Then $V=\pi\int_0^1\big((2-x^2)^2-(2-x)^2\big)\,dx=\frac{8\pi}{15}$. That's exactly the notes' green warning: check how the region sits relative to the axis (3.3–3.5 notes p. 7).</p></div>
+    </div>
+
+    <div class="spot" data-sid="V-spot2">
+      <p><b>Spot the error.</b> A student spins the same region around the $y$-axis (textbook Ex. 3.5.10):</p>
+      <button class="sline"><span class="ln">Line 1</span><span>Slice perpendicular to the $y$-axis: horizontal slices, $0\le y\le1$.</span></button>
+      <button class="sline"><span class="ln">Line 2</span><span>At height $y$ the region runs from $x=y$ (on $y=x$) to $x=\sqrt y$ (on $y=x^2$).</span></button>
+      <button class="sline" data-bad><span class="ln">Line 3</span><span>$R=y$ and $r=\sqrt y$.</span></button>
+      <button class="sline"><span class="ln">Line 4</span><span>$V=\pi\int_0^1\big(y^2-y\big)\,dy=-\frac\pi6$.</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout warn"><div class="label">What went wrong</div><p style="margin:0">Line 3 swaps the radii. For $0&lt;y&lt;1$, $\sqrt y&gt;y$ (try $y=\frac14$: $\frac12&gt;\frac14$), so the far edge is $x=\sqrt y$: $R=\sqrt y$ and $r=y$. Then $V=\pi\int_0^1(y-y^2)\,dy=\frac\pi6$. A negative “volume” always means $R$ and $r$ are swapped.</p></div>
+    </div>
+
+    <h4 style="margin-top:22px">Common mistakes: why they happen and how to prevent them</h4>
+    <details class="mistake"><summary>$\pi(R-r)^2$ instead of $\pi(R^2-r^2)$</summary><div class="m-body"><p><b>Why it happens</b><br>$R-r$ looks like “the radius of the ring.”</p><p><b>Prevent it</b><br>Think big disk minus hole. Test it: $R=2$, $r=1$ gives a ring of area $3\pi$, not $\pi$.</p></div></details>
+    <details class="mistake"><summary>Measuring from the $x$-axis when the axis is somewhere else</summary><div class="m-body"><p><b>Why it happens</b><br>“$R$ = the top curve” works only for the $x$-axis.</p><p><b>Prevent it</b><br>Draw the axis first. $R$ and $r$ are distances to it: for $y=2$ they're $2-(\text{curve})$, and for $y=-1$ they're $(\text{curve})+1$ (notes p. 7, green note).</p></div></details>
+    <details class="mistake"><summary>Swapping $R$ and $r$</summary><div class="m-body"><p><b>Why it happens</b><br>The top curve isn't always the far one. For an axis above the region, the bottom curve is farther away.</p><p><b>Prevent it</b><br>$R$ is the far edge and $r$ the near edge. A negative result means they're swapped.</p></div></details>
+    <details class="mistake"><summary>Ignoring the hole</summary><div class="m-body"><p><b>Why it happens</b><br>Disks are the first case you learn.</p><p><b>Prevent it</b><br>Ask whether the region reaches the axis all along the slice. If it doesn't, there's a hole and $r&gt;0$.</p></div></details>
+    <details class="mistake"><summary>Integrating in $x$ when the axis is vertical</summary><div class="m-body"><p><b>Why it happens</b><br>Habit: most problems use $dx$.</p><p><b>Prevent it</b><br>Slices must be perpendicular to the axis. For the $y$-axis, slice horizontally and use $R(y)$, $r(y)$, $dy$ and $y$-limits (textbook Ex. 3.5.10).</p></div></details>
+    <details class="mistake"><summary>Forgetting $\pi$ or the square</summary><div class="m-body"><p><b>Why it happens</b><br>$\int\pi R\,dx$ and $\int R^2\,dx$ both look almost right.</p><p><b>Prevent it</b><br>Each slice's face is a circle or a ring, so its area has a $\pi$ and a square.</p></div></details>
+  </div>
+
+  <!-- ============================== 6 PRACTICE -->
+  <div class="stage" id="V-practice">
+    <div class="stage-head"><span class="n">Stage 6 · Practice</span><h3>Practice: standard applications</h3></div>
+    <div class="problem" data-pid="V-p1" data-topic="V" data-title="Practice 1" data-src="3.3–3.5 notes p. 6 (left blank in the notes)" data-prompt="Let S be the region bounded by y = 2x, y = 0, x = 2. Find the volume of the solid obtained by rotating S about the x-axis.">
+      <div class="p-body">Let $S$ be the region bounded by $y=2x$, $y=0$ and $x=2$. Find the volume of the solid obtained by rotating $S$ about the $x$-axis.</div>
+      <div class="answers"><label>Volume <input class="ans" data-vid="V-p1" data-answer="33.510321638291" data-exact="32π/3" data-wrong='[{"v":12.566370614359,"m":"That is π times the integral of R: the radius wasn’t squared. A disk’s area is πR²."},{"v":10.666666666667,"m":"Don’t forget the π."}]'></label></div>
+      <div class="hint">The region reaches the axis ($y=0$ is one of its edges), so the slices are disks with $r=0$.</div>
+      <div class="hint">$R=2x$, so $A(x)=\pi(2x)^2=4\pi x^2$.</div>
+      <div class="solution">$\int_0^24\pi x^2\,dx=\frac{32\pi}3\approx33.51$. Check: it's a cone of radius 4 and height 2, and $\frac13\pi(4^2)(2)=\frac{32\pi}3$ ✓.</div>
+    </div>
+    <div class="problem" data-pid="V-p2" data-topic="V" data-title="Practice 2" data-src="Textbook Example 3.5.7" data-prompt="The region under y = x^2 and above [0, 2] is revolved around the x-axis. Find the volume.">
+      <div class="p-body">The region under $y=x^2$ and above $[0,2]$ is revolved around the $x$-axis. Find the volume.</div>
+      <div class="answers"><label>Volume <input class="ans" data-vid="V-p2" data-answer="20.106192982975" data-exact="32π/5"></label></div>
+      <div class="hint">These are disks with $R=x^2$.</div>
+      <div class="hint">$A(x)=\pi(x^2)^2=\pi x^4$.</div>
+      <div class="solution">$\pi\big[\frac{x^5}5\big]_0^2=\frac{32\pi}5\approx20.11$.</div>
+    </div>
+    <div class="problem" data-pid="V-p3" data-topic="V" data-title="Practice 3" data-src="Textbook Example 3.5.8" data-prompt="The region between y = x and y = x^2 (0 &lt;= x &lt;= 1) is revolved around the x-axis. Find the volume.">
+      <div class="p-body">The region between $y=x$ and $y=x^2$ ($0\le x\le1$) is revolved around the $x$-axis. Find the volume.</div>
+      <div class="answers"><label>Volume <input class="ans" data-vid="V-p3" data-answer="0.418879020479" data-exact="2π/15"></label></div>
+      <div class="hint">On $[0,1]$, $x\ge x^2$, so $R=x$ and $r=x^2$.</div>
+      <div class="hint">$A(x)=\pi(x^2-x^4)$.</div>
+      <div class="solution">$\pi\big(\frac13-\frac15\big)=\frac{2\pi}{15}\approx0.4189$.</div>
+    </div>
+    <div class="problem" data-pid="V-p4" data-topic="V" data-title="Practice 4" data-src="Textbook Example 3.5.9" data-prompt="The region between y = x and y = x^2 (0 &lt;= x &lt;= 1) is revolved around the line y = 2. Find the volume.">
+      <div class="p-body">The same region, between $y=x$ and $y=x^2$ ($0\le x\le1$), is revolved around the line $y=2$. Find the volume.</div>
+      <div class="answers"><label>Volume <input class="ans" data-vid="V-p4" data-answer="1.675516081915" data-exact="8π/15" data-wrong='[{"v":0.418879020479,"m":"That is the answer for the x-axis. Measure R and r from the line y = 2."}]'></label></div>
+      <div class="hint">Measure distances to $y=2$. The curve $y=x^2$ is lower, so it's farther from the axis.</div>
+      <div class="hint">$R=2-x^2$ and $r=2-x$, so $A(x)=\pi\big((2-x^2)^2-(2-x)^2\big)=\pi(4x-5x^2+x^4)$.</div>
+      <div class="solution">$\pi\big[2x^2-\frac{5x^3}3+\frac{x^5}5\big]_0^1=\pi\big(2-\frac53+\frac15\big)=\frac{8\pi}{15}\approx1.676$.</div>
+    </div>
+    <div class="problem" data-pid="V-p5" data-topic="V" data-title="Practice 5" data-src="Textbook Example 3.5.10" data-prompt="The region between y = x and y = x^2 (0 &lt;= x &lt;= 1) is revolved around the y-axis. Find the volume.">
+      <div class="p-body">The same region is revolved around the $y$-axis. Find the volume.</div>
+      <div class="answers"><label>Volume <input class="ans" data-vid="V-p5" data-answer="0.523598775598" data-exact="π/6" data-wrong='[{"v":-0.523598775598,"m":"Negative: R and r are swapped. For 0 &lt; y &lt; 1, √y &gt; y, so R = √y."}]'></label></div>
+      <div class="hint">Use horizontal slices. At height $y$ the region runs from $x=y$ to $x=\sqrt y$.</div>
+      <div class="hint">$R=\sqrt y$ and $r=y$, so $A(y)=\pi(y-y^2)$.</div>
+      <div class="solution">$\pi\int_0^1(y-y^2)\,dy=\pi\big(\frac12-\frac13\big)=\frac\pi6\approx0.5236$.</div>
+    </div>
+    <div class="problem" data-pid="V-p6" data-topic="V" data-title="Practice 6" data-src="Textbook §3.5 Suggested Ex. 1" data-prompt="A solid has its base in the xy-plane. Each cross-section perpendicular to the x-axis, for 0 &lt;= x &lt;= 1, is a square with one side running from the x-axis to the curve y = x^2. Find the volume.">
+      <div class="p-body">A solid has its base in the $xy$-plane. Each cross-section perpendicular to the $x$-axis, for $0\le x\le1$, is a square with one side running from the $x$-axis up to the curve $y=x^2$. Find the volume.</div>
+      <div class="answers"><label>Volume <input class="ans" data-vid="V-p6" data-answer="0.2" data-exact="1/5"></label></div>
+      <div class="hint">The side length at $x$ is $x^2$, so $A(x)=(x^2)^2=x^4$.</div>
+      <div class="solution">$\int_0^1x^4\,dx=\frac15$. Nothing spins here: $V=\int A(x)\,dx$ works for any known cross-section (3.3–3.5 notes p. 5).</div>
+    </div>
+    <div class="problem" data-pid="V-p7" data-topic="V" data-title="Practice 7" data-src="Textbook §3.5 Suggested Ex. 2" data-prompt="Each cross-section perpendicular to the x-axis, for 0 &lt;= x &lt;= 1, is a disk, a diameter of which goes from the x-axis out to the curve y = sqrt(x). Find the volume.">
+      <div class="p-body">Each cross-section perpendicular to the $x$-axis, for $0\le x\le1$, is a disk with a diameter running from the $x$-axis up to the curve $y=\sqrt x$. Find the volume.</div>
+      <div class="answers"><label>Volume <input class="ans" data-vid="V-p7" data-answer="0.392699081699" data-exact="π/8" data-wrong='[{"v":1.570796326795,"m":"√x is the diameter, not the radius. The radius is √x/2."}]'></label></div>
+      <div class="hint">The diameter is $\sqrt x$, so the radius is $\frac{\sqrt x}2$.</div>
+      <div class="hint">$A(x)=\pi\big(\frac{\sqrt x}2\big)^2=\frac{\pi x}4$.</div>
+      <div class="solution">$\int_0^1\frac{\pi x}4\,dx=\frac\pi8\approx0.3927$.</div>
+    </div>
+    <div class="problem" data-pid="V-p8" data-topic="V" data-title="Practice 8" data-src="Textbook §3.5 Suggested Ex. 4" data-help="Exact (e.g. pi/3) or decimals." data-prompt="Let B be the region bounded by y = x^(1/4), y = 1 and x = 0. Find the volume of the solid obtained by revolving B (a) about the x-axis, (b) about the y-axis.">
+      <div class="p-body">Let $B$ be the region bounded by $y=\sqrt[4]{x}$, $y=1$ and $x=0$. Find the volume of the solid obtained by revolving $B$ (a) about the $x$-axis, and (b) about the $y$-axis.</div>
+      <div class="answers"><label>(a) <input class="ans" data-label="(a)" data-vid="V-p8-a" data-answer="1.047197551197" data-exact="π/3"></label><label>(b) <input class="ans" data-label="(b)" data-vid="V-p8-b" data-answer="0.349065850399" data-exact="π/9"></label></div>
+      <div class="hint">(a) For $0\le x\le1$ the region runs from $y=\sqrt[4]x$ up to $y=1$, so $R=1$ and $r=\sqrt[4]x$.</div>
+      <div class="hint">(b) Use horizontal slices. At height $y$ the region runs from $x=0$ to $x=y^4$ (solve $y=\sqrt[4]x$ for $x$), so the slices are disks with $R=y^4$.</div>
+      <div class="solution">(a) $\pi\int_0^1\big(1-x^{1/2}\big)\,dx=\pi\big(1-\frac23\big)=\frac\pi3$. (b) $\pi\int_0^1y^8\,dy=\frac\pi9$.</div>
+    </div>
+    <div class="problem" data-pid="V-p9" data-topic="V" data-title="Practice 9" data-src="Textbook §3.5 Additional Ex. 1" data-prompt="A solid has cross-sectional area A(x) = 3x^2 + 1 for 2 &lt;= x &lt;= 4. Find its volume.">
+      <div class="p-body">A solid has cross-sectional area $A(x)=3x^2+1$ for $2\le x\le4$. Find its volume.</div>
+      <div class="answers"><label>Volume <input class="ans" data-vid="V-p9" data-answer="58" data-exact="58"></label></div>
+      <div class="hint">$V=\int_2^4(3x^2+1)\,dx$. No geometry is needed: $A(x)$ is given.</div>
+      <div class="solution">$\big[x^3+x\big]_2^4=68-10=58$.</div>
+    </div>
+    <div class="problem" data-pid="V-p10" data-topic="V" data-title="Practice 10" data-src="Textbook §3.5 Additional Ex. 9(c)" data-prompt="Let B be the region bounded by y = 4x - x^2 and y = 3. Find the volume of the solid obtained by revolving B about the line y = 6.">
+      <div class="p-body">Let $B$ be the region bounded by $y=4x-x^2$ and $y=3$. Find the volume of the solid obtained by revolving $B$ about the line $y=6$.</div>
+      <div class="answers"><label>Volume <input class="ans" data-vid="V-p10" data-answer="21.781709064889" data-exact="104π/15" data-wrong='[{"v":28.483773392547,"m":"That spins about the x-axis (R = 4x − x², r = 3). Measure R and r from the line y = 6."}]'></label></div>
+      <div class="hint">The curves meet where $4x-x^2=3$, at $x=1$ and $x=3$. The parabola is on top (it reaches 4 at $x=2$).</div>
+      <div class="hint">Distances to $y=6$: the line $y=3$ is farther, so $R=6-3=3$. The parabola is nearer, so $r=6-(4x-x^2)$.</div>
+      <div class="hint">$A(x)=\pi\big(9-(x^2-4x+6)^2\big)$. With $w=x-2$, $x^2-4x+6=w^2+2$.</div>
+      <div class="solution">$V=\pi\int_{-1}^{1}\big(9-(w^2+2)^2\big)\,dw=\pi\int_{-1}^1\big(5-4w^2-w^4\big)\,dw=\pi\big(10-\frac83-\frac25\big)=\frac{104\pi}{15}\approx21.78$.</div>
+    </div>
+  </div>
+
+  <!-- ============================== 7 MASTER -->
+  <div class="stage" id="V-master">
+    <div class="stage-head"><span class="n">Stage 7 · Master</span><h3>Mastery check</h3></div>
+    <p class="muted">No hints are offered until you've committed to an answer. This checks recognition, understanding, unfamiliar problems, and whether you can explain why.</p>
+    <div class="mcq" data-qid="V-m1" data-topic="V" data-level="1" data-count data-multi data-multimsg="At least one choice is off. For each region ask: does it reach down to the x-axis all along [a, b]? If not, the slices have holes.">
+      <div class="q"><b>Recognition.</b> Spin each region about the $x$-axis. For which ones are the slices <b>washers</b>, with a hole? Select all that apply.</div>
+      <div class="opts cols-2">
+        <button class="opt">the region under $y=\sqrt x$, $0\le x\le4$</button>
+        <button class="opt" data-correct>the region between $y=x$ and $y=x^2$, $0\le x\le1$</button>
+        <button class="opt" data-correct>the region between $y=2x$ and $y=x$, $0\le x\le2$ (notes p. 7)</button>
+        <button class="opt">the region bounded by $y=2x$, $y=0$, $x=2$ (notes p. 6)</button>
+        <button class="opt" data-correct>the region between $y=\sqrt[4]x$ and $y=1$, $0\le x\le1$</button>
+        <button class="opt">the region under $y=e^x$, $0\le x\le1$</button>
+      </div>
+      <div class="why callout why"><div class="label">Why</div><p style="margin:0">Washers appear when there's a gap between the region and the axis. The second, third and fifth regions start above the $x$-axis. The other three reach down to the axis ($y=0$ is an edge), so their slices are disks, with $r=0$.</p></div>
+    </div>
+    <div class="mcq" data-qid="V-m2" data-topic="V" data-level="2" data-count>
+      <div class="q"><b>Understanding.</b> A region above the $x$-axis is spun once about the $x$-axis and once about the line $y=-1$, below it. Which volume is bigger, and why?</div>
+      <div class="opts">
+        <button class="opt" data-correct data-why="Right: R and r both grow by 1, and R² − r² grows by 2(R − r) &gt; 0 at every slice.">About $y=-1$: every point of the region is 1 unit farther from the axis, so every ring is bigger.</button>
+        <button class="opt" data-why="Volume has nothing to do with density. Farther from the axis means bigger rings.">About the $x$-axis: it's closer, so the solid is more compact.</button>
+        <button class="opt" data-why="The same region makes different solids around different axes. Compare notes p. 7’s 8π with the 12π for the axis y = 5 in the tryout above.">They're equal, because the region is the same.</button>
+        <button class="opt" data-why="The area matters, but so does the distance from the axis.">It depends only on the region's area.</button>
+      </div>
+    </div>
+    <div class="problem" data-pid="V-m3" data-topic="V" data-level="6" data-title="Unfamiliar problem" data-src="Textbook Ex. 3.5.14 · combines §2.5" data-help='A number, or "diverges".' data-prompt="The region under y = 1/x for x &gt;= 1 is revolved around the x-axis. Find the volume of the resulting infinitely long solid, or show that it is infinite.">
+      <div class="p-body">The region under $y=\frac1x$ for $x\ge1$ is revolved around the $x$-axis. Find the volume of the resulting infinitely long solid, or show that it's infinite.</div>
+      <div class="answers"><label>Volume <input class="ans" data-accept="div" data-vid="V-m3" data-answer="3.141592653590" data-exact="π" data-convmsg="Check the limit: π∫ from 1 to b of x^(−2) dx = π(1 − 1/b), which has a finite limit as b → ∞."></label></div>
+      <div class="hint">The slices are disks with $R=\frac1x$, so $A(x)=\frac{\pi}{x^2}$. The integral is improper (Type I).</div>
+      <div class="hint">$\pi\int_1^\infty x^{-2}\,dx=\pi\lim_{b\to\infty}\big(1-\frac1b\big)$.</div>
+      <div class="solution">$\pi$. The horn is infinitely long but holds a finite volume, because $\frac1{x^2}$ dies off fast enough (compare notes p. 29's $x^{-3/2}$). This is textbook Example 3.5.14, “Gabriel's horn.” Notice the flat region itself has <em>infinite</em> area, since $\int_1^\infty\frac{dx}x$ diverges.</div>
+    </div>
+    <div class="problem" data-pid="V-m4" data-topic="V" data-level="6" data-title="Unfamiliar problem" data-src="Textbook Ex. 3.5.6 · a formula you know, derived" data-prompt="Use slicing to find the volume of a ball of radius 3.">
+      <div class="p-body">Use slicing to find the volume of a ball of radius 3.</div>
+      <div class="answers"><label>Volume <input class="ans" data-vid="V-m4" data-answer="113.097335529233" data-exact="36π" data-wrong='[{"v":56.548667764616,"m":"That is half the ball. Integrate from −3 to 3 (or double the half)."}]'></label></div>
+      <div class="hint">Spin the half-disk under $y=\sqrt{9-x^2}$, $-3\le x\le3$, around the $x$-axis.</div>
+      <div class="hint">The slices are disks with $R=\sqrt{9-x^2}$, so $A(x)=\pi(9-x^2)$.</div>
+      <div class="solution">$\pi\int_{-3}^{3}(9-x^2)\,dx=\pi(54-18)=36\pi\approx113.1$, which matches $\frac43\pi\cdot3^3$ ✓. The textbook does the same for any radius (Example 3.5.6).</div>
+    </div>
+    <div class="explain card" data-eid="V-explain" data-topic="V">
+      <h4>Explain why (Level 7)</h4>
+      <p>Why is the volume of a solid $\int_a^bA(x)\,dx$? And why is a washer's area $\pi(R^2-r^2)$ rather than $\pi(R-r)^2$?</p>
+      <textarea aria-label="Your explanation"></textarea>
+      <div class="model callout why"><div class="label">A model explanation</div><p style="margin:0">Slice the solid perpendicular to the $x$-axis into thin slabs of thickness $\Delta x$. The slab at $x$ is nearly a flat plate with face area $A(x)$, so its volume is about $A(x)\,\Delta x$: face area × thickness, like a coin. Adding the slabs gives the Riemann sum $\sum A(x_i)\,\Delta x$, which becomes $\int_a^bA(x)\,dx$ as the slabs get thinner (3.3–3.5 notes p. 5). For a solid of revolution, each slab's face is a disk of radius $R$ with a disk of radius $r$ removed, so its area is $\pi R^2-\pi r^2=\pi(R^2-r^2)$. $\pi(R-r)^2$ would be the area of one disk whose radius is the ring's width, which is much smaller: for $R=2$ and $r=1$ the ring's area is $3\pi$, but $\pi(R-r)^2=\pi$.</p></div>
+    </div>
+  </div>
+</section>

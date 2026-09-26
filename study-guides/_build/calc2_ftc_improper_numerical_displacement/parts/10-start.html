@@ -1,0 +1,116 @@
+<section id="start" class="topic" style="margin-top:28px">
+  <div class="topic-banner">
+    <div class="topic-letter" aria-hidden="true">★</div>
+    <div><h2>Start here</h2><div class="sources">Two minutes of setup: see how the ideas connect, then find out where to begin.</div></div>
+  </div>
+
+  <div class="card" id="concepts">
+    <h3>How the ten topics connect</h3>
+    <p><b>Left:</b> the techniques for finding antiderivatives (§1.1, §1.3). Each one is a derivative rule run backwards. <b>Middle:</b> the FTC (§2.4), which turns an antiderivative into a definite integral. <b>Right:</b> what to do when the FTC's conditions fail (§2.5 improper, §2.6 numerical), and how it applies to motion on a line (§3.1) and in space (§3.3). At the bottom right are two geometric applications: the length of a curve (§3.3 arc length) and volume by slicing (§3.5). Dashed boxes are prerequisites from earlier material.</p>
+    <p class="small muted">Mark each concept by how well you know it. The prompt at the bottom updates to match, so you can paste it into Claude for a targeted session.</p>
+    <div id="concept-map"></div>
+  </div>
+
+  <div class="card" id="diagnostic-sec">
+    <h3>Quick diagnostic: can you recognize the problem type?</h3>
+    <p>Recognition comes before procedure. Answer on instinct. Your first answer is what counts, and nothing here needs a calculation.</p>
+    <div id="diagnostic">
+      <div class="mcq" data-qid="diag-U" data-topic="U" data-level="1">
+        <div class="q"><b>1.</b> Which technique fits $\displaystyle\int x\,e^{x^2}\,dx$ best?</div>
+        <div class="opts">
+          <button class="opt" data-correct data-why="Right. The inside x² has derivative 2x, and x is there: u = x² makes it (1/2)∫eᵘ du (§1.1).">$u$-substitution with $u=x^2$</button>
+          <button class="opt" data-why="Parts is for products with no inside/derivative pair. Here there is one, so substitution is quicker.">Integration by parts</button>
+          <button class="opt" data-why="Partial fractions is for a polynomial divided by a polynomial.">Partial fractions</button>
+          <button class="opt" data-why="That's true of ∫e^(x²) dx without the x. The extra x is exactly what makes substitution work.">It has no elementary antiderivative</button>
+        </div>
+      </div>
+      <div class="mcq" data-qid="diag-P" data-topic="P" data-level="1">
+        <div class="q"><b>2.</b> $\displaystyle\int x\,e^{x}\,dx$ calls for…</div>
+        <div class="opts">
+          <button class="opt" data-correct data-why="Yes: a product of two different kinds of functions with no inside/derivative pair. u = x (§1.1, notes p. 8).">integration by parts</button>
+          <button class="opt" data-why="With u = eˣ you'd need x = ln u, giving ∫ln u du, which is itself a parts problem.">substitution $u=e^x$</button>
+          <button class="opt" data-why="It isn't a ratio of polynomials.">partial fractions</button>
+          <button class="opt" data-why="The integral of a product isn't the product of integrals: x²/2 · eˣ differentiates to something else.">a basic rule: $\tfrac{x^2}{2}e^x+C$</button>
+        </div>
+      </div>
+      <div class="mcq" data-qid="diag-R" data-topic="R" data-level="1">
+        <div class="q"><b>3.</b> For $\displaystyle\int\frac{x+5}{x^2-x-2}\,dx$, the first move is…</div>
+        <div class="opts">
+          <button class="opt" data-correct data-why="Right: a proper fraction whose bottom factors as (x − 2)(x + 1). Split it into simple fractions (§1.3).">factor the bottom and split into partial fractions</button>
+          <button class="opt" data-why="The derivative of the bottom is 2x − 1, which isn't a multiple of x + 5.">substitute $u=x^2-x-2$</button>
+          <button class="opt" data-why="Long division is only needed when the top's degree is at least the bottom's. Here 1 &lt; 2.">long division</button>
+          <button class="opt" data-why="There's no product of different kinds of functions here.">integration by parts</button>
+        </div>
+      </div>
+      <div class="mcq" data-qid="diag-1" data-topic="B" data-level="1">
+        <div class="q"><b>4.</b> Is $\displaystyle\int_0^3 \frac{dx}{x-2}$ an ordinary (proper) definite integral?</div>
+        <div class="opts">
+          <button class="opt" data-why="Finite limits aren't enough. The FTC needs the integrand continuous on the whole closed interval [0, 3].">Yes. The limits 0 and 3 are finite numbers.</button>
+          <button class="opt" data-correct data-why="Right. At x = 2 the denominator is 0, so the integrand blows up inside [0, 3]. That makes it improper (§2.5).">No. The integrand blows up at $x=2$, which is inside $[0,3]$.</button>
+          <button class="opt" data-why="0 is a perfectly fine limit here; the integrand is defined at x = 0. Look inside the interval.">No, because 0 is one of the limits.</button>
+        </div>
+      </div>
+      <div class="mcq" data-qid="diag-2" data-topic="B" data-level="1">
+        <div class="q"><b>5.</b> Which one of these is improper?</div>
+        <div class="opts">
+          <button class="opt" data-why="√(x − 1) is continuous on [1, 5] (√0 = 0 is fine). Nothing blows up and the interval is finite.">$\displaystyle\int_1^5 \sqrt{x-1}\,dx$</button>
+          <button class="opt" data-correct data-why="Yes: an infinite limit of integration makes it Type I (notes p. 27).">$\displaystyle\int_0^\infty e^{-x}\,dx$</button>
+          <button class="opt" data-why="x² + 1 is never 0, so 1/(x² + 1) is continuous on [−2, 2]. Proper.">$\displaystyle\int_{-2}^{2} \frac{dx}{x^2+1}$</button>
+        </div>
+      </div>
+      <div class="mcq" data-qid="diag-3" data-topic="A" data-level="1">
+        <div class="q"><b>6.</b> Without computing, $\displaystyle\int_0^{2\pi} \sin x\,dx$ equals…</div>
+        <div class="opts cols-2">
+          <button class="opt" data-why="4 is the total area. The integral counts the part below the axis as negative.">$4$</button>
+          <button class="opt" data-correct data-why="The hump above the axis on [0, π] exactly cancels the hump below on [π, 2π]. The integral measures net (signed) area.">$0$</button>
+          <button class="opt" data-why="2 is the area of just one hump, on [0, π].">$2$</button>
+          <button class="opt" data-why="sin x is continuous everywhere, so this integral is perfectly well defined.">undefined</button>
+        </div>
+      </div>
+      <div class="mcq" data-qid="diag-4" data-topic="C" data-level="1">
+        <div class="q"><b>7.</b> You need $\displaystyle\int_0^1 e^{-x^2}\,dx$. What's the realistic approach with the tools in this course?</div>
+        <div class="opts">
+          <button class="opt" data-why="The antiderivative exists, but it can't be written with elementary functions (textbook §2.6), so F(1) − F(0) isn't available.">Find an antiderivative $F$ and compute $F(1)-F(0)$.</button>
+          <button class="opt" data-correct data-why="Yes. That's exactly why §2.6 exists: approximate with the Midpoint, Trapezoid, or Simpson's Rule (notes pp. 34–39).">Approximate it with the Midpoint, Trapezoid, or Simpson's Rule.</button>
+          <button class="opt" data-why="The interval is finite and e^(−x²) is continuous on it, so it's not improper.">It's improper, so take a limit.</button>
+        </div>
+      </div>
+      <div class="mcq" data-qid="diag-5" data-topic="D" data-level="1">
+        <div class="q"><b>8.</b> A car drives 3 miles east, then 3 miles back west. Its displacement and distance traveled are…</div>
+        <div class="opts cols-2">
+          <button class="opt" data-correct data-why="It ends where it started (displacement 0), but the odometer counts every mile (distance 6). Same idea as notes p. 41.">0 mi and 6 mi</button>
+          <button class="opt" data-why="Displacement is the net change in position. It ended where it started.">6 mi and 6 mi</button>
+          <button class="opt" data-why="Distance never cancels: the odometer rolled 6 miles.">0 mi and 0 mi</button>
+          <button class="opt" data-why="These are swapped.">6 mi and 0 mi</button>
+        </div>
+      </div>
+      <div class="mcq" data-qid="diag-E" data-topic="E" data-level="1">
+        <div class="q"><b>9.</b> A particle moves through space. Its “total distance traveled” is…</div>
+        <div class="opts">
+          <button class="opt" data-correct data-why="Yes: ∫|v| dt adds up the speed, which is never negative (§3.3, new notes p. 5).">a non-negative number</button>
+          <button class="opt" data-why="That's the displacement, p(b) − p(a).">a vector</button>
+          <button class="opt" data-why="That's the length of the displacement, the straight shortcut. The path is usually longer.">always the length of $\vec p(b)-\vec p(a)$</button>
+          <button class="opt" data-why="Speed is never negative, so neither is the distance.">sometimes negative</button>
+        </div>
+      </div>
+      <div class="mcq" data-qid="diag-L" data-topic="L" data-level="1">
+        <div class="q"><b>10.</b> The length of the curve $y=f(x)$ from $x=a$ to $x=b$ is…</div>
+        <div class="opts">
+          <button class="opt" data-correct data-why="Right: it’s the distance a particle travels along (x, f(x)), whose speed is √(1 + f′²) (§3.3, 3.3–3.5 notes p. 2).">$\displaystyle\int_a^b\sqrt{1+f'(x)^2}\,dx$</button>
+          <button class="opt" data-why="That’s the signed area under the curve, not its length.">$\displaystyle\int_a^bf(x)\,dx$</button>
+          <button class="opt" data-why="That’s the chord, the shortest path between the endpoints. A curve that bends is longer.">the straight-line distance from $(a,f(a))$ to $(b,f(b))$</button>
+          <button class="opt" data-why="That’s the total area between the curve and the axis.">$\displaystyle\int_a^b|f(x)|\,dx$</button>
+        </div>
+      </div>
+      <div class="mcq" data-qid="diag-V" data-topic="V" data-level="1">
+        <div class="q"><b>11.</b> The region between $y=x$ and $y=x^2$ ($0\le x\le1$) is spun around the $x$-axis. A slice perpendicular to the $x$-axis is…</div>
+        <div class="opts">
+          <button class="opt" data-correct data-why="Right: the region sits above the axis, with a gap below it, so each slice has a hole (§3.5, 3.3–3.5 notes p. 7).">a washer (a disk with a hole)</button>
+          <button class="opt" data-why="A disk needs the region to reach the axis. Here there’s a gap between y = 0 and y = x².">a disk</button>
+          <button class="opt" data-why="The flat region’s strip is a rectangle; spinning it makes a ring.">a rectangle</button>
+          <button class="opt" data-why="Shells come from slices parallel to the axis, and they aren’t in your notes.">a cylindrical shell</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

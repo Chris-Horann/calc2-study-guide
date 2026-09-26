@@ -1,0 +1,396 @@
+<section id="L" class="topic">
+  <div class="topic-banner">
+    <div class="topic-letter sec" aria-hidden="true">3.3</div>
+    <div><h2>Arc length</h2>
+    <div class="sources">3.3–3.5 notes pp. 2–4 · Textbook §3.3 (Propositions 3.3.11–3.3.13, Figure 3.14; Examples 3.3.8, 3.3.15, 3.3.17; Suggested Ex. 6–8; Additional Ex. 6). “3.3–3.5 notes” means <code>rest3.3-3.5.pdf</code>.</div></div>
+  </div>
+  <nav class="stagebar" data-topic="L" aria-label="Stages in §3.3 (arc length)">
+    <a href="#L-learn"><span class="n">1</span>Learn</a><a href="#L-understand"><span class="n">2</span>Understand</a><a href="#L-explore"><span class="n">3</span>Explore</a><a href="#L-attempt"><span class="n">4</span>Attempt</a><a href="#L-compare"><span class="n">5</span>Compare</a><a href="#L-practice"><span class="n">6</span>Practice</a><a href="#L-master"><span class="n">7</span>Master</a>
+  </nav>
+
+  <!-- ============================== 1 LEARN -->
+  <div class="stage" id="L-learn">
+    <div class="stage-head"><span class="n">Stage 1 · Learn</span><h3>The big idea</h3></div>
+    <div class="callout big">
+      <div class="label">Big idea</div>
+      <p>How long is a curve? Imagine a particle running along it from one end to the other, once. The curve's length is the <b>distance that particle travels</b>, and you already know how to compute that: $\int|\vec v|\,dt$ (<a href="#E-learn">§3.3</a>). Your notes say it in green: “View the curve as the trajectory of a moving particle with position vector $(x(t),y(t))$” (3.3–3.5 notes p. 2).</p>
+      <p style="margin:0">For a graph $y=f(x)$, let the particle's $x$-coordinate be the time, so its position is $(x,f(x))$. Its velocity is $(1,f'(x))$ and its speed is $\sqrt{1+f'(x)^2}$. Adding up speed × time gives the arc length, $\int_a^b\sqrt{1+f'(x)^2}\,dx$.</p>
+    </div>
+    <div class="card tight">
+      <div class="small muted" style="margin-bottom:6px"><b>What to notice:</b> zoom in on a smooth curve and a short piece of it looks straight. That piece is the hypotenuse of a tiny right triangle with legs $\Delta x$ and $\Delta y$. The integral adds up the hypotenuses.</div>
+      <div data-fig="arcpieces"></div>
+    </div>
+    <div class="grid-2">
+      <div class="callout why">
+        <div class="label">An everyday version</div>
+        <p style="margin:0">To measure a winding road on a map, lay a string along it, then straighten the string and measure that. Or drive the road and read the odometer. Both measure the path itself. The straight line between the two ends is always shorter.</p>
+      </div>
+      <div class="callout">
+        <div class="label">Three questions to ask every time</div>
+        <ol style="margin:0">
+          <li><b>How is the curve given?</b> As $(x(t),y(t))$: use $\sqrt{x'^2+y'^2}\,dt$. As $y=f(x)$: use $\sqrt{1+f'^2}\,dx$.</li>
+          <li><b>Does the inside simplify?</b> Square and add, then look for a perfect square, $\sin^2+\cos^2=1$, or something linear.</li>
+          <li><b>No antiderivative?</b> Set up the integral, then estimate it with a numerical rule (<a href="#C-learn">§2.6</a>), exactly as 3.3–3.5 notes p. 4 does.</li>
+        </ol>
+      </div>
+    </div>
+    <label class="toggle"><input type="checkbox" data-self="L"> I can explain why arc length is the distance-traveled formula, and where the 1 in $\sqrt{1+f'(x)^2}$ comes from.</label>
+  </div>
+
+  <!-- ============================== 2 UNDERSTAND -->
+  <div class="stage" id="L-understand">
+    <div class="stage-head"><span class="n">Stage 2 · Understand</span><h3>What it's built from, and why it works</h3></div>
+    <div class="grid-2">
+      <div class="card tight">
+        <h4>Prerequisite map</h4>
+        <div class="tree"><ul><li class="root">Arc length
+          <ul>
+            <li><a href="#E-learn">Distance traveled, $\int|\vec v|\,dt$ (§3.3)</a></li>
+            <li>The Pythagorean theorem<br><span class="qc">Quick check: legs $0.3$ and $0.4$? <details class="qcheck"><summary>show</summary>hypotenuse $\sqrt{0.09+0.16}=0.5$</details></span></li>
+            <li>Derivatives with the chain rule<br><span class="qc">Quick check: $\frac{d}{dx}\tfrac23(x+4)^{3/2}$? <details class="qcheck"><summary>show</summary>$\tfrac23\cdot\tfrac32(x+4)^{1/2}=(x+4)^{1/2}$</details></span></li>
+            <li><a href="#U-understand">u-substitution (§1.1)</a> with changed limits (<a href="#A-understand">§2.4</a>)</li>
+            <li><a href="#C-learn">The Trapezoid and Simpson's Rules (§2.6)</a>, for when there's no antiderivative</li>
+          </ul></li></ul></div>
+      </div>
+      <div class="card tight">
+        <h4>Two ways a curve can be given <span class="small muted">(3.3–3.5 notes p. 2)</span></h4>
+        <div class="table-scroll"><table>
+          <thead><tr><th>the curve</th><th>its velocity</th><th>arc length</th></tr></thead>
+          <tbody>
+            <tr><td>$(x(t),y(t))$, $a\le t\le b$</td><td>$(x'(t),\,y'(t))$</td><td>$\displaystyle\int_a^b\sqrt{x'(t)^2+y'(t)^2}\,dt$</td></tr>
+            <tr><td>$y=f(x)$, $a\le x\le b$</td><td>$(1,\,f'(x))$</td><td>$\displaystyle\int_a^b\sqrt{1+f'(x)^2}\,dx$</td></tr>
+          </tbody>
+        </table></div>
+        <p class="small" style="margin:6px 0 0">The notes get the second row from the first: “$t=x$, $x'(t)=1$, $y'(t)=\frac{dy}{dx}$, $dt=dx$.”</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>Why the formula works</h4>
+      <ul>
+        <li><b>Chop the curve into $n$ short pieces.</b> Each piece is almost a straight segment, so by Pythagoras its length is about $\sqrt{(\Delta x)^2+(\Delta y)^2}$. The textbook's Figure 3.14 writes this as $(ds)^2=(dx)^2+(dy)^2$.</li>
+        <li><b>Use the slope.</b> Over a short piece, $\Delta y\approx f'(x)\,\Delta x$. So each piece has length about $\sqrt{1+f'(x)^2}\,\Delta x$, a Riemann-sum term like the ones on notes p. 34.</li>
+        <li><b>Add up, then let $n\to\infty$.</b> The sum becomes $\int_a^b\sqrt{1+f'(x)^2}\,dx$. With a parameter $t$, the same steps give $\sqrt{x'(t)^2+y'(t)^2}\,\Delta t$ per piece: speed × time.</li>
+        <li><b>Two built-in checks.</b> The straight chord between the endpoints is the shortest path, so the arc length is at least the chord. And since $\sqrt{1+f'^2}\ge1$, a graph over $[a,b]$ is at least $b-a$ long.</li>
+      </ul>
+    </div>
+
+    <div class="formula-card">
+      <div class="fc-title">Arc length of a parametrized curve <span>3.3–3.5 notes p. 2 · Propositions 3.3.11–3.3.12</span></div>
+      $$\text{Arclength}=\int_a^b\htmlClass{fp fp-1}{\sqrt{\htmlClass{fp fp-2}{x'(t)^2+y'(t)^2}}}\;\htmlClass{fp fp-3}{dt}$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="The <b>speed</b> of the particle tracing the curve: the length of its velocity vector (x′, y′).">√(x′² + y′²): speed</button>
+        <button class="fp-chip" data-part="2" data-explain="<b>Square and add</b> the two components, like Pythagoras. It’s not x′ + y′.">x′² + y′²</button>
+        <button class="fp-chip" data-part="3" data-explain="A tiny amount of <b>time</b>. Speed × time = a tiny stretch of path, and the integral adds up the stretches.">dt</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+      <div class="fc-meta">
+        <div><b>When it applies</b>The curve is traced exactly once as $t$ runs from $a$ to $b$, like the notes' semicircle $(\cos t,\sin t)$ for $0\le t\le\pi$.</div>
+        <div><b>When it fails</b>If the parametrization retraces part of the curve, you get the distance traveled, not the curve's length. $(\cos t,\sin t)$ for $0\le t\le4\pi$ gives $4\pi$, but the circle is only $2\pi$ long.</div>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <div class="fc-title">Arc length of a graph, y = f(x) <span>3.3–3.5 notes p. 2 · Proposition 3.3.13</span></div>
+      $$\text{Arclength}=\int_a^b\sqrt{\htmlClass{fp fp-1}{1}+\htmlClass{fp fp-2}{f'(x)^2}}\;\htmlClass{fp fp-3}{dx}$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="From x′(t) = 1: the particle at (t, f(t)) moves right at one unit of x per unit of time. It’s also the horizontal leg of each tiny triangle.">the 1</button>
+        <button class="fp-chip" data-part="2" data-explain="The <b>slope squared</b>, the vertical leg per unit of x. Steeper pieces are longer.">f′(x)²</button>
+        <button class="fp-chip" data-part="3" data-explain="Integrate over x, from where the curve starts (a) to where it ends (b).">dx</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+      <div class="fc-meta">
+        <div><b>Answer looks like</b>A positive number, at least $b-a$ and at least the straight chord between the endpoints.</div>
+        <div><b>Watch out</b>Square $f'$ first, add 1, and only then take the root. Most of these integrals have no antiderivative, so set up first and estimate if needed (notes p. 4).</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>Recognition: what does the question want?</h4>
+      <div class="table-scroll"><table>
+        <thead><tr><th>The question says…</th><th>So you…</th></tr></thead>
+        <tbody>
+          <tr><td>“length of the curve,” “arc length” of $y=f(x)$</td><td>$\int_a^b\sqrt{1+f'(x)^2}\,dx$: differentiate, square, add 1, simplify.</td></tr>
+          <tr><td>A curve given as $(x(t),y(t))$</td><td>$\int_a^b\sqrt{x'^2+y'^2}\,dt$: the §3.3 distance formula.</td></tr>
+          <tr><td>A circle, or an arc of one</td><td>Use $(\cos t,\sin t)$ (or $(r\cos t,r\sin t)$). The speed is constant, so the length is speed × time (notes p. 3).</td></tr>
+          <tr><td>$1+f'^2$ is a perfect square, or linear</td><td>The root disappears, or a u-substitution finishes it (notes p. 3; textbook Suggested Ex. 7).</td></tr>
+          <tr><td>“Set up an integral,” or no usable antiderivative</td><td>Write the integral, then use the Trapezoid or Simpson's Rule (notes p. 4).</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout warn" style="margin-bottom:0">
+        <div class="label">Tempting alternative, and why to reject it</div>
+        <p style="margin:0">“The length of $y=\sin x$ on $[0,2\pi]$ is $\int_0^{2\pi}\sin x\,dx=0$.” Or: “It's $2\pi$, the distance along the axis.” The first is a signed area; the second is the straight chord. The wave is longer than both, about 7.64.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 3 EXPLORE -->
+  <div class="stage" id="L-explore">
+    <div class="stage-head"><span class="n">Stage 3 · Explore</span><h3>Arc length explorer</h3></div>
+    <div class="widget">
+      <div class="w-head"><h4>Approximate a curve by chords; watch the polygon approach the integral</h4><span class="small muted">presets · number of chords · highlighted piece · bars or Trapezoid</span></div>
+      <div class="w-sub">Top: the curve (black) and a polygon of $n$ chords (blue), drawn to scale. The highlighted piece shows its legs $\Delta x$ and $\Delta y$. Below: the integrand. The shaded area under it is the arc length.</div>
+      <div id="widget-arc">
+        <div class="w-formula">$$g(x)=\tfrac23(x+4)^{3/2},\quad g'(x)=(x+4)^{1/2},\quad \sqrt{1+g'(x)^2}=\sqrt{x+5},\quad \int_4^{11}\sqrt{x+5}\,dx=\tfrac{74}{3}$$</div>
+        <div class="w-formula">$$(\cos t,\ \sin t),\quad (x',y')=(-\sin t,\ \cos t),\quad \sqrt{\sin^2t+\cos^2t}=1,\quad \int_0^{\pi}1\,dt=\pi$$</div>
+        <div class="w-formula">$$y=\sin x:\quad \int_0^{2\pi}\sqrt{1+\cos^2x}\,dx\approx7.6404,\qquad T_4=\pi(\sqrt2+1)\approx7.5845$$</div>
+        <div class="w-formula">$$y=\tfrac23x^{3/2},\quad \sqrt{1+y'^2}=\sqrt{1+x},\quad \int_0^8\sqrt{1+x}\,dx=\tfrac{52}{3}$$</div>
+        <div class="w-formula">$$y=\tfrac{x^3}{12}+\tfrac1x,\quad 1+y'^2=\Big(\tfrac{x^2}{4}+\tfrac{1}{x^2}\Big)^2,\quad \int_1^2\Big(\tfrac{x^2}{4}+\tfrac{1}{x^2}\Big)dx=\tfrac{13}{12}$$</div>
+        <div class="w-formula">$$(\cos t,\ \sin t),\ \ 0\le t\le4\pi:\quad \int_0^{4\pi}1\,dt=4\pi,\ \ \text{but the circle is only }2\pi\text{ long}$$</div>
+      </div>
+      <div class="try"><h5>What to notice</h5><ol>
+        <li>Set $n=1$: the polygon is the straight chord between the endpoints, the shortest possible path. As you raise $n$, the polygon's length grows toward the arc length and never passes it.</li>
+        <li>The highlighted chord is the hypotenuse of a right triangle with legs $\Delta x$ and $\Delta y$. In the bottom graph its bar has height chord ÷ $\Delta x$, close to $\sqrt{1+f'(x)^2}$ on that piece. The bars' total area is the polygon's length, and as $n$ grows it becomes the area under $\sqrt{1+f'^2}$: the arc length.</li>
+        <li>With <b>3.3–3.5 notes p. 4: y = sin x on [0, 2π]</b>, choose <b>Trapezoid Rule</b> with $n=4$. You get $T_4=\pi(\sqrt2+1)\approx7.5845$, the notes' answer. The actual length is about 7.6404. $\sqrt{1+\cos^2x}$ has no elementary antiderivative, which is why the notes estimate.</li>
+        <li>With <b>3.3–3.5 notes p. 3: semicircle (cos t, sin t)</b>, the bottom graph is the speed, flat at 1. The length is just the time elapsed, $\pi$.</li>
+        <li>With <b>3.3–3.5 notes p. 3: g(x) = (2/3)(x + 4)^(3/2)</b>, even $n=1$ is within 0.01 of $\frac{74}{3}$: this curve is nearly straight on $[4,11]$.</li>
+        <li>With <b>Circle traced twice: 0 ≤ t ≤ 4π</b>, the integral is $4\pi$, the distance the particle travels. The circle itself is only $2\pi$ long. The formula gives a curve's length only when the curve is traced once.</li>
+      </ol></div>
+    </div>
+
+    <div class="tryout" data-topic="L">
+      <div class="q">For $y=\sin x$ on $[0,2\pi]$ (3.3–3.5 notes p. 4), which integral is the arc length? Try each one.</div>
+      <div class="try-opts">
+        <button class="try-opt">$\displaystyle\int_0^{2\pi}\sin x\,dx$</button>
+        <button class="try-opt">$\displaystyle\int_0^{2\pi}\sqrt{1+\cos x}\,dx$</button>
+        <button class="try-opt">$\displaystyle\int_0^{2\pi}(1+\cos x)\,dx$</button>
+        <button class="try-opt">$\displaystyle\int_0^{2\pi}\sqrt{1+\cos^2x}\,dx$</button>
+      </div>
+      <div class="try-res" data-verdict="bad">It's 0: the signed area (<a href="#A-learn">§2.4</a>), not a length. A curve that wiggles up and down still has positive length.</div>
+      <div class="try-res" data-verdict="bad">The derivative wasn't squared. This gives $4\sqrt2\approx5.66$, shorter than the straight chord $2\pi\approx6.28$. That's impossible for a curve joining the same two endpoints.</div>
+      <div class="try-res" data-verdict="bad">The root was taken term by term: $\sqrt{1+\cos^2x}\ne1+\cos x$. This gives $2\pi\approx6.28$, the chord itself, as if the wave were as short as a straight line.</div>
+      <div class="try-res" data-verdict="good">About 7.64, longer than the chord $2\pi\approx6.28$, as it must be. There's no elementary antiderivative, so the notes estimate it: $T_4=\pi(\sqrt2+1)\approx7.58$.</div>
+    </div>
+
+    <div class="tryout" data-topic="L">
+      <div class="q">Which of these give the length $\pi$ of the upper half of the unit circle? Open all four and compare.</div>
+      <div class="try-opts">
+        <button class="try-opt">$(\cos t,\ \sin t)$, $0\le t\le2\pi$</button>
+        <button class="try-opt">$(\cos 2t,\ \sin 2t)$, $0\le t\le\pi$</button>
+        <button class="try-opt">$(\cos 2t,\ \sin 2t)$, $0\le t\le\tfrac\pi2$</button>
+        <button class="try-opt">$(\cos t,\ \sin t)$, $0\le t\le\pi$</button>
+      </div>
+      <div class="try-res" data-verdict="bad">$2\pi$: that's the whole circle.</div>
+      <div class="try-res" data-verdict="bad">Speed 2 for time $\pi$ gives $2\pi$. The angle $2t$ runs from 0 to $2\pi$, so this traces the whole circle too.</div>
+      <div class="try-res" data-verdict="good">Speed 2 for time $\frac\pi2$ gives $\pi$. A different speed, but the same half circle, so the same length.</div>
+      <div class="try-res" data-verdict="good">The notes' own version (3.3–3.5 notes p. 3): speed 1 for time $\pi$. Length depends on the curve traced, not on how fast it's traced.</div>
+    </div>
+  </div>
+
+  <!-- ============================== 4 ATTEMPT -->
+  <div class="stage" id="L-attempt">
+    <div class="stage-head"><span class="n">Stage 4 · Attempt</span><h3>Guided example, then your turn</h3></div>
+    <div class="guided" data-gid="L-guided">
+      <div class="g-intro"><span class="badge">Guided example</span>
+        <p style="margin-top:8px">Find the length of the curve $g(x)=\tfrac23(x+4)^{3/2}$ for $4\le x\le11$ (3.3–3.5 notes p. 3). Answer each step before you reveal it.</p></div>
+      <div class="gstep"><span class="g-label">Step 1 · Which formula?</span>
+        <div class="mcq" data-qid="L-g1"><div class="q">The length is…</div>
+          <div class="opts">
+            <button class="opt" data-correct>$\displaystyle\int_4^{11}\sqrt{1+g'(x)^2}\,dx$</button>
+            <button class="opt" data-why="That’s the area under the curve, not its length.">$\displaystyle\int_4^{11}g(x)\,dx$</button>
+            <button class="opt" data-why="The slope g′ belongs under the root, not g. Length depends on how steep the curve is, not how high it is.">$\displaystyle\int_4^{11}\sqrt{1+g(x)^2}\,dx$</button>
+          </div></div>
+        <div class="greveal">The curve is a graph $y=g(x)$, so use the second formula on notes p. 2.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 2 · Differentiate</span>
+        <p><label class="inline">$g'(x)=$ <input class="ans" data-vid="L-guided-dg" data-kind="expr" data-var="x" data-answer="(x+4)^(1/2)" data-dom="4,11" data-show="(x + 4)^(1/2)" placeholder="e.g. (x+4)^(1/2)" data-wrong='[{"f":"(2/3)*(x+4)^(1/2)","m":"Multiply by the 3/2 from the power rule too: (2/3)·(3/2) = 1."},{"f":"(x+4)^(3/2)","m":"The power drops by one: (x + 4)^(3/2) becomes (3/2)(x + 4)^(1/2)."}]'></label></p>
+        <div class="greveal">$g'(x)=\tfrac23\cdot\tfrac32(x+4)^{1/2}=(x+4)^{1/2}$ (notes p. 3). The inner derivative of $x+4$ is 1.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 3 · Square and add 1</span>
+        <p><label class="inline">$1+g'(x)^2=$ <input class="ans" data-vid="L-guided-inside" data-kind="expr" data-var="x" data-answer="x+5" data-dom="4,11" data-show="x + 5" placeholder="simplify it" data-wrong='[{"f":"1+(x+4)^(1/2)","m":"Square g′ first: ((x + 4)^(1/2))² = x + 4."},{"f":"x+4","m":"You squared g′. Now add the 1."}]'></label></p>
+        <div class="greveal">Squaring undoes the square root: $1+(x+4)=x+5$. The integrand is just $\sqrt{x+5}$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 4 · Substitute</span>
+        <div class="mcq" data-qid="L-g4"><div class="q">With $u=x+5$, the integral $\int_4^{11}\sqrt{x+5}\,dx$ becomes…</div>
+          <div class="opts">
+            <button class="opt" data-correct>$\displaystyle\int_9^{16}u^{1/2}\,du$</button>
+            <button class="opt" data-why="Change the limits too: x = 4 gives u = 9, and x = 11 gives u = 16 (§2.4, notes p. 26).">$\displaystyle\int_4^{11}u^{1/2}\,du$</button>
+            <button class="opt" data-why="The square root is still there: √(x + 5) = u^(1/2).">$\displaystyle\int_9^{16}u\,du$</button>
+          </div></div>
+        <div class="greveal">$du=dx$, and the limits move to $u=9$ and $u=16$, as in the professor's side calculation on notes p. 3.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 5 · Evaluate</span>
+        <p><label class="inline">Arc length $=$ <input class="ans" data-vid="L-guided-val" data-answer="24.666666666667" data-exact="74/3" data-wrong='[{"v":18.98858179594,"m":"Those are the x-limits 4 and 11 plugged into (2/3)u^(3/2). Use the u-limits 9 and 16."}]'></label></p>
+        <div class="greveal">$\tfrac23u^{3/2}\Big|_9^{16}=\tfrac23(64-27)=\tfrac{74}{3}\approx24.667$ (verified by hand, SymPy and Wolfram).</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 6 · Sanity check</span>
+        <div class="mcq" data-qid="L-g6"><div class="q">The straight chord from $(4,g(4))$ to $(11,g(11))$ has length about $24.659$. Is $\frac{74}{3}\approx24.667$ believable?</div>
+          <div class="opts">
+            <button class="opt" data-correct>Yes. The length must be at least the chord, and this curve is nearly straight on $[4,11]$.</button>
+            <button class="opt" data-why="Only if the curve bent a lot. Here the slope only changes from √8 ≈ 2.83 to √15 ≈ 3.87.">No. The arc length should be much bigger than the chord.</button>
+            <button class="opt" data-why="It’s the other way round: the chord is the shortest path, so the curve is at least that long.">No. The arc length can't be bigger than the chord.</button>
+          </div></div>
+        <div class="greveal">Always compare with the chord: arc length ≥ chord, with equality only for a straight line.</div>
+      </div>
+      <div class="takeaway"><b>Takeaway.</b> Differentiate, square, add 1, simplify, then integrate. Here that meant a u-substitution with changed limits. Check the result against the straight chord.</div>
+    </div>
+
+    <div class="problem" data-pid="L-indep" data-topic="L" data-level="4" data-title="Independent attempt" data-src="Your turn: textbook §3.3 Suggested Ex. 6" data-prompt="Find the arc length of the graph of g(x) = (4/3)(x + 2)^(3/2) for 0 &lt;= x &lt;= 4.">
+      <div class="p-body">Find the arc length of the graph of $g(x)=\tfrac43(x+2)^{3/2}$ for $0\le x\le4$.</div>
+      <div class="answers"><label>Arc length <input class="ans" data-vid="L-indep" data-answer="16.333333333333" data-exact="49/3" data-wrong='[{"v":65.333333333333,"m":"That is 4 times too big. With u = 4x + 9, du = 4 dx, so dx = du/4."},{"v":11.897275564511,"m":"It looks like g′² was taken as 2(x + 2). Square the whole derivative: (2(x + 2)^(1/2))² = 4(x + 2)."}]'></label></div>
+      <ol class="know">
+        <li>What is $g'(x)$? The $\frac43$ and the $\frac32$ combine.</li>
+        <li>Square it and add 1. Is the result something simple?</li>
+        <li>Integrate the square root of that with a u-substitution, and change the limits.</li>
+      </ol>
+      <div class="hint">$g'(x)=\tfrac43\cdot\tfrac32(x+2)^{1/2}=2(x+2)^{1/2}$.</div>
+      <div class="hint">$1+g'(x)^2=1+4(x+2)=4x+9$.</div>
+      <div class="hint">$u=4x+9$ and $du=4\,dx$, so $\int_0^4\sqrt{4x+9}\,dx=\tfrac14\int_9^{25}u^{1/2}\,du$.</div>
+      <div class="solution">
+        <p>$\tfrac14\cdot\tfrac23u^{3/2}\Big|_9^{25}=\tfrac16(125-27)=\tfrac{98}{6}=\tfrac{49}{3}\approx16.333$.</p>
+        <p style="margin:0"><b>Sanity check:</b> the chord from $(0,g(0))$ to $(4,g(4))$ has length about $16.32\le16.33$ ✓. Like the notes p. 3 curve, this one is nearly straight.</p>
+      </div>
+      <div class="reflect"><h5>Compare your approach</h5>
+        <label><input type="checkbox"> I squared the whole derivative, including the 2.</label>
+        <label><input type="checkbox"> I handled $du=4\,dx$ and changed the limits.</label>
+        <label><input type="checkbox"> I compared the answer with the straight chord.</label>
+        <p class="small muted" style="margin:6px 0 0">The clue to recognize next time: <b>“arc length of $y=f(x)$” → differentiate, square, add 1, simplify, integrate</b>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 5 COMPARE -->
+  <div class="stage" id="L-compare">
+    <div class="stage-head"><span class="n">Stage 5 · Compare</span><h3>Tempting approaches vs. correct reasoning</h3></div>
+    <div class="vs">
+      <div class="tempt"><h5>✗ Tempting</h5>“The arc length of $y=\sin x$ on $[0,2\pi]$ is $\int_0^{2\pi}\sin x\,dx=0$.” Or: “It's $2\pi$, the distance along the axis.”</div>
+      <div class="right"><h5>✓ Correct</h5>Length uses the slope: $\int_0^{2\pi}\sqrt{1+\cos^2x}\,dx\approx7.64$, longer than the chord $2\pi\approx6.28$. It has no elementary antiderivative, so the notes estimate it: $T_4=\pi(\sqrt2+1)\approx7.58$ (3.3–3.5 notes p. 4).</div>
+      <div class="clue"><b>Clue for next time:</b> “length of a curve” → $\sqrt{1+f'^2}$, never $f$ itself. Then compare with the chord.</div>
+    </div>
+
+    <div class="spot" data-sid="L-spot1">
+      <p><b>Spot the error.</b> A student estimates the length of $y=\sin x$ on $[0,2\pi]$ with the Trapezoid Rule and $n=4$ (3.3–3.5 notes p. 4):</p>
+      <button class="sline"><span class="ln">Line 1</span><span>Arclength $=\int_0^{2\pi}\sqrt{1+\cos^2x}\,dx$, so $f(x)=\sqrt{1+\cos^2x}$.</span></button>
+      <button class="sline"><span class="ln">Line 2</span><span>$\Delta x=\frac{2\pi}{4}=\frac\pi2$, and the points are $0,\frac\pi2,\pi,\frac{3\pi}2,2\pi$.</span></button>
+      <button class="sline" data-bad><span class="ln">Line 3</span><span>$f(0)=\sqrt2,\ \ f(\tfrac\pi2)=1,\ \ f(\pi)=0,\ \ f(\tfrac{3\pi}2)=1,\ \ f(2\pi)=\sqrt2$.</span></button>
+      <button class="sline"><span class="ln">Line 4</span><span>$T_4=\frac\pi4\big(\sqrt2+2+0+2+\sqrt2\big)\approx5.36$.</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout warn"><div class="label">What went wrong</div><p style="margin:0">Line 3: $\cos\pi=-1$, and squaring gives $+1$, so $f(\pi)=\sqrt{1+1}=\sqrt2$. With the right height, $T_4=\frac\pi4(4\sqrt2+4)=\pi(\sqrt2+1)\approx7.58$, the notes' answer. A red flag: 5.36 is shorter than the straight line from $(0,0)$ to $(2\pi,0)$, which has length $2\pi\approx6.28$. No curve is shorter than its chord.</p></div>
+    </div>
+
+    <div class="spot" data-sid="L-spot2">
+      <p><b>Spot the error.</b> A student finds the length of $g(x)=\tfrac23(x+4)^{3/2}$ on $[4,11]$ (3.3–3.5 notes p. 3):</p>
+      <button class="sline"><span class="ln">Line 1</span><span>$g'(x)=(x+4)^{1/2}$</span></button>
+      <button class="sline"><span class="ln">Line 2</span><span>$\sqrt{1+g'(x)^2}=\sqrt{1+(x+4)}$</span></button>
+      <button class="sline" data-bad><span class="ln">Line 3</span><span>$\phantom{\sqrt{1+g'(x)^2}}=1+\sqrt{x+4}$</span></button>
+      <button class="sline"><span class="ln">Line 4</span><span>Length $=\displaystyle\int_4^{11}\big(1+\sqrt{x+4}\big)\,dx\approx30.64$</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout warn"><div class="label">What went wrong</div><p style="margin:0">Line 3 splits the root, but $\sqrt{a+b}\ne\sqrt a+\sqrt b$ (with $a=9$, $b=16$: $5\ne7$). Keep it whole: $\sqrt{1+x+4}=\sqrt{x+5}$, which gives $\frac{74}{3}\approx24.67$. A red flag: 30.64 is far more than the chord, 24.66, for a curve that's nearly straight.</p></div>
+    </div>
+
+    <h4 style="margin-top:22px">Common mistakes: why they happen and how to prevent them</h4>
+    <details class="mistake"><summary>Integrating $f$ instead of $\sqrt{1+f'^2}$</summary><div class="m-body"><p><b>Why it happens</b><br>Area problems trained you to integrate the function itself.</p><p><b>Prevent it</b><br>Length depends on steepness, so the derivative has to appear. Ask what's being added up: tiny pieces of curve, each about $\sqrt{1+f'^2}\,dx$ long.</p></div></details>
+    <details class="mistake"><summary>Forgetting to square, or forgetting the 1</summary><div class="m-body"><p><b>Why it happens</b><br>There are three operations in a row: differentiate, square, add 1.</p><p><b>Prevent it</b><br>Write $1+f'(x)^2$ on its own line and simplify it before you touch the root.</p></div></details>
+    <details class="mistake"><summary>Splitting the square root</summary><div class="m-body"><p><b>Why it happens</b><br>$\sqrt{ab}=\sqrt a\sqrt b$ is true, so $\sqrt{a+b}=\sqrt a+\sqrt b$ feels natural.</p><p><b>Prevent it</b><br>Test with numbers: $\sqrt{9+16}=5$, but $3+4=7$. Simplify inside the root instead.</p></div></details>
+    <details class="mistake"><summary>Losing the chain-rule factor in the substitution</summary><div class="m-body"><p><b>Why it happens</b><br>With $u=4x+9$ it's easy to forget that $du=4\,dx$.</p><p><b>Prevent it</b><br>Write $du=\frac{du}{dx}\,dx$ every time (the Key on notes p. 3), and change the limits.</p></div></details>
+    <details class="mistake"><summary>A parametrization that goes around twice</summary><div class="m-body"><p><b>Why it happens</b><br>The integral measures distance traveled, whatever path the particle takes.</p><p><b>Prevent it</b><br>Check that the curve is traced once. For $(\cos t,\sin t)$, $t$ from 0 to $2\pi$ is one full circle; up to $4\pi$ is two.</p></div></details>
+    <details class="mistake"><summary>Expecting an exact answer every time</summary><div class="m-body"><p><b>Why it happens</b><br>Textbook examples are chosen so that they simplify.</p><p><b>Prevent it</b><br>Most arc-length integrals, like $\int\sqrt{1+\cos^2x}\,dx$, have no elementary antiderivative. Notes p. 4 asks you to set up, then estimate.</p></div></details>
+  </div>
+
+  <!-- ============================== 6 PRACTICE -->
+  <div class="stage" id="L-practice">
+    <div class="stage-head"><span class="n">Stage 6 · Practice</span><h3>Practice: standard applications</h3></div>
+    <div class="problem" data-pid="L-p1" data-topic="L" data-title="Practice 1" data-src="3.3–3.5 notes p. 3 · redo it" data-prompt="Find the arc length of the curve (cos t, sin t) for 0 &lt;= t &lt;= pi.">
+      <div class="p-body">Find the arc length of the curve $(\cos t,\ \sin t)$ for $0\le t\le\pi$.</div>
+      <div class="answers"><label>Arc length <input class="ans" data-vid="L-p1" data-answer="3.141592653590" data-exact="π" data-wrong='[{"v":6.28318530718,"m":"That is the whole circle, 2π. Here t only runs from 0 to π: the upper half."},{"v":2,"m":"That is the straight chord from (1, 0) to (−1, 0). The curve is longer."}]'></label></div>
+      <div class="hint">$x(t)=\cos t$ and $y(t)=\sin t$ (notes p. 3). Differentiate each one.</div>
+      <div class="hint">$\sqrt{(-\sin t)^2+\cos^2t}=\sqrt1=1$.</div>
+      <div class="solution">$\int_0^\pi1\,dt=\pi$ (3.3–3.5 notes p. 3). Half of a circle of radius 1 has length $\pi$ ✓.</div>
+    </div>
+    <div class="problem" data-pid="L-p2" data-topic="L" data-title="Practice 2" data-src="3.3–3.5 notes p. 4 · redo it" data-help="4 decimal places, or exact (e.g. pi(sqrt(2)+1))." data-prompt="Consider the curve y = sin x on [0, 2 pi]. (a) Set up an integral for its arc length. (b) Use the Trapezoid Rule with n = 4 to approximate the arc length.">
+      <div class="p-body">Consider the curve $y=\sin x$ on $[0,2\pi]$. (a) Set up an integral for its arc length. (b) Use the Trapezoid Rule with $n=4$ to approximate the arc length. Write (a) on paper; enter (b) below.</div>
+      <div class="answers"><label>(b) $T_4\approx$ <input class="ans" data-vid="L-p2" data-answer="7.584475591748" data-exact="π(√2 + 1)" data-wrong='[{"v":5.363034122669,"m":"Check f(π): cos π = −1, and (−1)² = 1, so f(π) = √2, not 0."},{"v":15.168951183496,"m":"The Trapezoid prefactor is Δx/2 = π/4, not Δx."},{"v":3.14159265359,"m":"Those heights are |cos x|: the 1 under the root is missing. Use f(x) = √(1 + cos²x)."}]'></label></div>
+      <div class="hint">(a) $f(x)=\sin x$, so $f'(x)=\cos x$ and the arc length is $\int_0^{2\pi}\sqrt{1+\cos^2x}\,dx$.</div>
+      <div class="hint">(b) $\Delta x=\frac\pi2$ at the points $0,\frac\pi2,\pi,\frac{3\pi}2,2\pi$. The heights are $\sqrt2,1,\sqrt2,1,\sqrt2$.</div>
+      <div class="solution">(a) $\int_0^{2\pi}\sqrt{1+\cos^2x}\,dx$. (b) $\frac\pi4\big(\sqrt2+2\cdot1+2\sqrt2+2\cdot1+\sqrt2\big)=\pi(\sqrt2+1)\approx7.5845$ (3.3–3.5 notes p. 4). The actual length is about 7.6404, so this estimate is a little low.</div>
+    </div>
+    <div class="problem" data-pid="L-p3" data-topic="L" data-title="Practice 3" data-src="Textbook Example 3.3.15" data-prompt="Find the arc length of the graph of y = (2/3) x^(3/2) for 0 &lt;= x &lt;= 8.">
+      <div class="p-body">Find the arc length of the graph of $y=\tfrac23x^{3/2}$ for $0\le x\le8$.</div>
+      <div class="answers"><label>Arc length <input class="ans" data-vid="L-p3" data-answer="17.333333333333" data-exact="52/3"></label></div>
+      <div class="hint">$y'=x^{1/2}$, so $1+y'^2=1+x$.</div>
+      <div class="hint">Substitute $u=1+x$: the limits become $1$ and $9$.</div>
+      <div class="solution">$\int_1^9u^{1/2}\,du=\tfrac23(27-1)=\tfrac{52}{3}\approx17.33$.</div>
+    </div>
+    <div class="problem" data-pid="L-p4" data-topic="L" data-title="Practice 4" data-src="Textbook §3.3 Suggested Ex. 7" data-prompt="Find the arc length of the graph of f(x) = x^3/12 + 1/x on [1, 2].">
+      <div class="p-body">Find the arc length of the graph of $f(x)=\dfrac{x^3}{12}+\dfrac1x$ on $[1,2]$.</div>
+      <div class="answers"><label>Arc length <input class="ans" data-vid="L-p4" data-answer="1.083333333333" data-exact="13/12"></label></div>
+      <div class="hint">$f'(x)=\frac{x^2}{4}-\frac{1}{x^2}$.</div>
+      <div class="hint">$f'^2=\frac{x^4}{16}-\frac12+\frac{1}{x^4}$, so $1+f'^2=\frac{x^4}{16}+\frac12+\frac{1}{x^4}$. Is that a perfect square?</div>
+      <div class="solution">$1+f'^2=\big(\frac{x^2}{4}+\frac{1}{x^2}\big)^2$, so the length is $\int_1^2\big(\frac{x^2}{4}+\frac{1}{x^2}\big)dx=\big[\frac{x^3}{12}-\frac1x\big]_1^2=\big(\frac23-\frac12\big)-\big(\frac1{12}-1\big)=\frac{13}{12}$. The trick: $(A-B)^2+4AB=(A+B)^2$, and here $4AB=4\cdot\frac{x^2}{4}\cdot\frac1{x^2}=1$, exactly the 1 in the formula.</div>
+    </div>
+    <div class="problem" data-pid="L-p5" data-topic="L" data-title="Practice 5" data-src="Textbook Example 3.3.17 (+ a twist)" data-help="Exact (e.g. 6pi) or decimals." data-prompt="(a) Find the length of the circle (3 cos t, 3 sin t), 0 &lt;= t &lt;= 2 pi. (b) A particle moves along (3 cos 2t, 3 sin 2t) for 0 &lt;= t &lt;= 2 pi. How far does it travel?">
+      <div class="p-body">(a) Find the length of the circle $(3\cos t,\ 3\sin t)$, $0\le t\le2\pi$. (b) A particle moves along $(3\cos2t,\ 3\sin2t)$ for $0\le t\le2\pi$. How far does it travel?</div>
+      <div class="answers"><label>(a) <input class="ans" data-label="(a)" data-vid="L-p5-a" data-answer="18.849555921539" data-exact="6π"></label><label>(b) <input class="ans" data-label="(b)" data-vid="L-p5-b" data-answer="37.699111843078" data-exact="12π" data-wrong='[{"v":18.849555921539,"m":"That is the circle’s length. The angle 2t runs from 0 to 4π, so the particle goes around twice."}]'></label></div>
+      <div class="hint">(a) The velocity is $(-3\sin t,\ 3\cos t)$, so the speed is 3.</div>
+      <div class="hint">(b) The velocity is $(-6\sin2t,\ 6\cos2t)$: speed 6 for time $2\pi$.</div>
+      <div class="solution">(a) $\int_0^{2\pi}3\,dt=6\pi$, the familiar $2\pi r$. (b) $\int_0^{2\pi}6\,dt=12\pi$: the particle goes around the same circle twice. The curve is still only $6\pi$ long; the integral measured the distance traveled.</div>
+    </div>
+    <div class="problem" data-pid="L-p6" data-topic="L" data-title="Practice 6" data-src="Textbook §3.3 Additional Ex. 6" data-prompt="Find the arc length of the graph of f(x) = 3x + 1 on [1, 5]. Check it with geometry.">
+      <div class="p-body">Find the arc length of the graph of $f(x)=3x+1$ on $[1,5]$. Then check it with geometry.</div>
+      <div class="answers"><label>Arc length <input class="ans" data-vid="L-p6" data-answer="12.649110640674" data-exact="4√10"></label></div>
+      <div class="hint">$f'(x)=3$, so the integrand is the constant $\sqrt{1+9}=\sqrt{10}$.</div>
+      <div class="solution">$\int_1^5\sqrt{10}\,dx=4\sqrt{10}\approx12.649$. Geometry: the segment from $(1,4)$ to $(5,16)$ has length $\sqrt{4^2+12^2}=\sqrt{160}=4\sqrt{10}$ ✓. For a straight line, arc length equals the chord. In general, $f(x)=ax+b$ on $[c,d]$ has length $(d-c)\sqrt{1+a^2}$.</div>
+    </div>
+    <div class="problem" data-pid="L-p7" data-topic="L" data-title="Practice 7" data-src="New variant · combines §2.6" data-help="4 decimal places." data-prompt="Set up the arc length of y = x^3 on [0, 1] and estimate it with Simpson's Rule, n = 4.">
+      <div class="p-body">Set up an integral for the arc length of $y=x^3$ on $[0,1]$, and estimate it with Simpson's Rule, $n=4$.</div>
+      <div class="answers"><label>$S_4\approx$ <input class="ans" data-vid="L-p7" data-answer="1.548180018536" data-tol="6e-4" data-wrong='[{"v":1.577527367662,"m":"That is the Trapezoid estimate. Simpson uses the coefficients 1, 4, 2, 4, 1 and the prefactor Δx/3."}]'></label></div>
+      <div class="hint">$y'=3x^2$, so the length is $\int_0^1\sqrt{1+9x^4}\,dx$. This has no elementary antiderivative.</div>
+      <div class="hint">$\Delta x=\frac14$. The heights at $0,\frac14,\frac12,\frac34,1$ are $1,\ \sqrt{1+\frac{9}{256}},\ 1.25,\ \sqrt{1+\frac{729}{256}},\ \sqrt{10}$. The coefficients are $1,4,2,4,1$, and the prefactor is $\frac{\Delta x}{3}=\frac1{12}$.</div>
+      <div class="solution">$\frac1{12}\big[1+4(1.017427)+2(1.25)+4(1.961545)+3.162278\big]\approx1.54818$. A high-accuracy value is 1.547866. The chord from $(0,0)$ to $(1,1)$ is $\sqrt2\approx1.414$, shorter ✓.</div>
+    </div>
+    <div class="problem" data-pid="L-p8" data-topic="L" data-title="Practice 8" data-src="New variant" data-prompt="Find the arc length of the curve (t^2, t^3) for 0 &lt;= t &lt;= 1.">
+      <div class="p-body">Find the arc length of the curve $(t^2,\ t^3)$ for $0\le t\le1$.</div>
+      <div class="answers"><label>Arc length <input class="ans" data-vid="L-p8" data-answer="1.439709873372" data-exact="(13√13 − 8)/27" data-wrong='[{"v":2,"m":"That splits the root: √(4t² + 9t⁴) ≠ 2t + 3t². Factor out t² instead."}]'></label></div>
+      <div class="hint">$x'=2t$ and $y'=3t^2$, so the speed is $\sqrt{4t^2+9t^4}$.</div>
+      <div class="hint">Factor out $t^2$: the speed is $t\sqrt{4+9t^2}$ (fine, because $t\ge0$). Then substitute $u=4+9t^2$, $du=18t\,dt$.</div>
+      <div class="solution">$\frac1{18}\int_4^{13}u^{1/2}\,du=\frac1{27}\big(13^{3/2}-8\big)=\frac{13\sqrt{13}-8}{27}\approx1.4397$. The chord from $(0,0)$ to $(1,1)$ is $\sqrt2\approx1.414$, a little shorter ✓.</div>
+    </div>
+  </div>
+
+  <!-- ============================== 7 MASTER -->
+  <div class="stage" id="L-master">
+    <div class="stage-head"><span class="n">Stage 7 · Master</span><h3>Mastery check</h3></div>
+    <p class="muted">No hints are offered until you've committed to an answer. This checks recognition, understanding, unfamiliar problems, and whether you can explain why.</p>
+    <div class="mcq" data-qid="L-m1" data-topic="L" data-level="1" data-count data-multi data-multimsg="At least one choice is off. For each option ask: does it add up tiny pieces of the curve, each √(1 + f′²) dx long?">
+      <div class="q"><b>Recognition.</b> Which of these equal the arc length of $y=f(x)$ from $x=a$ to $x=b$? Select all that apply.</div>
+      <div class="opts cols-2">
+        <button class="opt" data-correct>$\displaystyle\int_a^b\sqrt{1+f'(x)^2}\,dx$</button>
+        <button class="opt">$\displaystyle\int_a^bf(x)\,dx$</button>
+        <button class="opt" data-correct>the distance traveled by a particle at $(t,f(t))$, $a\le t\le b$</button>
+        <button class="opt">$\displaystyle\int_a^b\sqrt{1+f(x)^2}\,dx$</button>
+        <button class="opt">$\sqrt{(b-a)^2+(f(b)-f(a))^2}$</button>
+        <button class="opt">$\displaystyle\int_a^b\big(1+f'(x)\big)\,dx$</button>
+      </div>
+      <div class="why callout why"><div class="label">Why</div><p style="margin:0">The first and third are the same thing: the particle $(t,f(t))$ has velocity $(1,f'(t))$ and speed $\sqrt{1+f'^2}$ (3.3–3.5 notes p. 2). The others: the second is an area, the fourth drops the derivative, the fifth is the straight chord (a lower bound), and the last splits the root.</p></div>
+    </div>
+    <div class="mcq" data-qid="L-m2" data-topic="L" data-level="2" data-count>
+      <div class="q"><b>Understanding.</b> Why is the arc length of $y=f(x)$ over $[a,b]$ always at least $b-a$?</div>
+      <div class="opts">
+        <button class="opt" data-correct data-why="Right. It equals b − a only when f′ = 0 everywhere: a horizontal line.">Because $\sqrt{1+f'(x)^2}\ge1$ at every $x$, so the integral is at least $\int_a^b1\,dx=b-a$.</button>
+        <button class="opt" data-why="The height of the curve doesn’t matter. y = sin x dips below 0 and is still longer than 2π.">Because $f$ is positive.</button>
+        <button class="opt" data-why="No: the notes p. 3 curve has length 74/3 over an interval of length 7.">Because the arc length is always a whole-number multiple of $b-a$.</button>
+        <button class="opt" data-why="Steepness only adds length: √(1 + f′²) grows as |f′| grows.">It isn't. A steep curve can be shorter than $b-a$.</button>
+      </div>
+    </div>
+    <div class="problem" data-pid="L-m3" data-topic="L" data-level="6" data-title="Unfamiliar problem" data-src="Distance vs. length · textbook §3.3" data-help="Exact (e.g. 3pi) or decimals." data-prompt="A particle moves along (cos 3t, sin 3t) for 0 &lt;= t &lt;= pi. (a) How far does it travel? (b) What is the length of the curve it traces?">
+      <div class="p-body">A particle moves along $(\cos3t,\ \sin3t)$ for $0\le t\le\pi$. (a) How far does it travel? (b) What is the length of the curve it traces (the set of points it passes through)?</div>
+      <div class="answers"><label>(a) <input class="ans" data-label="(a)" data-vid="L-m3-a" data-answer="9.424777960769" data-exact="3π"></label><label>(b) <input class="ans" data-label="(b)" data-vid="L-m3-b" data-answer="6.283185307180" data-exact="2π" data-wrong='[{"v":9.424777960769,"m":"That is the distance traveled. The particle goes around one and a half times, but the curve it traces is the unit circle, traced partly twice."},{"v":3.14159265359,"m":"That is only half the circle. The angle 3t runs from 0 to 3π, past a full turn."}]'></label></div>
+      <div class="hint">The speed is $\sqrt{9\sin^23t+9\cos^23t}=3$.</div>
+      <div class="hint">The angle $3t$ runs from 0 to $3\pi$: one full turn plus half a turn. Which points does the particle visit?</div>
+      <div class="solution">(a) $\int_0^\pi3\,dt=3\pi\approx9.42$. (b) After one full turn the particle has visited every point of the unit circle; the last half turn repeats points it has already visited. So the curve traced is the whole unit circle, of length $2\pi\approx6.28$. The formula $\int\sqrt{x'^2+y'^2}\,dt$ gives a curve's length only when it traces the curve once.</div>
+    </div>
+    <div class="problem" data-pid="L-m4" data-topic="L" data-level="6" data-title="Unfamiliar problem" data-src="Unfamiliar · a perfect square with a logarithm" data-prompt="Find the arc length of y = x^2/2 - (ln x)/4 for 1 &lt;= x &lt;= e.">
+      <div class="p-body">Find the arc length of $y=\dfrac{x^2}{2}-\dfrac{\ln x}{4}$ for $1\le x\le e$.</div>
+      <div class="answers"><label>Arc length <input class="ans" data-vid="L-m4" data-answer="3.444528049465" data-exact="e²/2 − 1/4"></label></div>
+      <div class="hint">$y'=x-\frac{1}{4x}$. Expand $y'^2$, then add 1.</div>
+      <div class="hint">$1+y'^2=x^2+\frac12+\frac{1}{16x^2}$. Compare it with $\big(x+\frac1{4x}\big)^2$.</div>
+      <div class="solution">$1+y'^2=\big(x+\frac1{4x}\big)^2$, so the length is $\int_1^e\big(x+\frac1{4x}\big)dx=\big[\frac{x^2}{2}+\frac{\ln x}{4}\big]_1^e=\frac{e^2}{2}+\frac14-\frac12=\frac{e^2}{2}-\frac14\approx3.4445$. It's the same trick as Practice 4: flip the sign of the cross term.</div>
+    </div>
+    <div class="explain card" data-eid="L-explain" data-topic="L">
+      <h4>Explain why (Level 7)</h4>
+      <p>In your own words: why does $\int_a^b\sqrt{1+f'(x)^2}\,dx$ give the length of the graph? Where do the 1, the $f'(x)$ and the square root come from?</p>
+      <textarea aria-label="Your explanation"></textarea>
+      <div class="model callout why"><div class="label">A model explanation</div><p style="margin:0">Chop the curve into short pieces. Over a piece of width $\Delta x$ the curve rises about $\Delta y\approx f'(x)\,\Delta x$, so the piece is nearly the hypotenuse of a right triangle with legs $\Delta x$ and $f'(x)\,\Delta x$. By Pythagoras its length is $\sqrt{(\Delta x)^2+(f'(x)\Delta x)^2}=\sqrt{1+f'(x)^2}\,\Delta x$. The 1 is the horizontal leg per unit of $x$, $f'(x)$ is the vertical leg per unit of $x$, and the square root is Pythagoras. Adding the pieces is a Riemann sum, and as the pieces shrink it becomes the integral. Equivalently, a particle at $(t,f(t))$ has velocity $(1,f'(t))$, so the integral is its distance traveled (3.3–3.5 notes p. 2).</p></div>
+    </div>
+  </div>
+</section>

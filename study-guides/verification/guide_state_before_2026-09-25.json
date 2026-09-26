@@ -1,0 +1,1140 @@
+{
+ "source": "calc2_study_guide_1.1-3.3.html as built on 2026-09-23 (before the rest3.3-3.5.pdf update)",
+ "counts": {
+  "answer_inputs": 175,
+  "problems": 128,
+  "mcq": 78,
+  "spots": 14,
+  "tryouts": 9,
+  "guided": 8,
+  "explain": 9,
+  "widgets": 8,
+  "topic_sections": 8
+ },
+ "topic_attr_counts": {
+  "U": 21,
+  "P": 23,
+  "R": 22,
+  "A": 17,
+  "B": 26,
+  "C": 18,
+  "D": 20,
+  "E": 23
+ },
+ "ids": [
+  "A-explain",
+  "A-g1",
+  "A-g2",
+  "A-g6",
+  "A-guided",
+  "A-indep",
+  "A-m1",
+  "A-m2",
+  "A-m3",
+  "A-p1",
+  "A-p2",
+  "A-p3",
+  "A-p4",
+  "A-p5",
+  "A-p6",
+  "A-p7",
+  "A-spot1",
+  "A-spot2",
+  "B-explain",
+  "B-g1",
+  "B-g2",
+  "B-g3",
+  "B-guided",
+  "B-indep",
+  "B-m1",
+  "B-m2",
+  "B-m3",
+  "B-m4",
+  "B-m5",
+  "B-m6",
+  "B-m7",
+  "B-p1",
+  "B-p10",
+  "B-p11",
+  "B-p2",
+  "B-p3",
+  "B-p4",
+  "B-p5",
+  "B-p6",
+  "B-p7",
+  "B-p8",
+  "B-p9",
+  "B-spot1",
+  "B-spot2",
+  "C-explain",
+  "C-g2",
+  "C-g3",
+  "C-g6",
+  "C-guided",
+  "C-indep",
+  "C-m1",
+  "C-m2",
+  "C-m3",
+  "C-m4",
+  "C-p1",
+  "C-p2",
+  "C-p3",
+  "C-p4",
+  "C-p5",
+  "C-p6",
+  "C-spot1",
+  "D-explain",
+  "D-g2",
+  "D-g3",
+  "D-guided",
+  "D-indep",
+  "D-m1",
+  "D-m2",
+  "D-m3",
+  "D-m4",
+  "D-m5",
+  "D-p1",
+  "D-p2",
+  "D-p3",
+  "D-p4",
+  "D-p5",
+  "D-p6",
+  "D-p7",
+  "D-p8",
+  "D-p9",
+  "D-spot1",
+  "E-explain",
+  "E-g1",
+  "E-g5",
+  "E-guided",
+  "E-indep",
+  "E-m1",
+  "E-m2",
+  "E-m3",
+  "E-m4",
+  "E-p1",
+  "E-p10",
+  "E-p2",
+  "E-p3",
+  "E-p4",
+  "E-p5",
+  "E-p6",
+  "E-p7",
+  "E-p8",
+  "E-p9",
+  "E-spot1",
+  "E-spot2",
+  "F-1",
+  "F-10",
+  "F-11",
+  "F-12",
+  "F-2",
+  "F-3",
+  "F-4",
+  "F-5",
+  "F-6",
+  "F-7",
+  "F-8",
+  "F-9",
+  "F-E1",
+  "F-E2",
+  "F-E3",
+  "F-P1",
+  "F-P2",
+  "F-P3",
+  "F-R1",
+  "F-R2",
+  "F-R3",
+  "F-U1",
+  "F-U2",
+  "F-U3",
+  "P-explain",
+  "P-g1",
+  "P-g5",
+  "P-guided",
+  "P-indep",
+  "P-m1",
+  "P-m2",
+  "P-m3",
+  "P-m4",
+  "P-p1",
+  "P-p2",
+  "P-p3",
+  "P-p4",
+  "P-p5",
+  "P-p6",
+  "P-p7",
+  "P-p8",
+  "P-p9",
+  "P-spot1",
+  "P-spot2",
+  "R-explain",
+  "R-g1",
+  "R-g2",
+  "R-g6",
+  "R-guided",
+  "R-indep",
+  "R-m1",
+  "R-m2",
+  "R-m3",
+  "R-m4",
+  "R-p1",
+  "R-p2",
+  "R-p3",
+  "R-p4",
+  "R-p5",
+  "R-p6",
+  "R-p7",
+  "R-p8",
+  "R-p9",
+  "R-spot1",
+  "R-spot2",
+  "U-explain",
+  "U-g1",
+  "U-g6",
+  "U-guided",
+  "U-indep",
+  "U-m1",
+  "U-m2",
+  "U-m3",
+  "U-m4",
+  "U-p1",
+  "U-p2",
+  "U-p3",
+  "U-p4",
+  "U-p5",
+  "U-p6",
+  "U-p7",
+  "U-p8",
+  "U-spot1",
+  "U-spot2",
+  "diag-1",
+  "diag-2",
+  "diag-3",
+  "diag-4",
+  "diag-5",
+  "diag-E",
+  "diag-P",
+  "diag-R",
+  "diag-U",
+  "mixed-1",
+  "mixed-1-class",
+  "mixed-10",
+  "mixed-10-class",
+  "mixed-11",
+  "mixed-11-class",
+  "mixed-12",
+  "mixed-12-class",
+  "mixed-2",
+  "mixed-2-class",
+  "mixed-3",
+  "mixed-3-class",
+  "mixed-4",
+  "mixed-4-class",
+  "mixed-5",
+  "mixed-5-class",
+  "mixed-6",
+  "mixed-6-class",
+  "mixed-7",
+  "mixed-7-class",
+  "mixed-8",
+  "mixed-8-class",
+  "mixed-9",
+  "mixed-9-class",
+  "mixed-E1",
+  "mixed-E1-class",
+  "mixed-E2",
+  "mixed-E2-class",
+  "mixed-P1",
+  "mixed-P1-class",
+  "mixed-P2",
+  "mixed-P2-class",
+  "mixed-R1",
+  "mixed-R1-class",
+  "mixed-R2",
+  "mixed-R2-class",
+  "mixed-U1",
+  "mixed-U1-class",
+  "mixed-U2",
+  "mixed-U2-class",
+  "mixed-U3",
+  "mixed-U3-class"
+ ],
+ "answer_keys": [
+  {
+   "vid": "U-guided-du",
+   "answer": "5*t^4",
+   "kind": "expr"
+  },
+  {
+   "vid": "U-guided-factor",
+   "answer": "0.2",
+   "kind": "num"
+  },
+  {
+   "vid": "U-guided-u",
+   "answer": "(2/15)*u^(3/2)",
+   "kind": "anti"
+  },
+  {
+   "vid": "U-guided-back",
+   "answer": "(2/15)*(t^5+6)^(3/2)",
+   "kind": "anti"
+  },
+  {
+   "vid": "U-indep",
+   "answer": "(8/11)*(11+sin(x))^(11/8)",
+   "kind": "anti"
+  },
+  {
+   "vid": "U-p1",
+   "answer": "3*ln(abs(x)) - 2*x^(-1/2)",
+   "kind": "anti"
+  },
+  {
+   "vid": "U-p2",
+   "answer": "5*ln(abs(w)) - 7*e^w + (9/2)*w^(4/3)",
+   "kind": "anti"
+  },
+  {
+   "vid": "U-p3",
+   "answer": "(1/5)*ln(abs(e^(5*t)+13))",
+   "kind": "anti"
+  },
+  {
+   "vid": "U-p4",
+   "answer": "(5*w-3)^101/505",
+   "kind": "anti"
+  },
+  {
+   "vid": "U-p5",
+   "answer": "5*ln(abs(ln(x)))",
+   "kind": "anti"
+  },
+  {
+   "vid": "U-p6",
+   "answer": "-(1/6)*e^(1/x)",
+   "kind": "anti"
+  },
+  {
+   "vid": "U-p7",
+   "answer": "(1/2)*tan(y)^2",
+   "kind": "anti"
+  },
+  {
+   "vid": "U-p8",
+   "answer": "25.3929616485",
+   "kind": "num"
+  },
+  {
+   "vid": "U-m3",
+   "answer": "e^(e^x)",
+   "kind": "anti"
+  },
+  {
+   "vid": "U-m4",
+   "answer": "(2/15)*(x^3+1)^(5/2) - (2/9)*(x^3+1)^(3/2)",
+   "kind": "anti"
+  },
+  {
+   "vid": "P-guided-v",
+   "answer": "(1/3)*e^(3*x)",
+   "kind": "anti"
+  },
+  {
+   "vid": "P-guided-new",
+   "answer": "(1/9)*e^(3*x)",
+   "kind": "anti"
+  },
+  {
+   "vid": "P-guided-final",
+   "answer": "(x/3)*e^(3*x) - (1/9)*e^(3*x)",
+   "kind": "anti"
+  },
+  {
+   "vid": "P-indep",
+   "answer": "-(t/2)*cos(2*t) + (1/4)*sin(2*t)",
+   "kind": "anti"
+  },
+  {
+   "vid": "P-p1",
+   "answer": "(1/5)*x^5*ln(x) - (1/25)*x^5",
+   "kind": "anti"
+  },
+  {
+   "vid": "P-p2",
+   "answer": "-(1/2)*(x+6)*cos(2*x) + (1/4)*sin(2*x)",
+   "kind": "anti"
+  },
+  {
+   "vid": "P-p3",
+   "answer": "-2*(t^2+2*t+2)*e^(-t)",
+   "kind": "anti"
+  },
+  {
+   "vid": "P-p4",
+   "answer": "x*arcsin(x) + sqrt(1-x^2)",
+   "kind": "anti"
+  },
+  {
+   "vid": "P-p5",
+   "answer": "2*sqrt(x)*e^(sqrt(x)) - 2*e^(sqrt(x))",
+   "kind": "anti"
+  },
+  {
+   "vid": "P-p6",
+   "answer": "e^x*((x-5)^2 - 2*(x-5) + 2)",
+   "kind": "anti"
+  },
+  {
+   "vid": "P-p7",
+   "answer": "w*arctan(w) - (1/2)*ln(1+w^2)",
+   "kind": "anti"
+  },
+  {
+   "vid": "P-p8",
+   "answer": "-ln(t)/t - 1/t",
+   "kind": "anti"
+  },
+  {
+   "vid": "P-p9",
+   "answer": "1",
+   "kind": "num"
+  },
+  {
+   "vid": "P-m3",
+   "answer": "x*ln(x^2+1) - 2*x + 2*arctan(x)",
+   "kind": "anti"
+  },
+  {
+   "vid": "P-m4",
+   "answer": "0.718281828459",
+   "kind": "num"
+  },
+  {
+   "vid": "R-guided-A",
+   "answer": "4",
+   "kind": "num"
+  },
+  {
+   "vid": "R-guided-B",
+   "answer": "7",
+   "kind": "num"
+  },
+  {
+   "vid": "R-guided-int",
+   "answer": "4*ln(abs(x+2)) + 7*ln(abs(x+3))",
+   "kind": "anti"
+  },
+  {
+   "vid": "R-indep",
+   "answer": "-5*ln(abs(t+8)) + 6*ln(abs(t-2))",
+   "kind": "anti"
+  },
+  {
+   "vid": "R-p1",
+   "answer": "2*ln(abs(x+1)) - ln(abs(x-3))",
+   "kind": "anti"
+  },
+  {
+   "vid": "R-p2",
+   "answer": "-2*ln(abs(x)) + 3*ln(abs(x+2)) + 1/(x+2)",
+   "kind": "anti"
+  },
+  {
+   "vid": "R-p3",
+   "answer": "ln(abs(x+2)) + ln(x^2+1) - 3*arctan(x)",
+   "kind": "anti"
+  },
+  {
+   "vid": "R-p4",
+   "answer": "(1/2)*ln(r^2+1) - (1/2)*ln(r^2+4)",
+   "kind": "anti"
+  },
+  {
+   "vid": "R-p5",
+   "answer": "t^3/3 + 2*t + (3/2)*arctan(t/2)",
+   "kind": "anti"
+  },
+  {
+   "vid": "R-p6",
+   "answer": "ln(abs(y-1)) - (1/2)*ln(y^2+1) + 3*arctan(y)",
+   "kind": "anti"
+  },
+  {
+   "vid": "R-p7",
+   "answer": "2*ln(abs(j+5)) + 2/(j+5) - 3/(2*(j+5)^2)",
+   "kind": "anti"
+  },
+  {
+   "vid": "R-p8",
+   "answer": "x^2/2 + 4*x + ln(abs(x+3)) + 3*ln(abs(x+5))",
+   "kind": "anti"
+  },
+  {
+   "vid": "R-p9",
+   "answer": "0.287682072452",
+   "kind": "num"
+  },
+  {
+   "vid": "R-m3",
+   "answer": "4*ln(abs(n-2)) + ln(n^2+5)",
+   "kind": "anti"
+  },
+  {
+   "vid": "R-m4",
+   "answer": "(4/3)*arctan(x) + (5/6)*arctan(x/2)",
+   "kind": "anti"
+  },
+  {
+   "vid": "A-guided-piece1",
+   "answer": "1.333333333333",
+   "kind": "num"
+  },
+  {
+   "vid": "A-guided-piece2",
+   "answer": "1.333333333333",
+   "kind": "num"
+  },
+  {
+   "vid": "A-guided-total",
+   "answer": "2.666666666667",
+   "kind": "num"
+  },
+  {
+   "vid": "A-indep-total",
+   "answer": "7.666666666667",
+   "kind": "num"
+  },
+  {
+   "vid": "A-p1",
+   "answer": "2",
+   "kind": "num"
+  },
+  {
+   "vid": "A-p2-net",
+   "answer": "0",
+   "kind": "num"
+  },
+  {
+   "vid": "A-p2-total",
+   "answer": "4",
+   "kind": "num"
+  },
+  {
+   "vid": "A-p3-net",
+   "answer": "3.75",
+   "kind": "num"
+  },
+  {
+   "vid": "A-p3-total",
+   "answer": "4.25",
+   "kind": "num"
+  },
+  {
+   "vid": "A-p4",
+   "answer": "78",
+   "kind": "num"
+  },
+  {
+   "vid": "A-p5",
+   "answer": "4.392304845413",
+   "kind": "num"
+  },
+  {
+   "vid": "A-p6",
+   "answer": "0",
+   "kind": "num"
+  },
+  {
+   "vid": "A-p7",
+   "answer": "0.666666666667",
+   "kind": "num"
+  },
+  {
+   "vid": "A-master-total",
+   "answer": "1.016513274168",
+   "kind": "num"
+  },
+  {
+   "vid": "B-guided-piece1",
+   "answer": "3",
+   "kind": "num"
+  },
+  {
+   "vid": "B-guided-piece2",
+   "answer": "3.779763149660",
+   "kind": "num"
+  },
+  {
+   "vid": "B-guided",
+   "answer": "6.779763149660",
+   "kind": "num"
+  },
+  {
+   "vid": "B-indep",
+   "answer": "diverges",
+   "kind": "num"
+  },
+  {
+   "vid": "B-p1",
+   "answer": "0.5",
+   "kind": "num"
+  },
+  {
+   "vid": "B-p2",
+   "answer": "0.1",
+   "kind": "num"
+  },
+  {
+   "vid": "B-p3",
+   "answer": "diverges",
+   "kind": "num"
+  },
+  {
+   "vid": "B-p4",
+   "answer": "12",
+   "kind": "num"
+  },
+  {
+   "vid": "B-p5",
+   "answer": "1.047197551197",
+   "kind": "num"
+  },
+  {
+   "vid": "B-p6",
+   "answer": "3.141592653590",
+   "kind": "num"
+  },
+  {
+   "vid": "B-p7",
+   "answer": "0.910239226627",
+   "kind": "num"
+  },
+  {
+   "vid": "B-p8",
+   "answer": "diverges",
+   "kind": "num"
+  },
+  {
+   "vid": "B-p9",
+   "answer": "0.5",
+   "kind": "num"
+  },
+  {
+   "vid": "B-p10",
+   "answer": "1.233700550136",
+   "kind": "num"
+  },
+  {
+   "vid": "B-p11",
+   "answer": "diverges",
+   "kind": "num"
+  },
+  {
+   "vid": "B-master-tb259",
+   "answer": "9",
+   "kind": "num"
+  },
+  {
+   "vid": "C-guided-dx",
+   "answer": "0.5",
+   "kind": "num"
+  },
+  {
+   "vid": "C-guided-f",
+   "answer": "0.866025403784",
+   "kind": "num"
+  },
+  {
+   "vid": "C-guided-T4",
+   "answer": "1.366025403784",
+   "kind": "num"
+  },
+  {
+   "vid": "C-indep-S4",
+   "answer": "1.488033871713",
+   "kind": "num"
+  },
+  {
+   "vid": "C-p1-M2",
+   "answer": "0.754597943772",
+   "kind": "num"
+  },
+  {
+   "vid": "C-p2-M4",
+   "answer": "0.748747131891",
+   "kind": "num"
+  },
+  {
+   "vid": "C-p3-T5",
+   "answer": "1.480654570656",
+   "kind": "num"
+  },
+  {
+   "vid": "C-p4-S6",
+   "answer": "6.816753551097",
+   "kind": "num"
+  },
+  {
+   "vid": "C-p5-ln2-S6",
+   "answer": "0.693169793170",
+   "kind": "num"
+  },
+  {
+   "vid": "C-p6-pi-T5",
+   "answer": "3.134926113811",
+   "kind": "num"
+  },
+  {
+   "vid": "C-master-T2x2",
+   "answer": "3",
+   "kind": "num"
+  },
+  {
+   "vid": "C-master-S2x2",
+   "answer": "2.666666666667",
+   "kind": "num"
+  },
+  {
+   "vid": "C-master-pi-S4",
+   "answer": "3.141568627451",
+   "kind": "num"
+  },
+  {
+   "vid": "D-guided-disp",
+   "answer": "1.333333333333",
+   "kind": "num"
+  },
+  {
+   "vid": "D-guided-piece1",
+   "answer": "1.333333333333",
+   "kind": "num"
+  },
+  {
+   "vid": "D-guided-piece2",
+   "answer": "1.333333333333",
+   "kind": "num"
+  },
+  {
+   "vid": "D-guided-piece3",
+   "answer": "1.333333333333",
+   "kind": "num"
+  },
+  {
+   "vid": "D-guided-dist",
+   "answer": "4",
+   "kind": "num"
+  },
+  {
+   "vid": "D-indep-disp",
+   "answer": "5",
+   "kind": "num"
+  },
+  {
+   "vid": "D-indep-dist",
+   "answer": "13",
+   "kind": "num"
+  },
+  {
+   "vid": "D-p1-disp",
+   "answer": "80",
+   "kind": "num"
+  },
+  {
+   "vid": "D-p1-dist",
+   "answer": "160",
+   "kind": "num"
+  },
+  {
+   "vid": "D-p2-disp",
+   "answer": "-3.333333333333",
+   "kind": "num"
+  },
+  {
+   "vid": "D-p2-dist",
+   "answer": "32.666666666667",
+   "kind": "num"
+  },
+  {
+   "vid": "D-p3-disp",
+   "answer": "4.5",
+   "kind": "num"
+  },
+  {
+   "vid": "D-p3-dist",
+   "answer": "4.833333333333",
+   "kind": "num"
+  },
+  {
+   "vid": "D-p4-disp",
+   "answer": "0.666666666667",
+   "kind": "num"
+  },
+  {
+   "vid": "D-p4-dist",
+   "answer": "2",
+   "kind": "num"
+  },
+  {
+   "vid": "D-p5-final-position",
+   "answer": "2",
+   "kind": "num"
+  },
+  {
+   "vid": "D-p5-dist",
+   "answer": "10",
+   "kind": "num"
+  },
+  {
+   "vid": "D-p6-tb315-dist",
+   "answer": "6.158402871356",
+   "kind": "num"
+  },
+  {
+   "vid": "D-p7-disp",
+   "answer": "-0.281718171541",
+   "kind": "num"
+  },
+  {
+   "vid": "D-p7-dist",
+   "answer": "0.490870550699",
+   "kind": "num"
+  },
+  {
+   "vid": "D-p8-disp",
+   "answer": "5.333333333333",
+   "kind": "num"
+  },
+  {
+   "vid": "D-p8-dist",
+   "answer": "12",
+   "kind": "num"
+  },
+  {
+   "vid": "D-p9-disp",
+   "answer": "3.141592653590",
+   "kind": "num"
+  },
+  {
+   "vid": "D-p9-dist",
+   "answer": "4.511299166335",
+   "kind": "num"
+  },
+  {
+   "vid": "D-master-sincos-dist",
+   "answer": "5.656854249492",
+   "kind": "num"
+  },
+  {
+   "vid": "D-master-exp-dist",
+   "answer": "1",
+   "kind": "num"
+  },
+  {
+   "vid": "D-m5-dist",
+   "answer": "1.281718171541",
+   "kind": "num"
+  },
+  {
+   "vid": "E-guided-speed",
+   "answer": "5",
+   "kind": "num"
+  },
+  {
+   "vid": "E-guided-dist",
+   "answer": "31.415926535898",
+   "kind": "num"
+  },
+  {
+   "vid": "E-guided-displen",
+   "answer": "18.849555921539",
+   "kind": "num"
+  },
+  {
+   "vid": "E-indep",
+   "answer": "15",
+   "kind": "num"
+  },
+  {
+   "vid": "E-p1-x",
+   "answer": "0.476602241203",
+   "kind": "num"
+  },
+  {
+   "vid": "E-p1-y",
+   "answer": "58.079441541680",
+   "kind": "num"
+  },
+  {
+   "vid": "E-p2",
+   "answer": "27.464503012121",
+   "kind": "num"
+  },
+  {
+   "vid": "E-p3-x",
+   "answer": "1.718281828459",
+   "kind": "num"
+  },
+  {
+   "vid": "E-p3-y",
+   "answer": "1.414213562373",
+   "kind": "num"
+  },
+  {
+   "vid": "E-p3-z",
+   "answer": "-0.632120558829",
+   "kind": "num"
+  },
+  {
+   "vid": "E-p4",
+   "answer": "2.350402387288",
+   "kind": "num"
+  },
+  {
+   "vid": "E-p5-x",
+   "answer": "0",
+   "kind": "num"
+  },
+  {
+   "vid": "E-p5-y",
+   "answer": "0",
+   "kind": "num"
+  },
+  {
+   "vid": "E-p5-z",
+   "answer": "8",
+   "kind": "num"
+  },
+  {
+   "vid": "E-p6",
+   "answer": "14.857030325",
+   "kind": "num"
+  },
+  {
+   "vid": "E-p7",
+   "answer": "1.333333333333",
+   "kind": "num"
+  },
+  {
+   "vid": "E-p8-speed0",
+   "answer": "2",
+   "kind": "num"
+  },
+  {
+   "vid": "E-p8-dist",
+   "answer": "27.289917197128",
+   "kind": "num"
+  },
+  {
+   "vid": "E-p9-x",
+   "answer": "9",
+   "kind": "num"
+  },
+  {
+   "vid": "E-p9-dist",
+   "answer": "15.588457268120",
+   "kind": "num"
+  },
+  {
+   "vid": "E-p10",
+   "answer": "9.333333333333",
+   "kind": "num"
+  },
+  {
+   "vid": "E-m3",
+   "answer": "3.141592653590",
+   "kind": "num"
+  },
+  {
+   "vid": "E-m4",
+   "answer": "0.810016015371",
+   "kind": "num"
+  },
+  {
+   "vid": "M-U1",
+   "answer": "-ln(abs(cos(theta)))",
+   "kind": "anti"
+  },
+  {
+   "vid": "M11",
+   "answer": "21.891820298111",
+   "kind": "num"
+  },
+  {
+   "vid": "M-P1",
+   "answer": "-ln(x)/(2*x^2) - 1/(4*x^2)",
+   "kind": "anti"
+  },
+  {
+   "vid": "M1",
+   "answer": "0",
+   "kind": "num"
+  },
+  {
+   "vid": "M-R1",
+   "answer": "2*x + 3*ln(abs(x-3)) - 3*ln(abs(x+3))",
+   "kind": "anti"
+  },
+  {
+   "vid": "M4-T4",
+   "answer": "3.283261900244",
+   "kind": "num"
+  },
+  {
+   "vid": "M-E2",
+   "answer": "2.5",
+   "kind": "num"
+  },
+  {
+   "vid": "M3-dist",
+   "answer": "6.5",
+   "kind": "num"
+  },
+  {
+   "vid": "M-U3",
+   "answer": "ln(x^2+x+5)",
+   "kind": "anti"
+  },
+  {
+   "vid": "M6",
+   "answer": "1",
+   "kind": "num"
+  },
+  {
+   "vid": "M-P2",
+   "answer": "e^(1/x) - (1/x)*e^(1/x)",
+   "kind": "anti"
+  },
+  {
+   "vid": "M5",
+   "answer": "2",
+   "kind": "num"
+  },
+  {
+   "vid": "M-R2",
+   "answer": "(7/3)*ln(abs(x-2)) - (4/3)*ln(abs(x+1))",
+   "kind": "anti"
+  },
+  {
+   "vid": "M7-S4",
+   "answer": "68.666666666667",
+   "kind": "num"
+  },
+  {
+   "vid": "M-U2",
+   "answer": "10.666666666667",
+   "kind": "num"
+  },
+  {
+   "vid": "M2",
+   "answer": "diverges",
+   "kind": "num"
+  },
+  {
+   "vid": "M-E1",
+   "answer": "10.336347764748",
+   "kind": "num"
+  },
+  {
+   "vid": "M12-pos",
+   "answer": "4",
+   "kind": "num"
+  },
+  {
+   "vid": "M12-dist",
+   "answer": "9",
+   "kind": "num"
+  },
+  {
+   "vid": "M8",
+   "answer": "0",
+   "kind": "num"
+  },
+  {
+   "vid": "M10-S2",
+   "answer": "0.747180428910",
+   "kind": "num"
+  },
+  {
+   "vid": "M9",
+   "answer": "1.570796326795",
+   "kind": "num"
+  },
+  {
+   "vid": "F-U2",
+   "answer": "-1/(9*(x^3+5)^3)",
+   "kind": "anti"
+  },
+  {
+   "vid": "F-U3",
+   "answer": "(1/6)*(2*x+1)^(3/2) - (1/2)*(2*x+1)^(1/2)",
+   "kind": "anti"
+  },
+  {
+   "vid": "F-P2",
+   "answer": "(x/3)*sin(3*x) + (1/9)*cos(3*x)",
+   "kind": "anti"
+  },
+  {
+   "vid": "F-P3",
+   "answer": "(1/2)*e^(x^2)*(x^2-1)",
+   "kind": "anti"
+  },
+  {
+   "vid": "F-R2",
+   "answer": "ln(abs(u+3)) + 4*ln(abs(u-2)) + 3/(u-2)",
+   "kind": "anti"
+  },
+  {
+   "vid": "F-R3",
+   "answer": "w^2 + ln(abs(w+4)) + 3*ln(abs(w-1))",
+   "kind": "anti"
+  },
+  {
+   "vid": "A-final-abs",
+   "answer": "5",
+   "kind": "num"
+  },
+  {
+   "vid": "F-A-sinmcos",
+   "answer": "2.828427124746",
+   "kind": "num"
+  },
+  {
+   "vid": "F-B-p32",
+   "answer": "1",
+   "kind": "num"
+  },
+  {
+   "vid": "F-B-both",
+   "answer": "3.141592653590",
+   "kind": "num"
+  },
+  {
+   "vid": "F-C-M2x2",
+   "answer": "2.5",
+   "kind": "num"
+  },
+  {
+   "vid": "F-D-dist",
+   "answer": "2",
+   "kind": "num"
+  },
+  {
+   "vid": "F-D-improper",
+   "answer": "1",
+   "kind": "num"
+  },
+  {
+   "vid": "F-E2",
+   "answer": "10.180339887499",
+   "kind": "num"
+  },
+  {
+   "vid": "F-E3",
+   "answer": "1.414213562373",
+   "kind": "num"
+  }
+ ]
+}

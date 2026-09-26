@@ -1,0 +1,380 @@
+<section id="P" class="topic">
+  <div class="topic-banner">
+    <div class="topic-letter sec" aria-hidden="true">1.1</div>
+    <div><h2>Integration by parts</h2>
+    <div class="sources">Notes pp. 7–12 (+ extra practice pp. 21, 24) · Textbook §1.1 (Theorem 1.1.19; Examples 1.1.20–1.1.21)</div></div>
+  </div>
+  <nav class="stagebar" data-topic="P" aria-label="Stages in §1.1 (integration by parts)">
+    <a href="#P-learn"><span class="n">1</span>Learn</a><a href="#P-understand"><span class="n">2</span>Understand</a><a href="#P-explore"><span class="n">3</span>Explore</a><a href="#P-attempt"><span class="n">4</span>Attempt</a><a href="#P-compare"><span class="n">5</span>Compare</a><a href="#P-practice"><span class="n">6</span>Practice</a><a href="#P-master"><span class="n">7</span>Master</a>
+  </nav>
+
+  <!-- ============================== 1 LEARN -->
+  <div class="stage" id="P-learn">
+    <div class="stage-head"><span class="n">Stage 1 · Learn</span><h3>The big idea</h3></div>
+    <div class="callout big">
+      <div class="label">Big idea</div>
+      <p>Substitution undoes the chain rule. <b>Integration by parts undoes the product rule.</b> It's the tool for a product of two <em>different kinds</em> of functions, like $x\,e^x$ or $x^4\ln x$, when there's no inside/derivative pair for substitution.</p>
+      <p style="margin:0">Parts doesn't finish an integral by itself. It <b>trades</b> the integral you have for a different one: $\int u\,dv=uv-\int v\,du$. The whole skill is choosing $u$ and $dv$ so the new integral, $\int v\,du$, is <em>easier</em> than the one you started with.</p>
+    </div>
+    <div class="grid-2">
+      <div class="callout why">
+        <div class="label">A picture of the trade</div>
+        <p style="margin:0">Think of the curve $(u,v)$ drawn in a $u$–$v$ plane. $\int u\,dv$ is the area to the left of the curve and $\int v\,du$ is the area under it. Together they fill a rectangle of area $uv$. So if one region is hard to find, compute the other and subtract from the rectangle. The explorer in Stage 3 draws this.</p>
+      </div>
+      <div class="callout">
+        <div class="label">Three questions to ask every time</div>
+        <ol style="margin:0">
+          <li><b>Is it a product of two different kinds of functions</b>, with no substitution available?</li>
+          <li><b>Which factor gets simpler when I differentiate it?</b> That's $u$ (LIATE, notes p. 8). Everything else, including $dx$, is $dv$.</li>
+          <li><b>Is $\int v\,du$ easier than what I started with?</b> If it's harder, swap the choice.</li>
+        </ol>
+      </div>
+    </div>
+    <label class="toggle"><input type="checkbox" data-self="P"> I can explain, without looking, where $\int u\,dv=uv-\int v\,du$ comes from, and why $u=x$ is the right choice for $\int xe^x\,dx$.</label>
+  </div>
+
+  <!-- ============================== 2 UNDERSTAND -->
+  <div class="stage" id="P-understand">
+    <div class="stage-head"><span class="n">Stage 2 · Understand</span><h3>What it's built from, and why it works</h3></div>
+    <div class="grid-2">
+      <div class="card tight">
+        <h4>Prerequisite map</h4>
+        <div class="tree"><ul><li class="root">Integration by parts
+          <ul>
+            <li>The product rule<br><span class="qc">Quick check: $\frac{d}{dx}(xe^x)$? <details class="qcheck"><summary>show</summary>$e^x+xe^x$</details></span></li>
+            <li>Basic antiderivatives, to find $v$ <span class="tag prev">§1.1</span><br><span class="qc">Quick check: $\int\sin 2x\,dx$? <details class="qcheck"><summary>show</summary>$-\tfrac12\cos 2x+C$ (a quick substitution, as on notes p. 9)</details></span></li>
+            <li>Derivatives of $\ln x$, $\tan^{-1}x$, $\sin^{-1}x$<br><span class="qc">Quick check: $\frac{d}{dx}\sin^{-1}x$? <details class="qcheck"><summary>show</summary>$\frac{1}{\sqrt{1-x^2}}$</details></span></li>
+            <li><a href="#U-learn">u-substitution (§1.1)</a>, for $v$ and for leftover integrals</li>
+          </ul></li></ul></div>
+      </div>
+      <div class="card tight">
+        <h4>Why it works <span class="small muted">(notes p. 7)</span></h4>
+        <ol style="margin:0">
+          <li>Product rule: $\big(f(x)g(x)\big)'=f(x)g'(x)+g(x)f'(x)$.</li>
+          <li>Integrate both sides: $f(x)g(x)=\int f(x)g'(x)\,dx+\int g(x)f'(x)\,dx$.</li>
+          <li>Rearrange: $\int f(x)g'(x)\,dx=f(x)g(x)-\int g(x)f'(x)\,dx$.</li>
+          <li>Rename, as the professor does: $u=f$, $dv=g'\,dx$, $v=g$, $du=f'\,dx$.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <div class="fc-title">Integration by parts <span>notes p. 7 · Theorem 1.1.19</span></div>
+      $$\int \htmlClass{fp fp-1}{u}\;\htmlClass{fp fp-2}{dv}\;=\;\htmlClass{fp fp-3}{uv}\;-\;\int \htmlClass{fp fp-4}{v}\;\htmlClass{fp fp-5}{du}$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="<b>u</b> is the factor you will <em>differentiate</em>. Pick the one that gets simpler: x → 1, ln x → 1/x.">u: differentiate it</button>
+        <button class="fp-chip" data-part="2" data-explain="<b>dv</b> is everything else, dx included. You must be able to integrate it to get v.">dv: integrate it</button>
+        <button class="fp-chip" data-part="3" data-explain="<b>uv</b> is already done: no integral sign left on this part.">uv: finished</button>
+        <button class="fp-chip" data-part="4" data-explain="<b>v</b> = ∫dv. Any antiderivative works; take the simplest (C = 0).">v = ∫ dv</button>
+        <button class="fp-chip" data-part="5" data-explain="<b>du</b> = u′ dx. The new integral ∫v du must be easier than the original, or the choice was wrong.">du = u′ dx</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+      <div class="fc-meta">
+        <div><b>The professor's Key (notes p. 7)</b>Find $u$ that is easy to differentiate, “and differentiation is making it simpler, not harder.” Find $dv$ that is easy to integrate, “and integration is making it simpler, not harder.”</div>
+        <div><b>Organize it like the notes</b>Write a small box first: $u=\;\cdot\;,\ dv=\;\cdot\;$ on top, $du=\;\cdot\;,\ v=\;\cdot\;$ below. Then plug into $uv-\int v\,du$.</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card tight">
+        <h4>LIATE: which factor is u? <span class="small muted">(notes p. 8)</span></h4>
+        <p>Go down the list and let $u$ be the first type that appears:</p>
+        <p style="margin:0 0 6px"><b>L</b> logarithmic ($\ln x$) → <b>I</b> inverse trig ($\tan^{-1}x$, $\sin^{-1}x$) → <b>A</b> algebraic ($x$, $x^2$, …) → <b>T</b> trig ($\sin$, $\cos$) → <b>E</b> exponential ($e^x$)</p>
+        <p class="small muted" style="margin:0">“Once $u$ is selected, everything else (including $dx$) is $dv$.” LIATE is a summary of the real reason: logs and inverse trig become <em>algebraic</em> when differentiated, and powers of $x$ shrink, while $e^x$, $\sin$ and $\cos$ never get simpler either way.</p>
+      </div>
+      <div class="card tight">
+        <h4>A polynomial of degree n needs n rounds <span class="small muted">(notes p. 10)</span></h4>
+        <p style="margin:0">Each round differentiates the polynomial once. For $\int 2t^2e^{-t}\,dt$: round 1 gives $-2t^2e^{-t}+\int 4te^{-t}\,dt$, and round 2 handles $\int 4te^{-t}\,dt$. The result is $-2(t^2+2t+2)e^{-t}+C$. (Notes p. 10's last line has a copying slip; see the Compare stage.)</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>Recognition: what in the problem tells you what to do?</h4>
+      <div class="table-scroll"><table>
+        <thead><tr><th>You notice…</th><th>So you…</th></tr></thead>
+        <tbody>
+          <tr><td>A polynomial times $e^x$, $\sin$ or $\cos$: $xe^x$, $(x+6)\sin 2x$</td><td>Parts with $u=$ the polynomial, once per degree (notes pp. 8–10).</td></tr>
+          <tr><td>A log or inverse trig function times a polynomial: $x^4\ln x$, $2p\tan^{-1}p$</td><td>Parts with $u=$ the log or inverse trig (notes pp. 9–10).</td></tr>
+          <tr><td>A log or inverse trig function <em>alone</em>: $\sin^{-1}x$, $\ln x$</td><td>Multiply by 1: $u=$ the function, $dv=dx$ (notes p. 11).</td></tr>
+          <tr><td>An inside function whose derivative is present: $x\,e^{x^2}$</td><td>Not parts. Use <a href="#U-understand">substitution</a>.</td></tr>
+          <tr><td>A composite that hides a product: $e^{\sqrt x}$, $\frac{e^{1/x}}{x^3}$</td><td>Substitute first, then use parts (notes pp. 12, 24).</td></tr>
+          <tr><td>A polynomial times a power of a linear expression: $x\sqrt{x+1}$</td><td>Both work; substitution is “(simpler)” (notes p. 21).</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout warn" style="margin-bottom:0">
+        <div class="label">Tempting alternative, and why to reject it</div>
+        <p style="margin:0">“For $\int xe^x\,dx$, let $u=e^x$, since $e^x$ is so easy to differentiate.” Then $dv=x\,dx$, $v=\frac{x^2}{2}$, and the new integral is $\int\frac{x^2}{2}e^x\,dx$: the power went <em>up</em>. $e^x$ is equally easy to integrate, so it belongs in $dv$. Let $u=x$, which becomes 1.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 3 EXPLORE -->
+  <div class="stage" id="P-explore">
+    <div class="stage-head"><span class="n">Stage 3 · Explore</span><h3>Integration by parts as area</h3></div>
+    <div class="widget">
+      <div class="w-head"><h4>Two regions, one rectangle: see why ∫u dv = uv − ∫v du</h4><span class="small muted">presets · sliders a and b · hover the curve</span></div>
+      <div class="w-sub">As $x$ runs from $a$ to $b$, the point $(u(x),v(x))$ traces a curve. <b>Blue</b> (vertical strips $v\,du$) is $\int v\,du$; <b>orange</b> (horizontal strips $u\,dv$) is $\int u\,dv$.</div>
+      <div id="widget-parts">
+        <div class="w-formula">$$u=x,\ dv=e^x\,dx\ \Rightarrow\ du=dx,\ v=e^x:\qquad \int xe^x\,dx=xe^x-\int e^x\,dx=xe^x-e^x+C$$</div>
+        <div class="w-formula">$$u=\ln x,\ dv=x^4\,dx\ \Rightarrow\ du=\tfrac{dx}{x},\ v=\tfrac{x^5}{5}:\qquad \int x^4\ln x\,dx=\tfrac{x^5}{5}\ln x-\tfrac{x^5}{25}+C$$</div>
+        <div class="w-formula">$$u=\tan^{-1}p,\ dv=2p\,dp\ \Rightarrow\ du=\tfrac{dp}{1+p^2},\ v=p^2:\qquad \int 2p\tan^{-1}p\,dp=p^2\tan^{-1}p-p+\tan^{-1}p+C$$</div>
+        <div class="w-formula">$$u=\sin^{-1}x,\ dv=dx\ \Rightarrow\ du=\tfrac{dx}{\sqrt{1-x^2}},\ v=x:\qquad \int\sin^{-1}x\,dx=x\sin^{-1}x+\sqrt{1-x^2}+C$$</div>
+      </div>
+      <div class="try"><h5>What to notice</h5><ol>
+        <li>With <b>Notes p. 8: ∫x eˣ dx</b> on $[0,1]$: blue $=\int_0^1e^x\,dx=e-1\approx1.718$ and orange $=\int_0^1xe^x\,dx=1$. Together they're $e\approx2.718=u(1)v(1)-u(0)v(0)$, the whole dashed rectangle.</li>
+        <li>Slide $a$ above 0. A corner rectangle $u(a)v(a)$ is cut out, and the two regions still add to $u(b)v(b)-u(a)v(a)$. That difference is the $[uv]_a^b$ in the formula.</li>
+        <li>Orange is the integral you want and blue is the one parts gives you instead. The choice $u=x$ is good because blue is just $\int e^x\,dx$.</li>
+        <li>Pick <b>Notes p. 11: ∫sin⁻¹x dx</b>. Now $v=x$, so orange is $\int\sin^{-1}x\,dx$ itself, and blue is $\int\frac{x\,dx}{\sqrt{1-x^2}}$, which a substitution finishes.</li>
+      </ol></div>
+    </div>
+
+    <div class="tryout" data-topic="P">
+      <div class="q">Choose $u$ for $\displaystyle\int x\,e^x\,dx$ (notes p. 8). What does the new integral $\int v\,du$ look like?</div>
+      <div class="try-opts">
+        <button class="try-opt">$u=x,\ dv=e^x\,dx$</button>
+        <button class="try-opt">$u=e^x,\ dv=x\,dx$</button>
+        <button class="try-opt">$u=xe^x,\ dv=dx$</button>
+      </div>
+      <div class="try-res" data-verdict="good">$du=dx$, $v=e^x$: $\int xe^x\,dx=xe^x-\int e^x\,dx=xe^x-e^x+C$. The new integral is a basic rule.</div>
+      <div class="try-res" data-verdict="bad">$du=e^x\,dx$, $v=\frac{x^2}{2}$: $\frac{x^2}{2}e^x-\int\frac{x^2}{2}e^x\,dx$. The new integral has a <em>higher</em> power of $x$. Worse.</div>
+      <div class="try-res" data-verdict="bad">$du=(x+1)e^x\,dx$, $v=x$: $x^2e^x-\int(x^2+x)e^x\,dx$. Also worse: the leftover integral contains the original and more.</div>
+    </div>
+
+    <div class="tryout" data-topic="P">
+      <div class="q">Choose $u$ for $\displaystyle\int x^4\ln x\,dx$ (notes p. 9).</div>
+      <div class="try-opts">
+        <button class="try-opt">$u=\ln x,\ dv=x^4\,dx$</button>
+        <button class="try-opt">$u=x^4,\ dv=\ln x\,dx$</button>
+      </div>
+      <div class="try-res" data-verdict="good">$du=\frac{dx}{x}$, $v=\frac{x^5}{5}$: $\frac{x^5}{5}\ln x-\int\frac{x^5}{5}\cdot\frac1x\,dx=\frac{x^5}{5}\ln x-\int\frac{x^4}{5}\,dx=\frac{x^5}{5}\ln x-\frac{x^5}{25}+C$. Differentiating $\ln x$ turned it algebraic, and the $\frac1x$ cancels a power.</div>
+      <div class="try-res" data-verdict="bad">You'd need $v=\int\ln x\,dx=x\ln x-x$, which is itself a parts problem. Then the new integral $\int(x\ln x-x)\,4x^3\,dx$ still contains $\ln x$. You're going in circles. This is why L comes first in LIATE.</div>
+    </div>
+
+    <div class="tryout" data-topic="P">
+      <div class="q">$\displaystyle\int\sin^{-1}x\,dx$ has no product in it (notes p. 11). What now?</div>
+      <div class="try-opts">
+        <button class="try-opt">Parts with $u=\sin^{-1}x,\ dv=dx$</button>
+        <button class="try-opt">Parts needs a product, so it can't be used</button>
+      </div>
+      <div class="try-res" data-verdict="good">The “multiply by 1” trick: $du=\frac{dx}{\sqrt{1-x^2}}$, $v=x$. Then $x\sin^{-1}x-\int\frac{x\,dx}{\sqrt{1-x^2}}$, and $w=1-x^2$ finishes it: $x\sin^{-1}x+\sqrt{1-x^2}+C$. The same trick gives $\int\ln x\,dx=x\ln x-x+C$ (textbook Example 1.1.21).</div>
+      <div class="try-res" data-verdict="bad">Every integrand is a product: $\sin^{-1}x\cdot1$. Choosing $dv=dx$ is always allowed, and it's exactly what you want when $u$ has a nice derivative but no known antiderivative.</div>
+    </div>
+  </div>
+
+  <!-- ============================== 4 ATTEMPT -->
+  <div class="stage" id="P-attempt">
+    <div class="stage-head"><span class="n">Stage 4 · Attempt</span><h3>Guided example, then your turn</h3></div>
+    <div class="guided" data-gid="P-guided">
+      <div class="g-intro"><span class="badge">Guided example</span>
+        <p style="margin-top:8px">Find $\displaystyle\int x\,e^{3x}\,dx$ (textbook §1.1 Suggested Ex. 13). Answer each question before the explanation appears.</p></div>
+      <div class="gstep"><span class="g-label">Step 1 · Choose u</span>
+        <div class="mcq" data-qid="P-g1"><div class="q">Which choice follows the Key (u gets simpler when differentiated)?</div>
+          <div class="opts">
+            <button class="opt" data-correct>$u=x,\ dv=e^{3x}\,dx$</button>
+            <button class="opt" data-why="Differentiating e^(3x) gives 3e^(3x): no simpler. And v = x²/2 would raise the power.">$u=e^{3x},\ dv=x\,dx$</button>
+            <button class="opt" data-why="There's no inside function whose derivative is present, so substitution doesn't apply here.">No parts needed: substitute $w=3x$</button>
+          </div></div>
+        <div class="greveal">A (algebraic) comes before E (exponential) in LIATE: $u=x$ becomes $du=dx$. Everything else, $e^{3x}\,dx$, is $dv$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 2 · Find v</span>
+        <p><label class="inline">$v=\displaystyle\int e^{3x}\,dx=$ <input class="ans" data-kind="anti" data-var="x" data-integrand="e^(3*x)" data-answer="(1/3)*e^(3*x)" data-dom="-1,1" data-vid="P-guided-v" placeholder="e.g. (1/3)e^(3x)"></label></p>
+        <div class="greveal">$v=\tfrac13e^{3x}$ (a quick substitution $w=3x$). For $v$, any antiderivative works, so take $C=0$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 3 · The new integral</span>
+        <p>Now $uv-\int v\,du=\tfrac x3e^{3x}-\int\tfrac13e^{3x}\,dx$. <label class="inline">$\displaystyle\int\tfrac13e^{3x}\,dx=$ <input class="ans" data-kind="anti" data-var="x" data-integrand="(1/3)*e^(3*x)" data-answer="(1/9)*e^(3*x)" data-dom="-1,1" data-vid="P-guided-new"></label></p>
+        <div class="greveal">$\tfrac13\cdot\tfrac13e^{3x}=\tfrac19e^{3x}$. The new integral was a basic rule, which is what a good choice of $u$ looks like.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 4 · Put it together</span>
+        <p><label class="inline">$\displaystyle\int xe^{3x}\,dx=$ <input class="ans" data-kind="anti" data-var="x" data-integrand="x*e^(3*x)" data-answer="(x/3)*e^(3*x) - (1/9)*e^(3*x)" data-dom="-1,1" data-vid="P-guided-final" data-wrong='[{"f":"(x/3)*e^(3*x) + (1/9)*e^(3*x)","m":"Check the sign: it is uv MINUS ∫v du."}]'> $+\,C$</label></p>
+        <div class="greveal">$\tfrac x3e^{3x}-\tfrac19e^{3x}+C$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 5 · Check</span>
+        <div class="mcq" data-qid="P-g5"><div class="q">Differentiate $\tfrac x3e^{3x}-\tfrac19e^{3x}$. Which work is right?</div>
+          <div class="opts">
+            <button class="opt" data-correct>$\tfrac13e^{3x}+xe^{3x}-\tfrac13e^{3x}=xe^{3x}$ ✓</button>
+            <button class="opt" data-why="The first term is a product: use the product rule (and the chain rule on e^(3x)).">$\tfrac13e^{3x}-\tfrac13e^{3x}=0$</button>
+            <button class="opt" data-why="The chain rule on e^(3x) gives a factor 3.">$\tfrac13xe^{3x}-\tfrac19e^{3x}$</button>
+          </div></div>
+        <div class="greveal">The product rule rebuilds $xe^{3x}$ plus an extra $\tfrac13e^{3x}$, and the $-\tfrac19e^{3x}$ term exists precisely to cancel it. Parts and the product rule are two views of the same fact.</div>
+      </div>
+      <div class="takeaway"><b>Takeaway.</b> Box first ($u$, $dv$ / $du$, $v$), with $u$ the factor that simplifies. Then $uv-\int v\,du$. The new integral should be a step closer to a basic rule. Differentiate to check.</div>
+    </div>
+
+    <div class="problem" data-pid="P-indep" data-topic="P" data-level="4" data-title="Independent attempt" data-src="Your turn: try it before any hint (textbook §1.1 Suggested Ex. 15)" data-help="Type an antiderivative in t, e.g. -(t/2)cos(2t) + ... Use parentheses: cos(2t)." data-prompt="Find the antiderivative of t sin(2t) dt.">
+      <div class="p-body">Find $\displaystyle\int t\sin(2t)\,dt.$</div>
+      <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="t" data-integrand="t*sin(2*t)" data-answer="-(t/2)*cos(2*t) + (1/4)*sin(2*t)" data-dom="0.2,2" data-show="−(t/2)cos 2t + ¼ sin 2t + C" data-vid="P-indep" data-wrong='[{"f":"-t*cos(2*t) + (1/2)*sin(2*t)","m":"Check v: ∫sin(2t) dt = −½cos(2t), not −cos(2t). The ½ comes from the inside 2t."},{"f":"-(t/2)*cos(2*t) - (1/4)*sin(2*t)","m":"Check the signs. v = −½cos 2t, so −∫v du = −∫(−½cos 2t) dt = +½∫cos 2t dt."}]'></label></div>
+      <ol class="know">
+        <li>What kinds of functions are multiplied together? Where do they sit in LIATE?</li>
+        <li>Which factor gets simpler when you differentiate it?</li>
+        <li>What is $\int\sin(2t)\,dt$? Watch the inside $2t$.</li>
+      </ol>
+      <div class="hint">Algebraic ($t$) before trig ($\sin 2t$): $u=t$, $dv=\sin(2t)\,dt$.</div>
+      <div class="hint">$du=dt$ and $v=-\tfrac12\cos(2t)$. Plug into $uv-\int v\,du$.</div>
+      <div class="hint">$-\tfrac t2\cos 2t-\int\big(-\tfrac12\cos 2t\big)\,dt=-\tfrac t2\cos 2t+\tfrac12\int\cos 2t\,dt$.</div>
+      <div class="solution">
+        <ol>
+          <li>$u=t$, $dv=\sin 2t\,dt$; $du=dt$, $v=-\tfrac12\cos 2t$.</li>
+          <li>$\int t\sin 2t\,dt=-\tfrac t2\cos 2t+\tfrac12\int\cos 2t\,dt=-\tfrac t2\cos 2t+\tfrac14\sin 2t+C.$</li>
+        </ol>
+        <p style="margin:0"><b>Check:</b> $\frac{d}{dt}\big(-\tfrac t2\cos 2t+\tfrac14\sin 2t\big)=-\tfrac12\cos 2t+t\sin 2t+\tfrac12\cos 2t=t\sin 2t$ ✓. Notes p. 9 does the same thing for $(x+6)\sin 2x$.</p>
+      </div>
+      <div class="reflect"><h5>Compare your approach</h5>
+        <label><input type="checkbox"> I chose $u=t$ because it becomes 1.</label>
+        <label><input type="checkbox"> I got the $\tfrac12$ in $v=-\tfrac12\cos 2t$.</label>
+        <label><input type="checkbox"> I tracked the two minus signs and checked by differentiating.</label>
+        <p class="small muted" style="margin:6px 0 0">The clue to recognize next time: <b>polynomial × trig, no inside/derivative pair → parts with $u=$ the polynomial</b>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 5 COMPARE -->
+  <div class="stage" id="P-compare">
+    <div class="stage-head"><span class="n">Stage 5 · Compare</span><h3>Tempting approaches vs. correct reasoning</h3></div>
+    <div class="vs">
+      <div class="tempt"><h5>✗ Tempting</h5>“$\int x\cos x\,dx=\int x\,dx\cdot\int\cos x\,dx=\frac{x^2}{2}\sin x+C$.”</div>
+      <div class="right"><h5>✓ Correct</h5>The integral of a product is <em>not</em> the product of the integrals (differentiate $\frac{x^2}{2}\sin x$ to see). Parts: $u=x$, $v=\sin x$, so $x\sin x-\int\sin x\,dx=x\sin x+\cos x+C$.</div>
+      <div class="clue"><b>Clue for next time:</b> there's no product rule for integrals except parts itself, and parts always leaves a “$-\int v\,du$”.</div>
+    </div>
+
+    <div class="spot" data-sid="P-spot1">
+      <p><b>Spot the error.</b> This is the work on notes p. 10 for $\displaystyle\int 2t^2e^{-t}\,dt$. Click the first line that's wrong.</p>
+      <button class="sline"><span class="ln">Line 1</span><span>$u=2t^2,\ dv=e^{-t}\,dt$, so $du=4t\,dt,\ v=-e^{-t}$.</span></button>
+      <button class="sline"><span class="ln">Line 2</span><span>$\displaystyle\int 2t^2e^{-t}\,dt=-2t^2e^{-t}+\int 4te^{-t}\,dt$</span></button>
+      <button class="sline"><span class="ln">Line 3</span><span>Side work (parts again): $\int te^{-t}\,dt=-te^{-t}-e^{-t}$</span></button>
+      <button class="sline" data-bad><span class="ln">Line 4</span><span>$=-2t^2e^{-t}-4te^{-t}-4t^{-t}+C$</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout discrepancy"><div class="label">⚠ Discrepancy in the notes (p. 10)</div><p style="margin:0">The method is right, and the side work in Line 3 is right. Line 4 copies the last term as $-4t^{-t}$, but $4\cdot(-e^{-t})=-4e^{-t}$. Correct: $-2t^2e^{-t}-4te^{-t}-4e^{-t}+C=-2(t^2+2t+2)e^{-t}+C$, confirmed by differentiating, SymPy and Wolfram. In long answers, differentiate to catch slips like this.</p></div>
+    </div>
+
+    <div class="spot" data-sid="P-spot2">
+      <p><b>Spot the error.</b> A student computes $\displaystyle\int x\cos x\,dx$.</p>
+      <button class="sline"><span class="ln">Line 1</span><span>$u=x,\ dv=\cos x\,dx$, so $du=dx,\ v=\sin x$.</span></button>
+      <button class="sline" data-bad><span class="ln">Line 2</span><span>$\displaystyle\int x\cos x\,dx=x\sin x+\int\sin x\,dx$</span></button>
+      <button class="sline"><span class="ln">Line 3</span><span>$=x\sin x-\cos x+C.$</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout warn"><div class="label">What went wrong</div><p style="margin:0">The formula is $uv\,\mathbf{-}\int v\,du$. Correct: $x\sin x-\int\sin x\,dx=x\sin x+\cos x+C$. Differentiating the student's answer gives $\sin x+x\cos x+\sin x\ne x\cos x$.</p></div>
+    </div>
+
+    <h4 style="margin-top:22px">Common mistakes: why they happen and how to prevent them</h4>
+    <details class="mistake"><summary>Putting the wrong factor in $u$</summary><div class="m-body"><p><b>Why it happens</b><br>$e^x$ and $\sin x$ look like the “easy” factor to differentiate. But easy to differentiate isn't the goal; getting <em>simpler</em> is.</p><p><b>Prevent it</b><br>Use LIATE, then glance at $\int v\,du$ before computing it. If it looks harder than the original, swap.</p></div></details>
+    <details class="mistake"><summary>Losing the minus sign in $uv-\int v\,du$</summary><div class="m-body"><p><b>Why it happens</b><br>There are often two minus signs in play: the one in the formula and one inside $v$ (such as $v=-\cos x$).</p><p><b>Prevent it</b><br>Write $uv-\int v\,du$ with parentheses around $v$: $x(\sin x)-\int(\sin x)\,dx$. Then differentiate your answer.</p></div></details>
+    <details class="mistake"><summary>Dropping the constant when finding $v$</summary><div class="m-body"><p><b>Why it happens</b><br>$v$ is found in a side calculation, and the inside function's factor ($\tfrac12$ in $\int\sin 2t\,dt$) is easy to miss.</p><p><b>Prevent it</b><br>Find $v$ as carefully as any other integral. Notes p. 9 does it with a side substitution $w=2x$.</p></div></details>
+    <details class="mistake"><summary>Stopping after one round</summary><div class="m-body"><p><b>Why it happens</b><br>The first round leaves a new integral that looks almost done.</p><p><b>Prevent it</b><br>A polynomial of degree $n$ needs $n$ rounds (notes p. 10: $t^2$ needs two). Keep going until no integral sign is left.</p></div></details>
+    <details class="mistake"><summary>Using parts when substitution was there all along</summary><div class="m-body"><p><b>Why it happens</b><br>Any product looks like a parts problem.</p><p><b>Prevent it</b><br>First check for an inside function whose derivative is present: $x\,e^{x^2}$ is substitution, and $\frac{\ln x}{x}$ is substitution with $u=\ln x$ (textbook Additional Ex. 15b).</p></div></details>
+  </div>
+
+  <!-- ============================== 6 PRACTICE -->
+  <div class="stage" id="P-practice">
+    <div class="stage-head"><span class="n">Stage 6 · Practice</span><h3>Practice: standard applications</h3></div>
+    <div class="problem" data-pid="P-p1" data-topic="P" data-title="Practice 1" data-src="Notes p. 9 · redo it" data-help="Type an antiderivative in x. Use ln(x) or ln(abs(x))." data-prompt="Find the antiderivative of x^4 ln x dx.">
+      <div class="p-body">Find $\displaystyle\int x^4\ln x\,dx.$</div>
+      <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="x" data-integrand="x^4*ln(x)" data-answer="(1/5)*x^5*ln(x) - (1/25)*x^5" data-dom="0.5,2" data-show="(1/5)x⁵ ln x − (1/25)x⁵ + C" data-vid="P-p1"></label></div>
+      <div class="hint">Log before algebraic: $u=\ln x$, $dv=x^4\,dx$.</div>
+      <div class="hint">$du=\frac{dx}{x}$, $v=\frac{x^5}{5}$. The new integral is $\int\frac{x^5}{5}\cdot\frac1x\,dx=\int\frac{x^4}{5}\,dx$.</div>
+      <div class="solution">$\tfrac15x^5\ln x-\tfrac{1}{25}x^5+C$ (notes p. 9).</div>
+    </div>
+    <div class="problem" data-pid="P-p2" data-topic="P" data-title="Practice 2" data-src="Notes p. 9 · redo it" data-help="Type an antiderivative in x. Use cos(2x) and sin(2x) with parentheses." data-prompt="Find the antiderivative of (x + 6) sin(2x) dx.">
+      <div class="p-body">Find $\displaystyle\int (x+6)\sin(2x)\,dx.$</div>
+      <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="x" data-integrand="(x+6)*sin(2*x)" data-answer="-(1/2)*(x+6)*cos(2*x) + (1/4)*sin(2*x)" data-dom="0.2,2" data-show="−½(x + 6)cos 2x + ¼ sin 2x + C" data-vid="P-p2" data-wrong='[{"f":"-(x+6)*cos(2*x) + (1/2)*sin(2*x)","m":"Check v: ∫sin(2x) dx = −½cos(2x). The professor finds it with a side substitution w = 2x."}]'></label></div>
+      <div class="hint">$u=x+6$ (algebraic), $dv=\sin 2x\,dx$.</div>
+      <div class="hint">$du=dx$, $v=-\tfrac12\cos 2x$.</div>
+      <div class="solution">$-\tfrac12(x+6)\cos 2x+\tfrac12\int\cos 2x\,dx=-\tfrac12(x+6)\cos 2x+\tfrac14\sin 2x+C$ (notes p. 9).</div>
+    </div>
+    <div class="problem" data-pid="P-p3" data-topic="P" data-title="Practice 3" data-src="Notes p. 10 · redo it (the notes' last line has a slip)" data-help="Type an antiderivative in t, e.g. -2(t^2+2t+2)e^(-t)." data-prompt="Find the antiderivative of 2t^2 e^(-t) dt.">
+      <div class="p-body">Find $\displaystyle\int 2t^2e^{-t}\,dt.$ Two rounds of parts.</div>
+      <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="t" data-integrand="2*t^2*e^(-t)" data-answer="-2*(t^2+2*t+2)*e^(-t)" data-dom="0,3" data-show="−2t²e^(−t) − 4te^(−t) − 4e^(−t) + C = −2(t² + 2t + 2)e^(−t) + C" data-vid="P-p3" data-wrong='[{"f":"-2*t^2*e^(-t) - 4*t*e^(-t) - 4*t^(-t)","m":"That is the copying slip on notes p. 10: the last term should be −4e^(−t), not −4t^(−t)."},{"f":"-2*t^2*e^(-t) - 4*t*e^(-t)","m":"The second round of parts produces one more term: ∫te^(−t) dt = −te^(−t) − e^(−t)."}]'></label></div>
+      <div class="hint">Round 1: $u=2t^2$, $dv=e^{-t}\,dt$, so $du=4t\,dt$, $v=-e^{-t}$.</div>
+      <div class="hint">You get $-2t^2e^{-t}+4\int te^{-t}\,dt$. Round 2: $u=t$, $dv=e^{-t}\,dt$.</div>
+      <div class="solution">$\int te^{-t}\,dt=-te^{-t}-e^{-t}$, so the answer is $-2t^2e^{-t}-4te^{-t}-4e^{-t}+C=-2(t^2+2t+2)e^{-t}+C$.
+        <div class="callout discrepancy" style="margin:8px 0 0"><div class="label">⚠ Discrepancy in the notes</div><p class="small" style="margin:0">Notes p. 10 writes the last term as $-4t^{-t}$. It should be $-4e^{-t}$, as the notes' own side work shows. Verified by differentiating, SymPy and Wolfram.</p></div></div>
+    </div>
+    <div class="problem" data-pid="P-p4" data-topic="P" data-title="Practice 4" data-src="Notes p. 11 · redo it" data-help="Type an antiderivative in x. Use arcsin(x) for sin⁻¹x." data-prompt="Find the antiderivative of arcsin x dx.">
+      <div class="p-body">Find $\displaystyle\int \sin^{-1}x\,dx.$</div>
+      <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="x" data-integrand="arcsin(x)" data-answer="x*arcsin(x) + sqrt(1-x^2)" data-dom="0,0.9" data-show="x sin⁻¹x + √(1 − x²) + C" data-vid="P-p4" data-wrong='[{"f":"x*arcsin(x) - sqrt(1-x^2)","m":"Check the last step. ∫x/√(1 − x²) dx = −√(1 − x²), and it is being subtracted."}]'></label></div>
+      <div class="hint">Multiply by 1: $u=\sin^{-1}x$, $dv=dx$.</div>
+      <div class="hint">$du=\frac{dx}{\sqrt{1-x^2}}$, $v=x$. For $\int\frac{x\,dx}{\sqrt{1-x^2}}$ use $w=1-x^2$.</div>
+      <div class="solution">$x\sin^{-1}x-\int\frac{x\,dx}{\sqrt{1-x^2}}$. With $w=1-x^2$, $x\,dx=-\tfrac12dw$: $\int\frac{x\,dx}{\sqrt{1-x^2}}=-\sqrt{1-x^2}$. So the answer is $x\sin^{-1}x+\sqrt{1-x^2}+C$ (notes p. 11).</div>
+    </div>
+    <div class="problem" data-pid="P-p5" data-topic="P" data-title="Practice 5" data-src="Notes p. 12 · redo it" data-help="Type an antiderivative in x, e.g. 2sqrt(x)e^(sqrt(x)) - ..." data-prompt="Find the antiderivative of e^(sqrt x) dx.">
+      <div class="p-body">Find $\displaystyle\int e^{\sqrt x}\,dx.$ There's no product… yet.</div>
+      <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="x" data-integrand="e^(sqrt(x))" data-answer="2*sqrt(x)*e^(sqrt(x)) - 2*e^(sqrt(x))" data-dom="0.2,3" data-show="2√x e^(√x) − 2e^(√x) + C" data-vid="P-p5"></label></div>
+      <div class="hint">Substitute first: $t=\sqrt x$, so $x=t^2$ and $dx=2t\,dt$.</div>
+      <div class="hint">The integral becomes $2\int te^t\,dt$: now it's a parts problem with $u=t$.</div>
+      <div class="solution">$2\big(te^t-e^t\big)+C=2\sqrt x\,e^{\sqrt x}-2e^{\sqrt x}+C$ (notes p. 12). Substitution exposed the product.</div>
+    </div>
+    <div class="problem" data-pid="P-p6" data-topic="P" data-title="Practice 6" data-src="Textbook §1.1 Suggested Ex. 14" data-help="Type an antiderivative in x, e.g. e^x*(x^2 - 12x + 37)." data-prompt="Find the antiderivative of (x - 5)^2 e^x dx.">
+      <div class="p-body">Find $\displaystyle\int (x-5)^2e^x\,dx.$</div>
+      <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="x" data-integrand="(x-5)^2*e^x" data-answer="e^x*((x-5)^2 - 2*(x-5) + 2)" data-dom="0,2" data-show="eˣ[(x − 5)² − 2(x − 5) + 2] + C = eˣ(x² − 12x + 37) + C" data-vid="P-p6"></label></div>
+      <div class="hint">Degree 2, so two rounds. Round 1: $u=(x-5)^2$, $dv=e^x\,dx$.</div>
+      <div class="hint">You get $(x-5)^2e^x-\int 2(x-5)e^x\,dx$. Round 2: $u=2(x-5)$.</div>
+      <div class="solution">$(x-5)^2e^x-\big[2(x-5)e^x-2e^x\big]+C=e^x\big[(x-5)^2-2(x-5)+2\big]+C=e^x(x^2-12x+37)+C$.</div>
+    </div>
+    <div class="problem" data-pid="P-p7" data-topic="P" data-title="Practice 7" data-src="Textbook §1.1 Suggested Ex. 19" data-help="Type an antiderivative in w. Use arctan(w) and ln(1+w^2)." data-prompt="Find the antiderivative of arctan w dw.">
+      <div class="p-body">Find $\displaystyle\int\tan^{-1}w\,dw.$</div>
+      <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="w" data-integrand="arctan(w)" data-answer="w*arctan(w) - (1/2)*ln(1+w^2)" data-dom="0,2" data-show="w tan⁻¹w − ½ ln(1 + w²) + C" data-vid="P-p7"></label></div>
+      <div class="hint">Multiply by 1, as on notes p. 11: $u=\tan^{-1}w$, $dv=dw$.</div>
+      <div class="hint">$w\tan^{-1}w-\int\frac{w\,dw}{1+w^2}$. The leftover is a substitution: $z=1+w^2$.</div>
+      <div class="solution">$\int\frac{w\,dw}{1+w^2}=\tfrac12\ln(1+w^2)$, so the answer is $w\tan^{-1}w-\tfrac12\ln(1+w^2)+C$.</div>
+    </div>
+    <div class="problem" data-pid="P-p8" data-topic="P" data-title="Practice 8" data-src="Textbook §1.1 Suggested Ex. 17" data-help="Type an antiderivative in t, e.g. -ln(t)/t - ..." data-prompt="Find the antiderivative of ln t / t^2 dt.">
+      <div class="p-body">Find $\displaystyle\int\frac{\ln t}{t^2}\,dt.$</div>
+      <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="t" data-integrand="ln(t)/t^2" data-answer="-ln(t)/t - 1/t" data-dom="0.5,3" data-show="−(ln t)/t − 1/t + C" data-vid="P-p8"></label></div>
+      <div class="hint">Log first: $u=\ln t$, $dv=t^{-2}\,dt$.</div>
+      <div class="hint">$du=\frac{dt}{t}$, $v=-\frac1t$. The new integral is $\int\frac{1}{t^2}\,dt$.</div>
+      <div class="solution">$-\frac{\ln t}{t}-\int\big(-\tfrac1t\big)\tfrac1t\,dt=-\frac{\ln t}{t}+\int t^{-2}\,dt=-\frac{\ln t}{t}-\frac1t+C$.</div>
+    </div>
+    <div class="problem" data-pid="P-p9" data-topic="P" data-title="Practice 9" data-src="Definite · parts + FTC (§2.4)" data-prompt="Evaluate the integral from 1 to e of ln x dx.">
+      <div class="p-body">Evaluate $\displaystyle\int_1^e\ln x\,dx.$</div>
+      <div class="answers"><label>Answer <input class="ans" data-vid="P-p9" data-answer="1" data-exact="1" data-wrong='[{"v":2.718281828459,"m":"That is [x ln x] from 1 to e: the −x part of the antiderivative x ln x − x is missing."},{"v":-1,"m":"Check the lower limit: F(1) = 1·ln 1 − 1 = −1. Put it in parentheses before subtracting (as on notes p. 25): 0 − (−1) = 1."}]'></label></div>
+      <div class="hint">First find $\int\ln x\,dx$ by the multiply-by-1 trick.</div>
+      <div class="hint">$\int\ln x\,dx=x\ln x-x$. Evaluate from 1 to $e$.</div>
+      <div class="solution">$\big[x\ln x-x\big]_1^e=(e-e)-(0-1)=1$.</div>
+    </div>
+  </div>
+
+  <!-- ============================== 7 MASTER -->
+  <div class="stage" id="P-master">
+    <div class="stage-head"><span class="n">Stage 7 · Master</span><h3>Mastery check</h3></div>
+    <p class="muted">No hints are offered until you've committed to an answer. This checks recognition, understanding, an unfamiliar problem, and whether you can explain why.</p>
+    <div class="mcq" data-qid="P-m1" data-topic="P" data-level="1" data-count data-multi>
+      <div class="q"><b>Recognition.</b> Which of these call for integration by parts, rather than substitution or a basic rule? Select all that apply.</div>
+      <div class="opts cols-2">
+        <button class="opt" data-correct>$\displaystyle\int x\cos x\,dx$</button>
+        <button class="opt">$\displaystyle\int x\cos(x^2)\,dx$</button>
+        <button class="opt" data-correct>$\displaystyle\int \ln x\,dx$</button>
+        <button class="opt">$\displaystyle\int \frac{\ln x}{x}\,dx$</button>
+        <button class="opt" data-correct>$\displaystyle\int x^2e^{-x}\,dx$</button>
+        <button class="opt">$\displaystyle\int e^{2x}\,dx$</button>
+      </div>
+      <div class="why callout why"><div class="label">Why</div><p style="margin:0">$x\cos x$ and $x^2e^{-x}$ are polynomial × trig/exponential, so parts ($x^2e^{-x}$ needs two rounds). $\ln x$ is parts by multiplying by 1. $x\cos(x^2)$ is substitution ($u=x^2$), $\frac{\ln x}{x}$ is substitution ($u=\ln x$ gives $\frac{(\ln x)^2}{2}$), and $e^{2x}$ is a basic rule.</p></div>
+    </div>
+    <div class="mcq" data-qid="P-m2" data-topic="P" data-level="2" data-count>
+      <div class="q"><b>Understanding.</b> For $\int x^4\ln x\,dx$, why is $u=\ln x$ better than $u=x^4$?</div>
+      <div class="opts">
+        <button class="opt" data-correct data-why="Right. The Key's reason: differentiation makes ln x simpler, and 1/x cancels a power of x.">Differentiating $\ln x$ gives $\frac1x$, which cancels a power and leaves $\int\frac{x^4}{5}\,dx$. With $u=x^4$ you'd need $\int\ln x\,dx$ for $v$, and $\ln x$ would still be in the new integral.</button>
+        <button class="opt" data-why="LIATE does say L first, but it's a shortcut for the real reason. What does differentiating ln x do?">Because LIATE says L comes first. There's no deeper reason.</button>
+        <button class="opt" data-why="The choice changes the new integral completely: one is a power rule, the other goes in circles.">Either choice leads to the same new integral.</button>
+      </div>
+    </div>
+    <div class="problem" data-pid="P-m3" data-topic="P" data-level="6" data-title="Unfamiliar problem" data-src="Textbook §1.1 Suggested Ex. 20" data-help="Type an antiderivative in x. Use ln(x^2+1) and arctan(x)." data-prompt="Find the antiderivative of ln(x^2 + 1) dx.">
+      <div class="p-body">Find $\displaystyle\int\ln(x^2+1)\,dx.$ (You may want the notes p. 10 trick: $x^2=(1+x^2)-1$.)</div>
+      <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="x" data-integrand="ln(x^2+1)" data-answer="x*ln(x^2+1) - 2*x + 2*arctan(x)" data-dom="0.2,2" data-show="x ln(x² + 1) − 2x + 2tan⁻¹x + C" data-vid="P-m3"></label></div>
+      <div class="hint">Multiply by 1: $u=\ln(x^2+1)$, $dv=dx$. Then $du=\frac{2x}{x^2+1}\,dx$ and $v=x$.</div>
+      <div class="hint">The new integral is $\int\frac{2x^2}{x^2+1}\,dx$. Rewrite $\frac{x^2}{x^2+1}=1-\frac{1}{1+x^2}$.</div>
+      <div class="solution">$x\ln(x^2+1)-2\int\Big(1-\frac{1}{1+x^2}\Big)dx=x\ln(x^2+1)-2x+2\tan^{-1}x+C$.</div>
+    </div>
+    <div class="problem" data-pid="P-m4" data-topic="P" data-level="6" data-title="Unfamiliar problem" data-src="Definite · two rounds + FTC" data-prompt="Evaluate the integral from 0 to 1 of x^2 e^x dx.">
+      <div class="p-body">Evaluate $\displaystyle\int_0^1x^2e^x\,dx.$</div>
+      <div class="answers"><label>Answer <input class="ans" data-vid="P-m4" data-answer="0.718281828459" data-exact="e − 2" data-wrong='[{"v":2.718281828459,"m":"That is only [x²eˣ] from 0 to 1. You still need − ∫2xeˣ dx."},{"v":-6.154845485377,"m":"That is 2 − 3e, from a sign slip in the second round. ∫xeˣ dx = xeˣ − eˣ (minus), so the antiderivative is eˣ(x² − 2x + 2)."}]'></label></div>
+      <div class="hint">Two rounds: $\int x^2e^x\,dx=x^2e^x-2\int xe^x\,dx$.</div>
+      <div class="hint">$\int xe^x\,dx=xe^x-e^x$, so the antiderivative is $e^x(x^2-2x+2)$.</div>
+      <div class="solution">$\big[e^x(x^2-2x+2)\big]_0^1=e(1)-1(2)=e-2\approx0.718$.</div>
+    </div>
+    <div class="explain card" data-eid="P-explain" data-topic="P">
+      <h4>Explain why (Level 7)</h4>
+      <p>In your own words: where does $\int u\,dv=uv-\int v\,du$ come from, and how do you decide which factor is $u$?</p>
+      <textarea aria-label="Your explanation"></textarea>
+      <div class="model callout why"><div class="label">A model explanation</div><p style="margin:0">The product rule says $(uv)'=uv'+vu'$. Integrating both sides gives $uv=\int u\,dv+\int v\,du$, and moving one integral across gives the formula. So parts is the product rule read backwards. It trades $\int u\,dv$ for $\int v\,du$, and the trade only helps if the new integral is easier. That happens when $u$ gets simpler when differentiated (logs and inverse trig become algebraic, and powers shrink) while $dv$ can still be integrated. LIATE summarizes this: pick $u$ from the first type on the list, and put $e^x$, $\sin$, $\cos$ (which never simplify) in $dv$.</p></div>
+    </div>
+  </div>
+</section>

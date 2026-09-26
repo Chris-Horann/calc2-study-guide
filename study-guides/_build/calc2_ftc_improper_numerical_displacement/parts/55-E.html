@@ -1,0 +1,406 @@
+<section id="E" class="topic">
+  <div class="topic-banner">
+    <div class="topic-letter sec" aria-hidden="true">3.3</div>
+    <div><h2>Motion in the plane and in space</h2>
+    <div class="sources">New notes pp. 4–7 · 3.3–3.5 notes p. 1 · Textbook §3.3 (Propositions 3.3.1 &amp; 3.3.3; Definition 3.3.5; Examples 3.3.2, 3.3.4, 3.3.7, 3.3.8). The arc-length half of §3.3 (3.3–3.5 notes pp. 2–4) has its own section: <a href="#L">§3.3 Arc length</a>.</div></div>
+  </div>
+  <nav class="stagebar" data-topic="E" aria-label="Stages in §3.3">
+    <a href="#E-learn"><span class="n">1</span>Learn</a><a href="#E-understand"><span class="n">2</span>Understand</a><a href="#E-explore"><span class="n">3</span>Explore</a><a href="#E-attempt"><span class="n">4</span>Attempt</a><a href="#E-compare"><span class="n">5</span>Compare</a><a href="#E-practice"><span class="n">6</span>Practice</a><a href="#E-master"><span class="n">7</span>Master</a>
+  </nav>
+
+  <!-- ============================== 1 LEARN -->
+  <div class="stage" id="E-learn">
+    <div class="stage-head"><span class="n">Stage 1 · Learn</span><h3>The big idea</h3></div>
+    <div class="callout big">
+      <div class="label">Big idea</div>
+      <p>In §3.1 a particle moved along a line, so its position was a single number. In the plane or in space, position is a <b>point</b>, $\vec p(t)=(x(t),y(t),z(t))$, and velocity is an <b>arrow</b>, $\vec v(t)=(x'(t),y'(t),z'(t))$. The arrow's direction is where the particle is heading, and its length is how fast it's going: the <b>speed</b>.</p>
+      <p style="margin:0">There are still two different totals. The <b>displacement</b> $\int_a^b\vec v\,dt=\vec p(b)-\vec p(a)$ is a <em>vector</em>: the straight arrow from start to finish (“This is a vector!”, new notes p. 5). The <b>distance traveled</b> $\int_a^b|\vec v|\,dt$ is a <em>non-negative number</em>: what an odometer would read. The straight arrow can never be longer than the path, so $\big|\int\vec v\,dt\big|\le\int|\vec v|\,dt$.</p>
+    </div>
+    <div class="grid-2">
+      <div class="callout why">
+        <div class="label">An everyday version</div>
+        <p style="margin:0">A runner does one lap of a 400 m track. The displacement is the zero vector, since she's back where she started. The distance traveled is 400 m. A spiral staircase is the helix from new notes p. 6: you rise straight up a little (displacement) while walking around a lot (distance).</p>
+      </div>
+      <div class="callout">
+        <div class="label">Three questions to ask every time</div>
+        <ol style="margin:0">
+          <li><b>Vector or number?</b> Displacement, “shift in position”: a vector. Distance, “how far”: a number ≥ 0.</li>
+          <li><b>Did I differentiate every component</b>, with the chain rule? ($\cos4t\to-4\sin4t$.)</li>
+          <li><b>Does the speed simplify</b> before I integrate? Look for $\sin^2+\cos^2=1$ or a perfect square.</li>
+        </ol>
+      </div>
+    </div>
+    <label class="toggle"><input type="checkbox" data-self="E"> I can explain, without looking, why displacement is a vector but distance is a number, and why the distance can't be smaller than the length of the displacement.</label>
+  </div>
+
+  <!-- ============================== 2 UNDERSTAND -->
+  <div class="stage" id="E-understand">
+    <div class="stage-head"><span class="n">Stage 2 · Understand</span><h3>What it's built from, and why it works</h3></div>
+    <div class="grid-2">
+      <div class="card tight">
+        <h4>Prerequisite map</h4>
+        <div class="tree"><ul><li class="root">Motion in 2D and 3D
+          <ul>
+            <li>Vectors: components, and length by Pythagoras<br><span class="qc">Quick check: the length of $(1,2,2)$? <details class="qcheck"><summary>show</summary>$\sqrt{1+4+4}=3$</details></span></li>
+            <li>Derivatives with the chain rule<br><span class="qc">Quick check: $\frac{d}{dt}\cos 4t$? <details class="qcheck"><summary>show</summary>$-4\sin4t$</details></span></li>
+            <li><a href="#D-learn">Displacement vs. distance in 1D (§3.1)</a></li>
+            <li><a href="#A-learn">The FTC (§2.4)</a>, used one component at a time</li>
+            <li><a href="#U-understand">u-substitution (§1.1)</a> for square-root integrals</li>
+          </ul></li></ul></div>
+      </div>
+      <div class="card tight">
+        <h4>One table, three dimensions <span class="small muted">(new notes p. 4)</span></h4>
+        <div class="table-scroll"><table>
+          <thead><tr><th></th><th>position</th><th>velocity</th></tr></thead>
+          <tbody>
+            <tr><td>1D, a line</td><td>$p(t)$</td><td>$p'(t)$</td></tr>
+            <tr><td>2D, the $xy$-plane</td><td>$\vec p(t)=(x(t),y(t))$</td><td>$\vec v(t)=(x'(t),y'(t))$</td></tr>
+            <tr><td>3D, $xyz$-space</td><td>$\vec p(t)=(x,y,z)$</td><td>$\vec v=(x',y',z')$</td></tr>
+          </tbody>
+        </table></div>
+        <p class="small" style="margin:6px 0 0">“When working with vectors, we differentiate, integrate, add, subtract <b>componentwisely</b>.” “Speed is a non-negative number, not a vector.” (new notes p. 4)</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>Why the two formulas work</h4>
+      <ul>
+        <li><b>Displacement</b>: the FTC on each component. $\int_a^bx'(t)\,dt=x(b)-x(a)$, and the same for $y$ and $z$. Put together: $\int_a^b\vec v\,dt=\vec p(b)-\vec p(a)$ (Proposition 3.3.1).</li>
+        <li><b>Distance</b>: over a tiny time $dt$ the particle moves about (speed) × (time) $=|\vec v|\,dt$. Adding up all those little stretches gives $\int_a^b|\vec v|\,dt$ (Proposition 3.3.3).</li>
+        <li><b>1D is the special case.</b> On a line, $|\vec v|=\sqrt{v^2}=|v|$: the §3.1 formula. In 2D and 3D the square root is already ≥ 0, so you never split just to fix signs. If the speed simplifies to an absolute value, like $|2t-2|$ for motion along a line, you split only to integrate that $|\cdot|$, exactly as in §3.1.</li>
+        <li><b>The inequality</b> $\big|\int\vec v\,dt\big|\le\int|\vec v|\,dt$ says a path can't be shorter than the straight segment joining its ends. They're equal only when the particle moves in one fixed direction.</li>
+      </ul>
+    </div>
+
+    <div class="formula-card">
+      <div class="fc-title">Displacement: a vector <span>new notes p. 5 · Proposition 3.3.1</span></div>
+      $$\int_a^b\htmlClass{fp fp-1}{\vec v(t)}\,dt=\Big(\int_a^b\htmlClass{fp fp-2}{x'(t)\,dt},\ \int_a^b\htmlClass{fp fp-2}{y'(t)\,dt},\ \int_a^b\htmlClass{fp fp-2}{z'(t)\,dt}\Big)=\htmlClass{fp fp-3}{\vec p(b)-\vec p(a)}$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="The <b>velocity vector</b>: one derivative per coordinate."><b>v</b>(t): velocity</button>
+        <button class="fp-chip" data-part="2" data-explain="<b>Componentwise</b>: integrate each coordinate separately, as ordinary 1D integrals.">one integral per component</button>
+        <button class="fp-chip" data-part="3" data-explain="The <b>shift in position</b>: the arrow from where it started to where it ended. The answer is a vector, so give every component."><b>p</b>(b) − <b>p</b>(a): a vector</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+      <div class="fc-meta">
+        <div><b>Answer looks like</b>A vector, such as $(0,0,6\pi)$ for the helix. Its length $\big|\vec p(b)-\vec p(a)\big|$ is a separate question.</div>
+        <div><b>Watch out</b>Differentiate a given position <em>before</em> doing anything else, with the chain rule in every component.</div>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <div class="fc-title">Speed and total distance: numbers <span>new notes pp. 4–5 · Proposition 3.3.3</span></div>
+      $$\text{speed}=\htmlClass{fp fp-1}{|\vec v(t)|}=\htmlClass{fp fp-2}{\sqrt{x'(t)^2+y'(t)^2+z'(t)^2}}\qquad \text{distance}=\int_a^b|\vec v(t)|\,dt\qquad \htmlClass{fp fp-3}{\Big|\int_a^b\vec v\,dt\Big|\le\int_a^b|\vec v|\,dt}$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="<b>Speed</b> is the length of the velocity vector: how fast, with no direction. Never negative.">|<b>v</b>|: speed</button>
+        <button class="fp-chip" data-part="2" data-explain="The <b>Pythagorean length</b> of (x′, y′, z′). Not x′ + y′ + z′.">√(x′² + y′² + z′²)</button>
+        <button class="fp-chip" data-part="3" data-explain="“Length of displacement vector ≤ total distance traveled” (new notes p. 5). Equality means straight-line motion in one direction.">|displacement| ≤ distance</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+      <div class="fc-meta">
+        <div><b>Simplify first</b>$16\sin^2+16\cos^2+9=25$ (the helix), $144+144t+36t^2=36(t+2)^2$ (new notes p. 7) and $t^2+8t+16=(t+4)^2$ (3.3–3.5 notes p. 1) turn scary roots into easy integrals.</div>
+        <div><b>When it fails</b>If the speed has no antiderivative you can write down, estimate numerically (§2.6). If it blows up at an endpoint, the distance is an improper integral (§2.5).</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>Recognition: what does the question want?</h4>
+      <div class="table-scroll"><table>
+        <thead><tr><th>The question says…</th><th>So you…</th></tr></thead>
+        <tbody>
+          <tr><td>“displacement,” “shift in position,” “net change in position”</td><td>$\int\vec v\,dt=\vec p(b)-\vec p(a)$: one integral per component, and the answer is a <b>vector</b>.</td></tr>
+          <tr><td>“total distance traveled,” “how far did it travel”</td><td>$\int|\vec v|\,dt$: square, add, simplify, integrate. The answer is a <b>number</b>.</td></tr>
+          <tr><td>You're given the position $\vec p(t)$</td><td>Differentiate each component first (chain rule).</td></tr>
+          <tr><td>The speed simplifies: $\sin^2+\cos^2$, or a perfect square under the root</td><td>Integrate directly (new notes pp. 6–7).</td></tr>
+          <tr><td>The speed has no usable antiderivative</td><td>Simpson's Rule on the speed (§2.6).</td></tr>
+          <tr><td>The speed blows up at an endpoint</td><td>An improper integral (§2.5), as in textbook Example 3.3.7.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout warn" style="margin-bottom:0">
+        <div class="label">Tempting alternative, and why to reject it</div>
+        <p style="margin:0">“Distance $=\big|\vec p(b)-\vec p(a)\big|$.” That's the straight-line shortcut between the endpoints, the length of the displacement. The path is at least that long, and usually longer. For the helix the shortcut is $6\pi$ while the distance is $10\pi$.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 3 EXPLORE -->
+  <div class="stage" id="E-explore">
+    <div class="stage-head"><span class="n">Stage 3 · Explore</span><h3>Path explorer</h3></div>
+    <div class="widget">
+      <div class="w-head"><h4>Play the motion; compare the displacement arrow with the path</h4><span class="small muted">presets · play/pause · scrub time · turn the 3D view</span></div>
+      <div class="w-sub">Blue: the path so far. Orange arrow: velocity. Dashed arrow: displacement from the start. Below: speed, with the area so far shaded (that area is the distance).</div>
+      <div id="widget-path">
+        <div class="w-formula">$$\vec p(t)=(\cos 4t,\ \sin 4t,\ 3t),\qquad \vec v(t)=(-4\sin 4t,\ 4\cos 4t,\ 3),\qquad |\vec v|=\sqrt{16+9}=5$$</div>
+        <div class="w-formula">$$\vec p(t)=(12t,\ 8t^{3/2},\ 3t^2),\qquad \vec v=(12,\ 12t^{1/2},\ 6t),\qquad |\vec v|=\sqrt{36(t+2)^2}=6(t+2)$$</div>
+        <div class="w-formula">$$\vec v(t)=(3t^2,\ t,\ 0),\qquad \vec p(t)=\big(t^3,\ \tfrac{t^2}{2},\ 0\big)\ \text{(from the origin)},\qquad |\vec v|=t\sqrt{9t^2+1}$$</div>
+        <div class="w-formula">$$\vec p(t)=\big(t,\ \sqrt{1-t^2}\,\big),\qquad \vec v=\Big(1,\ \frac{-t}{\sqrt{1-t^2}}\Big),\qquad |\vec v|=\frac{1}{\sqrt{1-t^2}}\ \ \to\infty\ \text{at}\ t=\pm1$$</div>
+        <div class="w-formula">$$\vec p(t)=(-\cos t,\ \sin t),\qquad \vec v=(\sin t,\ \cos t),\qquad |\vec v|=1$$</div>
+        <div class="w-formula">$$\vec p(t)=(t^2-2t)\,(0.6,\ 0.8),\qquad \vec v=(2t-2)\,(0.6,\ 0.8),\qquad |\vec v|=|2t-2|$$</div>
+        <div class="w-formula">$$\vec v(t)=\big(t+3,\ \sqrt{2t},\ \sqrt7\big),\qquad |\vec v|=\sqrt{t^2+8t+16}=t+4,\qquad \int_1^5(t+4)\,dt=28\ \text{m}$$</div>
+      </div>
+      <div class="try"><h5>What to notice</h5><ol>
+        <li>With <b>Notes p. 6: helix</b>, press Play. The speed graph is flat at 5, so the distance grows steadily to $10\pi\approx31.4$. The displacement arrow only points up the axis: $(0,0,6\pi)$, length $6\pi\approx18.8$.</li>
+        <li>The orange velocity arrow is always <b>tangent</b> to the path, and it gets longer when the particle speeds up.</li>
+        <li>Compare <b>Textbook Ex. 3.3.7: semicircle, fast ends</b> with <b>Textbook Ex. 3.3.8: semicircle, steady</b>. It's the same path at different speeds, and both give distance $\pi$. In 3.3.7 the speed blows up at $t=\pm1$, yet the area under it, an improper integral (§2.5), is still $\pi$.</li>
+        <li>With <b>1D inside 2D: back and forth on a line</b>: before $t=1$ the particle moves in one direction and $|\text{displacement}|=\text{distance}$. After it turns around, a gap opens. At $t=3$ the displacement's length is 3 and the distance is 5: §3.1's split at $v=0$, hidden inside $|\vec v|=|2t-2|$.</li>
+        <li>With <b>Notes p. 7: (12t, 8t^(3/2), 3t²)</b>, the speed graph is a straight line, $6(t+2)$. That's the perfect square inside the root, and the distance is the trapezoid area $\frac{12+18}{2}=15$ ft.</li>
+        <li>With <b>3.3–3.5 notes p. 1: v = (t + 3, √(2t), √7)</b>, the speed graph is again a straight line, $t+4$, and the distance from $t=1$ to $t=5$ is 28 m. The displacement's length, about 27.93 m, is only a little less: the path is nearly straight. The position shown is one antiderivative of $\vec v$; any starting point gives the same picture, shifted.</li>
+      </ol></div>
+    </div>
+
+    <div class="tryout" data-topic="E">
+      <div class="q">For $\vec p(t)=(\cos 4t,\ \sin 4t,\ 3t)$ (new notes p. 6), which velocity is right? Try each and see what happens to the speed and the distance on $[0,2\pi]$.</div>
+      <div class="try-opts">
+        <button class="try-opt">$(-\sin 4t,\ \cos 4t,\ 3)$</button>
+        <button class="try-opt">$(-4\sin 4t,\ 4\cos 4t,\ 3)$</button>
+        <button class="try-opt">$(4\sin 4t,\ 4\cos 4t,\ 3)$</button>
+      </div>
+      <div class="try-res" data-verdict="bad">The chain-rule factor 4 is missing. Speed $\sqrt{1+9}=\sqrt{10}$ gives distance $2\pi\sqrt{10}\approx19.9$, which is too small.</div>
+      <div class="try-res" data-verdict="good">Speed $\sqrt{16\sin^24t+16\cos^24t+9}=\sqrt{25}=5$, so the distance is $5\cdot2\pi=10\pi\approx31.4$.</div>
+      <div class="try-res" data-verdict="ok">A sign error in the first component: $\frac{d}{dt}\cos4t=-4\sin4t$. The speed still comes out 5, because squaring hides the sign. But this “velocity” points the wrong way, so it would give the wrong displacement.</div>
+    </div>
+
+    <div class="tryout" data-topic="E">
+      <div class="q">For the same helix, which setup gives the <b>distance traveled</b> on $[0,2\pi]$?</div>
+      <div class="try-opts">
+        <button class="try-opt">$\big|\vec p(2\pi)-\vec p(0)\big|$</button>
+        <button class="try-opt">$\displaystyle\int_0^{2\pi}\big(|x'|+|y'|+|z'|\big)\,dt$</button>
+        <button class="try-opt">$\displaystyle\int_0^{2\pi}\sqrt{x'^2+y'^2+z'^2}\,dt$</button>
+      </div>
+      <div class="try-res" data-verdict="bad">$|(0,0,6\pi)|=6\pi\approx18.8$. That's the length of the displacement, the straight shortcut, not the path.</div>
+      <div class="try-res" data-verdict="bad">That adds the components' sizes instead of taking the vector's length. It gives $32+6\pi\approx50.8$, too big. Arrows combine by Pythagoras, not by adding their parts.</div>
+      <div class="try-res" data-verdict="good">$\int_0^{2\pi}5\,dt=10\pi\approx31.4$. Speed is the length of $\vec v$, and distance adds up speed × time.</div>
+    </div>
+  </div>
+
+  <!-- ============================== 4 ATTEMPT -->
+  <div class="stage" id="E-attempt">
+    <div class="stage-head"><span class="n">Stage 4 · Attempt</span><h3>Guided example, then your turn</h3></div>
+    <div class="guided" data-gid="E-guided">
+      <div class="g-intro"><span class="badge">Guided example</span>
+        <p style="margin-top:8px">Find the total distance traveled when $\vec p(t)=(\cos 4t,\ \sin 4t,\ 3t)$ for $0\le t\le2\pi$. New notes p. 6 leaves this example blank after “$\vec v(t)=$”; finish it here.</p></div>
+      <div class="gstep"><span class="g-label">Step 1 · Velocity</span>
+        <div class="mcq" data-qid="E-g1"><div class="q">$\vec v(t)=$ ?</div>
+          <div class="opts">
+            <button class="opt" data-correct>$(-4\sin 4t,\ 4\cos 4t,\ 3)$</button>
+            <button class="opt" data-why="Chain rule: the inside 4t contributes a factor 4 to the first two components.">$(-\sin 4t,\ \cos 4t,\ 3)$</button>
+            <button class="opt" data-why="That integrates the components instead of differentiating them.">$\big(\tfrac14\sin 4t,\ -\tfrac14\cos 4t,\ \tfrac32t^2\big)$</button>
+          </div></div>
+        <div class="greveal">Differentiate componentwise, with the chain rule: $\frac{d}{dt}\cos4t=-4\sin4t$, $\frac{d}{dt}\sin4t=4\cos4t$, and $\frac{d}{dt}3t=3$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 2 · Speed</span>
+        <p>Simplify before integrating. <label class="inline">$|\vec v(t)|=$ <input class="ans" data-vid="E-guided-speed" data-answer="5" data-exact="5"></label></p>
+        <div class="greveal">$\sqrt{16\sin^24t+16\cos^24t+9}=\sqrt{16(\sin^24t+\cos^24t)+9}=\sqrt{25}=5$. The speed is constant.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 3 · Distance</span>
+        <p><label class="inline">$\displaystyle\int_0^{2\pi}|\vec v|\,dt=$ <input class="ans" data-vid="E-guided-dist" data-answer="31.415926535898" data-exact="10π"></label></p>
+        <div class="greveal">$\int_0^{2\pi}5\,dt=10\pi\approx31.42$ (verified by hand, SymPy and Wolfram).</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 4 · Compare with the displacement</span>
+        <p>$\vec p(2\pi)-\vec p(0)=(\cos8\pi-1,\ \sin8\pi,\ 6\pi)=(0,0,6\pi)$. <label class="inline">Its length is <input class="ans" data-vid="E-guided-displen" data-answer="18.849555921539" data-exact="6π"></label></p>
+        <div class="greveal">$|(0,0,6\pi)|=6\pi\approx18.85$, less than the distance $10\pi$ ✓ (new notes p. 5's inequality).</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 5 · Interpret</span>
+        <div class="mcq" data-qid="E-g5"><div class="q">Why is the distance bigger than the length of the displacement?</div>
+          <div class="opts">
+            <button class="opt" data-correct>The particle circles around 4 times while it rises, but the displacement arrow goes straight up.</button>
+            <button class="opt" data-why="The speed is constant (5). The gap comes from the path's shape, not a speed change.">Because the particle slows down.</button>
+            <button class="opt" data-why="They're different quantities, but that doesn't explain the difference in size.">Because distance is a number and displacement is a vector.</button>
+          </div></div>
+        <div class="greveal">The circular part of the motion returns to the start after each turn ($\cos8\pi=1$, $\sin8\pi=0$), so it contributes nothing to the displacement but plenty to the distance.</div>
+      </div>
+      <div class="takeaway"><b>Takeaway.</b> Differentiate componentwise (chain rule!), square and add, simplify, then integrate the speed. Compare with $|\vec p(b)-\vec p(a)|$ as a sanity check: distance is never smaller.</div>
+    </div>
+
+    <div class="problem" data-pid="E-indep" data-topic="E" data-level="4" data-title="Independent attempt" data-src="Your turn: new notes p. 7 (left blank in the notes)" data-prompt="Find the total distance traveled by an object with position p(t) = (12t, 8t^(3/2), 3t^2) feet for 0 &lt;= t &lt;= 1 second.">
+      <div class="p-body">Find the total distance traveled by an object with position $\vec p(t)=(12t,\ 8t^{3/2},\ 3t^2)$ (ft) for $0\le t\le1$ (second).</div>
+      <div class="answers"><label>Distance (ft) <input class="ans" data-vid="E-indep" data-answer="15" data-exact="15 ft" data-wrong='[{"v":14.730919862656,"m":"That is |<b>p</b>(1) − <b>p</b>(0)| = √217, the length of the displacement. Distance integrates the speed along the path."},{"v":23,"m":"It looks like the speed was taken as x′ + y′ + z′. Speed is the length √(x′² + y′² + z′²)."}]'></label></div>
+      <ol class="know">
+        <li>What's $\vec v(t)$? Differentiate each component (careful with $t^{3/2}$).</li>
+        <li>Square and add the components. Can the sum be written as a perfect square?</li>
+        <li>Distance = the integral of the speed.</li>
+      </ol>
+      <div class="hint">$\vec v(t)=(12,\ 12t^{1/2},\ 6t)$.</div>
+      <div class="hint">$|\vec v|^2=144+144t+36t^2=36(t^2+4t+4)$. What is $t^2+4t+4$?</div>
+      <div class="hint">$|\vec v|=6(t+2)$. Integrate from 0 to 1.</div>
+      <div class="solution">
+        <ol>
+          <li>$|\vec v|=\sqrt{36(t+2)^2}=6(t+2)$, since $t+2&gt;0$.</li>
+          <li>$\int_0^16(t+2)\,dt=\big[3t^2+12t\big]_0^1=15$ ft.</li>
+        </ol>
+        <p style="margin:0"><b>Sanity check:</b> $|\vec p(1)-\vec p(0)|=|(12,8,3)|=\sqrt{217}\approx14.73\le15$ ✓. The path is almost straight.</p>
+      </div>
+      <div class="reflect"><h5>Compare your approach</h5>
+        <label><input type="checkbox"> I differentiated $8t^{3/2}$ correctly to $12t^{1/2}$.</label>
+        <label><input type="checkbox"> I looked for a perfect square instead of fighting the square root.</label>
+        <label><input type="checkbox"> I checked that the distance ≥ the length of the displacement.</label>
+        <p class="small muted" style="margin:6px 0 0">The clue to recognize next time: <b>“total distance” with a position vector → differentiate, square, add, simplify, integrate</b>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 5 COMPARE -->
+  <div class="stage" id="E-compare">
+    <div class="stage-head"><span class="n">Stage 5 · Compare</span><h3>Tempting approaches vs. correct reasoning</h3></div>
+    <div class="vs">
+      <div class="tempt"><h5>✗ Tempting</h5>“The displacement over $[2,4]$ for $\vec v(t)=\big(\cos(2t-1)+\frac{1}{t^2+1},\ \frac3t+3t^2\big)$ is the number $|\vec p(4)-\vec p(2)|\approx58.08$.”</div>
+      <div class="right"><h5>✓ Correct</h5>Displacement is a vector (new notes p. 5): $\big(\tfrac{\sin7-\sin3}{2}+\tan^{-1}4-\tan^{-1}2,\ 56+3\ln2\big)\approx(0.477,\ 58.079)$ m. Its length is a different, second question.</div>
+      <div class="clue"><b>Clue for next time:</b> “displacement” in 2D or 3D → give every component.</div>
+    </div>
+
+    <div class="spot" data-sid="E-spot1">
+      <p><b>Spot the error.</b> New notes p. 7 asks for the total distance when $\vec v(t)=(3t^2,\ t,\ 0)$, $0\le t\le3$. A student writes:</p>
+      <button class="sline"><span class="ln">Line 1</span><span>$\vec v(t)=(3t^2,\ t,\ 0)$.</span></button>
+      <button class="sline" data-bad><span class="ln">Line 2</span><span>Speed $=3t^2+t+0$.</span></button>
+      <button class="sline"><span class="ln">Line 3</span><span>Distance $=\displaystyle\int_0^3(3t^2+t)\,dt=27+\tfrac92=31.5$.</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout warn"><div class="label">What went wrong</div><p style="margin:0">Speed is the <em>length</em> of $\vec v$, not the sum of its components: $|\vec v|=\sqrt{9t^4+t^2}=t\sqrt{9t^2+1}$. Then $u=9t^2+1$ gives distance $\frac{82\sqrt{82}-1}{27}\approx27.46$. The sum always overestimates, because a diagonal is shorter than going along the sides.</p></div>
+    </div>
+
+    <div class="spot" data-sid="E-spot2">
+      <p><b>Spot the error.</b> A student finds the distance along the helix $\vec p(t)=(\cos 4t,\ \sin4t,\ 3t)$, $0\le t\le2\pi$.</p>
+      <button class="sline"><span class="ln">Line 1</span><span>$\vec p(t)=(\cos 4t,\ \sin 4t,\ 3t)$</span></button>
+      <button class="sline" data-bad><span class="ln">Line 2</span><span>$\vec v(t)=(-\sin 4t,\ \cos4t,\ 3)$</span></button>
+      <button class="sline"><span class="ln">Line 3</span><span>$|\vec v|=\sqrt{\sin^24t+\cos^24t+9}=\sqrt{10}$</span></button>
+      <button class="sline"><span class="ln">Line 4</span><span>Distance $=2\pi\sqrt{10}\approx19.87$.</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout warn"><div class="label">What went wrong</div><p style="margin:0">Line 2 forgets the chain rule: $\frac{d}{dt}\cos4t=-4\sin4t$. With $\vec v=(-4\sin4t,\ 4\cos4t,\ 3)$ the speed is 5 and the distance is $10\pi\approx31.42$. A red flag: $2\pi\sqrt{10}\approx19.87$ is barely more than the straight-line $6\pi\approx18.85$, far too short for four full turns.</p></div>
+    </div>
+
+    <h4 style="margin-top:22px">Common mistakes: why they happen and how to prevent them</h4>
+    <details class="mistake"><summary>Answering displacement with a number, or distance with a vector</summary><div class="m-body"><p><b>Why it happens</b><br>In 1D both were numbers.</p><p><b>Prevent it</b><br>New notes p. 5 labels them: displacement “This is a vector!”, distance “This is a non-negative number!”.</p></div></details>
+    <details class="mistake"><summary>Speed as $x'+y'+z'$</summary><div class="m-body"><p><b>Why it happens</b><br>Adding feels natural when you're combining components.</p><p><b>Prevent it</b><br>Speed is a length: $\sqrt{x'^2+y'^2+z'^2}$ (Pythagoras). Speed is never negative, which a sum can be.</p></div></details>
+    <details class="mistake"><summary>Dropping the chain rule in a component</summary><div class="m-body"><p><b>Why it happens</b><br>There are three derivatives to take, and the inside factor is easy to lose in one of them.</p><p><b>Prevent it</b><br>Write each component's derivative on its own line. $\cos4t\to-4\sin4t$ and $8t^{3/2}\to12t^{1/2}$.</p></div></details>
+    <details class="mistake"><summary>Using $|\vec p(b)-\vec p(a)|$ as the distance</summary><div class="m-body"><p><b>Why it happens</b><br>It's quick, and it's a genuine length.</p><p><b>Prevent it</b><br>It's the shortcut's length, a lower bound for the distance. Use it only as a check: distance ≥ it.</p></div></details>
+    <details class="mistake"><summary>Splitting at sign changes in 2D or 3D</summary><div class="m-body"><p><b>Why it happens</b><br>§3.1 trained you to split where $v=0$.</p><p><b>Prevent it</b><br>In 2D and 3D, $|\vec v|=\sqrt{\cdots}$ is already ≥ 0 everywhere, so just integrate it. You split only if the simplified speed is itself an absolute value, like $|2t-2|$. That's the 1D split, built in because $\sqrt{v^2}=|v|$.</p></div></details>
+  </div>
+
+  <!-- ============================== 6 PRACTICE -->
+  <div class="stage" id="E-practice">
+    <div class="stage-head"><span class="n">Stage 6 · Practice</span><h3>Practice: standard applications</h3></div>
+    <div class="problem" data-pid="E-p1" data-topic="E" data-title="Practice 1" data-src="New notes p. 6 (left blank in the notes)" data-help="Give each component to 4 decimal places, or exactly." data-prompt="The velocity of a particle is v(t) = (cos(2t - 1) + 1/(t^2 + 1), 3/t + 3t^2) m/s. Find the displacement over the time interval [2, 4].">
+      <div class="p-body">The velocity of a particle is $\vec v(t)=\Big(\cos(2t-1)+\dfrac{1}{t^2+1},\ \dfrac3t+3t^2\Big)$ (m/s). Find the displacement over the time interval $[2,4]$ (s).</div>
+      <div class="answers"><label>$x$-component <input class="ans" data-label="x" data-vid="E-p1-x" data-answer="0.476602241203" data-exact="(sin 7 − sin 3)/2 + tan⁻¹4 − tan⁻¹2" data-wrong='[{"v":0.734535536533,"t":6e-4,"m":"Check ∫cos(2t − 1) dt = ½ sin(2t − 1): the ½ from the inside 2t − 1 seems to be missing."}]'></label><label>$y$-component <input class="ans" data-label="y" data-vid="E-p1-y" data-answer="58.079441541680" data-exact="56 + 3 ln 2"></label></div>
+      <div class="hint">Displacement $=\int_2^4\vec v\,dt$: integrate each component separately.</div>
+      <div class="hint">$\int\cos(2t-1)\,dt=\tfrac12\sin(2t-1)$ and $\int\frac{dt}{t^2+1}=\tan^{-1}t$. For $y$: $\int\big(\frac3t+3t^2\big)dt=3\ln t+t^3$.</div>
+      <div class="solution">$x$: $\big[\tfrac12\sin(2t-1)+\tan^{-1}t\big]_2^4=\tfrac{\sin7-\sin3}{2}+\tan^{-1}4-\tan^{-1}2\approx0.4766$. $y$: $\big[3\ln t+t^3\big]_2^4=3\ln2+56\approx58.0794$. The displacement is $\approx(0.4766,\ 58.0794)$ m.</div>
+    </div>
+    <div class="problem" data-pid="E-p2" data-topic="E" data-title="Practice 2" data-src="New notes p. 7 (left blank in the notes)" data-prompt="The velocity of a particle is v(t) = (3t^2, t, 0) for 0 &lt;= t &lt;= 3. Find the total distance traveled.">
+      <div class="p-body">The velocity of a particle is $\vec v(t)=(3t^2,\ t,\ 0)$ for $0\le t\le3$. Find the total distance traveled.</div>
+      <div class="answers"><label>Distance <input class="ans" data-vid="E-p2" data-answer="27.464503012121" data-exact="(82√82 − 1)/27" data-wrong='[{"v":31.5,"m":"That adds the components (3t² + t). Speed is the length √(9t⁴ + t²)."}]'></label></div>
+      <div class="hint">$|\vec v|=\sqrt{9t^4+t^2}$. Factor $t^2$ out of the root (it's fine: $t\ge0$).</div>
+      <div class="hint">$|\vec v|=t\sqrt{9t^2+1}$. Substitute $u=9t^2+1$, $du=18t\,dt$.</div>
+      <div class="solution">$\frac1{18}\int_1^{82}u^{1/2}\,du=\frac{1}{27}\big(82^{3/2}-1\big)=\frac{82\sqrt{82}-1}{27}\approx27.46$. (The “3t²” on new notes p. 7 looks overwritten in the handwriting; this guide reads it as 3, which matches the other 3s on that page.)</div>
+    </div>
+    <div class="problem" data-pid="E-p3" data-topic="E" data-title="Practice 3" data-src="Textbook Example 3.3.2" data-help="Exact (e - 1, sqrt(2), 1/e - 1) or decimals." data-prompt="A particle's velocity is v(t) = (e^t, sqrt 2, -e^(-t)). Find its displacement from t = 0 to t = 1.">
+      <div class="p-body">A particle's velocity is $\vec v(t)=(e^t,\ \sqrt2,\ -e^{-t})$. Find its displacement from $t=0$ to $t=1$.</div>
+      <div class="answers"><label>$x$ <input class="ans" data-label="x" data-vid="E-p3-x" data-answer="1.718281828459" data-exact="e − 1"></label><label>$y$ <input class="ans" data-label="y" data-vid="E-p3-y" data-answer="1.414213562373" data-exact="√2"></label><label>$z$ <input class="ans" data-label="z" data-vid="E-p3-z" data-answer="-0.632120558829" data-exact="e⁻¹ − 1" data-wrong='[{"v":0.632120558829,"m":"Check the sign: ∫₀¹ −e^(−t) dt = [e^(−t)]₀¹ = e⁻¹ − 1, which is negative."}]'></label></div>
+      <div class="hint">One integral per component, each from 0 to 1.</div>
+      <div class="hint">$\int_0^1-e^{-t}\,dt=\big[e^{-t}\big]_0^1$.</div>
+      <div class="solution">$(e-1,\ \sqrt2,\ e^{-1}-1)\approx(1.718,\ 1.414,\ -0.632)$.</div>
+    </div>
+    <div class="problem" data-pid="E-p4" data-topic="E" data-title="Practice 4" data-src="Textbook Example 3.3.4" data-prompt="For v(t) = (e^t, sqrt 2, -e^(-t)), find the total distance traveled from t = 0 to t = 1.">
+      <div class="p-body">Same particle: $\vec v(t)=(e^t,\ \sqrt2,\ -e^{-t})$. Find the total distance traveled from $t=0$ to $t=1$.</div>
+      <div class="answers"><label>Distance <input class="ans" data-vid="E-p4" data-answer="2.350402387288" data-exact="e − e⁻¹" data-wrong='[{"v":2.31345387741,"t":5e-4,"m":"That is the length of the displacement vector from Practice 3. Distance integrates the speed."}]'></label></div>
+      <div class="hint">$|\vec v|^2=e^{2t}+2+e^{-2t}$. It's a perfect square.</div>
+      <div class="hint">$e^{2t}+2+e^{-2t}=(e^t+e^{-t})^2$.</div>
+      <div class="solution">$\int_0^1(e^t+e^{-t})\,dt=\big[e^t-e^{-t}\big]_0^1=e-e^{-1}\approx2.3504$. The length of the displacement (Practice 3) is $\approx2.3135$: a little less, as it must be.</div>
+    </div>
+    <div class="problem" data-pid="E-p5" data-topic="E" data-title="Practice 5" data-src="Textbook §3.3 Suggested Ex. 1" data-prompt="v(t) = (3 sin 2 pi t, 3 cos 2 pi t, 4t) on [0, 2]: find the displacement.">
+      <div class="p-body">An object has velocity $\vec v(t)=(3\sin2\pi t,\ 3\cos2\pi t,\ 4t)$. Find its displacement over $[0,2]$.</div>
+      <div class="answers"><label>$x$ <input class="ans" data-label="x" data-vid="E-p5-x" data-answer="0" data-exact="0" data-tol="1e-6"></label><label>$y$ <input class="ans" data-label="y" data-vid="E-p5-y" data-answer="0" data-exact="0" data-tol="1e-6"></label><label>$z$ <input class="ans" data-label="z" data-vid="E-p5-z" data-answer="8" data-exact="8"></label></div>
+      <div class="hint">Over $[0,2]$, $2\pi t$ runs through two full periods.</div>
+      <div class="hint">$\int_0^2 3\sin2\pi t\,dt=\big[-\frac{3}{2\pi}\cos2\pi t\big]_0^2$ and $\int_0^24t\,dt=\big[2t^2\big]_0^2$.</div>
+      <div class="solution">$(0,\ 0,\ 8)$. The circular motion cancels over whole turns; only the climb remains.</div>
+    </div>
+    <div class="problem" data-pid="E-p6" data-topic="E" data-title="Practice 6" data-src="Textbook §3.3 Suggested Ex. 3" data-prompt="p(t) = (sin 3t, cos 3t, 2t^(3/2)) for t in [0, pi]: find the total distance traveled.">
+      <div class="p-body">$\vec p(t)=(\sin3t,\ \cos3t,\ 2t^{3/2})$ for $t\in[0,\pi]$. Find the total distance traveled.</div>
+      <div class="answers"><label>Distance <input class="ans" data-vid="E-p6" data-answer="14.857030325" data-exact="2((1 + π)^(3/2) − 1)"></label></div>
+      <div class="hint">$\vec v=(3\cos3t,\ -3\sin3t,\ 3t^{1/2})$.</div>
+      <div class="hint">$|\vec v|=\sqrt{9+9t}=3\sqrt{1+t}$.</div>
+      <div class="solution">$\int_0^\pi3\sqrt{1+t}\,dt=\big[2(1+t)^{3/2}\big]_0^\pi=2\big((1+\pi)^{3/2}-1\big)\approx14.857$.</div>
+    </div>
+    <div class="problem" data-pid="E-p7" data-topic="E" data-title="Practice 7" data-src="Textbook §3.3 Suggested Ex. 5" data-prompt="p(t) = (cos(1/t), sin(1/t), sqrt(3)/t) for t in [1, 3]: find the total distance traveled.">
+      <div class="p-body">$\vec p(t)=\big(\cos\frac1t,\ \sin\frac1t,\ \frac{\sqrt3}{t}\big)$ for $t\in[1,3]$. Find the total distance traveled.</div>
+      <div class="answers"><label>Distance <input class="ans" data-vid="E-p7" data-answer="1.333333333333" data-exact="4/3"></label></div>
+      <div class="hint">Chain rule on each component: $\frac{d}{dt}\cos\frac1t=\frac{1}{t^2}\sin\frac1t$.</div>
+      <div class="hint">$\vec v=\big(\frac{\sin(1/t)}{t^2},\ -\frac{\cos(1/t)}{t^2},\ -\frac{\sqrt3}{t^2}\big)$, so $|\vec v|=\frac{\sqrt{1+3}}{t^2}=\frac{2}{t^2}$.</div>
+      <div class="solution">$\int_1^3\frac{2}{t^2}\,dt=\big[-\frac2t\big]_1^3=-\frac23+2=\frac43$.</div>
+    </div>
+    <div class="problem" data-pid="E-p8" data-topic="E" data-title="Practice 8" data-src="Textbook §3.3 Suggested Ex. 9 (b)–(c)" data-prompt="The velocity of a particle is v(t) = (e^(-2t), e^(2t), sqrt 2). (b) Find the speed at t = 0. (c) Find the total distance traveled from t = 0 to t = 2.">
+      <div class="p-body">The velocity of a particle is $\vec v(t)=\big(e^{-2t},\ e^{2t},\ \sqrt2\big)$. (b) Find the speed at $t=0$. (c) Find the total distance traveled from $t=0$ to $t=2$.</div>
+      <div class="answers"><label>(b) <input class="ans" data-label="(b)" data-vid="E-p8-speed0" data-answer="2" data-exact="2"></label><label>(c) <input class="ans" data-label="(c)" data-vid="E-p8-dist" data-answer="27.289917197128" data-exact="(e⁴ − e⁻⁴)/2"></label></div>
+      <div class="hint">(b) $|\vec v(0)|=|(1,1,\sqrt2)|$.</div>
+      <div class="hint">(c) $|\vec v|^2=e^{-4t}+e^{4t}+2=(e^{2t}+e^{-2t})^2$: another perfect square.</div>
+      <div class="solution">(b) $\sqrt{1+1+2}=2$. (c) $\int_0^2(e^{2t}+e^{-2t})\,dt=\big[\tfrac12e^{2t}-\tfrac12e^{-2t}\big]_0^2=\frac{e^4-e^{-4}}{2}\approx27.29$.</div>
+    </div>
+    <div class="problem" data-pid="E-p9" data-topic="E" data-title="Practice 9" data-src="Textbook §3.3 Additional Ex. 2 (+ the distance)" data-prompt="v(t) = (|t|, |t|, |t|) on [-3, 3]: find (a) the displacement's x-component (all three are equal) and (b) the total distance traveled.">
+      <div class="p-body">$\vec v(t)=(|t|,\ |t|,\ |t|)$ on $[-3,3]$. (a) Find the displacement's $x$-component (all three components are equal). (b) Find the total distance traveled.</div>
+      <div class="answers"><label>(a) <input class="ans" data-label="(a)" data-vid="E-p9-x" data-answer="9" data-exact="9" data-wrong='[{"v":0,"m":"|t| is never negative, so the two halves can’t cancel. Split at t = 0: ∫₋₃³|t| dt = 9/2 + 9/2."}]'></label><label>(b) <input class="ans" data-label="(b)" data-vid="E-p9-dist" data-answer="15.588457268120" data-exact="9√3"></label></div>
+      <div class="hint">(a) $\int_{-3}^3|t|\,dt$: split at 0, as in §2.4.</div>
+      <div class="hint">(b) $|\vec v|=\sqrt{3t^2}=\sqrt3\,|t|$.</div>
+      <div class="solution">(a) The displacement is $(9,9,9)$. (b) $\sqrt3\int_{-3}^3|t|\,dt=9\sqrt3\approx15.59$, exactly the length of $(9,9,9)$. They're equal because $\vec v$ always points along $(1,1,1)$: straight-line motion in one direction.</div>
+    </div>
+    <div class="problem" data-pid="E-p10" data-topic="E" data-title="Practice 10" data-src="Textbook §3.3 Additional Ex. 4" data-prompt="p(t) = (1 - (4/3) t^(3/2), 2t + 6, 5): find the distance traveled from t = 0 to t = 3.">
+      <div class="p-body">A particle has position $\vec p(t)=\big(1-\tfrac43t^{3/2},\ 2t+6,\ 5\big)$. Find the distance traveled from $t=0$ to $t=3$.</div>
+      <div class="answers"><label>Distance <input class="ans" data-vid="E-p10" data-answer="9.333333333333" data-exact="28/3"></label></div>
+      <div class="hint">$\vec v=(-2t^{1/2},\ 2,\ 0)$.</div>
+      <div class="hint">$|\vec v|=\sqrt{4t+4}=2\sqrt{t+1}$.</div>
+      <div class="solution">$\int_0^32\sqrt{t+1}\,dt=\big[\tfrac43(t+1)^{3/2}\big]_0^3=\tfrac43(8-1)=\tfrac{28}{3}\approx9.333$.</div>
+    </div>
+    <div class="problem" data-pid="E-p11" data-topic="E" data-title="Practice 11" data-src="3.3–3.5 notes p. 1 · redo it" data-prompt="Find the total distance traveled by an object from t = 1 to t = 5 seconds with velocity v(t) = (t + 3, sqrt(2t), sqrt(7)) m/sec.">
+      <div class="p-body">Find the total distance traveled by an object from $t=1$ to $t=5$ seconds with velocity $\vec v(t)=\big(t+3,\ \sqrt{2t},\ \sqrt7\big)$ (m/sec).</div>
+      <div class="answers"><label>Distance (m) <input class="ans" data-vid="E-p11" data-answer="28" data-exact="28 m" data-wrong='[{"v":27.930697094774,"m":"That is the length of the displacement vector, |<b>p</b>(5) − <b>p</b>(1)|. Distance integrates the speed."},{"v":44.181121736571,"m":"It looks like the speed was taken as the sum of the components. Speed is the length √(x′² + y′² + z′²)."}]'></label></div>
+      <div class="hint">Square and add: $|\vec v|^2=(t+3)^2+2t+7$.</div>
+      <div class="hint">Expand: $t^2+6t+9+2t+7=t^2+8t+16$. Recognize it?</div>
+      <div class="hint">$t^2+8t+16=(t+4)^2$, so $|\vec v|=t+4$ (positive on $[1,5]$).</div>
+      <div class="solution">$\int_1^5(t+4)\,dt=\big[\tfrac12t^2+4t\big]_1^5=32.5-4.5=28$ m, the answer on 3.3–3.5 notes p. 1. Strictly, $\sqrt{(t+4)^2}=|t+4|$; the notes write $t+4$, which is right because $t+4&gt;0$ here. Sanity check: the displacement has length about 27.93 m ≤ 28 m ✓.</div>
+    </div>
+  </div>
+
+  <!-- ============================== 7 MASTER -->
+  <div class="stage" id="E-master">
+    <div class="stage-head"><span class="n">Stage 7 · Master</span><h3>Mastery check</h3></div>
+    <p class="muted">No hints are offered until you've committed to an answer. This checks recognition, understanding, an unfamiliar problem, and whether you can explain why.</p>
+    <div class="mcq" data-qid="E-m1" data-topic="E" data-level="1" data-count data-multi>
+      <div class="q"><b>Recognition.</b> Which of these are <b>vectors</b>? Select all that apply.</div>
+      <div class="opts cols-2">
+        <button class="opt" data-correct>the displacement $\int_a^b\vec v\,dt$</button>
+        <button class="opt">the speed $|\vec v(t)|$</button>
+        <button class="opt" data-correct>the velocity $\vec v(t)$</button>
+        <button class="opt">the total distance $\int_a^b|\vec v|\,dt$</button>
+        <button class="opt" data-correct>$\vec p(b)-\vec p(a)$</button>
+        <button class="opt">$\big|\vec p(b)-\vec p(a)\big|$</button>
+      </div>
+      <div class="why callout why"><div class="label">Why</div><p style="margin:0">Velocity, displacement and $\vec p(b)-\vec p(a)$ (the same thing as the displacement) have components and a direction. Speed, total distance and the length $|\vec p(b)-\vec p(a)|$ are non-negative numbers (new notes pp. 4–5).</p></div>
+    </div>
+    <div class="mcq" data-qid="E-m2" data-topic="E" data-level="2" data-count>
+      <div class="q"><b>Understanding.</b> When is $\big|\int_a^b\vec v\,dt\big|$ exactly equal to $\int_a^b|\vec v|\,dt$?</div>
+      <div class="opts">
+        <button class="opt" data-correct data-why="Right: only then does the path coincide with the straight shortcut.">When the particle moves along a straight line without turning back ($\vec v$ always points the same way).</button>
+        <button class="opt" data-why="The helix has constant speed 5, yet 6π ≠ 10π.">When the speed is constant.</button>
+        <button class="opt" data-why="The helix is a counterexample: 6π &lt; 10π.">Always: they're two ways to compute the same thing.</button>
+        <button class="opt" data-why="A circle is the opposite: after a full lap the displacement is 0 but the distance isn't.">When the path is a circle.</button>
+      </div>
+    </div>
+    <div class="problem" data-pid="E-m3" data-topic="E" data-level="6" data-title="Unfamiliar problem" data-src="Textbook Example 3.3.7 · combines §2.5" data-help='A number, or "diverges".' data-prompt="A particle has position p(t) = (t, sqrt(1 - t^2)) for -1 &lt;= t &lt;= 1. Find the total distance traveled.">
+      <div class="p-body">A particle has position $\vec p(t)=\big(t,\ \sqrt{1-t^2}\,\big)$ for $-1\le t\le1$: the upper half of the unit circle. Find the total distance traveled. (Watch the speed at the ends.)</div>
+      <div class="answers"><label>Distance <input class="ans" data-accept="div" data-vid="E-m3" data-answer="3.141592653590" data-exact="π" data-convmsg="The speed blows up at t = ±1, but check whether the improper integral still converges: arcsin has finite limits at ±1."></label></div>
+      <div class="hint">$\vec v=\Big(1,\ \frac{-t}{\sqrt{1-t^2}}\Big)$, so $|\vec v|^2=1+\frac{t^2}{1-t^2}=\frac{1}{1-t^2}$.</div>
+      <div class="hint">Distance $=\int_{-1}^1\frac{dt}{\sqrt{1-t^2}}$. The integrand blows up at <em>both</em> ends: split at 0 and take one-sided limits (§2.5).</div>
+      <div class="solution">$\int_0^1\frac{dt}{\sqrt{1-t^2}}=\lim_{b\to1^-}\sin^{-1}b=\frac\pi2$, and by symmetry the other half is also $\frac\pi2$. Total: $\pi$, half of the circumference $2\pi$ ✓. The same semicircle traced by $(-\cos t,\sin t)$ (Example 3.3.8) has speed 1 and gives $\pi$ with no improper integral. Distance depends on the path, not on how fast it's traced.</div>
+    </div>
+    <div class="problem" data-pid="E-m4" data-topic="E" data-level="6" data-title="Unfamiliar problem" data-src="Textbook §3.3 Suggested Ex. 4" data-prompt="p(t) = (t^6/6 + 11, 2 - (3/4) t^4, t^4/4) for t in [0, 1]: find the total distance traveled.">
+      <div class="p-body">$\vec p(t)=\big(\tfrac16t^6+11,\ 2-\tfrac34t^4,\ \tfrac14t^4\big)$ for $t\in[0,1]$. Find the total distance traveled.</div>
+      <div class="answers"><label>Distance <input class="ans" data-vid="E-m4" data-answer="0.810016015371" data-exact="(11^(3/2) − 10^(3/2))/6"></label></div>
+      <div class="hint">$\vec v=(t^5,\ -3t^3,\ t^3)$, so $|\vec v|=\sqrt{t^{10}+10t^6}$.</div>
+      <div class="hint">Factor $t^6$ out of the root: $|\vec v|=t^3\sqrt{t^4+10}$. Then substitute $u=t^4+10$.</div>
+      <div class="solution">$\int_0^1t^3\sqrt{t^4+10}\,dt=\tfrac14\int_{10}^{11}u^{1/2}\,du=\tfrac16\big(11^{3/2}-10^{3/2}\big)\approx0.8100$.</div>
+    </div>
+    <div class="explain card" data-eid="E-explain" data-topic="E">
+      <h4>Explain why (Level 7)</h4>
+      <p>In your own words: why is displacement a vector but distance a number, and why can the distance never be smaller than the length of the displacement?</p>
+      <textarea aria-label="Your explanation"></textarea>
+      <div class="model callout why"><div class="label">A model explanation</div><p style="margin:0">Displacement integrates the velocity <em>vector</em> component by component, and by the FTC each component gives the change in that coordinate. So the result is the arrow $\vec p(b)-\vec p(a)$ from start to finish, which has a direction. Distance integrates the <em>speed</em> $|\vec v|$, a non-negative number: each little stretch of motion adds its length $|\vec v|\,dt$ and nothing cancels. The displacement's length is the straight-line distance between the endpoints, and any path joining two points is at least as long as the straight segment. So $\big|\int\vec v\,dt\big|\le\int|\vec v|\,dt$, with equality only for motion along a line in one direction.</p></div>
+    </div>
+  </div>
+</section>

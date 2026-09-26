@@ -1,0 +1,366 @@
+<section id="A" class="topic">
+  <div class="topic-banner">
+    <div class="topic-letter sec" aria-hidden="true">2.4</div>
+    <div><h2>The Fundamental Theorem &amp; signed area</h2>
+    <div class="sources">Notes pp. 25–26 · Textbook §2.4 (Theorem 2.4.10, FTC; Theorem 2.4.15, substitution in definite integrals)</div></div>
+  </div>
+  <nav class="stagebar" data-topic="A" aria-label="Stages in §2.4">
+    <a href="#A-learn"><span class="n">1</span>Learn</a><a href="#A-understand"><span class="n">2</span>Understand</a><a href="#A-explore"><span class="n">3</span>Explore</a><a href="#A-attempt"><span class="n">4</span>Attempt</a><a href="#A-compare"><span class="n">5</span>Compare</a><a href="#A-practice"><span class="n">6</span>Practice</a><a href="#A-master"><span class="n">7</span>Master</a>
+  </nav>
+
+  <!-- ============================== 1 LEARN -->
+  <div class="stage" id="A-learn">
+    <div class="stage-head"><span class="n">Stage 1 · Learn</span><h3>The big idea</h3></div>
+    <div class="callout big">
+      <div class="label">Big idea</div>
+      <p>An integral is a <b>running total of tiny contributions</b>. Slice the region between a graph and the axis into very thin strips. Each strip contributes <em>(height) × (width)</em>. Where the graph is <b>above</b> the axis the height is positive and the strip <b>adds</b>. Where it's <b>below</b>, the height is negative and the strip <b>subtracts</b>. Add up every strip and you get $\int_a^b f(x)\,dx$, the <b>net (signed) area</b>.</p>
+      <p>Adding infinitely many slivers sounds impossible. The Fundamental Theorem of Calculus says you don't have to. If you know a function $F$ whose rate of change is $f$, the sum of all the slivers is just <b>how much $F$ changed</b>: $F(b)-F(a)$.</p>
+    </div>
+    <div class="card tight">
+      <div class="plot-caption small muted" style="margin-bottom:6px"><b>What to notice:</b> thin strips above the axis (blue, +) add; strips below (orange, −) subtract. The integral is the total <em>with signs</em>.</div>
+      <div data-fig="strips"></div>
+    </div>
+    <div class="grid-2">
+      <div class="callout why">
+        <div class="label">An everyday version</div>
+        <p style="margin:0">Water flows into a tank at $r(t)$ liters per minute, and a negative $r$ means it's draining. Adding up $r(t)\,dt$ from $t=a$ to $t=b$ gives the <b>net change</b> in the water, $V(b)-V(a)$. You don't track every minute; you compare the start and end readings. That's the FTC. §3.1 is this same idea with velocity and position.</p>
+      </div>
+      <div class="callout">
+        <div class="label">Two questions to ask every time</div>
+        <ol style="margin:0">
+          <li><b>Net or total?</b> Does the question want signed area (the plain integral) or actual area (every piece positive)?</li>
+          <li><b>Is $F(b)-F(a)$ allowed?</b> Only if $f$ is continuous on the <em>whole</em> closed interval $[a,b]$ (notes p. 25) and you can find an antiderivative.</li>
+        </ol>
+      </div>
+    </div>
+    <label class="toggle"><input type="checkbox" data-self="A"> I can explain, without looking, why $\int_a^b f(x)\,dx$ can be smaller than the area under the graph, and can even be 0.</label>
+  </div>
+
+  <!-- ============================== 2 UNDERSTAND -->
+  <div class="stage" id="A-understand">
+    <div class="stage-head"><span class="n">Stage 2 · Understand</span><h3>What it's built from, and why it works</h3></div>
+    <div class="grid-2">
+      <div class="card tight">
+        <h4>Prerequisite map</h4>
+        <div class="tree"><ul><li class="root">FTC &amp; signed area
+          <ul>
+            <li>Antiderivatives: $F'=f$ <span class="tag prev">prerequisite from §1.1</span><br><span class="qc">Quick check: an antiderivative of $2x-4$? <details class="qcheck"><summary>show</summary>$x^2-4x$ (notes p. 25)</details></span></li>
+            <li>Area as a sum of thin strips (notes p. 34)</li>
+            <li>Sign of $f$ ↔ above or below the axis</li>
+            <li>Absolute value as a piecewise function<br><span class="qc">Quick check: $|2x-4|$ when $x&lt;2$? <details class="qcheck"><summary>show</summary>$4-2x$ (notes p. 25)</details></span></li>
+            <li>The $u$-substitution setup <span class="tag prev">prerequisite from §1.1</span> (for definite substitution)</li>
+          </ul></li></ul></div>
+      </div>
+      <div class="callout prereq">
+        <div class="label">Prerequisite reminder (§1.1)</div>
+        <p>The FTC needs <b>an</b> antiderivative $F$ of $f$ (any one works). You don't write $+C$: $\big(F(b)+C\big)-\big(F(a)+C\big)=F(b)-F(a)$, so the constant always cancels (textbook Example 2.4.11).</p>
+        <p style="margin:0">Evaluation-bar notation: $F(x)\Big|_a^b = F(b)-F(a)$. Always wrap $F(a)$ in parentheses before subtracting, as on notes p. 25: $(8-4)-(4-1)$.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>Why does subtracting two values of $F$ add up all the strips?</h4>
+      <ol>
+        <li>Let $A(x)$ be the signed area from $a$ up to a moving right edge $x$. At the start there's nothing yet: $A(a)=0$.</li>
+        <li>Nudge the edge from $x$ to $x+dx$. You add one thin strip of height $f(x)$ and width $dx$, so $A(x+dx)-A(x)\approx f(x)\,dx$. In other words, <b>$A$ grows at rate $f$</b>: $A'(x)=f(x)$.</li>
+        <li>So $A$ is an antiderivative of $f$. Any antiderivative $F$ differs from it by a constant: $A(x)=F(x)+C$.</li>
+        <li>Use $A(a)=0$: $0=F(a)+C$, so $C=-F(a)$. At the right end, $\displaystyle\int_a^b f(x)\,dx = A(b) = F(b)-F(a).$</li>
+      </ol>
+      <p class="small muted" style="margin:0">The textbook proves this as Theorem 2.4.10 and adds an important warning: the FTC is <em>not</em> the definition of the integral. The integral is still a continuous sum of tiny contributions; the FTC is the shortcut for computing it. That's why §2.6 (when there's no usable $F$) still makes sense.</p>
+    </div>
+
+    <div class="formula-card">
+      <div class="fc-title">The Fundamental Theorem of Calculus <span>notes p. 25 · Theorem 2.4.10</span></div>
+      $$\htmlClass{fp fp-1}{\int}_{\htmlClass{fp fp-2}{a}}^{\htmlClass{fp fp-2}{b}} \htmlClass{fp fp-3}{f(x)}\,\htmlClass{fp fp-4}{dx} \;=\; \htmlClass{fp fp-5}{F(b)-F(a)}, \qquad \text{where } \htmlClass{fp fp-6}{F'(x)=f(x)}$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="The integral sign is a stretched S, for <b>sum</b>. It adds up the contributions f(x)·dx across the interval.">∫ the sum</button>
+        <button class="fp-chip" data-part="2" data-explain="The <b>limits</b>: where the accumulation starts (a) and stops (b). They're x-values, the ends of the interval.">a, b: where to start and stop</button>
+        <button class="fp-chip" data-part="3" data-explain="The <b>height</b> of each strip, or the rate at which something accumulates. Where f is negative, the strip counts negatively.">f(x): height or rate</button>
+        <button class="fp-chip" data-part="4" data-explain="The <b>width</b> of a very thin strip. f(x)·dx is the signed area of one strip.">dx: strip width</button>
+        <button class="fp-chip" data-part="5" data-explain="The <b>net change</b> in the antiderivative from a to b. The FTC says this equals the sum of all the strips.">F(b) − F(a): net change</button>
+        <button class="fp-chip" data-part="6" data-explain="The <b>condition</b>: F must be an antiderivative of f, and f must be continuous on all of [a, b] (notes p. 25). If f blows up anywhere in [a, b], you're in §2.5.">F′ = f: the condition</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+      <div class="fc-meta">
+        <div><b>When it applies</b>$f$ is continuous on the closed interval $[a,b]$, and you can write down an antiderivative.</div>
+        <div><b>When it fails</b>$f$ blows up somewhere in $[a,b]$ (→ §2.5), or there's no usable antiderivative, as with $e^{-x^2}$ (→ §2.6).</div>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <div class="fc-title">Net area vs. total area <span>notes p. 25</span></div>
+      $$\int_a^b f(x)\,dx = \htmlClass{fp fp-1}{A_{\text{above}}} - \htmlClass{fp fp-2}{A_{\text{below}}}\qquad\qquad \int_a^b \htmlClass{fp fp-3}{|f(x)|}\,dx = \htmlClass{fp fp-1}{A_{\text{above}}} + \htmlClass{fp fp-2}{A_{\text{below}}}$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="Area of the parts of the region <b>above</b> the x-axis, a positive number.">A above</button>
+        <button class="fp-chip" data-part="2" data-explain="Area of the parts <b>below</b> the x-axis, also a positive number. The plain integral subtracts it.">A below</button>
+        <button class="fp-chip" data-part="3" data-explain="The absolute value flips the below-axis part up, so nothing cancels. To compute it, split where f = 0 and make each piece positive.">|f(x)|</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+      <div class="fc-meta">
+        <div><b>Use the absolute value when</b>the question says “area,” “total area,” or “area between the curve and the axis,” or the integrand already has $|\,\cdot\,|$.</div>
+        <div><b>How</b>Find where $f=0$ inside $[a,b]$, split there, integrate each piece, and take each piece's absolute value.</div>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <div class="fc-title">Substitution in a definite integral <span>notes p. 26 · Theorem 2.4.15</span></div>
+      $$\int_{\htmlClass{fp fp-1}{x=a}}^{\htmlClass{fp fp-1}{x=b}} f'\big(g(x)\big)\,g'(x)\,dx \;=\; \int_{\htmlClass{fp fp-2}{u=g(a)}}^{\htmlClass{fp fp-2}{u=g(b)}} f'(u)\,du \qquad (u=g(x))$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="The original limits are <b>x-values</b>.">x-limits</button>
+        <button class="fp-chip" data-part="2" data-explain="After switching to u, the limits must be <b>u-values</b>: plug each x-limit into u = g(x). Then you never convert back to x.">u-limits</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+      <div class="fc-meta">
+        <div><b>Could you rebuild it?</b>As $x$ runs from $a$ to $b$, the new variable $u=g(x)$ runs from $g(a)$ to $g(b)$. The integrand is just the chain rule run backwards.</div>
+        <div><b>Watch out</b>Writing $u$-integrals with the old $x$-limits is the classic error. The textbook (Example 2.4.16) points to exactly this mistake.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>Recognition: what in the problem tells you what to do?</h4>
+      <div class="table-scroll"><table>
+        <thead><tr><th>You notice…</th><th>So you…</th></tr></thead>
+        <tbody>
+          <tr><td>A definite integral of a continuous function you can antidifferentiate</td><td>Use $F(b)-F(a)$ directly.</td></tr>
+          <tr><td>The words “area,” “total area,” or an absolute value in the integrand</td><td>Find where the inside is 0, split there, and make each piece positive (notes p. 25).</td></tr>
+          <tr><td>An inner function whose derivative is also there (up to a constant)</td><td>Substitute and <b>change the limits</b> (notes p. 26).</td></tr>
+          <tr><td>The integrand is undefined or unbounded somewhere in $[a,b]$, or a limit is $\pm\infty$</td><td><b>Stop.</b> Plain FTC doesn't apply → §2.5.</td></tr>
+          <tr><td>No antiderivative you can write down ($e^{-x^2}$, $\tfrac{1}{\ln x}$), or only a table of values</td><td>Estimate numerically → §2.6.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout warn" style="margin-bottom:0">
+        <div class="label">Tempting alternative, and why to reject it</div>
+        <p style="margin:0">“It's an area question, so I'll just compute $F(b)-F(a)$.” That returns <b>net</b> area: pieces below the axis subtract. It's right only if $f\ge 0$ on the whole interval.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 3 EXPLORE -->
+  <div class="stage" id="A-explore">
+    <div class="stage-head"><span class="n">Stage 3 · Explore</span><h3>Signed-area explorer</h3></div>
+    <div class="widget">
+      <div class="w-head"><h4>Drag the endpoints; watch the net and total areas separate</h4><span class="small muted">presets · sliders · |f| toggle · hover the graph</span></div>
+      <div class="w-sub">Blue strips count as +, orange as −. The FTC check below always matches the <b>net</b> integral.</div>
+      <div id="widget-area"></div>
+      <div class="try"><h5>What to notice</h5><ol>
+        <li>Start with <b>Notes p. 25</b>: the net integral of $2x-4$ on $[1,4]$ is 3, but the total area (the notes' $\int_1^4|2x-4|\,dx$) is 5.</li>
+        <li>Pick <b>sin x on [0, 2π]</b>: the net integral is 0 even though there's plenty of area. Then turn on |f| and watch it jump to 4.</li>
+        <li>Slide $b$ past a zero of $f$: the net value <em>drops</em> even though the interval got longer. The total never drops.</li>
+        <li>Challenge: for $x^2-2x$, find an interval (other than a single point) where the net integral is exactly 0.</li>
+      </ol></div>
+    </div>
+  </div>
+
+  <!-- ============================== 4 ATTEMPT -->
+  <div class="stage" id="A-attempt">
+    <div class="stage-head"><span class="n">Stage 4 · Attempt</span><h3>Guided example, then your turn</h3></div>
+    <div class="guided" data-gid="A-guided">
+      <div class="g-intro"><span class="badge">Guided example</span>
+        <p style="margin-top:8px">Find the <b>total area</b> between $y=x^2-2x$ and the $x$-axis on $[0,3]$, then compare it with $\displaystyle\int_0^3 (x^2-2x)\,dx$. Answer each question before the explanation appears.</p></div>
+      <div class="gstep"><span class="g-label">Step 1</span>
+        <div class="mcq" data-qid="A-g1"><div class="q">Where can $x^2-2x$ change sign on $[0,3]$?</div>
+          <div class="opts">
+            <button class="opt" data-correct>Only at $x=2$ ($x=0$ is the left endpoint)</button>
+            <button class="opt" data-why="At x = 1 the value is −1; it doesn't cross zero there.">At $x=1$</button>
+            <button class="opt" data-why="x = 3 is the right endpoint, and f(3) = 3 ≠ 0.">At $x=3$</button>
+            <button class="opt" data-why="Try f(1) = −1 and f(3) = 3: the sign does change somewhere.">It never changes sign</button>
+          </div></div>
+        <div class="greveal">Factor: $x^2-2x=x(x-2)$, which is 0 at $x=0$ and $x=2$. A continuous function can only switch sign where it equals 0, so the split point inside $[0,3]$ is $x=2$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 2</span>
+        <div class="mcq" data-qid="A-g2"><div class="q">On $(0,2)$, is $x^2-2x$ positive or negative?</div>
+          <div class="opts cols-2">
+            <button class="opt" data-correct>Negative</button>
+            <button class="opt" data-why="Test a point: x = 1 gives 1 − 2 = −1.">Positive</button>
+          </div></div>
+        <div class="greveal">Test $x=1$: $1-2=-1<0$. So on $[0,2]$, $|x^2-2x|=-(x^2-2x)=2x-x^2$. On $[2,3]$ (test $x=3$: $3>0$) it's just $x^2-2x$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 3</span>
+        <p>Compute the first piece: <label class="inline">$\displaystyle\int_0^2 (2x-x^2)\,dx =$ <input class="ans" data-vid="A-guided-piece1" data-answer="1.333333333333"></label></p>
+        <div class="greveal">$\left[x^2-\tfrac{x^3}{3}\right]_0^2=\left(4-\tfrac{8}{3}\right)-0=\tfrac{4}{3}.$</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 4</span>
+        <p>Compute the second piece: <label class="inline">$\displaystyle\int_2^3 (x^2-2x)\,dx =$ <input class="ans" data-vid="A-guided-piece2" data-answer="1.333333333333"></label></p>
+        <div class="greveal">$\left[\tfrac{x^3}{3}-x^2\right]_2^3=(9-9)-\left(\tfrac{8}{3}-4\right)=0-\left(-\tfrac{4}{3}\right)=\tfrac{4}{3}.$ Watch the sign: you're subtracting a negative $F(2)$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 5</span>
+        <p>So the total area is: <label class="inline"><input class="ans" data-vid="A-guided-total" data-answer="2.666666666667"></label></p>
+        <div class="greveal">$\tfrac{4}{3}+\tfrac{4}{3}=\tfrac{8}{3}\approx 2.667.$</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 6</span>
+        <div class="mcq" data-qid="A-g6"><div class="q">Now <b>predict</b> $\displaystyle\int_0^3 (x^2-2x)\,dx$ (no absolute value) before computing it.</div>
+          <div class="opts cols-2">
+            <button class="opt" data-why="That's the total area. The plain integral counts the part below the axis as negative.">$\tfrac{8}{3}$</button>
+            <button class="opt" data-correct>$0$</button>
+            <button class="opt" data-why="That's just the below-axis piece, with its sign.">$-\tfrac{4}{3}$</button>
+            <button class="opt" data-why="That's only one of the pieces.">$\tfrac{4}{3}$</button>
+          </div></div>
+        <div class="greveal">Net $=A_{\text{above}}-A_{\text{below}}=\tfrac43-\tfrac43=0$. Check with the FTC: $\left[\tfrac{x^3}{3}-x^2\right]_0^3=9-9=0$. The <em>same region</em> has total area $\tfrac83$ but net area $0$.</div>
+      </div>
+      <div class="takeaway"><b>Takeaway.</b> The split points are the zeros of the integrand inside $[a,b]$. The FTC always returns the <em>net</em> value. For total area, integrate $|f|$ one sign-constant piece at a time. Notes p. 25 does exactly this for $|2x-4|$ on $[1,4]$.</div>
+    </div>
+
+    <div class="problem" data-pid="A-indep" data-topic="A" data-level="4" data-title="Independent attempt" data-src="Your turn: try it before any hint" data-prompt="Find the integral from 0 to 3 of |x^2 - 4| dx.">
+      <div class="p-body">Find $\displaystyle\int_0^3 \left|x^2-4\right|\,dx.$</div>
+      <div class="answers"><label>Answer <input class="ans" data-vid="A-indep-total" data-answer="7.666666666667" data-exact="23/3" data-wrong='[{"v":-3,"m":"That is the net integral of x² − 4 over [0, 3]. The absolute value makes every piece count positively. Where does x² − 4 change sign?"},{"v":3,"m":"That is |net|. Total area is not the absolute value of the net area when f changes sign inside the interval."},{"v":5.333333333333,"m":"That is only the piece on [0, 2]. You still need [2, 3]."},{"v":2.333333333333,"m":"That is only the piece on [2, 3]."}]'></label></div>
+      <ol class="know">
+        <li>What does $|\,\cdot\,|$ do to negative values?</li>
+        <li>Where is $x^2-4=0$? Is that point inside $[0,3]$?</li>
+        <li>On each side of that point, what is $|x^2-4|$ without the absolute value bars?</li>
+      </ol>
+      <div class="hint">The absolute value changes the formula where $x^2-4$ changes sign. Where is that in $[0,3]$?</div>
+      <div class="hint">$x^2-4<0$ on $(0,2)$ and $>0$ on $(2,3)$. So $|x^2-4|=4-x^2$ on $[0,2]$ and $x^2-4$ on $[2,3]$. Set up the two integrals.</div>
+      <div class="hint">$\displaystyle\int_0^2 (4-x^2)\,dx=\tfrac{16}{3}$. Now do $\displaystyle\int_2^3 (x^2-4)\,dx$ and add.</div>
+      <div class="solution">
+        <ol>
+          <li>Zero inside the interval: $x^2-4=0 \Rightarrow x=2$ (the root $x=-2$ is outside).</li>
+          <li>$\displaystyle\int_0^2 (4-x^2)\,dx=\left[4x-\tfrac{x^3}{3}\right]_0^2=8-\tfrac83=\tfrac{16}{3}.$</li>
+          <li>$\displaystyle\int_2^3 (x^2-4)\,dx=\left[\tfrac{x^3}{3}-4x\right]_2^3=(9-12)-\left(\tfrac83-8\right)=-3+\tfrac{16}{3}=\tfrac{7}{3}.$</li>
+          <li>Total: $\tfrac{16}{3}+\tfrac{7}{3}=\tfrac{23}{3}\approx 7.667.$</li>
+        </ol>
+        <p style="margin:0"><b>Sanity check:</b> the net integral is $\int_0^3(x^2-4)\,dx=9-12=-3=\tfrac73-\tfrac{16}{3}$. Total ≥ |net| ✓.</p>
+      </div>
+      <div class="reflect"><h5>Compare your approach</h5>
+        <label><input type="checkbox"> I found where $x^2-4=0$ <em>before</em> integrating.</label>
+        <label><input type="checkbox"> I flipped the sign on the piece where $x^2-4<0$.</label>
+        <label><input type="checkbox"> I checked that total area ≥ |net integral|.</label>
+        <p class="small muted" style="margin:6px 0 0">The clue to recognize next time: <b>absolute value → find the zero → split</b>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 5 COMPARE -->
+  <div class="stage" id="A-compare">
+    <div class="stage-head"><span class="n">Stage 5 · Compare</span><h3>Tempting approaches vs. correct reasoning</h3></div>
+    <div class="vs">
+      <div class="tempt"><h5>✗ Tempting</h5>“$\int_0^{2\pi}\sin x\,dx$ is the area under $\sin x$, so it's 4.”</div>
+      <div class="right"><h5>✓ Correct</h5>$\int_0^{2\pi}\sin x\,dx=\big[-\cos x\big]_0^{2\pi}=-1-(-1)=0$ is the <b>net</b> area. The area is $\int_0^{2\pi}|\sin x|\,dx=2+2=4$.</div>
+      <div class="clue"><b>Clue for next time:</b> if the word “area” appears and $f$ changes sign, you need $|f|$ and a split.</div>
+    </div>
+
+    <div class="spot" data-sid="A-spot1">
+      <p><b>Spot the error.</b> Click the first line where the reasoning goes wrong.</p>
+      <button class="sline"><span class="ln">Line 1</span><span>An antiderivative of $\dfrac{1}{x^2}$ is $-\dfrac{1}{x}$.</span></button>
+      <button class="sline" data-bad><span class="ln">Line 2</span><span>So $\displaystyle\int_{-1}^{1}\frac{dx}{x^2}=\left[-\frac1x\right]_{-1}^{1}$</span></button>
+      <button class="sline"><span class="ln">Line 3</span><span>$=(-1)-(1)$</span></button>
+      <button class="sline"><span class="ln">Line 4</span><span>$=-2.$</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout warn"><div class="label">What went wrong</div><p style="margin:0">Line 2 applies the FTC across $x=0$, where $\frac{1}{x^2}$ blows up. The FTC needs $f$ continuous on the <em>whole</em> interval. Red flag: a positive integrand can't have a negative integral. This is really an improper integral, and it diverges (§2.5). The textbook's version of this trap is §2.4 Additional Exercise 7: $\int_{-1}^1\frac{dx}{x}=\ln|x|\,\big|_{-1}^1=0$ is equally wrong.</p></div>
+    </div>
+
+    <div class="spot" data-sid="A-spot2">
+      <p><b>Spot the error.</b> Notes p. 26 computes $\displaystyle\int_1^3\frac{x}{\sqrt{3+x^2}}\,dx$ with $u=3+x^2$, $du=2x\,dx$. Here's a student's version. Where does it first go wrong?</p>
+      <button class="sline"><span class="ln">Line 1</span><span>$x\,dx=\tfrac12\,du$, so the integrand becomes $\tfrac12 u^{-1/2}\,du$.</span></button>
+      <button class="sline" data-bad><span class="ln">Line 2</span><span>$\displaystyle=\frac12\int_1^3 u^{-1/2}\,du$</span></button>
+      <button class="sline"><span class="ln">Line 3</span><span>$=\big[\sqrt u\,\big]_1^3$</span></button>
+      <button class="sline"><span class="ln">Line 4</span><span>$=\sqrt3-1\approx 0.732.$</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout warn"><div class="label">What went wrong</div><p style="margin:0">Line 2 kept the <b>x-limits</b> in a <b>u-integral</b>. When $x=1$, $u=4$; when $x=3$, $u=12$. Correct: $\tfrac12\int_4^{12}u^{-1/2}\,du=\big[\sqrt u\,\big]_4^{12}=\sqrt{12}-2=2\sqrt3-2\approx1.464$ (notes p. 26).</p></div>
+    </div>
+
+    <h4 style="margin-top:22px">Common mistakes: why they happen and how to prevent them</h4>
+    <details class="mistake"><summary>Reporting net area when the question asks for area</summary><div class="m-body"><p><b>Why it happens</b><br>The FTC computes <em>signed</em> area, and it's easy to forget that below-axis strips subtract.</p><p><b>Prevent it</b><br>Before integrating, sketch or sign-test $f$ on $[a,b]$. If it changes sign and the question says “area,” split and use $|f|$.</p></div></details>
+    <details class="mistake"><summary>Dropping parentheses in $F(b)-F(a)$</summary><div class="m-body"><p><b>Why it happens</b><br>$F(a)$ often has several terms, and the minus sign has to hit all of them.</p><p><b>Prevent it</b><br>Always write $F(b)-\big(F(a)\big)$ with parentheses, like notes p. 25: $(8-4)-(4-1)$.</p></div></details>
+    <details class="mistake"><summary>Using the FTC across a blow-up</summary><div class="m-body"><p><b>Why it happens</b><br>The limits look harmless, and the problem point sits inside the interval.</p><p><b>Prevent it</b><br>Scan $[a,b]$ for zero denominators, negative powers of zero, $\ln 0$, and $\tan(\pi/2)$ before you integrate. Found one? Go to §2.5.</p></div></details>
+    <details class="mistake"><summary>Keeping the x-limits after substituting</summary><div class="m-body"><p><b>Why it happens</b><br>The substitution changes the variable, but it's easy to leave the limits alone.</p><p><b>Prevent it</b><br>Write “$x=1\to u=4$, $x=3\to u=12$” right next to your substitution, as notes p. 26 does.</p></div></details>
+    <details class="mistake"><summary>Splitting at the wrong place</summary><div class="m-body"><p><b>Why it happens</b><br>It's easy to confuse zeros of $F$ with zeros of $f$.</p><p><b>Prevent it</b><br>Split where the <b>integrand</b> (the inside of the absolute value) is zero, because that's where the strips change sign.</p></div></details>
+  </div>
+
+  <!-- ============================== 6 PRACTICE -->
+  <div class="stage" id="A-practice">
+    <div class="stage-head"><span class="n">Stage 6 · Practice</span><h3>Practice: standard applications</h3></div>
+    <div class="problem" data-pid="A-p1" data-topic="A" data-title="Practice 1" data-src="Textbook Example 2.4.12" data-prompt="Find the integral from 0 to pi of sin x dx.">
+      <div class="p-body">Find $\displaystyle\int_0^{\pi}\sin x\,dx$, the area under one hump of $\sin x$.</div>
+      <div class="answers"><label>Answer <input class="ans" data-vid="A-p1" data-answer="2" data-exact="2"></label></div>
+      <div class="hint">An antiderivative of $\sin x$ is $-\cos x$.</div>
+      <div class="hint">Compute $-\cos\pi-(-\cos 0)$. What are $\cos\pi$ and $\cos 0$?</div>
+      <div class="solution">$\big[-\cos x\big]_0^{\pi}=-\cos\pi-(-\cos0)=1+1=2$. Here $\sin x\ge0$ on $[0,\pi]$, so net area = area.</div>
+    </div>
+    <div class="problem" data-pid="A-p2" data-topic="A" data-title="Practice 2" data-src="Net vs. total" data-prompt="For sin x on [0, 2pi]: find the integral (net) and the total area between the curve and the axis.">
+      <div class="p-body">For $\sin x$ on $[0,2\pi]$, find (a) the integral $\displaystyle\int_0^{2\pi}\sin x\,dx$ and (b) the total area between the curve and the $x$-axis.</div>
+      <div class="answers"><label>(a) <input class="ans" data-label="(a)" data-vid="A-p2-net" data-answer="0" data-exact="0" data-tol="1e-6"></label><label>(b) <input class="ans" data-label="(b)" data-vid="A-p2-total" data-answer="4" data-exact="4" data-wrong='[{"v":0,"m":"That is the net integral. For the area, the hump below the axis must count positively."},{"v":2,"m":"That is one hump. There are two, one above and one below."}]'></label></div>
+      <div class="hint">Where is $\sin x$ negative on $[0,2\pi]$?</div>
+      <div class="hint">Split at $\pi$: $\int_0^{\pi}\sin x\,dx=2$ and $\int_{\pi}^{2\pi}\sin x\,dx=-2$.</div>
+      <div class="solution">(a) $\big[-\cos x\big]_0^{2\pi}=-1-(-1)=0$. (b) $|2|+|-2|=4$.</div>
+    </div>
+    <div class="problem" data-pid="A-p3" data-topic="A" data-title="Practice 3" data-src="Net vs. total" data-prompt="For y = x^3 on [-1, 2]: find the integral and the total area between the curve and the x-axis.">
+      <div class="p-body">For $y=x^3$ on $[-1,2]$, find (a) $\displaystyle\int_{-1}^{2}x^3\,dx$ and (b) the total area between the curve and the $x$-axis.</div>
+      <div class="answers"><label>(a) <input class="ans" data-label="(a)" data-vid="A-p3-net" data-answer="3.75" data-exact="15/4"></label><label>(b) <input class="ans" data-label="(b)" data-vid="A-p3-total" data-answer="4.25" data-exact="17/4" data-wrong='[{"v":3.75,"m":"That is the net integral. On [−1, 0] the curve is below the axis, and that part must count positively."}]'></label></div>
+      <div class="hint">$x^3$ changes sign at $x=0$.</div>
+      <div class="hint">$\int_{-1}^{0}x^3\,dx=-\tfrac14$ and $\int_0^2x^3\,dx=4$.</div>
+      <div class="solution">(a) $\left[\tfrac{x^4}{4}\right]_{-1}^{2}=4-\tfrac14=\tfrac{15}{4}$. (b) $\tfrac14+4=\tfrac{17}{4}$.</div>
+    </div>
+    <div class="problem" data-pid="A-p4" data-topic="A" data-title="Practice 4" data-src="Definite substitution" data-prompt="Find the integral from 0 to 2 of x (x^2 + 1)^3 dx.">
+      <div class="p-body">Find $\displaystyle\int_0^2 x\,(x^2+1)^3\,dx.$</div>
+      <div class="answers"><label>Answer <input class="ans" data-vid="A-p4" data-answer="78" data-exact="78" data-wrong='[{"v":2,"m":"It looks like you kept the x-limits (0 to 2) in the u-integral. What are u(0) and u(2)?"},{"v":156,"m":"Check the factor ½ that comes from x dx = ½ du."}]'></label></div>
+      <div class="hint">An inner function, $x^2+1$, has its derivative $2x$ sitting nearby (up to a constant). That's the substitution clue.</div>
+      <div class="hint">$u=x^2+1$, $du=2x\,dx$, so $x\,dx=\tfrac12du$. New limits: $x=0\to u=1$ and $x=2\to u=5$.</div>
+      <div class="hint">$\tfrac12\int_1^5u^3\,du=\tfrac12\left[\tfrac{u^4}{4}\right]_1^5$.</div>
+      <div class="solution">$\tfrac12\cdot\tfrac{625-1}{4}=\tfrac{624}{8}=78.$</div>
+    </div>
+    <div class="problem" data-pid="A-p5" data-topic="A" data-title="Practice 5" data-src="Textbook §2.4 Suggested Ex. 5" data-prompt="Find the integral from 0 to pi of 3 sin x / sqrt(2 - cos x) dx.">
+      <div class="p-body">Find $\displaystyle\int_0^{\pi}\frac{3\sin x}{\sqrt{2-\cos x}}\,dx.$</div>
+      <div class="answers"><label>Answer <input class="ans" data-vid="A-p5" data-answer="4.392304845413" data-exact="6√3 − 6"></label></div>
+      <div class="hint">Which inner expression has derivative $\sin x$?</div>
+      <div class="hint">$u=2-\cos x$, $du=\sin x\,dx$. Limits: $x=0\to u=1$, $x=\pi\to u=3$.</div>
+      <div class="hint">$3\int_1^3u^{-1/2}\,du=3\big[2\sqrt u\,\big]_1^3$.</div>
+      <div class="solution">$6\sqrt3-6\approx4.392$. (Is this proper? $2-\cos x\ge1$, so the denominator is never 0 ✓.)</div>
+    </div>
+    <div class="problem" data-pid="A-p6" data-topic="A" data-title="Practice 6" data-src="Textbook §2.4 Suggested Ex. 9" data-prompt="Find the integral from 0 to pi of sin t cos t dt.">
+      <div class="p-body">Find $\displaystyle\int_0^{\pi}\sin t\cos t\,dt.$ (Look for a shortcut once you change the limits.)</div>
+      <div class="answers"><label>Answer <input class="ans" data-vid="A-p6" data-answer="0" data-exact="0" data-tol="1e-6"></label></div>
+      <div class="hint">Try $u=\sin t$. What are the new limits?</div>
+      <div class="hint">$t=0\to u=0$ and $t=\pi\to u=\sin\pi=0$. What is $\int_0^0u\,du$?</div>
+      <div class="solution">$\int_0^0u\,du=0$. Geometrically, $\sin t\cos t=\tfrac12\sin 2t$ has equal areas above and below the axis on $[0,\pi]$. The textbook uses the same trick for an integral with no elementary antiderivative: both $u$-limits come out 0.</div>
+    </div>
+    <div class="problem" data-pid="A-p7" data-topic="A" data-title="Practice 7" data-src="Textbook §2.4 Suggested Ex. 4" data-prompt="Find the integral from 1 to 2 of 2/(2w - 1)^2 dw.">
+      <div class="p-body">Find $\displaystyle\int_1^2\frac{2}{(2w-1)^2}\,dw.$ First check: is this proper?</div>
+      <div class="answers"><label>Answer <input class="ans" data-vid="A-p7" data-answer="0.666666666667" data-exact="2/3"></label></div>
+      <div class="hint">$2w-1=0$ only at $w=\tfrac12$, outside $[1,2]$, so the FTC applies. Try $u=2w-1$.</div>
+      <div class="hint">$du=2\,dw$. Limits: $w=1\to u=1$ and $w=2\to u=3$. That leaves $\int_1^3u^{-2}\,du$.</div>
+      <div class="solution">$\left[-\tfrac1u\right]_1^3=-\tfrac13+1=\tfrac23.$</div>
+    </div>
+  </div>
+
+  <!-- ============================== 7 MASTER -->
+  <div class="stage" id="A-master">
+    <div class="stage-head"><span class="n">Stage 7 · Master</span><h3>Mastery check</h3></div>
+    <p class="muted">No hints are offered until you've committed to an answer. This checks recognition, understanding, an unfamiliar problem, and whether you can explain why.</p>
+    <div class="mcq" data-qid="A-m1" data-topic="A" data-level="1" data-count data-multi>
+      <div class="q"><b>Recognition.</b> Which can you evaluate directly with the plain FTC, $F(b)-F(a)$? Select all that apply.</div>
+      <div class="opts cols-2">
+        <button class="opt" data-correct>$\displaystyle\int_0^2 x(x^2+1)^3\,dx$</button>
+        <button class="opt">$\displaystyle\int_{-1}^{1}\frac{dx}{x^2}$</button>
+        <button class="opt">$\displaystyle\int_0^1 e^{-x^2}\,dx$</button>
+        <button class="opt" data-correct>$\displaystyle\int_0^{\pi}\sin x\,dx$</button>
+      </div>
+      <div class="why callout why"><div class="label">Why</div><p style="margin:0">The first and last have continuous integrands with antiderivatives you can write. $\frac{1}{x^2}$ blows up at $x=0$, so it's improper (§2.5). $e^{-x^2}$ has no elementary antiderivative, so it's numerical (§2.6).</p></div>
+    </div>
+    <div class="mcq" data-qid="A-m2" data-topic="A" data-level="2" data-count>
+      <div class="q"><b>Understanding.</b> Suppose $a&lt;b$ and $\displaystyle\int_a^b f(x)\,dx=0$. Which must be true?</div>
+      <div class="opts">
+        <button class="opt" data-why="Counterexample: sin x on [0, 2π].">$f(x)=0$ for every $x$ in $[a,b]$.</button>
+        <button class="opt" data-correct data-why="Net = A above − A below = 0.">The area above the axis equals the area below it.</button>
+        <button class="opt" data-why="Total area is A above + A below. It's 0 only if f is 0 (almost) everywhere.">The total area is 0.</button>
+        <button class="opt" data-why="If f never crossed the axis, the integral couldn't be 0 unless f were 0.">$f$ never crosses the axis.</button>
+      </div>
+    </div>
+    <div class="problem" data-pid="A-m3" data-topic="A" data-level="6" data-title="Unfamiliar problem" data-src="Textbook §2.4 Additional Ex. 10" data-prompt="Find the total area trapped between y = -2 + 3/(1 + x^2) and the x-axis over [-1, 1].">
+      <div class="p-body">Find the <b>total area</b> trapped between $y=-2+\dfrac{3}{1+x^2}$ and the $x$-axis over $[-1,1]$. (The curve is sometimes above and sometimes below the axis.)</div>
+      <div class="answers"><label>Answer <input class="ans" data-vid="A-master-total" data-answer="1.016513274168" data-exact="4 − 4√2 + 12·arctan(1/√2) − 3π/2 ≈ 1.0165" data-wrong='[{"v":0.712388980385,"m":"That is the net integral, 3π/2 − 4. Where is the curve below the axis?"}]'></label></div>
+      <div class="hint">Where is $-2+\frac{3}{1+x^2}=0$? Solve $\frac{3}{1+x^2}=2$.</div>
+      <div class="hint">$x=\pm\frac{1}{\sqrt2}$. The function is positive between them and negative outside. It's even, so work on $[0,1]$ and double.</div>
+      <div class="hint">An antiderivative is $G(x)=3\arctan x-2x$ (the arctan rule, notes p. 1). Total $=2\Big[\big(G(c)-G(0)\big)-\big(G(1)-G(c)\big)\Big]$ with $c=\frac{1}{\sqrt2}$.</div>
+      <div class="solution">
+        <p>With $c=\tfrac1{\sqrt2}$: $G(c)-G(0)=3\arctan c-\sqrt2$ and $G(1)-G(c)=\big(\tfrac{3\pi}{4}-2\big)-\big(3\arctan c-\sqrt2\big)$.</p>
+        <p style="margin:0">Total $=2\Big[6\arctan\tfrac1{\sqrt2}-2\sqrt2-\tfrac{3\pi}{4}+2\Big]=4-4\sqrt2+12\arctan\tfrac1{\sqrt2}-\tfrac{3\pi}{2}\approx1.0165.$ Compare the net integral, $\tfrac{3\pi}{2}-4\approx0.712$.</p>
+      </div>
+    </div>
+    <div class="explain card" data-eid="A-explain" data-topic="A">
+      <h4>Explain why (Level 7)</h4>
+      <p>In your own words: why does $\int_a^b f(x)\,dx$ equal $F(b)-F(a)$, and why does $+C$ never matter in a definite integral?</p>
+      <textarea aria-label="Your explanation"></textarea>
+      <div class="model callout why"><div class="label">A model explanation</div><p style="margin:0">Let $A(x)$ be the signed area accumulated from $a$ to $x$. Moving $x$ a little adds a strip of height $f(x)$, so $A$ grows at rate $f$: $A'=f$. That makes $A$ an antiderivative, so $A(x)=F(x)+C$. Since $A(a)=0$, $C=-F(a)$, and the whole integral is $A(b)=F(b)-F(a)$. Any other antiderivative is $F+C$, and $(F(b)+C)-(F(a)+C)=F(b)-F(a)$: the constant cancels.</p></div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,260 @@
+<section id="final" class="topic">
+  <div class="topic-banner">
+    <div class="topic-letter" aria-hidden="true">✓</div>
+    <div><h2>Final mastery check</h2>
+    <div class="sources">New problems across all ten topics, in course order. Try each one exam-style: commit to an answer before opening a hint.</div></div>
+  </div>
+  <div class="callout big"><div class="label">Exam mode</div><p style="margin:0">Treat this like a timed quiz: about 75 minutes, or three sittings (items 1–9 on §1.1–§1.3, items 10–24 on §2.4–§3.3 motion, then items 25–30 on arc length and volume). No explorers, no looking back. Hints are still available, but a problem only counts as <b>solved alone</b> if you used none. Your mastery report below updates as you go.</p></div>
+
+  <div class="mcq" data-qid="F-U1" data-topic="U" data-level="1" data-count>
+    <div class="q"><b>1.</b> For $\displaystyle\int\frac{(\ln t)^{2/5}}{3t}\,dt$ (notes p. 22), the first move is…</div>
+    <div class="opts">
+      <button class="opt" data-correct data-why="Yes: ln t sits inside the power, and its derivative 1/t is right there.">$u=\ln t$</button>
+      <button class="opt" data-why="There's an inside/derivative pair, so substitution is the direct route.">integration by parts</button>
+      <button class="opt" data-why="The ln t makes this not a rational function.">partial fractions</button>
+      <button class="opt" data-why="The power rule needs the base to be the variable itself, not ln t.">the power rule directly</button>
+    </div>
+  </div>
+
+  <div class="problem" data-pid="F-U2" data-topic="U" data-level="4" data-title="2 · §1.1" data-src="Solve alone" data-help="Type an antiderivative in x." data-prompt="Find the antiderivative of x^2/(x^3 + 5)^4 dx.">
+    <div class="p-body">Find $\displaystyle\int\frac{x^2}{(x^3+5)^4}\,dx.$</div>
+    <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="x" data-integrand="x^2/(x^3+5)^4" data-answer="-1/(9*(x^3+5)^3)" data-dom="0,1.5" data-show="−1/(9(x³ + 5)³) + C" data-vid="F-U2"></label></div>
+    <div class="hint">$u=x^3+5$, $du=3x^2\,dx$.</div>
+    <div class="solution">$\tfrac13\int u^{-4}\,du=\tfrac13\cdot\frac{u^{-3}}{-3}+C=-\frac{1}{9(x^3+5)^3}+C$.</div>
+  </div>
+
+  <div class="problem" data-pid="F-U3" data-topic="U" data-level="6" data-title="3 · §1.1" data-src="Unfamiliar · stray x" data-help="Type an antiderivative in x." data-prompt="Find the antiderivative of x/sqrt(2x + 1) dx.">
+    <div class="p-body">Find $\displaystyle\int\frac{x}{\sqrt{2x+1}}\,dx.$</div>
+    <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="x" data-integrand="x/sqrt(2*x+1)" data-answer="(1/6)*(2*x+1)^(3/2) - (1/2)*(2*x+1)^(1/2)" data-dom="0,3" data-show="(1/6)(2x + 1)^(3/2) − (1/2)(2x + 1)^(1/2) + C" data-vid="F-U3"></label></div>
+    <div class="hint">$u=2x+1$, so $du=2\,dx$, and the stray $x$ is $\frac{u-1}{2}$ (the notes p. 6 move).</div>
+    <div class="hint">$\int\frac{(u-1)/2}{\sqrt u}\cdot\frac{du}{2}=\frac14\int\big(u^{1/2}-u^{-1/2}\big)\,du$.</div>
+    <div class="solution">$\frac14\Big(\frac23u^{3/2}-2u^{1/2}\Big)+C=\frac16(2x+1)^{3/2}-\frac12(2x+1)^{1/2}+C$.</div>
+  </div>
+
+  <div class="mcq" data-qid="F-P1" data-topic="P" data-level="1" data-count>
+    <div class="q"><b>4.</b> For $\displaystyle\int x^2\ln x\,dx$, choose $u$:</div>
+    <div class="opts">
+      <button class="opt" data-correct data-why="L before A in LIATE: differentiating ln x gives 1/x, which cancels a power.">$u=\ln x,\ dv=x^2\,dx$</button>
+      <button class="opt" data-why="Then you'd need v = ∫ln x dx, and ln x would still be in the new integral.">$u=x^2,\ dv=\ln x\,dx$</button>
+      <button class="opt" data-why="Then v = x and the new integral contains more than the original.">$u=x^2\ln x,\ dv=dx$</button>
+      <button class="opt" data-why="With u = ln x, du = dx/x, and the leftover x³ (= e^(3u)) makes it worse.">substitution $u=\ln x$</button>
+    </div>
+  </div>
+
+  <div class="problem" data-pid="F-P2" data-topic="P" data-level="4" data-title="5 · §1.1" data-src="Solve alone" data-help="Type an antiderivative in x. Use sin(3x) and cos(3x) with parentheses." data-prompt="Find the antiderivative of x cos(3x) dx.">
+    <div class="p-body">Find $\displaystyle\int x\cos(3x)\,dx.$</div>
+    <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="x" data-integrand="x*cos(3*x)" data-answer="(x/3)*sin(3*x) + (1/9)*cos(3*x)" data-dom="0.2,2" data-show="(x/3) sin 3x + (1/9) cos 3x + C" data-vid="F-P2" data-wrong='[{"f":"(x/3)*sin(3*x) - (1/9)*cos(3*x)","m":"Check the last sign: −∫(1/3)sin 3x dx = +(1/9)cos 3x."}]'></label></div>
+    <div class="hint">$u=x$, $dv=\cos3x\,dx$: $du=dx$, $v=\frac13\sin3x$.</div>
+    <div class="solution">$\frac x3\sin3x-\frac13\int\sin3x\,dx=\frac x3\sin3x+\frac19\cos3x+C$.</div>
+  </div>
+
+  <div class="problem" data-pid="F-P3" data-topic="P" data-level="6" data-title="6 · §1.1" data-src="Unfamiliar · substitution, then parts" data-help="Type an antiderivative in x." data-prompt="Find the antiderivative of x^3 e^(x^2) dx.">
+    <div class="p-body">Find $\displaystyle\int x^3e^{x^2}\,dx.$</div>
+    <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="x" data-integrand="x^3*e^(x^2)" data-answer="(1/2)*e^(x^2)*(x^2-1)" data-dom="0,1.5" data-show="½e^(x²)(x² − 1) + C" data-vid="F-P3"></label></div>
+    <div class="hint">Substitute first: $w=x^2$, $dw=2x\,dx$, and $x^3\,dx=x^2\cdot x\,dx=\tfrac12w\,dw$.</div>
+    <div class="hint">$\tfrac12\int we^w\,dw$: parts with $u=w$.</div>
+    <div class="solution">$\tfrac12(we^w-e^w)+C=\tfrac12e^{x^2}(x^2-1)+C$. The same pattern as notes pp. 12 and 24: substitution exposes the product.</div>
+  </div>
+
+  <div class="mcq" data-qid="F-R1" data-topic="R" data-level="1" data-count>
+    <div class="q"><b>7.</b> Which template fits $\dfrac{3x+1}{(x-1)^2(x^2+9)}$?</div>
+    <div class="opts">
+      <button class="opt" data-correct data-why="One term per power of the repeated linear factor, and a linear numerator over the irreducible quadratic (notes p. 14).">$\dfrac{A}{x-1}+\dfrac{B}{(x-1)^2}+\dfrac{Cx+D}{x^2+9}$</button>
+      <button class="opt" data-why="The repeated factor needs the first power too.">$\dfrac{A}{(x-1)^2}+\dfrac{Bx+C}{x^2+9}$</button>
+      <button class="opt" data-why="Over an irreducible quadratic the numerator must be linear, Cx + D.">$\dfrac{A}{x-1}+\dfrac{B}{(x-1)^2}+\dfrac{C}{x^2+9}$</button>
+      <button class="opt" data-why="x² + 9 doesn't factor: b² − 4ac = −36 &lt; 0.">$\dfrac{A}{x-1}+\dfrac{B}{(x-1)^2}+\dfrac{C}{x-3}+\dfrac{D}{x+3}$</button>
+    </div>
+  </div>
+
+  <div class="problem" data-pid="F-R2" data-topic="R" data-level="4" data-title="8 · §1.3" data-src="Solve alone (textbook §1.3 Additional Ex. 4)" data-help="Type an antiderivative in u. Use ln(abs(u+3))." data-prompt="Find the antiderivative of (5u^2 - 3u - 29)/((u + 3)(u - 2)^2) du.">
+    <div class="p-body">Find $\displaystyle\int\frac{5u^2-3u-29}{(u+3)(u-2)^2}\,du.$</div>
+    <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="u" data-integrand="(5*u^2-3*u-29)/((u+3)*(u-2)^2)" data-answer="ln(abs(u+3)) + 4*ln(abs(u-2)) + 3/(u-2)" data-dom="2.5,5" data-show="ln|u + 3| + 4 ln|u − 2| + 3/(u − 2) + C" data-vid="F-R2"></label></div>
+    <div class="hint">Template $\frac{A}{u+3}+\frac{B}{u-2}+\frac{C}{(u-2)^2}$. You should find $A=1$, $B=4$, $C=-3$.</div>
+    <div class="solution">$\int\Big(\frac{1}{u+3}+\frac{4}{u-2}-\frac{3}{(u-2)^2}\Big)du=\ln|u+3|+4\ln|u-2|+\frac{3}{u-2}+C$.</div>
+  </div>
+
+  <div class="problem" data-pid="F-R3" data-topic="R" data-level="6" data-title="9 · §1.3" data-src="Unfamiliar (textbook §1.3 Additional Ex. 8)" data-help="Type an antiderivative in w. Use ln(abs(w+4))." data-prompt="Find the antiderivative of (2w^3 + 6w^2 - 4w + 11)/(w^2 + 3w - 4) dw.">
+    <div class="p-body">Find $\displaystyle\int\frac{2w^3+6w^2-4w+11}{w^2+3w-4}\,dw.$</div>
+    <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="w" data-integrand="(2*w^3+6*w^2-4*w+11)/(w^2+3*w-4)" data-answer="w^2 + ln(abs(w+4)) + 3*ln(abs(w-1))" data-dom="1.5,4" data-show="w² + ln|w + 4| + 3 ln|w − 1| + C" data-vid="F-R3" data-wrong='[{"f":"ln(abs(w+4)) + 3*ln(abs(w-1))","m":"That is only the fraction part. The quotient 2w from long division integrates to w²."}]'></label></div>
+    <div class="hint">Degree 3 ≥ 2: divide. The quotient is $2w$ and the remainder $4w+11$.</div>
+    <div class="hint">$\frac{4w+11}{(w+4)(w-1)}=\frac{A}{w+4}+\frac{B}{w-1}$, with $A=1$ and $B=3$.</div>
+    <div class="solution">$\int\Big(2w+\frac{1}{w+4}+\frac{3}{w-1}\Big)dw=w^2+\ln|w+4|+3\ln|w-1|+C$.</div>
+  </div>
+
+  <div class="mcq" data-qid="F-1" data-topic="A" data-level="1" data-count>
+    <div class="q"><b>10.</b> $\displaystyle\int_{-1}^{1}x^3\,dx=0$. What does that tell you?</div>
+    <div class="opts">
+      <button class="opt" data-why="The total area is 1/2. The integral is only the net amount.">The area between $y=x^3$ and the axis on $[-1,1]$ is 0.</button>
+      <button class="opt" data-correct data-why="Net = area above − area below = 1/4 − 1/4.">The areas above and below the axis cancel.</button>
+      <button class="opt" data-why="x³ is positive on (0, 1].">$x^3$ is never positive on $[-1,1]$.</button>
+    </div>
+  </div>
+
+  <div class="problem" data-pid="F-2" data-topic="A" data-level="4" data-title="11 · §2.4" data-src="Solve alone" data-prompt="Evaluate the integral from 0 to 4 of |x - 1| dx.">
+    <div class="p-body">Evaluate $\displaystyle\int_0^4|x-1|\,dx.$</div>
+    <div class="answers"><label>Answer <input class="ans" data-vid="A-final-abs" data-answer="5" data-exact="5" data-wrong='[{"v":4,"m":"That is the net integral of x − 1. Where is x − 1 negative?"}]'></label></div>
+    <div class="hint">Split at $x=1$.</div>
+    <div class="solution">$\int_0^1(1-x)\,dx+\int_1^4(x-1)\,dx=\tfrac12+\tfrac92=5$ (or add the areas of two triangles).</div>
+  </div>
+
+  <div class="problem" data-pid="F-3" data-topic="A" data-level="6" data-title="12 · §2.4" data-src="Unfamiliar" data-prompt="Evaluate the integral from 0 to pi of |sin x - cos x| dx.">
+    <div class="p-body">Evaluate $\displaystyle\int_0^{\pi}\left|\sin x-\cos x\right|\,dx.$</div>
+    <div class="answers"><label>Answer <input class="ans" data-vid="F-A-sinmcos" data-answer="2.828427124746" data-exact="2√2" data-wrong='[{"v":2,"m":"That is the net integral of sin x − cos x. Where does sin x − cos x change sign?"}]'></label></div>
+    <div class="hint">$\sin x=\cos x$ at $x=\frac\pi4$ in $[0,\pi]$. Which is bigger before that point?</div>
+    <div class="hint">$\int_0^{\pi/4}(\cos x-\sin x)\,dx+\int_{\pi/4}^{\pi}(\sin x-\cos x)\,dx$.</div>
+    <div class="solution">$\big[\sin x+\cos x\big]_0^{\pi/4}=\sqrt2-1$ and $\big[-\cos x-\sin x\big]_{\pi/4}^{\pi}=1+\sqrt2$. The total is $2\sqrt2\approx2.828$.</div>
+  </div>
+
+  <div class="mcq" data-qid="F-4" data-topic="B" data-level="1" data-count>
+    <div class="q"><b>13.</b> How should you set up $\displaystyle\int_0^{\infty}\frac{dx}{(x+1)\sqrt x}$?</div>
+    <div class="opts">
+      <button class="opt" data-correct data-why="Two problems (x = 0 and ∞), so two pieces and two separate limits.">$\displaystyle\int_0^1+\int_1^\infty$: one problem per piece, each with its own limit.</button>
+      <button class="opt" data-why="There's also a blow-up at x = 0.">No split. Use one limit, $b\to\infty$.</button>
+      <button class="opt" data-why="The definition uses separate limits for each problem point, not one combined limit.">$\displaystyle\lim_{b\to\infty}\int_{1/b}^{b}$ with a single limit.</button>
+    </div>
+  </div>
+
+  <div class="problem" data-pid="F-5" data-topic="B" data-level="4" data-title="14 · §2.5" data-src="Solve alone" data-help='A number, or "diverges".' data-prompt="Evaluate the integral from 4 to infinity of x^(-3/2) dx or show it diverges.">
+    <div class="p-body">Evaluate $\displaystyle\int_4^{\infty}x^{-3/2}\,dx$ or show that it diverges.</div>
+    <div class="answers"><label>Answer <input class="ans" data-accept="div" data-vid="F-B-p32" data-answer="1" data-exact="1"></label></div>
+    <div class="hint">An antiderivative is $-2x^{-1/2}$.</div>
+    <div class="solution">$\lim_{b\to\infty}\left(-\frac{2}{\sqrt b}\right)+\frac2{\sqrt4}=1.$</div>
+  </div>
+
+  <div class="problem" data-pid="F-6" data-topic="B" data-level="6" data-title="15 · §2.5" data-src="Unfamiliar · two problem points" data-help='A number, or "diverges".' data-prompt="Evaluate the integral from 0 to infinity of dx/((x+1) sqrt(x)) or show it diverges.">
+    <div class="p-body">Evaluate $\displaystyle\int_0^{\infty}\frac{dx}{(x+1)\sqrt x}$ or show that it diverges.</div>
+    <div class="answers"><label>Answer <input class="ans" data-accept="div" data-vid="F-B-both" data-answer="3.141592653590" data-exact="π"></label></div>
+    <div class="hint">Try $u=\sqrt x$, so $x=u^2$ and $dx=2u\,du$. What does the integrand become?</div>
+    <div class="hint">$\int\frac{2u\,du}{(u^2+1)u}=2\int\frac{du}{1+u^2}=2\tan^{-1}\sqrt x$. Now handle both problem points.</div>
+    <div class="solution">$\int_0^1=2\tan^{-1}1-\lim_{a\to0^+}2\tan^{-1}\sqrt a=\frac\pi2$ and $\int_1^\infty=\lim_{b\to\infty}2\tan^{-1}\sqrt b-\frac\pi2=\pi-\frac\pi2=\frac\pi2$. Total: $\pi$.</div>
+  </div>
+
+  <div class="mcq" data-qid="F-7" data-topic="C" data-level="1" data-count>
+    <div class="q"><b>16.</b> The Trapezoid coefficients for $n=5$ are…</div>
+    <div class="opts cols-2">
+      <button class="opt" data-correct>1, 2, 2, 2, 2, 1</button>
+      <button class="opt" data-why="That's Simpson's pattern, which isn't even allowed for n = 5.">1, 4, 2, 4, 2, 1</button>
+      <button class="opt" data-why="Interior points count twice.">1, 1, 1, 1, 1, 1</button>
+      <button class="opt" data-why="n = 5 means 6 points, not 5.">1, 2, 2, 2, 1</button>
+    </div>
+  </div>
+
+  <div class="problem" data-pid="F-8" data-topic="C" data-level="4" data-title="17 · §2.6" data-src="Solve alone" data-prompt="Compute the Midpoint Rule M_2 for the integral from 0 to 2 of x^2 dx.">
+    <div class="p-body">Compute the Midpoint Rule estimate $M_2$ for $\displaystyle\int_0^2x^2\,dx$. Is it too big or too small?</div>
+    <div class="answers"><label>$M_2=$ <input class="ans" data-vid="F-C-M2x2" data-answer="2.5" data-exact="5/2"></label></div>
+    <div class="hint">$\Delta x=1$, and the midpoints are $\frac12$ and $\frac32$.</div>
+    <div class="solution">$1\cdot\big(\tfrac14+\tfrac94\big)=\tfrac52=2.5$, <b>too small</b> (the exact value is $\tfrac83$). For a concave-up curve the Midpoint Rule underestimates, while the Trapezoid Rule ($T_2=3$) overestimates.</div>
+  </div>
+
+  <div class="mcq" data-qid="F-12" data-topic="C" data-level="1" data-count>
+    <div class="q"><b>18.</b> You're asked for $\displaystyle\int_0^1\sin(x^2)\,dx$ to 3 decimal places. The best approach is…</div>
+    <div class="opts">
+      <button class="opt" data-why="sin(x²) has no elementary antiderivative. (The chain rule would need an extra 2x in the integrand.)">substitution $u=x^2$, then the FTC.</button>
+      <button class="opt" data-correct data-why="It has no elementary antiderivative, so a numerical rule (preferably Simpson's) is the way.">a numerical rule, such as Simpson's.</button>
+      <button class="opt" data-why="The interval is finite and the integrand is continuous.">an improper-integral limit.</button>
+    </div>
+  </div>
+
+  <div class="explain card" data-eid="F-9" data-topic="C">
+    <h4>19 · Explain why (§2.6)</h4>
+    <p>Simpson's Rule with $n=2$ gives <em>exactly</em> $\frac83$ for $\int_0^2x^2\,dx$. Why is it exact here, when it's only approximate for $e^{-x^2}$?</p>
+    <textarea aria-label="Your explanation"></textarea>
+    <div class="model callout why"><div class="label">A model explanation</div><p style="margin:0">Simpson's Rule replaces the curve on each pair of strips with the parabola through three of its points. If the curve <em>is</em> a parabola, like $x^2$, the “approximating” parabola is the curve itself, so the areas are identical and the error is 0. $e^{-x^2}$ isn't a parabola, so the fitted parabolas only nearly match it. (The textbook adds a surprise in Remark 2.6.12: Simpson's Rule is exact even for cubics.)</p></div>
+  </div>
+
+  <div class="problem" data-pid="F-10" data-topic="D" data-level="4" data-title="20 · §3.1" data-src="Solve alone" data-prompt="v(t) = t^2 - 1 m/s on [0, 2]: find the total distance traveled.">
+    <div class="p-body">$v(t)=t^2-1$ m/s on $[0,2]$. Find the total distance traveled.</div>
+    <div class="answers"><label>Distance <input class="ans" data-vid="F-D-dist" data-answer="2" data-exact="2 m" data-wrong='[{"v":0.666666666667,"m":"That is the displacement. The object turns around at t = 1."}]'></label></div>
+    <div class="hint">$v=0$ at $t=1$.</div>
+    <div class="solution">$\int_0^1(1-t^2)\,dt+\int_1^2(t^2-1)\,dt=\tfrac23+\tfrac43=2$ m (displacement: $\tfrac23$ m).</div>
+  </div>
+
+  <div class="problem" data-pid="F-11" data-topic="D" data-level="6" data-title="21 · §3.1" data-src="Unfamiliar · combines §2.5" data-help='A number, or "diverges".' data-prompt="A particle has v(t) = 2t/(1 + t^2)^2 for t &gt;= 0. What total distance does it travel as t goes to infinity?">
+    <div class="p-body">A particle has velocity $v(t)=\dfrac{2t}{(1+t^2)^2}$ for $t\ge0$. What total distance does it travel over $[0,\infty)$?</div>
+    <div class="answers"><label>Distance <input class="ans" data-accept="div" data-vid="F-D-improper" data-answer="1" data-exact="1"></label></div>
+    <div class="hint">$v\ge0$, so distance = $\int_0^\infty v\,dt$. Substitute $u=1+t^2$.</div>
+    <div class="solution">An antiderivative is $-\frac{1}{1+t^2}$, so $\lim_{b\to\infty}\left(-\frac1{1+b^2}\right)+1=1.$</div>
+  </div>
+
+  <div class="mcq" data-qid="F-E1" data-topic="E" data-level="1" data-count>
+    <div class="q"><b>22.</b> A particle has constant velocity $\vec v(t)=(4,3)$ for $0\le t\le2$. Its distance traveled and the length of its displacement are…</div>
+    <div class="opts cols-2">
+      <button class="opt" data-correct data-why="Speed = |(4, 3)| = 5 for 2 s: distance 10. The motion is a straight line in one direction, so the displacement (8, 6) also has length 10.">10 and 10</button>
+      <button class="opt" data-why="Speed is the length √(4² + 3²) = 5, not 4 + 3.">14 and 10</button>
+      <button class="opt" data-why="It never turns back, so the displacement isn't 0.">10 and 0</button>
+      <button class="opt" data-why="|displacement| can never exceed the distance.">10 and 14</button>
+    </div>
+  </div>
+
+  <div class="problem" data-pid="F-E2" data-topic="E" data-level="4" data-title="23 · §3.3" data-src="Solve alone" data-prompt="A particle has position p(t) = (t^3, 1.5 t^2) for 0 &lt;= t &lt;= 2. Find the total distance traveled.">
+    <div class="p-body">A particle has position $\vec p(t)=\big(t^3,\ \tfrac32t^2\big)$ for $0\le t\le2$. Find the total distance traveled.</div>
+    <div class="answers"><label>Distance <input class="ans" data-vid="F-E2" data-answer="10.180339887499" data-exact="5√5 − 1" data-wrong='[{"v":10,"m":"That is |<b>p</b>(2) − <b>p</b>(0)| = |(8, 6)|, the length of the displacement. Integrate the speed instead."}]'></label></div>
+    <div class="hint">$\vec v=(3t^2,\ 3t)$, so $|\vec v|=\sqrt{9t^4+9t^2}=3t\sqrt{t^2+1}$.</div>
+    <div class="solution">$\int_0^23t\sqrt{t^2+1}\,dt=\big[(t^2+1)^{3/2}\big]_0^2=5^{3/2}-1=5\sqrt5-1\approx10.180$.</div>
+  </div>
+
+  <div class="problem" data-pid="F-E3" data-topic="E" data-level="6" data-title="24 · §3.3" data-src="Unfamiliar · combines §2.5" data-help='A number, or "diverges".' data-prompt="A particle has velocity v(t) = (e^(-t), e^(-t)) for t &gt;= 0. What total distance does it travel over [0, infinity)?">
+    <div class="p-body">A particle has velocity $\vec v(t)=\big(e^{-t},\ e^{-t}\big)$ for $t\ge0$. What total distance does it travel over $[0,\infty)$?</div>
+    <div class="answers"><label>Distance <input class="ans" data-accept="div" data-vid="F-E3" data-answer="1.414213562373" data-exact="√2"></label></div>
+    <div class="hint">$|\vec v|=\sqrt{2e^{-2t}}=\sqrt2\,e^{-t}$.</div>
+    <div class="hint">$\int_0^\infty\sqrt2\,e^{-t}\,dt=\lim_{b\to\infty}\sqrt2\big(1-e^{-b}\big)$ (§2.5, Type I).</div>
+    <div class="solution">$\sqrt2\approx1.414$. The displacement tends to $(1,1)$, also of length $\sqrt2$: the particle moves along a straight line in one direction, so the two agree.</div>
+  </div>
+
+  <div class="mcq" data-qid="F-L1" data-topic="L" data-level="1" data-count>
+    <div class="q"><b>25.</b> Which integral gives the length of the curve $y=e^x$ from $x=0$ to $x=1$?</div>
+    <div class="opts">
+      <button class="opt" data-correct data-why="Right: f′ = eˣ, so 1 + f′² = 1 + e^(2x).">$\displaystyle\int_0^1\sqrt{1+e^{2x}}\,dx$</button>
+      <button class="opt" data-why="That’s the area under the curve.">$\displaystyle\int_0^1e^x\,dx$</button>
+      <button class="opt" data-why="Square the derivative: (eˣ)² = e^(2x).">$\displaystyle\int_0^1\sqrt{1+e^{x}}\,dx$</button>
+      <button class="opt" data-why="That splits the root: √(1 + e^(2x)) ≠ 1 + eˣ.">$\displaystyle\int_0^1\big(1+e^x\big)\,dx$</button>
+    </div>
+  </div>
+
+  <div class="problem" data-pid="F-L2" data-topic="L" data-level="4" data-title="26 · §3.3" data-src="Solve alone" data-prompt="Find the length of the curve y = (2/3)(x - 1)^(3/2) for 1 &lt;= x &lt;= 4.">
+    <div class="p-body">Find the length of the curve $y=\tfrac23(x-1)^{3/2}$ for $1\le x\le4$.</div>
+    <div class="answers"><label>Length <input class="ans" data-vid="F-L2" data-answer="4.666666666667" data-exact="14/3"></label></div>
+    <div class="hint">$y'=(x-1)^{1/2}$, so $1+y'^2=x$.</div>
+    <div class="solution">$\int_1^4\sqrt x\,dx=\tfrac23\big(8-1\big)=\tfrac{14}{3}\approx4.667$.</div>
+  </div>
+
+  <div class="problem" data-pid="F-L3" data-topic="L" data-level="6" data-title="27 · §3.3" data-src="Unfamiliar · a new curve" data-prompt="Find the length of the curve (cos^3 t, sin^3 t) for 0 &lt;= t &lt;= pi/2 (a quarter of an astroid).">
+    <div class="p-body">Find the length of the curve $(\cos^3t,\ \sin^3t)$ for $0\le t\le\frac\pi2$ (a quarter of an astroid).</div>
+    <div class="answers"><label>Length <input class="ans" data-vid="F-L3" data-answer="1.5" data-exact="3/2"></label></div>
+    <div class="hint">$x'=-3\cos^2t\sin t$ and $y'=3\sin^2t\cos t$.</div>
+    <div class="hint">$x'^2+y'^2=9\sin^2t\cos^2t\,(\cos^2t+\sin^2t)$, so the speed is $3\sin t\cos t$ on $[0,\frac\pi2]$.</div>
+    <div class="solution">$\int_0^{\pi/2}3\sin t\cos t\,dt=\big[\tfrac32\sin^2t\big]_0^{\pi/2}=\tfrac32$ (substitute $u=\sin t$). The chord from $(1,0)$ to $(0,1)$ is $\sqrt2\approx1.414&lt;1.5$ ✓.</div>
+  </div>
+
+  <div class="mcq" data-qid="F-V1" data-topic="V" data-level="1" data-count>
+    <div class="q"><b>28.</b> The region between $y=\sqrt x$ and $y=\frac x2$ ($0\le x\le4$) is spun about the $x$-axis. The area of the slice at $x$ is…</div>
+    <div class="opts">
+      <button class="opt" data-correct data-why="Right: R = √x (the far edge) and r = x/2 (the near edge), so A = π(x − x²/4).">$\pi\Big(x-\dfrac{x^2}{4}\Big)$</button>
+      <button class="opt" data-why="That’s π(R − r)². A washer’s area is π(R² − r²).">$\pi\Big(\sqrt x-\dfrac x2\Big)^2$</button>
+      <button class="opt" data-why="Swapped: √x is the far edge on (0, 4), so this would be negative.">$\pi\Big(\dfrac{x^2}{4}-x\Big)$</button>
+      <button class="opt" data-why="That’s the length of the region’s strip, not the area of a slice of the solid.">$\sqrt x-\dfrac x2$</button>
+    </div>
+  </div>
+
+  <div class="problem" data-pid="F-V2" data-topic="V" data-level="4" data-title="29 · §3.5" data-src="Solve alone" data-prompt="The region bounded by y = sqrt(x), y = 0 and x = 4 is spun about the line y = 2. Find the volume.">
+    <div class="p-body">The region bounded by $y=\sqrt x$, $y=0$ and $x=4$ is spun about the line $y=2$. Find the volume.</div>
+    <div class="answers"><label>Volume <input class="ans" data-vid="F-V2" data-answer="41.887902047864" data-exact="40π/3" data-wrong='[{"v":25.132741228718,"m":"That is the volume about the x-axis. For the axis y = 2, measure R and r from y = 2."},{"v":-41.887902047864,"m":"A negative volume means R and r are swapped. The far edge from y = 2 is the x-axis."}]'></label></div>
+    <div class="hint">The axis $y=2$ lies above the region (which reaches up to $y=2$ only at $x=4$). Which edge is farther from it?</div>
+    <div class="hint">$R=2-0=2$ (to the $x$-axis) and $r=2-\sqrt x$, so $A(x)=\pi\big(4-(2-\sqrt x)^2\big)=\pi\big(4\sqrt x-x\big)$.</div>
+    <div class="solution">$\pi\int_0^4\big(4\sqrt x-x\big)\,dx=\pi\big(\tfrac83\cdot8-8\big)=\frac{40\pi}{3}\approx41.89$.</div>
+  </div>
+
+  <div class="problem" data-pid="F-V3" data-topic="V" data-level="6" data-title="30 · §3.5" data-src="Unfamiliar · combines §2.5" data-help='A number, or "diverges".' data-prompt="The region under y = x^(-3/4) for x &gt;= 1 is spun about the x-axis. Is the volume finite? If so, find it.">
+    <div class="p-body">The region under $y=x^{-3/4}$ for $x\ge1$ is spun about the $x$-axis. Is the volume finite? If so, find it.</div>
+    <div class="answers"><label>Volume <input class="ans" data-accept="div" data-vid="F-V3" data-answer="6.283185307180" data-exact="2π" data-convmsg="The volume integral is π∫ from 1 to ∞ of x^(−3/2) dx. Does it have a finite limit?"></label></div>
+    <div class="hint">The slices are disks: $A(x)=\pi\big(x^{-3/4}\big)^2=\pi x^{-3/2}$.</div>
+    <div class="hint">$\pi\int_1^\infty x^{-3/2}\,dx$. Compare notes p. 29.</div>
+    <div class="solution">$\pi\lim_{b\to\infty}\big[-2x^{-1/2}\big]_1^b=2\pi\approx6.283$. The surprise: the flat region itself has <em>infinite</em> area, since $\int_1^\infty x^{-3/4}\,dx$ diverges (like notes p. 32's $x^{-0.8}$). Yet the solid has finite volume, because squaring the radius makes it shrink fast enough.</div>
+  </div>
+
+  <div class="card" id="report">
+    <h3>Your mastery report</h3>
+    <p class="small muted">Built from what you've actually done in this guide: recognition questions, the self-check, guided examples, independent problems without hints, mixed-practice method choices, unfamiliar problems, and your explanations. It follows the 7 levels of CLAUDE.md §17.</p>
+    <div id="masteryReport"></div>
+  </div>
+</section>

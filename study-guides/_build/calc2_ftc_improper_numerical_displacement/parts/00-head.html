@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calc 2 Study Guide §1.1–§3.5: Integration Techniques, the FTC, Improper &amp; Numerical Integrals, Motion, Arc Length &amp; Volume</title>
+<meta name="description" content="Interactive study guide built from the lecture notes 1.1-3.1(some).pdf, 3.1rest-3.3.pdf and rest3.3-3.5.pdf (textbook §1.1, §1.3, §2.4-2.6, §3.1, §3.3, §3.5).">
+<style>/*__KATEX_CSS__*/</style>
+<style>/*__STYLES__*/</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<!-- texture fills for print / forced-colors (opt-in accessibility channel; never on by default) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <pattern id="hatchPos" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="7" height="7" fill="#ffffff"/><line x1="0" y1="0" x2="0" y2="7" stroke="#1c5cab" stroke-width="2"/></pattern>
+  <pattern id="hatchNeg" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(135)"><rect width="7" height="7" fill="#ffffff"/><line x1="0" y1="0" x2="0" y2="7" stroke="#a8431a" stroke-width="2"/></pattern>
+</defs></svg>
+
+<button id="menuBtn" class="btn ghost small menu-btn" type="button" aria-label="Open navigation">☰ Menu</button>
+<aside class="sidebar" aria-label="Guide navigation">
+  <div class="brand">
+    <div class="brand-mark" aria-hidden="true">∫</div>
+    <div><div class="brand-title">Calc 2 Study Guide</div><div class="brand-sub">Notes §1.1–§3.5 · Text §1.1, 1.3, 2.4–2.6, 3.1, 3.3, 3.5</div></div>
+  </div>
+  <div class="progress-card">
+    <div class="progress-top"><span>Your progress</span><strong id="meterText">0%</strong></div>
+    <div class="meter" aria-hidden="true"><span id="meterFill"></span></div>
+    <div class="small muted" id="meterDetail" style="margin-top:6px"></div>
+  </div>
+  <nav class="nav" aria-label="Sections">
+    <a href="#start"><span class="letter" aria-hidden="true">★</span>Start here</a>
+    <a class="sub" href="#concepts">Concept map</a>
+    <a class="sub" href="#diagnostic-sec">Diagnostic</a>
+    <div class="nav-group">Integration techniques</div>
+    <a href="#U"><span class="letter sec" aria-hidden="true">1.1</span><span style="flex:1">Antiderivatives &amp; substitution</span><span class="tag" id="lvl-U">L0</span><span class="tick" id="tick-U" aria-hidden="true"></span></a>
+    <a href="#P"><span class="letter sec" aria-hidden="true">1.1</span><span style="flex:1">Integration by parts</span><span class="tag" id="lvl-P">L0</span><span class="tick" id="tick-P" aria-hidden="true"></span></a>
+    <a href="#R"><span class="letter sec" aria-hidden="true">1.3</span><span style="flex:1">Partial fractions</span><span class="tag" id="lvl-R">L0</span><span class="tick" id="tick-R" aria-hidden="true"></span></a>
+    <div class="nav-group">Definite integrals</div>
+    <a href="#A"><span class="letter sec" aria-hidden="true">2.4</span><span style="flex:1">FTC &amp; signed area</span><span class="tag" id="lvl-A">L0</span><span class="tick" id="tick-A" aria-hidden="true"></span></a>
+    <a href="#B"><span class="letter sec" aria-hidden="true">2.5</span><span style="flex:1">Improper integrals</span><span class="tag" id="lvl-B">L0</span><span class="tick" id="tick-B" aria-hidden="true"></span></a>
+    <a href="#C"><span class="letter sec" aria-hidden="true">2.6</span><span style="flex:1">Numerical integration</span><span class="tag" id="lvl-C">L0</span><span class="tick" id="tick-C" aria-hidden="true"></span></a>
+    <div class="nav-group">Motion</div>
+    <a href="#D"><span class="letter sec" aria-hidden="true">3.1</span><span style="flex:1">Displacement &amp; distance</span><span class="tag" id="lvl-D">L0</span><span class="tick" id="tick-D" aria-hidden="true"></span></a>
+    <a href="#E"><span class="letter sec" aria-hidden="true">3.3</span><span style="flex:1">Motion in 2D &amp; 3D</span><span class="tag" id="lvl-E">L0</span><span class="tick" id="tick-E" aria-hidden="true"></span></a>
+    <div class="nav-group">Length &amp; volume</div>
+    <a href="#L"><span class="letter sec" aria-hidden="true">3.3</span><span style="flex:1">Arc length</span><span class="tag" id="lvl-L">L0</span><span class="tick" id="tick-L" aria-hidden="true"></span></a>
+    <a href="#V"><span class="letter sec" aria-hidden="true">3.5</span><span style="flex:1">Volume: disks &amp; washers</span><span class="tag" id="lvl-V">L0</span><span class="tick" id="tick-V" aria-hidden="true"></span></a>
+    <div class="nav-group">Put it together</div>
+    <a href="#mixed"><span class="letter" aria-hidden="true">⇄</span>Mixed practice</a>
+    <a href="#final"><span class="letter" aria-hidden="true">✓</span>Final mastery check</a>
+    <a class="sub" href="#report">Mastery report</a>
+    <a href="#sources"><span class="letter" aria-hidden="true">i</span>Sources &amp; verification</a>
+  </nav>
+  <div class="small muted">A topic gets a ✓ at Level 4 (you solved its problem alone). L0–L7 is your mastery level for that topic.</div>
+  <div class="side-actions">
+    <button id="themeBtn" class="btn ghost small" type="button">Theme: Auto</button>
+    <button id="resetBtn" class="btn ghost small" type="button">Reset progress</button>
+  </div>
+</aside>
+
+<main id="main">
+<div class="wrap">
+
+<header class="hero" id="top">
+  <div class="kicker">Calc 2 · Built from your lecture notes: <code>1.1-3.1(some).pdf</code>, <code>3.1rest-3.3.pdf</code> and <code>rest3.3-3.5.pdf</code></div>
+  <h1>Integration Techniques, the FTC, Improper &amp; Numerical Integrals, Motion, Arc Length and Volume</h1>
+  <p class="lede">An interactive guide to your course from §1.1 to §3.5: every section that appears in your lecture notes. Nothing here asks you to memorize a formula you couldn't rebuild. Each topic asks you to <em>think first</em>, then shows you why the mathematics works and how to recognize when to use it.</p>
+  <div class="flow" aria-label="How every topic is organized">
+    <span>1 Learn</span><i>→</i><span>2 Understand</span><i>→</i><span>3 Explore</span><i>→</i><span>4 Attempt</span><i>→</i><span>5 Compare</span><i>→</i><span>6 Practice</span><i>→</i><span>7 Master</span>
+  </div>
+  <div class="scope">
+    <div class="card tight">
+      <h4>What's in this guide</h4>
+      <ul class="small" style="margin:0">
+        <li><b>§1.1</b> Antiderivatives &amp; <em>u</em>-substitution (notes pp. 1–6, 21–23)</li>
+        <li><b>§1.1</b> Integration by parts (notes pp. 7–12, 21, 24)</li>
+        <li><b>§1.3</b> Partial fractions (notes pp. 13–20, 23)</li>
+        <li><b>§2.4</b> The Fundamental Theorem &amp; signed area (notes pp. 25–26)</li>
+        <li><b>§2.5</b> Improper integrals (notes pp. 27–33)</li>
+        <li><b>§2.6</b> Numerical integration (notes pp. 34–39)</li>
+        <li><b>§3.1</b> Displacement &amp; distance traveled (notes pp. 40–41; new notes pp. 1–3)</li>
+        <li><b>§3.3</b> Motion in the plane and in space (new notes pp. 4–7; 3.3–3.5 notes p. 1)</li>
+        <li><b>§3.3</b> Arc length (3.3–3.5 notes pp. 2–4)</li>
+        <li><b>§3.5</b> Volume by slicing: disks and washers (3.3–3.5 notes pp. 5–7)</li>
+      </ul>
+      <p class="small muted" style="margin:6px 0 0">“New notes” means <code>3.1rest-3.3.pdf</code>; “3.3–3.5 notes” means <code>rest3.3-3.5.pdf</code>.</p>
+    </div>
+    <div class="card tight">
+      <h4>Not covered here</h4>
+      <p class="small" style="margin:0 0 6px">Only sections that appear in your notes are included. <b>§1.2</b> (trig integrals and trig substitution), <b>§2.1–§2.3</b>, <b>§3.2</b> (area in the plane) and <b>§3.4</b> (polar coordinates) aren't in your notes, so they're left out. From §3.3, arc length for $x=f(y)$, arc-length parameterization and the polar exercises aren't in your notes either. From §3.5, the <b>cylindrical shell</b> method isn't in your notes yet: they stop at disks and washers.</p>
+      <p class="small muted" style="margin:0">Also left out: textbook-only material your notes don't use, such as initial-value problems, cyclic integration by parts ($e^x\sin x$), comparison tests, error-bound formulas, average velocity, and surface area (§3.6).</p>
+    </div>
+  </div>
+  <div class="card tight">
+    <h4>How to use it</h4>
+    <ul class="small" style="margin:0">
+      <li><b>Attempt before you reveal.</b> Hints unlock one at a time after an “I'm stuck” check-in. The full solution waits until you've tried (or you ask twice).</li>
+      <li><b>Answers</b> accept exact forms (<kbd>23/3</kbd>, <kbd>2sqrt(3)-2</kbd>, <kbd>pi/4</kbd>, <kbd>3cbrt(2)</kbd>) or decimals. For improper integrals you can type <kbd>diverges</kbd>. <b>Antiderivatives</b> are typed as expressions (<kbd>x*e^x - e^x + C</kbd>, <kbd>ln(abs(x))</kbd>, <kbd>arctan(x)</kbd>) and are checked up to the constant, so any correct form is accepted. You're told when you forget $+C$ or an absolute value.</li>
+      <li><b>Ask your tutor</b> boxes build a prompt you can paste into Claude. They follow the “I'm stuck” rules in your CLAUDE.md, so you get a nudge instead of the answer.</li>
+      <li>Your progress and notes are saved in this browser only. Every answer in this guide was checked three ways: by hand, with Python (SymPy/mpmath), and with Wolfram Language.</li>
+    </ul>
+  </div>
+</header>

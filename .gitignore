@@ -1,0 +1,21 @@
+# Course source files aren't ours to publish: the textbook, the professor's lecture notes,
+# and any future homework, review sheets or images, plus the page renders made from them.
+# materials/notes/NOTES_INDEX.md is our own index of the notes, so it stays.
+materials/textbook/
+materials/homework/
+materials/review/
+materials/images/
+materials/notes/*
+!materials/notes/NOTES_INDEX.md
+*.pdf
+
+# Machine-local settings, caches and build output
+.claude/settings.local.json
+.jupyter/
+.jupyter_ystore.db
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.playwright-mcp/
+node_modules/
+study-guides/_build/*/test_output/

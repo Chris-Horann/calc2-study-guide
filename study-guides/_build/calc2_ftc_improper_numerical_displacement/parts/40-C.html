@@ -1,0 +1,304 @@
+<section id="C" class="topic">
+  <div class="topic-banner">
+    <div class="topic-letter sec" aria-hidden="true">2.6</div>
+    <div><h2>Numerical integration</h2>
+    <div class="sources">Notes pp. 34–39 · Textbook §2.6 (Definitions 2.6.1, 2.6.3, 2.6.6; Examples 2.6.2, 2.6.4, 2.6.7)</div></div>
+  </div>
+  <nav class="stagebar" data-topic="C" aria-label="Stages in §2.6">
+    <a href="#C-learn"><span class="n">1</span>Learn</a><a href="#C-understand"><span class="n">2</span>Understand</a><a href="#C-explore"><span class="n">3</span>Explore</a><a href="#C-attempt"><span class="n">4</span>Attempt</a><a href="#C-compare"><span class="n">5</span>Compare</a><a href="#C-practice"><span class="n">6</span>Practice</a><a href="#C-master"><span class="n">7</span>Master</a>
+  </nav>
+
+  <!-- ============================== 1 LEARN -->
+  <div class="stage" id="C-learn">
+    <div class="stage-head"><span class="n">Stage 1 · Learn</span><h3>The big idea</h3></div>
+    <div class="callout big">
+      <div class="label">Big idea</div>
+      <p>Some integrals can't be done with antiderivatives. $e^{-x^2}$, $e^{x^2}$, and $\frac{1}{\ln x}$ have <b>no elementary antiderivative</b> (textbook §2.6). The integral still exists, though: it's an area. So we <b>estimate</b> it.</p>
+      <p style="margin:0">Cut $[a,b]$ into $n$ equal strips. On each strip, replace the curve by a shape whose area you know: <b>flat tops</b> (the Midpoint Rule), <b>slanted straight tops</b> (the Trapezoid Rule), or <b>parabolic tops</b> (Simpson's Rule). Shapes that hug the curve better leave a smaller error.</p>
+    </div>
+    <div class="card tight">
+      <div class="small muted" style="margin-bottom:6px"><b>What to notice:</b> the same curve and the same two strips, with three kinds of tops. Compare the gaps between each shape and the curve.</div>
+      <div data-fig="rules3"></div>
+    </div>
+    <div class="callout"><div class="label">The setup every rule shares (notes p. 34)</div>
+      $$\Delta x=\frac{b-a}{n},\qquad x_i=a+i\,\Delta x,\qquad a=x_0<x_1<\cdots<x_{n-1}<x_n=b.$$
+      <p style="margin:0">$n$ subintervals give $n+1$ grid points. The Midpoint Rule uses the $n$ midpoints instead.</p>
+    </div>
+    <label class="toggle"><input type="checkbox" data-self="C"> I can explain why numerical rules are needed, and what shape each rule uses on a strip.</label>
+  </div>
+
+  <!-- ============================== 2 UNDERSTAND -->
+  <div class="stage" id="C-understand">
+    <div class="stage-head"><span class="n">Stage 2 · Understand</span><h3>Where the coefficients come from</h3></div>
+    <div class="grid-2">
+      <div class="card tight">
+        <h4>Prerequisite map</h4>
+        <div class="tree"><ul><li class="root">Numerical rules
+          <ul>
+            <li>The partition: $\Delta x$ and $x_i=a+i\Delta x$<br><span class="qc">Quick check: $[0,1]$ with $n=4$? <details class="qcheck"><summary>show</summary>$\Delta x=\tfrac14$: $0,\tfrac14,\tfrac12,\tfrac34,1$</details></span></li>
+            <li>Riemann sums: $\sum f(x_i^*)\,\Delta x\to\int_a^bf\,dx$ (notes p. 34)</li>
+            <li>Areas of rectangles and trapezoids</li>
+            <li>A parabola through three points (for Simpson)</li>
+            <li>Careful evaluation<br><span class="qc">Quick check: $e^{-(1/4)^2}$? <details class="qcheck"><summary>show</summary>$e^{-1/16}\approx0.9394$. Square first, then negate.</details></span></li>
+          </ul></li></ul></div>
+      </div>
+      <div class="card tight">
+        <h4>Why the Trapezoid Rule has 2's</h4>
+        <p>One trapezoid has area $\frac{\Delta x}{2}\big(f(x_{i-1})+f(x_i)\big)$. Add them up for $n=4$:</p>
+        <p class="small tnum" style="font-family:var(--mono)">[f₀+f₁] + [f₁+f₂] + [f₂+f₃] + [f₃+f₄]<br>= f₀ + <b>2</b>f₁ + <b>2</b>f₂ + <b>2</b>f₃ + f₄</p>
+        <p style="margin:0">Every <b>interior</b> point is a side shared by two trapezoids, so it's counted twice. Each <b>endpoint</b> belongs to only one. That's the whole story behind “Note the coefficients!” (notes p. 36).</p>
+      </div>
+    </div>
+    <div class="card">
+      <h4>Why Simpson's Rule is 1, 4, 2, 4, …, 4, 1 and needs $n$ even</h4>
+      <p>Simpson's Rule fits <b>one parabola over each pair</b> of strips, through three points. Its area over $[x_{i-1},x_{i+1}]$ is $\frac{\Delta x}{3}\big(f_{i-1}+4f_i+f_{i+1}\big)$ (notes p. 38). Add the pairs for $n=4$:</p>
+      <p class="small tnum" style="font-family:var(--mono)">[f₀ + 4f₁ + f₂] + [f₂ + 4f₃ + f₄] = f₀ + <b>4</b>f₁ + <b>2</b>f₂ + <b>4</b>f₃ + f₄</p>
+      <p>Each pair's middle point gets a 4. A point shared by two neighbouring pairs gets $1+1=2$. Because the strips are used <b>in pairs</b>, $n$ must be even; with $n=5$ one strip is left over (notes p. 38).</p>
+      <details class="more"><summary>Where does $\frac{\Delta x}{3}(y_0+4y_1+y_2)$ come from? (a two-line derivation)</summary><div>
+        <p>Shift so the middle point is at $x=0$ and write $h=\Delta x$. The parabola is $y=Ax^2+Bx+C$ on $[-h,h]$. Its area is</p>
+        $$\int_{-h}^{h}(Ax^2+Bx+C)\,dx=\tfrac23Ah^3+2Ch=\tfrac h3\big(2Ah^2+6C\big).$$
+        <p>The three heights are $y_0=Ah^2-Bh+C$, $y_1=C$, $y_2=Ah^2+Bh+C$, so $y_0+4y_1+y_2=2Ah^2+6C$, the same bracket. Therefore the area is $\frac h3\,(y_0+4y_1+y_2)$. The $B$ terms cancel, and that is where the “4” comes from.</p>
+      </div></details>
+    </div>
+
+    <div class="formula-card">
+      <div class="fc-title">Midpoint Rule <span>notes p. 34 · Definition 2.6.1</span></div>
+      $$\int_a^bf(x)\,dx\approx \htmlClass{fp fp-1}{\Delta x}\Big[f\big(\htmlClass{fp fp-2}{\tfrac{x_0+x_1}{2}}\big)+f\big(\tfrac{x_1+x_2}{2}\big)+\cdots+f\big(\tfrac{x_{n-1}+x_n}{2}\big)\Big]$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="Each rectangle has width Δx. There are no 2's here: each rectangle gets its own midpoint height.">Δx: the width</button>
+        <button class="fp-chip" data-part="2" data-explain="The <b>midpoint</b> of each strip. Not the grid points! With n = 2 on [0, 1], the midpoints are 1/4 and 3/4 (notes p. 35).">midpoints</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+    </div>
+    <div class="formula-card">
+      <div class="fc-title">Trapezoid Rule <span>notes p. 36 · Definition 2.6.3</span></div>
+      $$\int_a^bf(x)\,dx\approx \htmlClass{fp fp-1}{\frac{\Delta x}{2}}\Big[\htmlClass{fp fp-2}{f(x_0)}+\htmlClass{fp fp-3}{2f(x_1)+2f(x_2)+\cdots+2f(x_{n-1})}+\htmlClass{fp fp-2}{f(x_n)}\Big]$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="Half the width: each trapezoid's area is (Δx/2)(left height + right height).">Δx/2</button>
+        <button class="fp-chip" data-part="2" data-explain="The two <b>endpoints</b> belong to only one trapezoid each, so they get coefficient 1.">endpoints ×1</button>
+        <button class="fp-chip" data-part="3" data-explain="<b>Interior</b> points are shared by two trapezoids, so they get coefficient 2.">interior ×2</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+    </div>
+    <div class="formula-card">
+      <div class="fc-title">Simpson's Rule ($n$ even!) <span>notes p. 38 · Definition 2.6.6</span></div>
+      $$\int_a^bf(x)\,dx\approx \htmlClass{fp fp-1}{\frac{\Delta x}{3}}\Big[f(x_0)+\htmlClass{fp fp-2}{4}f(x_1)+\htmlClass{fp fp-3}{2}f(x_2)+\htmlClass{fp fp-2}{4}f(x_3)+\cdots+\htmlClass{fp fp-2}{4}f(x_{n-1})+f(x_n)\Big]$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="Δx/3 comes from the area of one parabola over a pair of strips.">Δx/3</button>
+        <button class="fp-chip" data-part="2" data-explain="The <b>middle</b> point of each pair gets 4. The next-to-last coefficient is always 4 because n is even.">4's: middles of pairs</button>
+        <button class="fp-chip" data-part="3" data-explain="Points <b>shared</b> by two neighbouring pairs get 1 + 1 = 2.">2's: shared points</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+    </div>
+
+    <div class="card">
+      <h4>Recognition: when do you reach for a numerical rule?</h4>
+      <div class="table-scroll"><table>
+        <thead><tr><th>You notice…</th><th>So you…</th></tr></thead>
+        <tbody>
+          <tr><td>“Approximate…”, “estimate…”, or “use the ___ Rule with $n=$ …”</td><td>Use that rule with that $n$. Write out $\Delta x$ and every point first.</td></tr>
+          <tr><td>An integrand with no elementary antiderivative: $e^{\pm x^2}$, $\sin(x^2)$, $\sqrt{1+x^3}$, $\frac1{\ln x}$</td><td>An exact FTC answer isn't available, so approximate.</td></tr>
+          <tr><td>An arc-length integral such as $\int_0^{2\pi}\sqrt{1+\cos^2x}\,dx$ (3.3–3.5 notes p. 4)</td><td>These rarely have an antiderivative. Set up, then estimate; the notes use the Trapezoid Rule with $n=4$ (<a href="#L-learn">§3.3 Arc length</a>).</td></tr>
+          <tr><td>Only a <b>table of values</b> (for example, velocity readings)</td><td>Apply the rule to the data. The Trapezoid Rule even works with uneven spacing (textbook Example 2.6.5).</td></tr>
+          <tr><td>Simpson's Rule is requested</td><td>Check that $n$ is even <b>before</b> you start.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout warn" style="margin-bottom:0"><div class="label">Tempting alternatives, and why to reject them</div>
+        <ul style="margin:0"><li><b>“Find an antiderivative of $e^{-x^2}$.”</b> One exists, but not in terms of elementary functions, so you can't evaluate it with the FTC.</li>
+        <li><b>“Use Simpson with $n=5$.”</b> Impossible: the strips have to pair up.</li></ul></div>
+    </div>
+  </div>
+
+  <!-- ============================== 3 EXPLORE -->
+  <div class="stage" id="C-explore">
+    <div class="stage-head"><span class="n">Stage 3 · Explore</span><h3>Approximation lab</h3></div>
+    <div class="widget">
+      <div class="w-head"><h4>Choose a function, a rule, and n; watch the error</h4><span class="small muted">the functions from your notes · every term in a table</span></div>
+      <div class="w-sub">Shapes are the rule's approximation. The table shows every term of the sum, so you can check a hand computation line by line.</div>
+      <div id="widget-numeric"></div>
+      <div class="try"><h5>What to notice</h5><ol>
+        <li>For $e^{-x^2}$, the Midpoint and Trapezoid errors have <b>opposite signs</b>, and the Trapezoid error is about <b>twice</b> as big. The textbook points this out in Examples 2.6.2 and 2.6.4.</li>
+        <li>Double $n$ and watch the error table. For $e^{-x^2}$ the Midpoint and Trapezoid errors shrink about <b>4×</b>, while Simpson's shrinks about <b>16×</b> once $n\ge4$.</li>
+        <li>Switch to $\sqrt{1-x^2}$: every rule improves much more slowly (only about 2.8× per doubling), and at $n=4$ even the Midpoint Rule beats Simpson's. The curve has vertical tangents at $\pm1$, which no parabola can match.</li>
+        <li>Pick Simpson's Rule with an odd $n$. What happens, and why?</li>
+      </ol></div>
+    </div>
+  </div>
+
+  <!-- ============================== 4 ATTEMPT -->
+  <div class="stage" id="C-attempt">
+    <div class="stage-head"><span class="n">Stage 4 · Attempt</span><h3>Guided example, then your turn</h3></div>
+    <div class="guided" data-gid="C-guided">
+      <div class="g-intro"><span class="badge">Guided example</span><span class="badge src" style="margin-left:6px">Notes p. 37</span>
+        <p style="margin-top:8px">Use the <b>Trapezoid Rule with $n=4$</b> to approximate $\displaystyle\int_{-1}^{1}\sqrt{1-x^2}\,dx$.</p></div>
+      <div class="gstep"><span class="g-label">Step 1</span>
+        <p><label class="inline">$\Delta x=\dfrac{b-a}{n}=$ <input class="ans" data-vid="C-guided-dx" data-answer="0.5"></label></p>
+        <div class="greveal">$\Delta x=\frac{1-(-1)}{4}=\frac12.$</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 2</span>
+        <div class="mcq" data-qid="C-g2"><div class="q">The grid points $x_0,\dots,x_4$ are…</div><div class="opts">
+          <button class="opt" data-correct>$-1,\ -\tfrac12,\ 0,\ \tfrac12,\ 1$</button>
+          <button class="opt" data-why="Those are midpoints: that's the Midpoint Rule, not the Trapezoid Rule.">$-\tfrac34,\ -\tfrac14,\ \tfrac14,\ \tfrac34$</button>
+          <button class="opt" data-why="The interval is [−1, 1], not [0, 1].">$0,\ \tfrac14,\ \tfrac12,\ \tfrac34,\ 1$</button>
+        </div></div>
+        <div class="greveal">$x_i=-1+i\cdot\tfrac12$ for $i=0,\dots,4$. That's 5 points for 4 subintervals.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 3</span>
+        <div class="mcq" data-qid="C-g3"><div class="q">The Trapezoid coefficients for $n=4$ are…</div><div class="opts cols-2">
+          <button class="opt" data-correct>1, 2, 2, 2, 1</button>
+          <button class="opt" data-why="That's Simpson's pattern.">1, 4, 2, 4, 1</button>
+          <button class="opt" data-why="Interior points are shared by two trapezoids, so they count twice.">1, 1, 1, 1, 1</button>
+          <button class="opt" data-why="Each endpoint belongs to only one trapezoid.">2, 2, 2, 2, 2</button>
+        </div></div>
+        <div class="greveal">Endpoints ×1 and interior points ×2, with prefactor $\frac{\Delta x}{2}=\frac14$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 4</span>
+        <p><label class="inline">$f\!\left(-\tfrac12\right)=\sqrt{1-\tfrac14}=$ <input class="ans" data-vid="C-guided-f" data-answer="0.866025403784"></label></p>
+        <div class="greveal">$\sqrt{\tfrac34}=\tfrac{\sqrt3}{2}\approx0.8660$. By symmetry $f(\tfrac12)$ is the same, $f(\pm1)=0$, and $f(0)=1$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 5</span>
+        <p><label class="inline">$T_4=\tfrac14\Big[f(-1)+2f(-\tfrac12)+2f(0)+2f(\tfrac12)+f(1)\Big]=$ <input class="ans" data-vid="C-guided-T4" data-answer="1.366025403784"></label></p>
+        <div class="greveal">$\tfrac14\Big[0+\sqrt3+2+\sqrt3+0\Big]=\tfrac{2+2\sqrt3}{4}=\tfrac12+\tfrac{\sqrt3}{2}\approx1.3660.$
+          <div class="callout discrepancy" style="margin:10px 0 0"><div class="label">⚠ Heads-up: your notes differ here</div><p style="margin:0">Notes p. 37 writes this result as $\tfrac12+\tfrac{\sqrt{15}}{4}\approx1.468$. With $f(\pm\tfrac12)=\tfrac{\sqrt3}{2}$, the Trapezoid Rule gives $\tfrac12+\tfrac{\sqrt3}{2}\approx1.366$. This was checked independently with Wolfram Language and Python, and the textbook's Definition 2.6.3 gives the same value. If your professor's version was intentional, ask about it in class.</p></div></div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 6</span>
+        <div class="mcq" data-qid="C-g6"><div class="q">The exact value is $\frac\pi2\approx1.5708$, half of a unit disk. Why is $T_4$ too <b>small</b>?</div><div class="opts">
+          <button class="opt" data-correct>The curve is concave down, so every chord lies below the curve.</button>
+          <button class="opt" data-why="Larger n makes the error smaller, not larger.">$n$ is too large.</button>
+          <button class="opt" data-why="Not always: for e^(x²), which is concave up, the Trapezoid Rule overestimates (Practice 3 below).">The Trapezoid Rule always underestimates.</button>
+          <button class="opt" data-why="√(1 − x²) does have an antiderivative (textbook Example 2.4.14); that's not the reason.">$\sqrt{1-x^2}$ has no antiderivative.</button>
+        </div></div>
+        <div class="greveal">$\sqrt{1-x^2}$ bulges above each straight top, so every trapezoid misses a sliver of the semicircle. With a concave-up curve the tops lie above the curve instead, and the rule overestimates.</div>
+      </div>
+      <div class="takeaway"><b>Takeaway.</b> Write $\Delta x$, then list every point, then write the coefficient pattern, and only then evaluate. The pattern is where most mistakes happen.</div>
+    </div>
+
+    <div class="problem" data-pid="C-indep" data-topic="C" data-level="4" data-title="Independent attempt" data-src="Notes p. 39 (left unsolved there)" data-help="4 decimal places, or an exact value." data-prompt="Use Simpson's Rule with n = 4 to approximate the integral from -1 to 1 of sqrt(1 - x^2) dx.">
+      <div class="p-body">Use <b>Simpson's Rule with $n=4$</b> to approximate $\displaystyle\int_{-1}^{1}\sqrt{1-x^2}\,dx$. How does it compare with $T_4$ and with $\frac\pi2$?</div>
+      <div class="answers"><label>$S_4\approx$ <input class="ans" data-vid="C-indep-S4" data-answer="1.488033871713" data-exact="(1 + 2√3)/3" data-wrong='[{"v":1.366025403784,"m":"That is the Trapezoid value. Simpson uses the coefficients 1, 4, 2, 4, 1 and the prefactor Δx/3."},{"v":4.464101615138,"m":"Check the prefactor: it should be Δx/3 = 1/6, not Δx."},{"v":2.232050807569,"m":"Check the prefactor: it should be Δx/3, not Δx/2."},{"v":1.333333333333,"m":"That is Simpson with n = 2. This problem uses n = 4."}]'></label></div>
+      <div class="hint">You already have $\Delta x=\tfrac12$ and the five grid points from the guided example. Which coefficient pattern does Simpson's Rule use for $n=4$?</div>
+      <div class="hint">1, 4, 2, 4, 1, with prefactor $\frac{\Delta x}{3}=\frac16$.</div>
+      <div class="hint">$\tfrac16\Big[f(-1)+4f(-\tfrac12)+2f(0)+4f(\tfrac12)+f(1)\Big]$, where $f(\pm1)=0$, $f(\pm\tfrac12)=\tfrac{\sqrt3}2$, and $f(0)=1$.</div>
+      <div class="solution">$\tfrac16\Big[0+4\cdot\tfrac{\sqrt3}{2}+2+4\cdot\tfrac{\sqrt3}{2}+0\Big]=\tfrac{4\sqrt3+2}{6}=\tfrac{1+2\sqrt3}{3}\approx1.4880.$ Error vs. $\frac\pi2$: about $-0.083$, better than $T_4$'s $-0.205$.</div>
+      <div class="reflect"><h5>Compare your approach</h5>
+        <label><input type="checkbox"> I checked that $n=4$ is even before starting.</label>
+        <label><input type="checkbox"> I used the prefactor $\frac{\Delta x}{3}$, not $\frac{\Delta x}{2}$.</label>
+        <label><input type="checkbox"> I compared the estimate with the exact value to judge the error.</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 5 COMPARE -->
+  <div class="stage" id="C-compare">
+    <div class="stage-head"><span class="n">Stage 5 · Compare</span><h3>Tempting approaches vs. correct reasoning</h3></div>
+    <div class="spot" data-sid="C-spot1">
+      <p><b>Spot the error.</b> A student applies the Midpoint Rule with $n=2$ to $\displaystyle\int_0^1e^{-x^2}\,dx$ (notes p. 35):</p>
+      <button class="sline"><span class="ln">Line 1</span><span>$\Delta x=\frac{1-0}{2}=\frac12$.</span></button>
+      <button class="sline"><span class="ln">Line 2</span><span>Grid points: $x_0=0,\ x_1=\frac12,\ x_2=1$.</span></button>
+      <button class="sline" data-bad><span class="ln">Line 3</span><span>$M_2=\frac12\big[f(0)+f(\tfrac12)\big]$</span></button>
+      <button class="sline"><span class="ln">Line 4</span><span>$=\frac12\big(1+e^{-1/4}\big)\approx0.889.$</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout warn"><div class="label">What went wrong</div><p style="margin:0">Line 3 evaluates $f$ at the <b>left endpoints</b>. The Midpoint Rule uses the midpoints $\frac14$ and $\frac34$: $M_2=\frac12\big[e^{-1/16}+e^{-9/16}\big]\approx0.7546$ (notes p. 35; textbook Example 2.6.2).</p></div>
+    </div>
+    <div class="vs">
+      <div class="tempt"><h5>✗ Tempting</h5>$T_4=\frac{\Delta x}{2}\big[f_0+f_1+f_2+f_3+f_4\big]$, with every coefficient 1.</div>
+      <div class="right"><h5>✓ Correct</h5>Interior points are shared by two trapezoids: $\frac{\Delta x}{2}\big[f_0+2f_1+2f_2+2f_3+f_4\big]$. For $\sqrt{1-x^2}$, the all-1's version gives $\frac{1+\sqrt3}{4}\approx0.683$, about half the real estimate.</div>
+      <div class="clue"><b>Clue for next time:</b> say the reason out loud. “Endpoints once, shared points twice.”</div>
+    </div>
+    <div class="vs">
+      <div class="tempt"><h5>✗ Tempting</h5>“Simpson with $n=5$: $\frac{\Delta x}{3}\big[f_0+4f_1+2f_2+4f_3+2f_4+f_5\big]$.”</div>
+      <div class="right"><h5>✓ Correct</h5>Not allowed. Simpson's parabolas each cover <b>two</b> strips, so with 5 strips one is left over. Look at the pattern: it can't end “…4, 1” with an odd $n$. Use $n=4$ or $n=6$.</div>
+    </div>
+    <h4 style="margin-top:22px">Common mistakes: why they happen and how to prevent them</h4>
+    <details class="mistake"><summary>Grid points in the Midpoint Rule</summary><div class="m-body"><p><b>Why it happens</b><br>The Trapezoid and Simpson rules use grid points, so it becomes a habit.</p><p><b>Prevent it</b><br>For the Midpoint Rule, write the midpoints $a+\big(i-\tfrac12\big)\Delta x$ explicitly before evaluating.</p></div></details>
+    <details class="mistake"><summary>Wrong coefficient pattern</summary><div class="m-body"><p><b>Why it happens</b><br>Memorized patterns blur together.</p><p><b>Prevent it</b><br>Rebuild the pattern from the shapes: shared sides count twice (Trapezoid); pair middles get 4 and shared pair ends get 2 (Simpson).</p></div></details>
+    <details class="mistake"><summary>Wrong prefactor ($\Delta x$ vs. $\frac{\Delta x}{2}$ vs. $\frac{\Delta x}{3}$)</summary><div class="m-body"><p><b>Why it happens</b><br>The three rules look alike.</p><p><b>Prevent it</b><br>Quick check with $f=1$: every rule must give exactly $b-a$. For example, with Simpson, $n=2$: $\frac{\Delta x}{3}(1+4+1)=2\Delta x=b-a$ ✓.</p></div></details>
+    <details class="mistake"><summary>Miscounting points</summary><div class="m-body"><p><b>Why it happens</b><br>$n$ strips vs. $n+1$ grid points.</p><p><b>Prevent it</b><br>List $x_0,\dots,x_n$ and count: there should be $n+1$ of them, and $x_n$ should equal $b$.</p></div></details>
+    <details class="mistake"><summary>Evaluating $e^{-x^2}$ incorrectly</summary><div class="m-body"><p><b>Why it happens</b><br>Order of operations: $-x^2$ means $-(x^2)$.</p><p><b>Prevent it</b><br>Write $e^{-(1/4)^2}=e^{-1/16}$, exactly as the notes do on p. 35.</p></div></details>
+    <details class="mistake"><summary>Rounding too early</summary><div class="m-body"><p><b>Why it happens</b><br>Rounding each term to 2 decimal places compounds the error.</p><p><b>Prevent it</b><br>Keep at least 6 digits until the final step (the textbook carries 12).</p></div></details>
+  </div>
+
+  <!-- ============================== 6 PRACTICE -->
+  <div class="stage" id="C-practice">
+    <div class="stage-head"><span class="n">Stage 6 · Practice</span><h3>Practice: the examples from your notes and textbook</h3></div>
+    <p class="muted small">Give 4 decimal places, or an exact expression. After you finish each one, check it against the lab's table.</p>
+    <div class="problem" data-pid="C-p1" data-topic="C" data-title="Practice 1" data-src="Notes p. 35 · textbook Ex. 2.6.2" data-help="4 decimal places, or an exact value." data-prompt="Use the Midpoint Rule with n = 2 to approximate the integral from 0 to 1 of e^(-x^2) dx.">
+      <div class="p-body">Midpoint Rule with $n=2$ for $\displaystyle\int_0^1e^{-x^2}\,dx$.</div>
+      <div class="answers"><label>$M_2\approx$ <input class="ans" data-vid="C-p1-M2" data-answer="0.754597943772" data-tol="6e-4" data-exact="½(e^(−1/16) + e^(−9/16)) ≈ 0.754598" data-wrong='[{"v":0.889400391535,"m":"You used the left endpoints 0 and 1/2. The midpoints are 1/4 and 3/4."}]'></label></div>
+      <div class="hint">$\Delta x=\frac12$. The midpoints are $\frac14$ and $\frac34$.</div>
+      <div class="solution">$\frac12\big[e^{-1/16}+e^{-9/16}\big]\approx\frac12(0.93941+0.56978)\approx0.75460$ (error $\approx+0.0078$).</div>
+    </div>
+    <div class="problem" data-pid="C-p2" data-topic="C" data-title="Practice 2" data-src="Notes p. 35" data-help="4 decimal places, or an exact value." data-prompt="Use the Midpoint Rule with n = 4 to approximate the integral from 0 to 1 of e^(-x^2) dx.">
+      <div class="p-body">Midpoint Rule with $n=4$ for the same integral.</div>
+      <div class="answers"><label>$M_4\approx$ <input class="ans" data-vid="C-p2-M4" data-answer="0.748747131891" data-tol="6e-4"></label></div>
+      <div class="hint">$\Delta x=\frac14$. The midpoints are $\frac18,\frac38,\frac58,\frac78$.</div>
+      <div class="solution">$\frac14\big[e^{-1/64}+e^{-9/64}+e^{-25/64}+e^{-49/64}\big]\approx0.74875$ (error $\approx+0.0019$, about ¼ of $M_2$'s).</div>
+    </div>
+    <div class="problem" data-pid="C-p3" data-topic="C" data-title="Practice 3" data-src="Notes p. 37" data-help="4 decimal places, or an exact value." data-prompt="Use the Trapezoid Rule with n = 5 to approximate the integral from 0 to 1 of e^(x^2) dx.">
+      <div class="p-body">Trapezoid Rule with $n=5$ for $\displaystyle\int_0^1e^{x^2}\,dx$. Is it an over- or underestimate?</div>
+      <div class="answers"><label>$T_5\approx$ <input class="ans" data-vid="C-p3-T5" data-answer="1.480654570656" data-tol="6e-4"></label></div>
+      <div class="hint">$\Delta x=\frac15$, the points are $0,0.2,0.4,0.6,0.8,1$, and the coefficients are 1, 2, 2, 2, 2, 1.</div>
+      <div class="hint">The prefactor is $\frac{\Delta x}{2}=\frac1{10}$, so you need $\frac1{10}\big[1+2e^{1/25}+2e^{4/25}+2e^{9/25}+2e^{16/25}+e\big]$.</div>
+      <div class="solution">$\approx1.48065$. The true value is $\approx1.46265$, so this is an <b>overestimate</b>: $e^{x^2}$ is concave up, so the straight tops lie above the curve.</div>
+    </div>
+    <div class="problem" data-pid="C-p4" data-topic="C" data-title="Practice 4" data-src="Notes p. 39 (left unsolved there)" data-help="4 decimal places, or an exact value." data-prompt="Use Simpson's Rule with n = 6 to approximate the integral from 2 to 14 of 1/ln x dx.">
+      <div class="p-body">Simpson's Rule with $n=6$ for $\displaystyle\int_2^{14}\frac{dx}{\ln x}$.</div>
+      <div class="answers"><label>$S_6\approx$ <input class="ans" data-vid="C-p4-S6" data-answer="6.816753551097" data-tol="6e-4"></label></div>
+      <div class="hint">$\Delta x=\frac{14-2}{6}=2$, and the points are $2,4,6,8,10,12,14$.</div>
+      <div class="hint">The coefficients are 1, 4, 2, 4, 2, 4, 1 and the prefactor is $\frac{\Delta x}{3}=\frac23$.</div>
+      <div class="solution">$\frac23\Big[\tfrac1{\ln2}+\tfrac4{\ln4}+\tfrac2{\ln6}+\tfrac4{\ln8}+\tfrac2{\ln10}+\tfrac4{\ln12}+\tfrac1{\ln14}\Big]\approx6.8168$. (Actual value ≈ 6.7357. The curve bends sharply near $x=2$.)</div>
+    </div>
+    <div class="problem" data-pid="C-p5" data-topic="C" data-title="Practice 5" data-src="Textbook §2.6 Suggested Ex. 7" data-help="5-6 decimal places, or an exact fraction." data-prompt="Use ln 2 = integral from 1 to 2 of dt/t and Simpson's Rule with n = 6 to approximate ln 2.">
+      <div class="p-body">Since $\ln2=\displaystyle\int_1^2\frac{dt}{t}$, use Simpson's Rule with $n=6$ to approximate $\ln 2$. (You can check yours against $\ln2\approx0.693147$.)</div>
+      <div class="answers"><label>$S_6\approx$ <input class="ans" data-vid="C-p5-ln2-S6" data-answer="0.693169793170" data-tol="2e-6" data-exact="14411/20790" data-wrong='[{"v":0.693147180560,"t":3e-6,"m":"That is ln 2 itself. The question asks for the Simpson estimate, which is very close but not equal."}]'></label></div>
+      <div class="hint">$\Delta x=\frac16$ and the points are $1,\tfrac76,\tfrac43,\tfrac32,\tfrac53,\tfrac{11}6,2$, so $f$ takes the values $1,\tfrac67,\tfrac34,\tfrac23,\tfrac35,\tfrac6{11},\tfrac12$.</div>
+      <div class="hint">$\frac1{18}\Big[1+4\cdot\tfrac67+2\cdot\tfrac34+4\cdot\tfrac23+2\cdot\tfrac35+4\cdot\tfrac6{11}+\tfrac12\Big]$.</div>
+      <div class="solution">$\approx0.693170$ (exactly $\tfrac{14411}{20790}$), which differs from $\ln2$ by only about $2\times10^{-5}$.</div>
+    </div>
+    <div class="problem" data-pid="C-p6" data-topic="C" data-title="Practice 6" data-src="Textbook §2.6 Suggested Ex. 8" data-help="4 decimal places, or an exact value." data-prompt="Use pi/4 = integral from 0 to 1 of dy/(1+y^2) and the Trapezoid Rule with n = 5 to approximate pi.">
+      <div class="p-body">Since $\frac\pi4=\displaystyle\int_0^1\frac{dy}{1+y^2}$, use the Trapezoid Rule with $n=5$ to approximate $\pi$.</div>
+      <div class="answers"><label>$\pi\approx$ <input class="ans" data-vid="C-p6-pi-T5" data-answer="3.134926113811" data-tol="6e-4" data-wrong='[{"v":0.783731528453,"m":"That approximates π/4. Multiply by 4 to estimate π."}]'></label></div>
+      <div class="hint">Approximate $\int_0^1\frac{dy}{1+y^2}$ with $T_5$, then multiply by 4.</div>
+      <div class="hint">$T_5=\frac1{10}\Big[1+2\big(\tfrac1{1.04}+\tfrac1{1.16}+\tfrac1{1.36}+\tfrac1{1.64}\big)+\tfrac12\Big]$.</div>
+      <div class="solution">$T_5\approx0.783732$, so $\pi\approx4T_5\approx3.13493$ (the actual $\pi=3.14159\ldots$).</div>
+    </div>
+  </div>
+
+  <!-- ============================== 7 MASTER -->
+  <div class="stage" id="C-master">
+    <div class="stage-head"><span class="n">Stage 7 · Master</span><h3>Mastery check</h3></div>
+    <div class="grid-2">
+      <div class="mcq" data-qid="C-m1" data-topic="C" data-level="1" data-count><div class="q">Simpson's coefficients for $n=6$ are…</div><div class="opts">
+        <button class="opt" data-correct>1, 4, 2, 4, 2, 4, 1</button>
+        <button class="opt" data-why="That's the Trapezoid pattern.">1, 2, 2, 2, 2, 2, 1</button>
+        <button class="opt" data-why="Points shared by two pairs get 1 + 1 = 2, not 4.">1, 4, 4, 4, 4, 4, 1</button>
+        <button class="opt" data-why="n = 6 means 7 points.">1, 4, 2, 4, 2, 1</button>
+      </div></div>
+      <div class="mcq" data-qid="C-m2" data-topic="C" data-level="2" data-count><div class="q">The Midpoint Rule with $n=3$ on $[0,3]$ evaluates $f$ at…</div><div class="opts">
+        <button class="opt" data-correct>0.5, 1.5, 2.5</button>
+        <button class="opt" data-why="Those are left endpoints.">0, 1, 2</button>
+        <button class="opt" data-why="Those are right endpoints.">1, 2, 3</button>
+        <button class="opt" data-why="Those are the grid points (Trapezoid and Simpson).">0, 1, 2, 3</button>
+      </div></div>
+    </div>
+    <div class="problem" data-pid="C-m3" data-topic="C" data-level="4" data-title="Check yourself" data-src="Two rules, one integral" data-help="Exact or decimal." data-prompt="For the integral from 0 to 2 of x^2 dx: find T_2 and S_2.">
+      <div class="p-body">For $\displaystyle\int_0^2x^2\,dx$ (exact value $\frac83$), compute (a) $T_2$ and (b) $S_2$.</div>
+      <div class="answers"><label>(a) $T_2=$ <input class="ans" data-label="(a)" data-vid="C-master-T2x2" data-answer="3" data-exact="3"></label><label>(b) $S_2=$ <input class="ans" data-label="(b)" data-vid="C-master-S2x2" data-answer="2.666666666667" data-exact="8/3"></label></div>
+      <div class="hint">$\Delta x=1$, the points are $0,1,2$, and the heights are $0,1,4$.</div>
+      <div class="solution">(a) $\frac12\big[0+2(1)+4\big]=3$. (b) $\frac13\big[0+4(1)+4\big]=\frac83$, <b>exactly</b> right. (You'll explain why in the final check.)</div>
+    </div>
+    <div class="problem" data-pid="C-m4" data-topic="C" data-level="6" data-title="Unfamiliar problem" data-src="Transfer" data-help="5 decimal places." data-prompt="Estimate pi using Simpson's Rule with n = 4 on 4 times the integral from 0 to 1 of dy/(1+y^2).">
+      <div class="p-body">Estimate $\pi$ using <b>Simpson's Rule with $n=4$</b> on $\pi=4\displaystyle\int_0^1\frac{dy}{1+y^2}$. How many correct digits do you get, compared with the Trapezoid Rule in Practice 6?</div>
+      <div class="answers"><label>$\pi\approx$ <input class="ans" data-vid="C-master-pi-S4" data-answer="3.141568627451" data-tol="2e-5" data-wrong='[{"v":0.785392156863,"m":"That approximates π/4. Multiply by 4."}]'></label></div>
+      <div class="hint">$\Delta x=\frac14$, the points are $0,\frac14,\frac12,\frac34,1$, and the heights are $1,\frac{16}{17},\frac45,\frac{16}{25},\frac12$.</div>
+      <div class="hint">$S_4=\frac1{12}\Big[1+4\cdot\tfrac{16}{17}+2\cdot\tfrac45+4\cdot\tfrac{16}{25}+\tfrac12\Big]$, and then multiply by 4.</div>
+      <div class="solution">$S_4\approx0.785392$, so $\pi\approx3.141569$: 5 correct digits (the error is about $2\times10^{-5}$), with fewer function values than $T_5$, which was off by 0.007.</div>
+    </div>
+    <div class="explain card" data-eid="C-explain" data-topic="C">
+      <h4>Explain why (Level 7)</h4>
+      <p>Why are Simpson's coefficients $1,4,2,4,\dots,4,1$, and why must $n$ be even? Explain it so a classmate could rebuild the rule without memorizing it.</p>
+      <textarea aria-label="Your explanation"></textarea>
+      <div class="model callout why"><div class="label">A model explanation</div><p style="margin:0">Simpson's Rule fits one parabola over each <b>pair</b> of strips. One parabola through three equally spaced points has area $\frac{\Delta x}{3}(y_{\text{left}}+4y_{\text{mid}}+y_{\text{right}})$. Adding the pairs, each pair's middle point gets a 4. Each point where two pairs meet is the right end of one pair and the left end of the next, so it gets $1+1=2$. The two outermost points get 1. Since everything is done in pairs, the number of strips $n$ has to be even.</p></div>
+    </div>
+  </div>
+</section>

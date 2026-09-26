@@ -1,0 +1,81 @@
+<section id="sources" class="topic">
+  <div class="topic-banner">
+    <div class="topic-letter" aria-hidden="true">i</div>
+    <div><h2>Sources &amp; verification</h2><div class="sources">What this guide is built from, and how its answers were checked.</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card tight">
+      <h4>Your lecture notes (they set the scope)</h4>
+      <p class="small" style="margin:0 0 4px"><b><code>1.1-3.1(some).pdf</code></b> (41 pages)</p>
+      <ul class="small" style="margin:0 0 8px">
+        <li>§1.1 Antiderivatives &amp; substitution: pp. 1–6 · integration by parts: pp. 7–12</li>
+        <li>§1.3 Partial fractions: pp. 13–20 · “Extra Practice: Integration”: pp. 21–24</li>
+        <li>§2.4 FTC review: pp. 25–26 · §2.5 Improper integrals: pp. 27–33 · §2.6 Numerical integration: pp. 34–39</li>
+        <li>§3.1 Displacement &amp; distance: pp. 40–41</li>
+      </ul>
+      <p class="small" style="margin:0 0 4px"><b><code>3.1rest-3.3.pdf</code></b> (7 pages; “new notes”)</p>
+      <ul class="small" style="margin:0 0 8px">
+        <li>§3.1 continued: pp. 1–3 (three worked examples)</li>
+        <li>§3.3 Motion in the plane and in space: pp. 4–7 (four examples the notes leave blank, solved here)</li>
+      </ul>
+      <p class="small" style="margin:0 0 4px"><b><code>rest3.3-3.5.pdf</code></b> (7 pages; “3.3–3.5 notes”)</p>
+      <ul class="small" style="margin:0">
+        <li>§3.3 continued: p. 1 (one more distance example) · arc length: pp. 2–4 (definition, $y=f(x)$, two worked examples, and a Trapezoid estimate)</li>
+        <li>§3.5 Volume: pp. 5–7 (slicing, and two examples the notes leave blank, solved here; the washer method)</li>
+      </ul>
+    </div>
+    <div class="card tight">
+      <h4>Textbook sections consulted (only these)</h4>
+      <ul class="small" style="margin:0">
+        <li>§1.1 Basic Anti-Differentiation (PDF pp. 14–37)</li>
+        <li>§1.3 Integration by Partial Fractions (PDF pp. 48–62)</li>
+        <li>§2.4 The Fundamental Theorem of Calculus (PDF pp. 145–160)</li>
+        <li>§2.5 Improper Integrals (PDF pp. 164–180)</li>
+        <li>§2.6 Numerical Techniques (PDF pp. 181–198)</li>
+        <li>§3.1 Displacement and Distance Traveled (PDF pp. 214–223)</li>
+        <li>§3.3 Distance Traveled in Space and Arc Length (PDF pp. 245–266): motion, plus arc length of parametrized curves and graphs $y=f(x)$ (Propositions 3.3.11–3.3.13, Examples 3.3.15 and 3.3.17) and the exercises</li>
+        <li>§3.5 Volume (PDF pp. 285–309): slicing, disks and washers only (Proposition 3.5.1; Examples 3.5.3, 3.5.6–3.5.10, 3.5.14) and the exercises that don't need shells</li>
+      </ul>
+      <p class="small muted" style="margin:6px 0 0">Textbook topics your notes don't cover were left out: §1.2 and §1.4; §3.2 and §3.4; initial-value problems; cyclic integration by parts; arc length for $x=f(y)$, arc-length parameterization and polar arc length; the cylindrical shell method; FTC Part 1 (derivatives of $\int_a^x$); average value; comparison tests for improper integrals; error-bound formulas; average velocity/speed; and surface area (§3.6).</p>
+    </div>
+  </div>
+  <div class="card tight">
+    <h4>How the answers were verified</h4>
+    <p class="small">Every answer was derived by hand first, then checked independently in two ways: <b>Python</b> (SymPy for exact values, with improper integrals worked from the limit definition, and mpmath for high-precision numerics) and <b>Wolfram Language</b>.</p>
+    <ul class="small">
+      <li><b>167 numeric values</b> (every answer, guided-step value and figure number): all three methods agree, with 0 disagreements.</li>
+      <li><b>50 typed-expression answers</b> (antiderivatives): differentiating each one gives back the integrand, checked symbolically and numerically in SymPy and independently in Wolfram. The guide's own answer checker was also run on every one. It accepts the right answer with or without $+C$, and rejects each listed wrong answer with its specific message.</li>
+      <li><b>76 targeted wrong-answer messages</b>: each wrong value or expression really is what the described mistake produces.</li>
+      <li><b>42 numbers and identities</b> quoted in explanations, tryouts and explorers were checked the same way.</li>
+      <li><b>Added with <code>rest3.3-3.5.pdf</code></b> (§3.3 arc length, §3.5 volume, and one §3.3 motion problem). All of these were checked by hand, with SymPy/mpmath and with Wolfram Language, with 0 disagreements:
+        <ul style="margin:4px 0 0">
+          <li>47 numeric values: every new answer, plus the notes' own worked answers and the two examples the notes leave blank;</li>
+          <li>5 typed-expression steps;</li>
+          <li>34 targeted wrong-answer messages;</li>
+          <li>37 quoted numbers and 10 identities.</li>
+        </ul>
+        The volume explorer's exact values were compared with direct integration for 55 region-and-axis combinations. All 175 answers from before the update were confirmed unchanged.</li>
+    </ul>
+    <p class="small">The checks are recorded in <code>study-guides/verification/verify_ftc_improper_numerical_displacement.ipynb</code> and, for the 2026-09-25 additions, <code>verify_arclength_volume.ipynb</code>. The numbers shown by the interactive explorers were compared against the same reference values in a headless-browser test.</p>
+    <div class="callout discrepancy" style="margin-bottom:0"><div class="label">⚠ Discrepancies found and how they were handled</div>
+      <ul class="small" style="margin:0">
+        <li><b>Notes p. 10</b> (integration by parts): the last line of $\int2t^2e^{-t}\,dt$ reads $-4t^{-t}$, but it should be $-4e^{-t}$, as the page's own side work shows. The guide uses the corrected answer $-2(t^2+2t+2)e^{-t}+C$ and flags the slip where the example appears (§1.1 parts: Compare and Practice 3).</li>
+        <li><b>Notes p. 18</b> (partial fractions): cosmetic slips that don't affect the answer. The numerators are labeled $Ax+B$, $Cx+D$ although the variable is $r$, and “④ − ②” should read “④ − ③”. Noted in §1.3 Practice 4.</li>
+        <li><b>Notes p. 37</b>: the Trapezoid Rule with $n=4$ for $\int_{-1}^1\sqrt{1-x^2}\,dx$ is written as $\tfrac12+\tfrac{\sqrt{15}}{4}\approx1.468$. The correct value is $\tfrac12+\tfrac{\sqrt3}{2}\approx1.366$. The guide uses the verified value and flags it where it appears (§2.6, guided example).</li>
+        <li><b>Textbook §2.6 Additional Ex. 9</b> asks for Simpson's Rule on data at $t=0,2,\dots,14$. That is 7 subintervals (odd), so Simpson's Rule can't be applied as stated, and the exercise isn't used.</li>
+        <li><b>New notes p. 7</b> (a reading note, not an error): in $\vec v(t)=(3t^2,t,0)$ the $t$'s crossbar runs through the 3, so it looks overwritten. It matches the other 3s on that page, so the guide reads it as 3.</li>
+        <li><b>A tool disagreement, resolved:</b> SymPy returned a wrong value for $\int_0^{2\pi}|\sin4t|\,dt$ (4 instead of 16). The guide's figure for the helix tryout, $32+6\pi\approx50.85$, was confirmed hump by hump, with mpmath, and with Wolfram.</li>
+        <li>All six worked answers on new notes pp. 1–3 are correct.</li>
+        <li><b>3.3–3.5 notes</b> (<code>rest3.3-3.5.pdf</code>): all four worked answers are correct: 28 m (p. 1), $\frac{74}{3}$ and $\pi$ (p. 3), and $\pi(\sqrt2+1)$ (p. 4). Two reading notes, neither an error. First, p. 1 writes $\sqrt{(t+4)^2}=t+4$ without the absolute value, which is valid because $t+4&gt;0$ on $[1,5]$. Second, p. 5 has a red handwritten mark over the printed label $\Delta x_i$ in a pasted textbook figure; its intent is <b>uncertain</b>, and it doesn't affect any formula. The two volume examples on pp. 6–7 are left blank in the notes; their answers here ($\frac{32\pi}{3}$ and $8\pi$) were checked three ways, and against the cone formula.</li>
+      </ul></div>
+  </div>
+  <footer class="foot">
+    <p>Built for your Calc 2 class from your own notes. Progress is stored only in this browser (use “Reset progress” in the sidebar to clear it). The page works offline: everything, including the math fonts, is inside this one file.</p>
+  </footer>
+</section>
+
+</div>
+</main>
+<script>/*__APP__*/</script>
+</body>
+</html>

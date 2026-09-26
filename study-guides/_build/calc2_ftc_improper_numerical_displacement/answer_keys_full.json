@@ -1,0 +1,2211 @@
+[
+ {
+  "vid": "U-guided-du",
+  "answer": "5*t^4",
+  "kind": "expr",
+  "var": "t",
+  "dom": "0.5,2",
+  "wrong": []
+ },
+ {
+  "vid": "U-guided-factor",
+  "answer": "0.2",
+  "kind": "num",
+  "exact": "1/5",
+  "wrong": []
+ },
+ {
+  "vid": "U-guided-u",
+  "answer": "(2/15)*u^(3/2)",
+  "kind": "anti",
+  "var": "u",
+  "integrand": "(1/5)*u^(1/2)",
+  "dom": "0.5,3",
+  "wrong": []
+ },
+ {
+  "vid": "U-guided-back",
+  "answer": "(2/15)*(t^5+6)^(3/2)",
+  "kind": "anti",
+  "var": "t",
+  "integrand": "t^4*sqrt(t^5+6)",
+  "dom": "0,1.5",
+  "wrong": []
+ },
+ {
+  "vid": "U-indep",
+  "answer": "(8/11)*(11+sin(x))^(11/8)",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "(11+sin(x))^(3/8)*cos(x)",
+  "dom": "0,2",
+  "wrong": [
+   {
+    "f": "(3/8)*(11+sin(x))^(-5/8)",
+    "m": "That is the derivative of the power, not an antiderivative. Integrating raises the exponent by 1: 3/8 + 1 = 11/8."
+   },
+   {
+    "f": "(8/11)*(11+sin(x))^(11/8)*sin(x)",
+    "m": "The cos x dx is used up by du. Do not integrate it separately and multiply."
+   }
+  ]
+ },
+ {
+  "vid": "U-p1",
+  "answer": "3*ln(abs(x)) - 2*x^(-1/2)",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "(3*x+sqrt(x))/x^2",
+  "dom": "0.5,3",
+  "wrong": [
+   {
+    "f": "(3/2*x^2 + (2/3)*x^(3/2))/(x^3/3)",
+    "m": "You can’t integrate the top and the bottom separately. Split the fraction first: 3x/x² + √x/x²."
+   }
+  ]
+ },
+ {
+  "vid": "U-p2",
+  "answer": "5*ln(abs(w)) - 7*e^w + (9/2)*w^(4/3)",
+  "kind": "anti",
+  "var": "w",
+  "integrand": "5/w - 7*e^w + 6*cbrt(w)",
+  "dom": "0.5,2.5",
+  "wrong": []
+ },
+ {
+  "vid": "U-p3",
+  "answer": "(1/5)*ln(abs(e^(5*t)+13))",
+  "kind": "anti",
+  "var": "t",
+  "integrand": "e^(5*t)/(e^(5*t)+13)",
+  "dom": "-1,1",
+  "wrong": [
+   {
+    "f": "ln(abs(e^(5*t)+13))",
+    "m": "Differentiate that: you get 5e^(5t)/(e^(5t) + 13), five times the integrand. Where does the 1/5 come from?"
+   }
+  ]
+ },
+ {
+  "vid": "U-p4",
+  "answer": "(5*w-3)^101/505",
+  "kind": "anti",
+  "var": "w",
+  "integrand": "(5*w-3)^100",
+  "dom": "0.78,0.82",
+  "wrong": [
+   {
+    "f": "(5*w-3)^101/101",
+    "m": "That is missing the 1/5 from du = 5 dw. Differentiate it and you get 5(5w − 3)^100."
+   }
+  ]
+ },
+ {
+  "vid": "U-p5",
+  "answer": "5*ln(abs(ln(x)))",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "5/(x*ln(x))",
+  "dom": "1.5,4",
+  "wrong": [
+   {
+    "f": "5*ln(abs(x*ln(x)))",
+    "m": "That is the ∫1/anything = ln|anything| trap (textbook Remark 1.1.5). Differentiate it: the chain rule gives (ln x + 1)/(x ln x), not 1/(x ln x)."
+   }
+  ]
+ },
+ {
+  "vid": "U-p6",
+  "answer": "-(1/6)*e^(1/x)",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "e^(1/x)/(6*x^2)",
+  "dom": "0.5,3",
+  "wrong": []
+ },
+ {
+  "vid": "U-p7",
+  "answer": "(1/2)*tan(y)^2",
+  "kind": "anti",
+  "var": "y",
+  "integrand": "tan(y)*sec(y)^2",
+  "dom": "0.1,1.2",
+  "wrong": []
+ },
+ {
+  "vid": "U-p8",
+  "answer": "25.3929616485",
+  "kind": "num",
+  "exact": "2e³ − 2e²",
+  "wrong": [
+   {
+    "v": 12.696480823918,
+    "m": "That is missing the factor 2: du = dx/(2√x), so dx/√x = 2 du."
+   },
+   {
+    "v": 16096.971555084,
+    "t": 0.5,
+    "m": "It looks like the limits 4 and 9 were used as u-values. With u = √x the u-limits are 2 and 3."
+   }
+  ]
+ },
+ {
+  "vid": "U-m3",
+  "answer": "e^(e^x)",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "e^x*e^(e^x)",
+  "dom": "-1,1",
+  "wrong": []
+ },
+ {
+  "vid": "U-m4",
+  "answer": "(2/15)*(x^3+1)^(5/2) - (2/9)*(x^3+1)^(3/2)",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "x^5*sqrt(x^3+1)",
+  "dom": "0,1.5",
+  "wrong": []
+ },
+ {
+  "vid": "P-guided-v",
+  "answer": "(1/3)*e^(3*x)",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "e^(3*x)",
+  "dom": "-1,1",
+  "wrong": []
+ },
+ {
+  "vid": "P-guided-new",
+  "answer": "(1/9)*e^(3*x)",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "(1/3)*e^(3*x)",
+  "dom": "-1,1",
+  "wrong": []
+ },
+ {
+  "vid": "P-guided-final",
+  "answer": "(x/3)*e^(3*x) - (1/9)*e^(3*x)",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "x*e^(3*x)",
+  "dom": "-1,1",
+  "wrong": [
+   {
+    "f": "(x/3)*e^(3*x) + (1/9)*e^(3*x)",
+    "m": "Check the sign: it is uv MINUS ∫v du."
+   }
+  ]
+ },
+ {
+  "vid": "P-indep",
+  "answer": "-(t/2)*cos(2*t) + (1/4)*sin(2*t)",
+  "kind": "anti",
+  "var": "t",
+  "integrand": "t*sin(2*t)",
+  "dom": "0.2,2",
+  "wrong": [
+   {
+    "f": "-t*cos(2*t) + (1/2)*sin(2*t)",
+    "m": "Check v: ∫sin(2t) dt = −½cos(2t), not −cos(2t). The ½ comes from the inside 2t."
+   },
+   {
+    "f": "-(t/2)*cos(2*t) - (1/4)*sin(2*t)",
+    "m": "Check the signs. v = −½cos 2t, so −∫v du = −∫(−½cos 2t) dt = +½∫cos 2t dt."
+   }
+  ]
+ },
+ {
+  "vid": "P-p1",
+  "answer": "(1/5)*x^5*ln(x) - (1/25)*x^5",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "x^4*ln(x)",
+  "dom": "0.5,2",
+  "wrong": []
+ },
+ {
+  "vid": "P-p2",
+  "answer": "-(1/2)*(x+6)*cos(2*x) + (1/4)*sin(2*x)",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "(x+6)*sin(2*x)",
+  "dom": "0.2,2",
+  "wrong": [
+   {
+    "f": "-(x+6)*cos(2*x) + (1/2)*sin(2*x)",
+    "m": "Check v: ∫sin(2x) dx = −½cos(2x). The professor finds it with a side substitution w = 2x."
+   }
+  ]
+ },
+ {
+  "vid": "P-p3",
+  "answer": "-2*(t^2+2*t+2)*e^(-t)",
+  "kind": "anti",
+  "var": "t",
+  "integrand": "2*t^2*e^(-t)",
+  "dom": "0,3",
+  "wrong": [
+   {
+    "f": "-2*t^2*e^(-t) - 4*t*e^(-t) - 4*t^(-t)",
+    "m": "That is the copying slip on notes p. 10: the last term should be −4e^(−t), not −4t^(−t)."
+   },
+   {
+    "f": "-2*t^2*e^(-t) - 4*t*e^(-t)",
+    "m": "The second round of parts produces one more term: ∫te^(−t) dt = −te^(−t) − e^(−t)."
+   }
+  ]
+ },
+ {
+  "vid": "P-p4",
+  "answer": "x*arcsin(x) + sqrt(1-x^2)",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "arcsin(x)",
+  "dom": "0,0.9",
+  "wrong": [
+   {
+    "f": "x*arcsin(x) - sqrt(1-x^2)",
+    "m": "Check the last step. ∫x/√(1 − x²) dx = −√(1 − x²), and it is being subtracted."
+   }
+  ]
+ },
+ {
+  "vid": "P-p5",
+  "answer": "2*sqrt(x)*e^(sqrt(x)) - 2*e^(sqrt(x))",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "e^(sqrt(x))",
+  "dom": "0.2,3",
+  "wrong": []
+ },
+ {
+  "vid": "P-p6",
+  "answer": "e^x*((x-5)^2 - 2*(x-5) + 2)",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "(x-5)^2*e^x",
+  "dom": "0,2",
+  "wrong": []
+ },
+ {
+  "vid": "P-p7",
+  "answer": "w*arctan(w) - (1/2)*ln(1+w^2)",
+  "kind": "anti",
+  "var": "w",
+  "integrand": "arctan(w)",
+  "dom": "0,2",
+  "wrong": []
+ },
+ {
+  "vid": "P-p8",
+  "answer": "-ln(t)/t - 1/t",
+  "kind": "anti",
+  "var": "t",
+  "integrand": "ln(t)/t^2",
+  "dom": "0.5,3",
+  "wrong": []
+ },
+ {
+  "vid": "P-p9",
+  "answer": "1",
+  "kind": "num",
+  "exact": "1",
+  "wrong": [
+   {
+    "v": 2.718281828459,
+    "m": "That is [x ln x] from 1 to e: the −x part of the antiderivative x ln x − x is missing."
+   },
+   {
+    "v": -1,
+    "m": "Check the lower limit: F(1) = 1·ln 1 − 1 = −1. Put it in parentheses before subtracting (as on notes p. 25): 0 − (−1) = 1."
+   }
+  ]
+ },
+ {
+  "vid": "P-m3",
+  "answer": "x*ln(x^2+1) - 2*x + 2*arctan(x)",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "ln(x^2+1)",
+  "dom": "0.2,2",
+  "wrong": []
+ },
+ {
+  "vid": "P-m4",
+  "answer": "0.718281828459",
+  "kind": "num",
+  "exact": "e − 2",
+  "wrong": [
+   {
+    "v": 2.718281828459,
+    "m": "That is only [x²eˣ] from 0 to 1. You still need − ∫2xeˣ dx."
+   },
+   {
+    "v": -6.154845485377,
+    "m": "That is 2 − 3e, from a sign slip in the second round. ∫xeˣ dx = xeˣ − eˣ (minus), so the antiderivative is eˣ(x² − 2x + 2)."
+   }
+  ]
+ },
+ {
+  "vid": "R-guided-A",
+  "answer": "4",
+  "kind": "num",
+  "exact": "4",
+  "wrong": []
+ },
+ {
+  "vid": "R-guided-B",
+  "answer": "7",
+  "kind": "num",
+  "exact": "7",
+  "wrong": []
+ },
+ {
+  "vid": "R-guided-int",
+  "answer": "4*ln(abs(x+2)) + 7*ln(abs(x+3))",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "(11*x+26)/(x^2+5*x+6)",
+  "dom": "0,3",
+  "wrong": []
+ },
+ {
+  "vid": "R-indep",
+  "answer": "-5*ln(abs(t+8)) + 6*ln(abs(t-2))",
+  "kind": "anti",
+  "var": "t",
+  "integrand": "(t+58)/(t^2+6*t-16)",
+  "dom": "2.5,5",
+  "wrong": [
+   {
+    "f": "6*ln(abs(t+8)) - 5*ln(abs(t-2))",
+    "m": "The coefficients are swapped. A belongs to t + 8 and B to t − 2: recheck which equation came from which power of t."
+   },
+   {
+    "f": "ln(abs(t^2+6*t-16))",
+    "m": "That is the ∫1/anything trap: t + 58 is not the derivative of t² + 6t − 16. Decompose first."
+   }
+  ]
+ },
+ {
+  "vid": "R-p1",
+  "answer": "2*ln(abs(x+1)) - ln(abs(x-3))",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "(x-7)/(x^2-2*x-3)",
+  "dom": "3.5,6",
+  "wrong": []
+ },
+ {
+  "vid": "R-p2",
+  "answer": "-2*ln(abs(x)) + 3*ln(abs(x+2)) + 1/(x+2)",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "(x^2-3*x-8)/(x^3+4*x^2+4*x)",
+  "dom": "0.5,3",
+  "wrong": [
+   {
+    "f": "-2*ln(abs(x)) + 3*ln(abs(x+2)) - ln(abs(x+2))",
+    "m": "The squared term integrates by the power rule, not to a log: ∫−1/(x + 2)² dx = +1/(x + 2)."
+   }
+  ]
+ },
+ {
+  "vid": "R-p3",
+  "answer": "ln(abs(x+2)) + ln(x^2+1) - 3*arctan(x)",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "(3*x^2+x-5)/((x+2)*(x^2+1))",
+  "dom": "0,2",
+  "wrong": []
+ },
+ {
+  "vid": "R-p4",
+  "answer": "(1/2)*ln(r^2+1) - (1/2)*ln(r^2+4)",
+  "kind": "anti",
+  "var": "r",
+  "integrand": "3*r/(r^4+5*r^2+4)",
+  "dom": "0.2,2",
+  "wrong": []
+ },
+ {
+  "vid": "R-p5",
+  "answer": "t^3/3 + 2*t + (3/2)*arctan(t/2)",
+  "kind": "anti",
+  "var": "t",
+  "integrand": "(t^4+6*t^2+11)/(t^2+4)",
+  "dom": "0,2",
+  "wrong": [
+   {
+    "f": "t^3/3 + 2*t + 3*arctan(t/2)",
+    "m": "Check the arctan rule: ∫3/(t² + 4) dt = (3/2)tan⁻¹(t/2). The 1/a factor with a = 2 is missing."
+   }
+  ]
+ },
+ {
+  "vid": "R-p6",
+  "answer": "ln(abs(y-1)) - (1/2)*ln(y^2+1) + 3*arctan(y)",
+  "kind": "anti",
+  "var": "y",
+  "integrand": "(4*y-2)/((y-1)*(y^2+1))",
+  "dom": "1.5,4",
+  "wrong": []
+ },
+ {
+  "vid": "R-p7",
+  "answer": "2*ln(abs(j+5)) + 2/(j+5) - 3/(2*(j+5)^2)",
+  "kind": "anti",
+  "var": "j",
+  "integrand": "(2*j^2+18*j+43)/(j+5)^3",
+  "dom": "-4,0",
+  "wrong": []
+ },
+ {
+  "vid": "R-p8",
+  "answer": "x^2/2 + 4*x + ln(abs(x+3)) + 3*ln(abs(x+5))",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "(x^3+12*x^2+51*x+74)/(x^2+8*x+15)",
+  "dom": "0,3",
+  "wrong": [
+   {
+    "f": "ln(abs(x+3)) + 3*ln(abs(x+5))",
+    "m": "That is only the fraction part. The quotient x + 4 from long division integrates too."
+   }
+  ]
+ },
+ {
+  "vid": "R-p9",
+  "answer": "0.287682072452",
+  "kind": "num",
+  "exact": "ln(4/3) = 2 ln 2 − ln 3",
+  "wrong": [
+   {
+    "v": 1.098612288668,
+    "m": "That is ln 3, which is what 1/(x + 1) + 1/(x + 2) gives. Check the sign of B: recombining shows 1/(x + 1) − 1/(x + 2) = 1/((x + 1)(x + 2))."
+   },
+   {
+    "v": -0.405465108108,
+    "m": "That is only F(1) = ln 2 − ln 3. Subtract F(0) = ln 1 − ln 2 = −ln 2 as well."
+   }
+  ]
+ },
+ {
+  "vid": "R-m3",
+  "answer": "4*ln(abs(n-2)) + ln(n^2+5)",
+  "kind": "anti",
+  "var": "n",
+  "integrand": "(6*n^2-4*n+20)/((n-2)*(n^2+5))",
+  "dom": "2.5,5",
+  "wrong": []
+ },
+ {
+  "vid": "R-m4",
+  "answer": "(4/3)*arctan(x) + (5/6)*arctan(x/2)",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "(3*x^2+7)/(x^4+5*x^2+4)",
+  "dom": "0,2",
+  "wrong": []
+ },
+ {
+  "vid": "A-guided-piece1",
+  "answer": "1.333333333333",
+  "kind": "num",
+  "wrong": []
+ },
+ {
+  "vid": "A-guided-piece2",
+  "answer": "1.333333333333",
+  "kind": "num",
+  "wrong": []
+ },
+ {
+  "vid": "A-guided-total",
+  "answer": "2.666666666667",
+  "kind": "num",
+  "wrong": []
+ },
+ {
+  "vid": "A-indep-total",
+  "answer": "7.666666666667",
+  "kind": "num",
+  "exact": "23/3",
+  "wrong": [
+   {
+    "v": -3,
+    "m": "That is the net integral of x² − 4 over [0, 3]. The absolute value makes every piece count positively. Where does x² − 4 change sign?"
+   },
+   {
+    "v": 3,
+    "m": "That is |net|. Total area is not the absolute value of the net area when f changes sign inside the interval."
+   },
+   {
+    "v": 5.333333333333,
+    "m": "That is only the piece on [0, 2]. You still need [2, 3]."
+   },
+   {
+    "v": 2.333333333333,
+    "m": "That is only the piece on [2, 3]."
+   }
+  ]
+ },
+ {
+  "vid": "A-p1",
+  "answer": "2",
+  "kind": "num",
+  "exact": "2",
+  "wrong": []
+ },
+ {
+  "vid": "A-p2-net",
+  "answer": "0",
+  "kind": "num",
+  "exact": "0",
+  "tol": "1e-6",
+  "wrong": []
+ },
+ {
+  "vid": "A-p2-total",
+  "answer": "4",
+  "kind": "num",
+  "exact": "4",
+  "wrong": [
+   {
+    "v": 0,
+    "m": "That is the net integral. For the area, the hump below the axis must count positively."
+   },
+   {
+    "v": 2,
+    "m": "That is one hump. There are two, one above and one below."
+   }
+  ]
+ },
+ {
+  "vid": "A-p3-net",
+  "answer": "3.75",
+  "kind": "num",
+  "exact": "15/4",
+  "wrong": []
+ },
+ {
+  "vid": "A-p3-total",
+  "answer": "4.25",
+  "kind": "num",
+  "exact": "17/4",
+  "wrong": [
+   {
+    "v": 3.75,
+    "m": "That is the net integral. On [−1, 0] the curve is below the axis, and that part must count positively."
+   }
+  ]
+ },
+ {
+  "vid": "A-p4",
+  "answer": "78",
+  "kind": "num",
+  "exact": "78",
+  "wrong": [
+   {
+    "v": 2,
+    "m": "It looks like you kept the x-limits (0 to 2) in the u-integral. What are u(0) and u(2)?"
+   },
+   {
+    "v": 156,
+    "m": "Check the factor ½ that comes from x dx = ½ du."
+   }
+  ]
+ },
+ {
+  "vid": "A-p5",
+  "answer": "4.392304845413",
+  "kind": "num",
+  "exact": "6√3 − 6",
+  "wrong": []
+ },
+ {
+  "vid": "A-p6",
+  "answer": "0",
+  "kind": "num",
+  "exact": "0",
+  "tol": "1e-6",
+  "wrong": []
+ },
+ {
+  "vid": "A-p7",
+  "answer": "0.666666666667",
+  "kind": "num",
+  "exact": "2/3",
+  "wrong": []
+ },
+ {
+  "vid": "A-master-total",
+  "answer": "1.016513274168",
+  "kind": "num",
+  "exact": "4 − 4√2 + 12·arctan(1/√2) − 3π/2 ≈ 1.0165",
+  "wrong": [
+   {
+    "v": 0.712388980385,
+    "m": "That is the net integral, 3π/2 − 4. Where is the curve below the axis?"
+   }
+  ]
+ },
+ {
+  "vid": "B-guided-piece1",
+  "answer": "3",
+  "kind": "num",
+  "wrong": []
+ },
+ {
+  "vid": "B-guided-piece2",
+  "answer": "3.779763149660",
+  "kind": "num",
+  "wrong": []
+ },
+ {
+  "vid": "B-guided",
+  "answer": "6.779763149660",
+  "kind": "num",
+  "wrong": []
+ },
+ {
+  "vid": "B-indep",
+  "answer": "diverges",
+  "kind": "num",
+  "wrong": [
+   {
+    "v": -2,
+    "m": "That is F(2) − F(0) applied straight across x = 1. A positive integrand cannot have a negative integral, so something is wrong. What happens at x = 1?"
+   }
+  ]
+ },
+ {
+  "vid": "B-p1",
+  "answer": "0.5",
+  "kind": "num",
+  "exact": "1/2",
+  "wrong": []
+ },
+ {
+  "vid": "B-p2",
+  "answer": "0.1",
+  "kind": "num",
+  "exact": "1/10",
+  "wrong": []
+ },
+ {
+  "vid": "B-p3",
+  "answer": "diverges",
+  "kind": "num",
+  "wrong": []
+ },
+ {
+  "vid": "B-p4",
+  "answer": "12",
+  "kind": "num",
+  "exact": "12",
+  "wrong": []
+ },
+ {
+  "vid": "B-p5",
+  "answer": "1.047197551197",
+  "kind": "num",
+  "exact": "π/3",
+  "wrong": []
+ },
+ {
+  "vid": "B-p6",
+  "answer": "3.141592653590",
+  "kind": "num",
+  "exact": "π",
+  "wrong": []
+ },
+ {
+  "vid": "B-p7",
+  "answer": "0.910239226627",
+  "kind": "num",
+  "exact": "1/ln 3",
+  "wrong": []
+ },
+ {
+  "vid": "B-p8",
+  "answer": "diverges",
+  "kind": "num",
+  "wrong": []
+ },
+ {
+  "vid": "B-p9",
+  "answer": "0.5",
+  "kind": "num",
+  "exact": "1/2",
+  "wrong": []
+ },
+ {
+  "vid": "B-p10",
+  "answer": "1.233700550136",
+  "kind": "num",
+  "exact": "π²/8",
+  "wrong": []
+ },
+ {
+  "vid": "B-p11",
+  "answer": "diverges",
+  "kind": "num",
+  "wrong": []
+ },
+ {
+  "vid": "B-master-tb259",
+  "answer": "9",
+  "kind": "num",
+  "exact": "9",
+  "wrong": []
+ },
+ {
+  "vid": "C-guided-dx",
+  "answer": "0.5",
+  "kind": "num",
+  "wrong": []
+ },
+ {
+  "vid": "C-guided-f",
+  "answer": "0.866025403784",
+  "kind": "num",
+  "wrong": []
+ },
+ {
+  "vid": "C-guided-T4",
+  "answer": "1.366025403784",
+  "kind": "num",
+  "wrong": []
+ },
+ {
+  "vid": "C-indep-S4",
+  "answer": "1.488033871713",
+  "kind": "num",
+  "exact": "(1 + 2√3)/3",
+  "wrong": [
+   {
+    "v": 1.366025403784,
+    "m": "That is the Trapezoid value. Simpson uses the coefficients 1, 4, 2, 4, 1 and the prefactor Δx/3."
+   },
+   {
+    "v": 4.464101615138,
+    "m": "Check the prefactor: it should be Δx/3 = 1/6, not Δx."
+   },
+   {
+    "v": 2.232050807569,
+    "m": "Check the prefactor: it should be Δx/3, not Δx/2."
+   },
+   {
+    "v": 1.333333333333,
+    "m": "That is Simpson with n = 2. This problem uses n = 4."
+   }
+  ]
+ },
+ {
+  "vid": "C-p1-M2",
+  "answer": "0.754597943772",
+  "kind": "num",
+  "exact": "½(e^(−1/16) + e^(−9/16)) ≈ 0.754598",
+  "tol": "6e-4",
+  "wrong": [
+   {
+    "v": 0.889400391535,
+    "m": "You used the left endpoints 0 and 1/2. The midpoints are 1/4 and 3/4."
+   }
+  ]
+ },
+ {
+  "vid": "C-p2-M4",
+  "answer": "0.748747131891",
+  "kind": "num",
+  "tol": "6e-4",
+  "wrong": []
+ },
+ {
+  "vid": "C-p3-T5",
+  "answer": "1.480654570656",
+  "kind": "num",
+  "tol": "6e-4",
+  "wrong": []
+ },
+ {
+  "vid": "C-p4-S6",
+  "answer": "6.816753551097",
+  "kind": "num",
+  "tol": "6e-4",
+  "wrong": []
+ },
+ {
+  "vid": "C-p5-ln2-S6",
+  "answer": "0.693169793170",
+  "kind": "num",
+  "exact": "14411/20790",
+  "tol": "2e-6",
+  "wrong": [
+   {
+    "v": 0.69314718056,
+    "t": 0.000003,
+    "m": "That is ln 2 itself. The question asks for the Simpson estimate, which is very close but not equal."
+   }
+  ]
+ },
+ {
+  "vid": "C-p6-pi-T5",
+  "answer": "3.134926113811",
+  "kind": "num",
+  "tol": "6e-4",
+  "wrong": [
+   {
+    "v": 0.783731528453,
+    "m": "That approximates π/4. Multiply by 4 to estimate π."
+   }
+  ]
+ },
+ {
+  "vid": "C-master-T2x2",
+  "answer": "3",
+  "kind": "num",
+  "exact": "3",
+  "wrong": []
+ },
+ {
+  "vid": "C-master-S2x2",
+  "answer": "2.666666666667",
+  "kind": "num",
+  "exact": "8/3",
+  "wrong": []
+ },
+ {
+  "vid": "C-master-pi-S4",
+  "answer": "3.141568627451",
+  "kind": "num",
+  "tol": "2e-5",
+  "wrong": [
+   {
+    "v": 0.785392156863,
+    "m": "That approximates π/4. Multiply by 4."
+   }
+  ]
+ },
+ {
+  "vid": "D-guided-disp",
+  "answer": "1.333333333333",
+  "kind": "num",
+  "wrong": []
+ },
+ {
+  "vid": "D-guided-piece1",
+  "answer": "1.333333333333",
+  "kind": "num",
+  "wrong": []
+ },
+ {
+  "vid": "D-guided-piece2",
+  "answer": "1.333333333333",
+  "kind": "num",
+  "wrong": []
+ },
+ {
+  "vid": "D-guided-piece3",
+  "answer": "1.333333333333",
+  "kind": "num",
+  "wrong": []
+ },
+ {
+  "vid": "D-guided-dist",
+  "answer": "4",
+  "kind": "num",
+  "wrong": []
+ },
+ {
+  "vid": "D-indep-disp",
+  "answer": "5",
+  "kind": "num",
+  "exact": "5 m",
+  "wrong": []
+ },
+ {
+  "vid": "D-indep-dist",
+  "answer": "13",
+  "kind": "num",
+  "exact": "13 m",
+  "wrong": [
+   {
+    "v": 5,
+    "m": "That is the displacement. The particle turns around, so the distance is larger. When is v(t) = 0?"
+   },
+   {
+    "v": 9,
+    "m": "That is only the forward part, on [0, 3]."
+   },
+   {
+    "v": 4,
+    "m": "That is only the backward part, on [3, 5]."
+   },
+   {
+    "v": -4,
+    "m": "Distance can never be negative. Take the absolute value of each piece."
+   }
+  ]
+ },
+ {
+  "vid": "D-p1-disp",
+  "answer": "80",
+  "kind": "num",
+  "exact": "80 ft",
+  "wrong": []
+ },
+ {
+  "vid": "D-p1-dist",
+  "answer": "160",
+  "kind": "num",
+  "exact": "160 ft",
+  "wrong": []
+ },
+ {
+  "vid": "D-p2-disp",
+  "answer": "-3.333333333333",
+  "kind": "num",
+  "exact": "−10/3",
+  "wrong": []
+ },
+ {
+  "vid": "D-p2-dist",
+  "answer": "32.666666666667",
+  "kind": "num",
+  "exact": "98/3",
+  "wrong": [
+   {
+    "v": 3.333333333333,
+    "m": "That is |displacement|. The particle turns around at t = 3."
+   }
+  ]
+ },
+ {
+  "vid": "D-p3-disp",
+  "answer": "4.5",
+  "kind": "num",
+  "exact": "9/2",
+  "wrong": []
+ },
+ {
+  "vid": "D-p3-dist",
+  "answer": "4.833333333333",
+  "kind": "num",
+  "exact": "29/6",
+  "wrong": []
+ },
+ {
+  "vid": "D-p4-disp",
+  "answer": "0.666666666667",
+  "kind": "num",
+  "exact": "2/3",
+  "wrong": []
+ },
+ {
+  "vid": "D-p4-dist",
+  "answer": "2",
+  "kind": "num",
+  "exact": "2",
+  "wrong": [
+   {
+    "v": 0.666666666667,
+    "m": "That is the displacement. It is also what you get if you split at only one turning point: sin 3t = 0 at both π/3 and 2π/3 inside (0, π)."
+   }
+  ]
+ },
+ {
+  "vid": "D-p5-final-position",
+  "answer": "2",
+  "kind": "num",
+  "exact": "2",
+  "wrong": [
+   {
+    "v": -8,
+    "m": "That is the displacement. Add the starting position p(0) = 10."
+   }
+  ]
+ },
+ {
+  "vid": "D-p5-dist",
+  "answer": "10",
+  "kind": "num",
+  "exact": "10",
+  "wrong": []
+ },
+ {
+  "vid": "D-p6-tb315-dist",
+  "answer": "6.158402871356",
+  "kind": "num",
+  "exact": "32√3/9 ≈ 6.1584 m",
+  "wrong": [
+   {
+    "v": 0,
+    "m": "That is the displacement. The particle turns around inside [2, 4]."
+   }
+  ]
+ },
+ {
+  "vid": "D-p7-disp",
+  "answer": "-0.281718171541",
+  "kind": "num",
+  "exact": "e − 3",
+  "wrong": []
+ },
+ {
+  "vid": "D-p7-dist",
+  "answer": "0.490870550699",
+  "kind": "num",
+  "exact": "4 ln 2 + e − 5",
+  "wrong": [
+   {
+    "v": 0.281718171541,
+    "m": "That is |displacement|. The particle turns around inside [0, 1], so the backward part has cancelled some of the forward part."
+   },
+   {
+    "v": -0.281718171541,
+    "m": "That is the displacement. Distance uses |v|: split where v = 0."
+   }
+  ]
+ },
+ {
+  "vid": "D-p8-disp",
+  "answer": "5.333333333333",
+  "kind": "num",
+  "exact": "16/3",
+  "wrong": []
+ },
+ {
+  "vid": "D-p8-dist",
+  "answer": "12",
+  "kind": "num",
+  "exact": "12",
+  "wrong": [
+   {
+    "v": 5.333333333333,
+    "m": "That is the displacement. The particle moves backward until t = 2."
+   }
+  ]
+ },
+ {
+  "vid": "D-p9-disp",
+  "answer": "3.141592653590",
+  "kind": "num",
+  "exact": "π",
+  "wrong": []
+ },
+ {
+  "vid": "D-p9-dist",
+  "answer": "4.511299166335",
+  "kind": "num",
+  "exact": "2√3 + π/3",
+  "wrong": [
+   {
+    "v": 3.14159265359,
+    "m": "That is the displacement. The particle moves backward at first: v(0) = 1 − 2 = −1."
+   }
+  ]
+ },
+ {
+  "vid": "D-master-sincos-dist",
+  "answer": "5.656854249492",
+  "kind": "num",
+  "exact": "4√2",
+  "wrong": [
+   {
+    "v": 0,
+    "m": "That is the displacement over a full period. Where does sin t + cos t = 0?"
+   }
+  ]
+ },
+ {
+  "vid": "D-master-exp-dist",
+  "answer": "1",
+  "kind": "num",
+  "exact": "1",
+  "wrong": []
+ },
+ {
+  "vid": "D-m5-dist",
+  "answer": "1.281718171541",
+  "kind": "num",
+  "exact": "4 − e",
+  "wrong": [
+   {
+    "v": 1.309955560468,
+    "m": "It looks like you split at t = ln 3 ≈ 1.099, which is outside [0, 1]. Check that the root is inside the interval first, as the professor does on new notes p. 1."
+   },
+   {
+    "v": -1.281718171541,
+    "m": "Distance can’t be negative. v &lt; 0 on the whole interval, so distance = −(displacement)."
+   }
+  ]
+ },
+ {
+  "vid": "E-guided-speed",
+  "answer": "5",
+  "kind": "num",
+  "exact": "5",
+  "wrong": []
+ },
+ {
+  "vid": "E-guided-dist",
+  "answer": "31.415926535898",
+  "kind": "num",
+  "exact": "10π",
+  "wrong": []
+ },
+ {
+  "vid": "E-guided-displen",
+  "answer": "18.849555921539",
+  "kind": "num",
+  "exact": "6π",
+  "wrong": []
+ },
+ {
+  "vid": "E-indep",
+  "answer": "15",
+  "kind": "num",
+  "exact": "15 ft",
+  "wrong": [
+   {
+    "v": 14.730919862656,
+    "m": "That is |<b>p</b>(1) − <b>p</b>(0)| = √217, the length of the displacement. Distance integrates the speed along the path."
+   },
+   {
+    "v": 23,
+    "m": "It looks like the speed was taken as x′ + y′ + z′. Speed is the length √(x′² + y′² + z′²)."
+   }
+  ]
+ },
+ {
+  "vid": "E-p1-x",
+  "answer": "0.476602241203",
+  "kind": "num",
+  "exact": "(sin 7 − sin 3)/2 + tan⁻¹4 − tan⁻¹2",
+  "wrong": [
+   {
+    "v": 0.734535536533,
+    "t": 0.0006,
+    "m": "Check ∫cos(2t − 1) dt = ½ sin(2t − 1): the ½ from the inside 2t − 1 seems to be missing."
+   }
+  ]
+ },
+ {
+  "vid": "E-p1-y",
+  "answer": "58.079441541680",
+  "kind": "num",
+  "exact": "56 + 3 ln 2",
+  "wrong": []
+ },
+ {
+  "vid": "E-p2",
+  "answer": "27.464503012121",
+  "kind": "num",
+  "exact": "(82√82 − 1)/27",
+  "wrong": [
+   {
+    "v": 31.5,
+    "m": "That adds the components (3t² + t). Speed is the length √(9t⁴ + t²)."
+   }
+  ]
+ },
+ {
+  "vid": "E-p3-x",
+  "answer": "1.718281828459",
+  "kind": "num",
+  "exact": "e − 1",
+  "wrong": []
+ },
+ {
+  "vid": "E-p3-y",
+  "answer": "1.414213562373",
+  "kind": "num",
+  "exact": "√2",
+  "wrong": []
+ },
+ {
+  "vid": "E-p3-z",
+  "answer": "-0.632120558829",
+  "kind": "num",
+  "exact": "e⁻¹ − 1",
+  "wrong": [
+   {
+    "v": 0.632120558829,
+    "m": "Check the sign: ∫₀¹ −e^(−t) dt = [e^(−t)]₀¹ = e⁻¹ − 1, which is negative."
+   }
+  ]
+ },
+ {
+  "vid": "E-p4",
+  "answer": "2.350402387288",
+  "kind": "num",
+  "exact": "e − e⁻¹",
+  "wrong": [
+   {
+    "v": 2.31345387741,
+    "t": 0.0005,
+    "m": "That is the length of the displacement vector from Practice 3. Distance integrates the speed."
+   }
+  ]
+ },
+ {
+  "vid": "E-p5-x",
+  "answer": "0",
+  "kind": "num",
+  "exact": "0",
+  "tol": "1e-6",
+  "wrong": []
+ },
+ {
+  "vid": "E-p5-y",
+  "answer": "0",
+  "kind": "num",
+  "exact": "0",
+  "tol": "1e-6",
+  "wrong": []
+ },
+ {
+  "vid": "E-p5-z",
+  "answer": "8",
+  "kind": "num",
+  "exact": "8",
+  "wrong": []
+ },
+ {
+  "vid": "E-p6",
+  "answer": "14.857030325",
+  "kind": "num",
+  "exact": "2((1 + π)^(3/2) − 1)",
+  "wrong": []
+ },
+ {
+  "vid": "E-p7",
+  "answer": "1.333333333333",
+  "kind": "num",
+  "exact": "4/3",
+  "wrong": []
+ },
+ {
+  "vid": "E-p8-speed0",
+  "answer": "2",
+  "kind": "num",
+  "exact": "2",
+  "wrong": []
+ },
+ {
+  "vid": "E-p8-dist",
+  "answer": "27.289917197128",
+  "kind": "num",
+  "exact": "(e⁴ − e⁻⁴)/2",
+  "wrong": []
+ },
+ {
+  "vid": "E-p9-x",
+  "answer": "9",
+  "kind": "num",
+  "exact": "9",
+  "wrong": [
+   {
+    "v": 0,
+    "m": "|t| is never negative, so the two halves can’t cancel. Split at t = 0: ∫₋₃³|t| dt = 9/2 + 9/2."
+   }
+  ]
+ },
+ {
+  "vid": "E-p9-dist",
+  "answer": "15.588457268120",
+  "kind": "num",
+  "exact": "9√3",
+  "wrong": []
+ },
+ {
+  "vid": "E-p10",
+  "answer": "9.333333333333",
+  "kind": "num",
+  "exact": "28/3",
+  "wrong": []
+ },
+ {
+  "vid": "E-p11",
+  "answer": "28",
+  "kind": "num",
+  "exact": "28 m",
+  "wrong": [
+   {
+    "v": 27.930697094774,
+    "m": "That is the length of the displacement vector, |<b>p</b>(5) − <b>p</b>(1)|. Distance integrates the speed."
+   },
+   {
+    "v": 44.181121736571,
+    "m": "It looks like the speed was taken as the sum of the components. Speed is the length √(x′² + y′² + z′²)."
+   }
+  ]
+ },
+ {
+  "vid": "E-m3",
+  "answer": "3.141592653590",
+  "kind": "num",
+  "exact": "π",
+  "wrong": []
+ },
+ {
+  "vid": "E-m4",
+  "answer": "0.810016015371",
+  "kind": "num",
+  "exact": "(11^(3/2) − 10^(3/2))/6",
+  "wrong": []
+ },
+ {
+  "vid": "L-guided-dg",
+  "answer": "(x+4)^(1/2)",
+  "kind": "expr",
+  "var": "x",
+  "dom": "4,11",
+  "wrong": [
+   {
+    "f": "(2/3)*(x+4)^(1/2)",
+    "m": "Multiply by the 3/2 from the power rule too: (2/3)·(3/2) = 1."
+   },
+   {
+    "f": "(x+4)^(3/2)",
+    "m": "The power drops by one: (x + 4)^(3/2) becomes (3/2)(x + 4)^(1/2)."
+   }
+  ]
+ },
+ {
+  "vid": "L-guided-inside",
+  "answer": "x+5",
+  "kind": "expr",
+  "var": "x",
+  "dom": "4,11",
+  "wrong": [
+   {
+    "f": "1+(x+4)^(1/2)",
+    "m": "Square g′ first: ((x + 4)^(1/2))² = x + 4."
+   },
+   {
+    "f": "x+4",
+    "m": "You squared g′. Now add the 1."
+   }
+  ]
+ },
+ {
+  "vid": "L-guided-val",
+  "answer": "24.666666666667",
+  "kind": "num",
+  "exact": "74/3",
+  "wrong": [
+   {
+    "v": 18.98858179594,
+    "m": "Those are the x-limits 4 and 11 plugged into (2/3)u^(3/2). Use the u-limits 9 and 16."
+   }
+  ]
+ },
+ {
+  "vid": "L-indep",
+  "answer": "16.333333333333",
+  "kind": "num",
+  "exact": "49/3",
+  "wrong": [
+   {
+    "v": 65.333333333333,
+    "m": "That is 4 times too big. With u = 4x + 9, du = 4 dx, so dx = du/4."
+   },
+   {
+    "v": 11.897275564511,
+    "m": "It looks like g′² was taken as 2(x + 2). Square the whole derivative: (2(x + 2)^(1/2))² = 4(x + 2)."
+   }
+  ]
+ },
+ {
+  "vid": "L-p1",
+  "answer": "3.141592653590",
+  "kind": "num",
+  "exact": "π",
+  "wrong": [
+   {
+    "v": 6.28318530718,
+    "m": "That is the whole circle, 2π. Here t only runs from 0 to π: the upper half."
+   },
+   {
+    "v": 2,
+    "m": "That is the straight chord from (1, 0) to (−1, 0). The curve is longer."
+   }
+  ]
+ },
+ {
+  "vid": "L-p2",
+  "answer": "7.584475591748",
+  "kind": "num",
+  "exact": "π(√2 + 1)",
+  "wrong": [
+   {
+    "v": 5.363034122669,
+    "m": "Check f(π): cos π = −1, and (−1)² = 1, so f(π) = √2, not 0."
+   },
+   {
+    "v": 15.168951183496,
+    "m": "The Trapezoid prefactor is Δx/2 = π/4, not Δx."
+   },
+   {
+    "v": 3.14159265359,
+    "m": "Those heights are |cos x|: the 1 under the root is missing. Use f(x) = √(1 + cos²x)."
+   }
+  ]
+ },
+ {
+  "vid": "L-p3",
+  "answer": "17.333333333333",
+  "kind": "num",
+  "exact": "52/3",
+  "wrong": []
+ },
+ {
+  "vid": "L-p4",
+  "answer": "1.083333333333",
+  "kind": "num",
+  "exact": "13/12",
+  "wrong": []
+ },
+ {
+  "vid": "L-p5-a",
+  "answer": "18.849555921539",
+  "kind": "num",
+  "exact": "6π",
+  "wrong": []
+ },
+ {
+  "vid": "L-p5-b",
+  "answer": "37.699111843078",
+  "kind": "num",
+  "exact": "12π",
+  "wrong": [
+   {
+    "v": 18.849555921539,
+    "m": "That is the circle’s length. The angle 2t runs from 0 to 4π, so the particle goes around twice."
+   }
+  ]
+ },
+ {
+  "vid": "L-p6",
+  "answer": "12.649110640674",
+  "kind": "num",
+  "exact": "4√10",
+  "wrong": []
+ },
+ {
+  "vid": "L-p7",
+  "answer": "1.548180018536",
+  "kind": "num",
+  "tol": "6e-4",
+  "wrong": [
+   {
+    "v": 1.577527367662,
+    "m": "That is the Trapezoid estimate. Simpson uses the coefficients 1, 4, 2, 4, 1 and the prefactor Δx/3."
+   }
+  ]
+ },
+ {
+  "vid": "L-p8",
+  "answer": "1.439709873372",
+  "kind": "num",
+  "exact": "(13√13 − 8)/27",
+  "wrong": [
+   {
+    "v": 2,
+    "m": "That splits the root: √(4t² + 9t⁴) ≠ 2t + 3t². Factor out t² instead."
+   }
+  ]
+ },
+ {
+  "vid": "L-m3-a",
+  "answer": "9.424777960769",
+  "kind": "num",
+  "exact": "3π",
+  "wrong": []
+ },
+ {
+  "vid": "L-m3-b",
+  "answer": "6.283185307180",
+  "kind": "num",
+  "exact": "2π",
+  "wrong": [
+   {
+    "v": 9.424777960769,
+    "m": "That is the distance traveled. The particle goes around one and a half times, but the curve it traces is the unit circle, traced partly twice."
+   },
+   {
+    "v": 3.14159265359,
+    "m": "That is only half the circle. The angle 3t runs from 0 to 3π, past a full turn."
+   }
+  ]
+ },
+ {
+  "vid": "L-m4",
+  "answer": "3.444528049465",
+  "kind": "num",
+  "exact": "e²/2 − 1/4",
+  "wrong": []
+ },
+ {
+  "vid": "V-guided-R",
+  "answer": "2*x",
+  "kind": "expr",
+  "var": "x",
+  "dom": "0.2,2",
+  "wrong": [
+   {
+    "f": "x",
+    "m": "That’s the near edge. R is the distance from the axis to the far edge, y = 2x."
+   }
+  ]
+ },
+ {
+  "vid": "V-guided-r",
+  "answer": "x",
+  "kind": "expr",
+  "var": "x",
+  "dom": "0.2,2",
+  "wrong": [
+   {
+    "f": "0",
+    "m": "r = 0 only when the region reaches the axis. Here the region starts at y = x."
+   },
+   {
+    "f": "2*x",
+    "m": "That’s the far edge. r is the distance to the near edge, y = x."
+   }
+  ]
+ },
+ {
+  "vid": "V-guided-A",
+  "answer": "3*pi*x^2",
+  "kind": "expr",
+  "var": "x",
+  "dom": "0.2,2",
+  "wrong": [
+   {
+    "f": "pi*x^2",
+    "m": "That’s π(R − r)² = π(2x − x)². A washer is the big disk minus the hole: π((2x)² − x²)."
+   },
+   {
+    "f": "4*pi*x^2",
+    "m": "That ignores the hole. Subtract its area, πx²."
+   },
+   {
+    "f": "3*x^2",
+    "m": "Don’t forget the π: the slice is made of circles."
+   }
+  ]
+ },
+ {
+  "vid": "V-guided-val",
+  "answer": "25.132741228718",
+  "kind": "num",
+  "exact": "8π",
+  "wrong": [
+   {
+    "v": 8.377580409573,
+    "m": "That is π times the integral of (R − r)². Use π(R² − r²)."
+   },
+   {
+    "v": 33.510321638291,
+    "m": "That is the whole cone, with no hole. Subtract the hole."
+   },
+   {
+    "v": 8,
+    "m": "Don’t forget the π."
+   }
+  ]
+ },
+ {
+  "vid": "V-indep",
+  "answer": "0.942477796077",
+  "kind": "num",
+  "exact": "3π/10",
+  "wrong": [
+   {
+    "v": 0.403919055462,
+    "m": "That is π times the integral of (√x − x²)², the (R − r)² mistake. A washer’s area is π(R² − r²)."
+   },
+   {
+    "v": 1.570796326795,
+    "m": "That ignores the hole: π∫x dx is the solid under √x alone. Subtract π∫x⁴ dx."
+   },
+   {
+    "v": -0.942477796077,
+    "m": "A negative volume means R and r are swapped. On (0, 1), √x is above x², so √x is the far edge."
+   },
+   {
+    "v": 0.3,
+    "m": "Don’t forget the π."
+   },
+   {
+    "v": 0.333333333333,
+    "m": "That is the area of the flat region S. Spin it: each slice is a washer of area π(R² − r²)."
+   }
+  ]
+ },
+ {
+  "vid": "V-p1",
+  "answer": "33.510321638291",
+  "kind": "num",
+  "exact": "32π/3",
+  "wrong": [
+   {
+    "v": 12.566370614359,
+    "m": "That is π times the integral of R: the radius wasn’t squared. A disk’s area is πR²."
+   },
+   {
+    "v": 10.666666666667,
+    "m": "Don’t forget the π."
+   }
+  ]
+ },
+ {
+  "vid": "V-p2",
+  "answer": "20.106192982975",
+  "kind": "num",
+  "exact": "32π/5",
+  "wrong": []
+ },
+ {
+  "vid": "V-p3",
+  "answer": "0.418879020479",
+  "kind": "num",
+  "exact": "2π/15",
+  "wrong": []
+ },
+ {
+  "vid": "V-p4",
+  "answer": "1.675516081915",
+  "kind": "num",
+  "exact": "8π/15",
+  "wrong": [
+   {
+    "v": 0.418879020479,
+    "m": "That is the answer for the x-axis. Measure R and r from the line y = 2."
+   }
+  ]
+ },
+ {
+  "vid": "V-p5",
+  "answer": "0.523598775598",
+  "kind": "num",
+  "exact": "π/6",
+  "wrong": [
+   {
+    "v": -0.523598775598,
+    "m": "Negative: R and r are swapped. For 0 &lt; y &lt; 1, √y &gt; y, so R = √y."
+   }
+  ]
+ },
+ {
+  "vid": "V-p6",
+  "answer": "0.2",
+  "kind": "num",
+  "exact": "1/5",
+  "wrong": []
+ },
+ {
+  "vid": "V-p7",
+  "answer": "0.392699081699",
+  "kind": "num",
+  "exact": "π/8",
+  "wrong": [
+   {
+    "v": 1.570796326795,
+    "m": "√x is the diameter, not the radius. The radius is √x/2."
+   }
+  ]
+ },
+ {
+  "vid": "V-p8-a",
+  "answer": "1.047197551197",
+  "kind": "num",
+  "exact": "π/3",
+  "wrong": []
+ },
+ {
+  "vid": "V-p8-b",
+  "answer": "0.349065850399",
+  "kind": "num",
+  "exact": "π/9",
+  "wrong": []
+ },
+ {
+  "vid": "V-p9",
+  "answer": "58",
+  "kind": "num",
+  "exact": "58",
+  "wrong": []
+ },
+ {
+  "vid": "V-p10",
+  "answer": "21.781709064889",
+  "kind": "num",
+  "exact": "104π/15",
+  "wrong": [
+   {
+    "v": 28.483773392547,
+    "m": "That spins about the x-axis (R = 4x − x², r = 3). Measure R and r from the line y = 6."
+   }
+  ]
+ },
+ {
+  "vid": "V-m3",
+  "answer": "3.141592653590",
+  "kind": "num",
+  "exact": "π",
+  "wrong": []
+ },
+ {
+  "vid": "V-m4",
+  "answer": "113.097335529233",
+  "kind": "num",
+  "exact": "36π",
+  "wrong": [
+   {
+    "v": 56.548667764616,
+    "m": "That is half the ball. Integrate from −3 to 3 (or double the half)."
+   }
+  ]
+ },
+ {
+  "vid": "M-U1",
+  "answer": "-ln(abs(cos(theta)))",
+  "kind": "anti",
+  "var": "theta",
+  "integrand": "tan(theta)",
+  "dom": "0.1,1.2",
+  "wrong": []
+ },
+ {
+  "vid": "M11",
+  "answer": "21.891820298111",
+  "kind": "num",
+  "exact": "18 + 2 ln 7",
+  "wrong": []
+ },
+ {
+  "vid": "M-P1",
+  "answer": "-ln(x)/(2*x^2) - 1/(4*x^2)",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "ln(x)/x^3",
+  "dom": "0.5,3",
+  "wrong": []
+ },
+ {
+  "vid": "M1",
+  "answer": "0",
+  "kind": "num",
+  "exact": "0",
+  "tol": "1e-6",
+  "wrong": []
+ },
+ {
+  "vid": "M-L1",
+  "answer": "12",
+  "kind": "num",
+  "exact": "12",
+  "wrong": []
+ },
+ {
+  "vid": "M-R1",
+  "answer": "2*x + 3*ln(abs(x-3)) - 3*ln(abs(x+3))",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "2*x^2/(x^2-9)",
+  "dom": "3.5,6",
+  "wrong": [
+   {
+    "f": "3*ln(abs(x-3)) - 3*ln(abs(x+3))",
+    "m": "That is only the fraction part. The quotient 2 from long division integrates to 2x."
+   }
+  ]
+ },
+ {
+  "vid": "M4-T4",
+  "answer": "3.283261900244",
+  "kind": "num",
+  "tol": "6e-4",
+  "wrong": []
+ },
+ {
+  "vid": "M-E2",
+  "answer": "2.5",
+  "kind": "num",
+  "exact": "5/2",
+  "wrong": [
+   {
+    "v": 1.5,
+    "m": "That is the length of the displacement. The particle moves backward until t = 1."
+   }
+  ]
+ },
+ {
+  "vid": "M3-dist",
+  "answer": "6.5",
+  "kind": "num",
+  "exact": "13/2 m",
+  "wrong": [
+   {
+    "v": 2.5,
+    "m": "That is the displacement. The object moves backward until t = 2."
+   }
+  ]
+ },
+ {
+  "vid": "M-V1",
+  "answer": "25.132741228718",
+  "kind": "num",
+  "exact": "8π",
+  "wrong": [
+   {
+    "v": 5.333333333333,
+    "m": "That is ∫√x dx, the area of the region. Spin it: A(x) = π(√x)²."
+   }
+  ]
+ },
+ {
+  "vid": "M-U3",
+  "answer": "ln(x^2+x+5)",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "(2*x+1)/(x^2+x+5)",
+  "dom": "0,3",
+  "wrong": []
+ },
+ {
+  "vid": "M6",
+  "answer": "1",
+  "kind": "num",
+  "exact": "1",
+  "wrong": []
+ },
+ {
+  "vid": "M-P2",
+  "answer": "e^(1/x) - (1/x)*e^(1/x)",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "e^(1/x)/x^3",
+  "dom": "0.5,3",
+  "wrong": []
+ },
+ {
+  "vid": "M-L2",
+  "answer": "3.819943643180",
+  "kind": "num",
+  "tol": "6e-4",
+  "wrong": []
+ },
+ {
+  "vid": "M5",
+  "answer": "2",
+  "kind": "num",
+  "exact": "2",
+  "wrong": [
+   {
+    "v": 0,
+    "m": "That is the integral of cos x without the absolute value, the net value."
+   }
+  ]
+ },
+ {
+  "vid": "M-R2",
+  "answer": "(7/3)*ln(abs(x-2)) - (4/3)*ln(abs(x+1))",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "(x+5)/(x^2-x-2)",
+  "dom": "2.5,5",
+  "wrong": []
+ },
+ {
+  "vid": "M7-S4",
+  "answer": "68.666666666667",
+  "kind": "num",
+  "exact": "206/3 ft",
+  "wrong": [
+   {
+    "v": 67,
+    "m": "That is the Trapezoid estimate. Simpson uses the coefficients 1, 4, 2, 4, 1 and Δx/3."
+   }
+  ]
+ },
+ {
+  "vid": "M-V2",
+  "answer": "28.483773392547",
+  "kind": "num",
+  "exact": "136π/15",
+  "wrong": []
+ },
+ {
+  "vid": "M-U2",
+  "answer": "10.666666666667",
+  "kind": "num",
+  "exact": "32/3",
+  "wrong": []
+ },
+ {
+  "vid": "M2",
+  "answer": "diverges",
+  "kind": "num",
+  "wrong": []
+ },
+ {
+  "vid": "M-E1",
+  "answer": "10.336347764748",
+  "kind": "num",
+  "tol": "6e-4",
+  "wrong": []
+ },
+ {
+  "vid": "M12-pos",
+  "answer": "4",
+  "kind": "num",
+  "exact": "4 m",
+  "wrong": [
+   {
+    "v": 0,
+    "m": "That is the displacement. Add the starting position p(0) = 4."
+   }
+  ]
+ },
+ {
+  "vid": "M12-dist",
+  "answer": "9",
+  "kind": "num",
+  "exact": "9 m",
+  "wrong": [
+   {
+    "v": 0,
+    "m": "That is |displacement|. It went 4.5 m forward and 4.5 m back."
+   }
+  ]
+ },
+ {
+  "vid": "M8",
+  "answer": "0",
+  "kind": "num",
+  "exact": "0",
+  "tol": "1e-6",
+  "wrong": []
+ },
+ {
+  "vid": "M-V3",
+  "answer": "1.570796326795",
+  "kind": "num",
+  "exact": "π/2",
+  "wrong": [
+   {
+    "v": 3.14159265359,
+    "m": "That is π∫e^(−x) dx: the radius wasn’t squared. A disk’s area is πR² = πe^(−2x)."
+   }
+  ]
+ },
+ {
+  "vid": "M10-S2",
+  "answer": "0.747180428910",
+  "kind": "num",
+  "tol": "2e-5",
+  "wrong": []
+ },
+ {
+  "vid": "M9",
+  "answer": "1.570796326795",
+  "kind": "num",
+  "exact": "π/2",
+  "wrong": []
+ },
+ {
+  "vid": "F-U2",
+  "answer": "-1/(9*(x^3+5)^3)",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "x^2/(x^3+5)^4",
+  "dom": "0,1.5",
+  "wrong": []
+ },
+ {
+  "vid": "F-U3",
+  "answer": "(1/6)*(2*x+1)^(3/2) - (1/2)*(2*x+1)^(1/2)",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "x/sqrt(2*x+1)",
+  "dom": "0,3",
+  "wrong": []
+ },
+ {
+  "vid": "F-P2",
+  "answer": "(x/3)*sin(3*x) + (1/9)*cos(3*x)",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "x*cos(3*x)",
+  "dom": "0.2,2",
+  "wrong": [
+   {
+    "f": "(x/3)*sin(3*x) - (1/9)*cos(3*x)",
+    "m": "Check the last sign: −∫(1/3)sin 3x dx = +(1/9)cos 3x."
+   }
+  ]
+ },
+ {
+  "vid": "F-P3",
+  "answer": "(1/2)*e^(x^2)*(x^2-1)",
+  "kind": "anti",
+  "var": "x",
+  "integrand": "x^3*e^(x^2)",
+  "dom": "0,1.5",
+  "wrong": []
+ },
+ {
+  "vid": "F-R2",
+  "answer": "ln(abs(u+3)) + 4*ln(abs(u-2)) + 3/(u-2)",
+  "kind": "anti",
+  "var": "u",
+  "integrand": "(5*u^2-3*u-29)/((u+3)*(u-2)^2)",
+  "dom": "2.5,5",
+  "wrong": []
+ },
+ {
+  "vid": "F-R3",
+  "answer": "w^2 + ln(abs(w+4)) + 3*ln(abs(w-1))",
+  "kind": "anti",
+  "var": "w",
+  "integrand": "(2*w^3+6*w^2-4*w+11)/(w^2+3*w-4)",
+  "dom": "1.5,4",
+  "wrong": [
+   {
+    "f": "ln(abs(w+4)) + 3*ln(abs(w-1))",
+    "m": "That is only the fraction part. The quotient 2w from long division integrates to w²."
+   }
+  ]
+ },
+ {
+  "vid": "A-final-abs",
+  "answer": "5",
+  "kind": "num",
+  "exact": "5",
+  "wrong": [
+   {
+    "v": 4,
+    "m": "That is the net integral of x − 1. Where is x − 1 negative?"
+   }
+  ]
+ },
+ {
+  "vid": "F-A-sinmcos",
+  "answer": "2.828427124746",
+  "kind": "num",
+  "exact": "2√2",
+  "wrong": [
+   {
+    "v": 2,
+    "m": "That is the net integral of sin x − cos x. Where does sin x − cos x change sign?"
+   }
+  ]
+ },
+ {
+  "vid": "F-B-p32",
+  "answer": "1",
+  "kind": "num",
+  "exact": "1",
+  "wrong": []
+ },
+ {
+  "vid": "F-B-both",
+  "answer": "3.141592653590",
+  "kind": "num",
+  "exact": "π",
+  "wrong": []
+ },
+ {
+  "vid": "F-C-M2x2",
+  "answer": "2.5",
+  "kind": "num",
+  "exact": "5/2",
+  "wrong": []
+ },
+ {
+  "vid": "F-D-dist",
+  "answer": "2",
+  "kind": "num",
+  "exact": "2 m",
+  "wrong": [
+   {
+    "v": 0.666666666667,
+    "m": "That is the displacement. The object turns around at t = 1."
+   }
+  ]
+ },
+ {
+  "vid": "F-D-improper",
+  "answer": "1",
+  "kind": "num",
+  "exact": "1",
+  "wrong": []
+ },
+ {
+  "vid": "F-E2",
+  "answer": "10.180339887499",
+  "kind": "num",
+  "exact": "5√5 − 1",
+  "wrong": [
+   {
+    "v": 10,
+    "m": "That is |<b>p</b>(2) − <b>p</b>(0)| = |(8, 6)|, the length of the displacement. Integrate the speed instead."
+   }
+  ]
+ },
+ {
+  "vid": "F-E3",
+  "answer": "1.414213562373",
+  "kind": "num",
+  "exact": "√2",
+  "wrong": []
+ },
+ {
+  "vid": "F-L2",
+  "answer": "4.666666666667",
+  "kind": "num",
+  "exact": "14/3",
+  "wrong": []
+ },
+ {
+  "vid": "F-L3",
+  "answer": "1.5",
+  "kind": "num",
+  "exact": "3/2",
+  "wrong": []
+ },
+ {
+  "vid": "F-V2",
+  "answer": "41.887902047864",
+  "kind": "num",
+  "exact": "40π/3",
+  "wrong": [
+   {
+    "v": 25.132741228718,
+    "m": "That is the volume about the x-axis. For the axis y = 2, measure R and r from y = 2."
+   },
+   {
+    "v": -41.887902047864,
+    "m": "A negative volume means R and r are swapped. The far edge from y = 2 is the x-axis."
+   }
+  ]
+ },
+ {
+  "vid": "F-V3",
+  "answer": "6.283185307180",
+  "kind": "num",
+  "exact": "2π",
+  "wrong": []
+ }
+]

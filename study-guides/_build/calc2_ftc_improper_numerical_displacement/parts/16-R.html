@@ -1,0 +1,380 @@
+<section id="R" class="topic">
+  <div class="topic-banner">
+    <div class="topic-letter sec" aria-hidden="true">1.3</div>
+    <div><h2>Partial fractions</h2>
+    <div class="sources">Notes pp. 13–20 (+ extra practice p. 23) · Textbook §1.3 (Examples 1.3.1–1.3.5; Suggested &amp; Additional Exercises)</div></div>
+  </div>
+  <nav class="stagebar" data-topic="R" aria-label="Stages in §1.3 (partial fractions)">
+    <a href="#R-learn"><span class="n">1</span>Learn</a><a href="#R-understand"><span class="n">2</span>Understand</a><a href="#R-explore"><span class="n">3</span>Explore</a><a href="#R-attempt"><span class="n">4</span>Attempt</a><a href="#R-compare"><span class="n">5</span>Compare</a><a href="#R-practice"><span class="n">6</span>Practice</a><a href="#R-master"><span class="n">7</span>Master</a>
+  </nav>
+
+  <!-- ============================== 1 LEARN -->
+  <div class="stage" id="R-learn">
+    <div class="stage-head"><span class="n">Stage 1 · Learn</span><h3>The big idea</h3></div>
+    <div class="callout big">
+      <div class="label">Big idea</div>
+      <p>When you add fractions, you build a common denominator: $\frac{2}{x+1}-\frac{1}{x-3}=\frac{x-7}{(x+1)(x-3)}$. <b>Partial fractions runs that backwards.</b> It takes the complicated fraction and recovers the simple pieces that were added to make it. The professor's definition (notes p. 13): “write a complicated fraction as a sum of simpler fractions.”</p>
+      <p style="margin:0">Why bother? Each simple piece has an easy antiderivative: $\ln|x-a|$, $-\frac{1}{x-a}$, $\ln(x^2+c^2)$, or $\tan^{-1}\frac xc$. So $\int\frac{x-7}{x^2-2x-3}\,dx=2\ln|x+1|-\ln|x-3|+C$.</p>
+    </div>
+    <div class="grid-2">
+      <div class="callout why">
+        <div class="label">The same idea with numbers</div>
+        <p style="margin:0">$\frac12+\frac13=\frac56$ is easy. Going backwards, from $\frac56$ to “something over 2 plus something over 3,” is partial fractions. The denominator's factors tell you which pieces to look for; the numerators are the unknowns.</p>
+      </div>
+      <div class="callout">
+        <div class="label">Three questions to ask every time</div>
+        <ol style="margin:0">
+          <li><b>Is the top's degree less than the bottom's?</b> If not, do long division first (notes p. 19).</li>
+          <li><b>How does the bottom factor?</b> Distinct linear, repeated linear, or irreducible quadratic ($b^2-4ac&lt;0$)?</li>
+          <li><b>Can I integrate every piece?</b> $\ln$, a power, $\tan^{-1}$, or a quick substitution.</li>
+        </ol>
+      </div>
+    </div>
+    <label class="toggle"><input type="checkbox" data-self="R"> I can explain, without looking, what a partial-fraction decomposition is, why it helps with integrals, and when long division has to come first.</label>
+  </div>
+
+  <!-- ============================== 2 UNDERSTAND -->
+  <div class="stage" id="R-understand">
+    <div class="stage-head"><span class="n">Stage 2 · Understand</span><h3>What it's built from, and why it works</h3></div>
+    <div class="grid-2">
+      <div class="card tight">
+        <h4>Prerequisite map</h4>
+        <div class="tree"><ul><li class="root">Partial fractions
+          <ul>
+            <li>Factoring polynomials<br><span class="qc">Quick check: $x^2-x-6$? <details class="qcheck"><summary>show</summary>$(x-3)(x+2)$ (notes p. 14)</details></span></li>
+            <li>The discriminant: does a quadratic factor?<br><span class="qc">Quick check: $x^2+4$? <details class="qcheck"><summary>show</summary>No: $b^2-4ac=-16&lt;0$, so it's irreducible (notes p. 14)</details></span></li>
+            <li>Polynomial long division<br><span class="qc">Quick check: $\frac{t^4+6t^2+11}{t^2+4}$? <details class="qcheck"><summary>show</summary>$t^2+2$, remainder $3$ (notes p. 19)</details></span></li>
+            <li>Solving a small linear system by elimination</li>
+            <li>The pieces' integrals: $\ln$, powers, <a href="#U-understand">substitution</a>, $\int\frac{dx}{x^2+a^2}=\frac1a\tan^{-1}\frac xa$ (notes p. 1)</li>
+          </ul></li></ul></div>
+      </div>
+      <div class="card tight">
+        <h4>Why the templates look the way they do</h4>
+        <ul style="margin:0">
+          <li>Each factor of the denominator can only come from adding fractions whose denominators are that factor (or its powers).</li>
+          <li>Over a linear factor the numerator is a constant; over a quadratic it's linear ($Bx+C$). Each numerator is one degree lower than its denominator.</li>
+          <li>The number of unknowns always equals the degree of $Q$. So matching coefficients gives exactly as many equations as unknowns.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <div class="fc-title">The decomposition table <span>notes p. 14 (green) · textbook §1.3</span></div>
+      $$\frac{P(x)}{\htmlClass{fp fp-1}{(x-a)}\,\htmlClass{fp fp-2}{(x-b)^2}\,\htmlClass{fp fp-3}{(x^2+c^2)}}\;=\;\htmlClass{fp fp-1}{\frac{A}{x-a}}\;+\;\htmlClass{fp fp-2}{\frac{B}{x-b}+\frac{C}{(x-b)^2}}\;+\;\htmlClass{fp fp-3}{\frac{Dx+E}{x^2+c^2}}$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="A <b>distinct linear</b> factor ax + b contributes one term A/(ax + b). It integrates to a logarithm.">distinct linear</button>
+        <button class="fp-chip" data-part="2" data-explain="A <b>repeated linear</b> factor (ax + b)² contributes one term for <em>each</em> power: A/(ax + b) + B/(ax + b)². A cube would add a third (notes p. 14).">repeated linear</button>
+        <button class="fp-chip" data-part="3" data-explain="An <b>irreducible quadratic</b> (b² − 4ac &lt; 0, like x² + 4) gets a <em>linear</em> numerator Ax + B. It integrates to ½ln(quadratic) plus an arctan.">irreducible quadratic</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+      <div class="fc-meta">
+        <div><b>Condition (notes p. 13)</b>$f(x)=\frac{P(x)}{Q(x)}$ with $\deg P&lt;\deg Q$. If $\deg P\ge\deg Q$: <b>long division first</b> (notes p. 19).</div>
+        <div><b>Integrating the pieces</b>$\int\frac{A}{x-a}=A\ln|x-a|$; $\int\frac{B}{(x-b)^2}=-\frac{B}{x-b}$; $\int\frac{Dx}{x^2+c^2}=\frac D2\ln(x^2+c^2)$; $\int\frac{E}{x^2+c^2}=\frac Ec\tan^{-1}\frac xc$.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>The professor's procedure <span class="small muted">(notes pp. 13–20)</span></h4>
+      <ol>
+        <li><b>Compare degrees.</b> If $\deg P\ge\deg Q$, long-divide: $\frac PQ=(\text{quotient})+\frac{\text{remainder}}{Q}$.</li>
+        <li><b>Factor $Q$</b> completely: linear factors, repeated factors, irreducible quadratics.</li>
+        <li><b>Write the template</b> from the table, with unknown constants.</li>
+        <li><b>Multiply through by $Q$</b>, expand, and <b>match the coefficients</b> of $x^2$, $x$, and the constant.</li>
+        <li><b>Solve the system</b>, numbering the equations ①②③ and eliminating, as the professor does.</li>
+        <li><b>Integrate each piece.</b></li>
+      </ol>
+      <p class="small muted" style="margin:0">Example (notes p. 14): $\frac{5x+5}{(x-3)(x+2)}=\frac{A}{x-3}+\frac{B}{x+2}$ gives $5x+5=(A+B)x+(2A-3B)$. So ① $A+B=5$ and ② $2A-3B=5$. Then ①×3 + ②: $5A=20$, so $A=4$ and $B=1$.</p>
+    </div>
+
+    <div class="card">
+      <h4>Recognition: what in the problem tells you what to do?</h4>
+      <div class="table-scroll"><table>
+        <thead><tr><th>You notice…</th><th>So you…</th></tr></thead>
+        <tbody>
+          <tr><td>A polynomial over a polynomial, top degree lower, and the bottom factors</td><td>Partial fractions (notes pp. 13–18).</td></tr>
+          <tr><td>The top's degree is ≥ the bottom's: $\frac{2x^2}{x^2-9}$, $\frac{t^4+6t^2+11}{t^2+4}$</td><td><b>Long division first</b>, then decompose the remainder (notes pp. 19, 20, 23).</td></tr>
+          <tr><td>The numerator is a multiple of the denominator's derivative: $\frac{2x+1}{x^2+x+5}$</td><td>Not partial fractions: <a href="#U-understand">substitute</a> $u=$ the denominator, which gives $\ln|u|$.</td></tr>
+          <tr><td>A constant over $x^2+a^2$</td><td>The arctan rule directly (notes p. 1).</td></tr>
+          <tr><td>A quartic with only even powers: $r^4+5r^2+4$</td><td>Treat it as a quadratic in $r^2$: $(r^2+1)(r^2+4)$ (notes p. 18).</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout warn" style="margin-bottom:0">
+        <div class="label">Tempting alternative, and why to reject it</div>
+        <p style="margin:0">“$\int\frac{x-7}{x^2-2x-3}\,dx=\ln|x^2-2x-3|+C$.” That's the “1 over anything” trap (textbook Remark 1.1.5). It would only be right if the numerator were the derivative of the denominator, $2x-2$. It isn't, so decompose.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 3 EXPLORE -->
+  <div class="stage" id="R-explore">
+    <div class="stage-head"><span class="n">Stage 3 · Explore</span><h3>Partial fractions: the pieces add up</h3></div>
+    <div class="widget">
+      <div class="w-head"><h4>Switch the pieces on and off; watch them rebuild the fraction</h4><span class="small muted">presets · piece toggles · hover the graph · table view</span></div>
+      <div class="w-sub">Wide gray: the original fraction $f$. Colors: its simple pieces. Dashed: the sum of the pieces you've switched on. Dotted verticals: where the denominator is 0.</div>
+      <div id="widget-pf">
+        <div class="w-formula">$$\frac{x-7}{x^2-2x-3}=\frac{2}{x+1}-\frac{1}{x-3}\qquad\Longrightarrow\qquad\int=2\ln|x+1|-\ln|x-3|+C$$</div>
+        <div class="w-formula">$$\frac{5x+5}{x^2-x-6}=\frac{4}{x-3}+\frac{1}{x+2}\qquad\Longrightarrow\qquad\int=4\ln|x-3|+\ln|x+2|+C$$</div>
+        <div class="w-formula">$$\frac{x^2-3x-8}{x(x+2)^2}=-\frac2x+\frac{3}{x+2}-\frac{1}{(x+2)^2}\qquad\Longrightarrow\qquad\int=-2\ln|x|+3\ln|x+2|+\frac{1}{x+2}+C$$</div>
+        <div class="w-formula">$$\frac{x^2+5x-4}{x(x^2+4)}=-\frac1x+\frac{2x+5}{x^2+4}\qquad\Longrightarrow\qquad\int=-\ln|x|+\ln(x^2+4)+\tfrac52\tan^{-1}\tfrac x2+C$$</div>
+        <div class="w-formula">$$\frac{-2x^3+4x^2+6x-2}{x^2-1}=\underbrace{(-2x+4)}_{\text{quotient}}+\frac{1}{x+1}+\frac{3}{x-1}\qquad\Longrightarrow\qquad\int=-x^2+4x+\ln|x+1|+3\ln|x-1|+C$$</div>
+      </div>
+      <div class="try"><h5>What to notice</h5><ol>
+        <li>With every piece switched on, the dashed sum lies exactly on the wide gray curve. A decomposition is an <b>identity</b>, not an approximation.</li>
+        <li>In <b>Notes p. 13: (x − 7)/(x² − 2x − 3)</b>, near $x=-1$ only $\frac{2}{x+1}$ blows up, and near $x=3$ only $-\frac{1}{x-3}$ does. Each vertical asymptote belongs to one factor of the denominator.</li>
+        <li>Switch one piece off: the dashed sum peels away from $f$. Every term in the template is needed.</li>
+        <li>In <b>Notes p. 15: repeated factor x(x + 2)²</b>, switch off $-\frac{1}{(x+2)^2}$. The sum then misbehaves near $x=-2$. A repeated factor needs a term for each power.</li>
+        <li>In <b>Notes p. 20: long division first</b>, far from the asymptotes $f$ hugs the line $-2x+4$. Simple fractions all die out as $x$ grows, so they can't produce that line. That's why the quotient from long division has to come first.</li>
+      </ol></div>
+    </div>
+
+    <div class="tryout" data-topic="R">
+      <div class="q">Which template fits $\dfrac{x^2-3x-8}{x(x+2)^2}$ (notes p. 15)? Try each and see what matching gives.</div>
+      <div class="try-opts">
+        <button class="try-opt">$\dfrac Ax+\dfrac{B}{x+2}$</button>
+        <button class="try-opt">$\dfrac Ax+\dfrac{B}{x+2}+\dfrac{C}{(x+2)^2}$</button>
+        <button class="try-opt">$\dfrac Ax+\dfrac{Bx+C}{(x+2)^2}$</button>
+      </div>
+      <div class="try-res" data-verdict="bad">$x^2-3x-8=A(x+2)^2+Bx(x+2)$ gives three equations ($x^2$: $A+B=1$; $x$: $4A+2B=-3$; constant: $4A=-8$) but only two unknowns. $A=-2$ and $B=3$, and then $4A+2B=-2\ne-3$. No solution: the template is missing a term.</div>
+      <div class="try-res" data-verdict="good">$x^2-3x-8=A(x+2)^2+Bx(x+2)+Cx$. Constant: $4A=-8$, so $A=-2$. $x^2$: $A+B=1$, so $B=3$. $x$: $4A+2B+C=-3$, so $C=-1$. This is the notes' answer, and it integrates to $-2\ln|x|+3\ln|x+2|+\frac{1}{x+2}+C$.</div>
+      <div class="try-res" data-verdict="ok">This works too, since $\frac{Bx+C}{(x+2)^2}=\frac{B}{x+2}+\frac{C-2B}{(x+2)^2}$. But you'd have to split it apart again to integrate. The table's form, one constant per power, is ready to integrate.</div>
+    </div>
+
+    <div class="tryout" data-topic="R">
+      <div class="q">And for $\dfrac{x^2+5x-4}{x(x^2+4)}$ (notes p. 16)?</div>
+      <div class="try-opts">
+        <button class="try-opt">$\dfrac Ax+\dfrac{B}{x^2+4}$</button>
+        <button class="try-opt">$\dfrac Ax+\dfrac{Bx+C}{x^2+4}$</button>
+        <button class="try-opt">Factor $x^2+4=(x-2)(x+2)$ first</button>
+      </div>
+      <div class="try-res" data-verdict="bad">$x^2+5x-4=A(x^2+4)+Bx$ forces $A=1$ (from $x^2$) but also $4A=-4$ (from the constant). That's a contradiction: a constant over a quadratic isn't enough.</div>
+      <div class="try-res" data-verdict="good">$x^2+5x-4=A(x^2+4)+(Bx+C)x$ gives $A=-1$, $B=2$, $C=5$. Then $\int\big(-\frac1x+\frac{2x}{x^2+4}+\frac{5}{x^2+4}\big)dx=-\ln|x|+\ln(x^2+4)+\frac52\tan^{-1}\frac x2+C$ (notes p. 16).</div>
+      <div class="try-res" data-verdict="bad">$x^2+4$ doesn't factor over the reals: $b^2-4ac=-16&lt;0$. It's $x^2-4$ that factors. The notes' side remark: “$x^2-1=(x+1)(x-1)$, but $x^2+1$ is irreducible.”</div>
+    </div>
+  </div>
+
+  <!-- ============================== 4 ATTEMPT -->
+  <div class="stage" id="R-attempt">
+    <div class="stage-head"><span class="n">Stage 4 · Attempt</span><h3>Guided example, then your turn</h3></div>
+    <div class="guided" data-gid="R-guided">
+      <div class="g-intro"><span class="badge">Guided example</span>
+        <p style="margin-top:8px">Find $\displaystyle\int\frac{11x+26}{x^2+5x+6}\,dx$ (textbook §1.3 Suggested Ex. 1), following the professor's procedure.</p></div>
+      <div class="gstep"><span class="g-label">Step 1 · Degrees</span>
+        <div class="mcq" data-qid="R-g1"><div class="q">Do you need long division first?</div>
+          <div class="opts cols-2">
+            <button class="opt" data-correct>No: degree 1 &lt; degree 2</button>
+            <button class="opt" data-why="Long division is only needed when deg P ≥ deg Q. Here 1 &lt; 2.">Yes, always divide first</button>
+          </div></div>
+        <div class="greveal">The top has degree 1 and the bottom degree 2: a proper fraction, ready to decompose.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 2 · Factor and template</span>
+        <div class="mcq" data-qid="R-g2"><div class="q">What's the template?</div>
+          <div class="opts">
+            <button class="opt" data-correct>$\dfrac{A}{x+2}+\dfrac{B}{x+3}$</button>
+            <button class="opt" data-why="x² + 5x + 6 factors (discriminant 25 − 24 = 1 &gt; 0), so it isn't irreducible.">$\dfrac{Ax+B}{x^2+5x+6}$</button>
+            <button class="opt" data-why="Check: (x − 2)(x − 3) = x² − 5x + 6, the wrong sign.">$\dfrac{A}{x-2}+\dfrac{B}{x-3}$</button>
+          </div></div>
+        <div class="greveal">$x^2+5x+6=(x+2)(x+3)$: two distinct linear factors. Multiplying through gives $11x+26=A(x+3)+B(x+2)=(A+B)x+(3A+2B)$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 3 · Match coefficients</span>
+        <p>① $A+B=11$ (the $x$ terms) and ② $3A+2B=26$ (the constants). Eliminate $B$ with ② − 2×①. <label class="inline">$A=$ <input class="ans" data-vid="R-guided-A" data-answer="4" data-exact="4"></label></p>
+        <div class="greveal">② − 2×①: $(3A+2B)-(2A+2B)=26-22$, so $A=4$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 4 · Back-substitute</span>
+        <p><label class="inline">$B=$ <input class="ans" data-vid="R-guided-B" data-answer="7" data-exact="7"></label></p>
+        <div class="greveal">From ①: $B=11-4=7$. Check ②: $3(4)+2(7)=26$ ✓.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 5 · Integrate the pieces</span>
+        <p><label class="inline">$\displaystyle\int\Big(\frac{4}{x+2}+\frac{7}{x+3}\Big)dx=$ <input class="ans" data-kind="anti" data-var="x" data-integrand="(11*x+26)/(x^2+5*x+6)" data-answer="4*ln(abs(x+2)) + 7*ln(abs(x+3))" data-dom="0,3" data-vid="R-guided-int" placeholder="use ln(abs(x+2))"> $+\,C$</label></p>
+        <div class="greveal">$4\ln|x+2|+7\ln|x+3|+C$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 6 · Check</span>
+        <div class="mcq" data-qid="R-g6"><div class="q">What's the fastest check that $A=4$, $B=7$ is right?</div>
+          <div class="opts">
+            <button class="opt" data-correct>Recombine: $\frac{4}{x+2}+\frac{7}{x+3}=\frac{4(x+3)+7(x+2)}{(x+2)(x+3)}=\frac{11x+26}{x^2+5x+6}$ ✓</button>
+            <button class="opt" data-why="Any x is fine for a spot check, but the full recombination checks everything at once.">Plug in $x=0$ only</button>
+            <button class="opt" data-why="That can't catch a wrong decomposition: you'd be differentiating your own pieces.">Differentiate $\frac{4}{x+2}$</button>
+          </div></div>
+        <div class="greveal">Adding the pieces back over the common denominator must return the original numerator. It's the definition of the decomposition, used as a check.</div>
+      </div>
+      <div class="takeaway"><b>Takeaway.</b> Degrees → factor → template → multiply out → match coefficients ①② → eliminate → integrate each piece. Recombine to check.</div>
+    </div>
+
+    <div class="problem" data-pid="R-indep" data-topic="R" data-level="4" data-title="Independent attempt" data-src="Your turn: try it before any hint (textbook §1.3 Additional Ex. 2)" data-help="Type an antiderivative in t. Use ln(abs(t+8)) for ln|t + 8|." data-prompt="Find the antiderivative of (t + 58)/(t^2 + 6t - 16) dt.">
+      <div class="p-body">Find $\displaystyle\int\frac{t+58}{t^2+6t-16}\,dt.$</div>
+      <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="t" data-integrand="(t+58)/(t^2+6*t-16)" data-answer="-5*ln(abs(t+8)) + 6*ln(abs(t-2))" data-dom="2.5,5" data-show="−5 ln|t + 8| + 6 ln|t − 2| + C" data-vid="R-indep" data-wrong='[{"f":"6*ln(abs(t+8)) - 5*ln(abs(t-2))","m":"The coefficients are swapped. A belongs to t + 8 and B to t − 2: recheck which equation came from which power of t."},{"f":"ln(abs(t^2+6*t-16))","m":"That is the ∫1/anything trap: t + 58 is not the derivative of t² + 6t − 16. Decompose first."}]'></label></div>
+      <ol class="know">
+        <li>Compare the degrees. Is long division needed?</li>
+        <li>How does $t^2+6t-16$ factor?</li>
+        <li>After you multiply out, which coefficients do you match?</li>
+      </ol>
+      <div class="hint">$t^2+6t-16=(t+8)(t-2)$. Template: $\frac{A}{t+8}+\frac{B}{t-2}$.</div>
+      <div class="hint">$t+58=A(t-2)+B(t+8)=(A+B)t+(-2A+8B)$. So ① $A+B=1$ and ② $-2A+8B=58$.</div>
+      <div class="hint">② + 2×①: $10B=60$.</div>
+      <div class="solution">
+        <ol>
+          <li>$B=6$, so $A=1-6=-5$.</li>
+          <li>$\int\Big(\frac{-5}{t+8}+\frac{6}{t-2}\Big)dt=-5\ln|t+8|+6\ln|t-2|+C.$</li>
+        </ol>
+        <p style="margin:0"><b>Check:</b> $\frac{-5(t-2)+6(t+8)}{(t+8)(t-2)}=\frac{t+58}{t^2+6t-16}$ ✓.</p>
+      </div>
+      <div class="reflect"><h5>Compare your approach</h5>
+        <label><input type="checkbox"> I checked the degrees before anything else.</label>
+        <label><input type="checkbox"> I matched coefficients and solved the system by elimination.</label>
+        <label><input type="checkbox"> I recombined the pieces to check before integrating.</label>
+        <p class="small muted" style="margin:6px 0 0">The clue to recognize next time: <b>a proper rational function whose denominator factors → decompose, then each piece is a log</b>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 5 COMPARE -->
+  <div class="stage" id="R-compare">
+    <div class="stage-head"><span class="n">Stage 5 · Compare</span><h3>Tempting approaches vs. correct reasoning</h3></div>
+    <div class="vs">
+      <div class="tempt"><h5>✗ Tempting</h5>“$\frac{2x^2}{x^2-9}=\frac{A}{x-3}+\frac{B}{x+3}$.” Then $2x^2=A(x+3)+B(x-3)$, which has no $x^2$ on the right. Stuck.</div>
+      <div class="right"><h5>✓ Correct</h5>The degrees are equal, so divide first (notes p. 23): $\frac{2x^2}{x^2-9}=2+\frac{18}{x^2-9}=2+\frac{3}{x-3}-\frac{3}{x+3}$. The integral is $2x+3\ln|x-3|-3\ln|x+3|+C$.</div>
+      <div class="clue"><b>Clue for next time:</b> the degree comparison comes <em>first</em>, every time. The notes flag it in red: “deg of top = deg of bottom.”</div>
+    </div>
+
+    <div class="spot" data-sid="R-spot1">
+      <p><b>Spot the error.</b> A student starts $\displaystyle\int\frac{x^2+5x-4}{x^3+4x}\,dx$ (notes p. 16).</p>
+      <button class="sline"><span class="ln">Line 1</span><span>$x^3+4x=x(x^2+4)$.</span></button>
+      <button class="sline" data-bad><span class="ln">Line 2</span><span>$=x(x-2)(x+2)$, so the template is $\frac Ax+\frac{B}{x-2}+\frac{C}{x+2}$.</span></button>
+      <button class="sline"><span class="ln">Line 3</span><span>$x^2+5x-4=A(x^2-4)+Bx(x+2)+Cx(x-2)$</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout warn"><div class="label">What went wrong</div><p style="margin:0">Line 2 factors $x^2+4$ as if it were $x^2-4$. But $x^2+4$ is irreducible: $b^2-4ac=0-16&lt;0$ (notes p. 14, red). The student's line 3 even multiplies out $(x-2)(x+2)=x^2-4$, a different denominator. Correct template: $\frac Ax+\frac{Bx+C}{x^2+4}$.</p></div>
+    </div>
+
+    <div class="spot" data-sid="R-spot2">
+      <p><b>Spot the error.</b> A student works on $\displaystyle\int\frac{3x+8}{x^3-4x^2+4x}\,dx$ (textbook §1.3 Suggested Ex. 6).</p>
+      <button class="sline"><span class="ln">Line 1</span><span>$x^3-4x^2+4x=x(x-2)^2$.</span></button>
+      <button class="sline" data-bad><span class="ln">Line 2</span><span>Template: $\dfrac Ax+\dfrac{B}{(x-2)^2}$.</span></button>
+      <button class="sline"><span class="ln">Line 3</span><span>$3x+8=A(x-2)^2+Bx$, so $4A=8$ gives $A=2$…</span></button>
+      <button class="sline"><span class="ln">Line 4</span><span>…but then the $x^2$ terms say $A=0$. Contradiction.</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout warn"><div class="label">What went wrong</div><p style="margin:0">A repeated factor $(x-2)^2$ needs a term for <em>each</em> power: $\frac Ax+\frac{B}{x-2}+\frac{C}{(x-2)^2}$ (notes p. 14). With that template, $A=2$, $B=-2$, $C=7$, and the integral is $2\ln|x|-2\ln|x-2|-\frac{7}{x-2}+C$. A contradiction while matching is the signal that a term is missing.</p></div>
+    </div>
+
+    <h4 style="margin-top:22px">Common mistakes: why they happen and how to prevent them</h4>
+    <details class="mistake"><summary>Skipping long division</summary><div class="m-body"><p><b>Why it happens</b><br>The fraction looks ready to split.</p><p><b>Prevent it</b><br>Compare degrees before anything else (notes p. 19, red). If $\deg P\ge\deg Q$, divide.</p></div></details>
+    <details class="mistake"><summary>“Factoring” $x^2+c^2$</summary><div class="m-body"><p><b>Why it happens</b><br>$x^2-c^2=(x-c)(x+c)$ is so familiar that the plus sign gets ignored.</p><p><b>Prevent it</b><br>Check $b^2-4ac$. If it's negative, the quadratic stays whole with a linear numerator $Bx+C$.</p></div></details>
+    <details class="mistake"><summary>One term for a repeated factor</summary><div class="m-body"><p><b>Why it happens</b><br>A factor appears once in the factorization, so it seems to deserve one fraction.</p><p><b>Prevent it</b><br>$(x+2)^2$ contributes $\frac{B}{x+2}+\frac{C}{(x+2)^2}$. If the matching equations contradict each other, a term is missing.</p></div></details>
+    <details class="mistake"><summary>Integrating $\frac{C}{(x+2)^2}$ as a logarithm</summary><div class="m-body"><p><b>Why it happens</b><br>Every other piece gave a log.</p><p><b>Prevent it</b><br>It's the power rule: $\int C(x+2)^{-2}dx=-\frac{C}{x+2}$ (notes p. 15 gets $+\frac{1}{x+2}$ from $C=-1$).</p></div></details>
+    <details class="mistake"><summary>Losing the $\tfrac12$ or the $\tfrac1a$ with a quadratic</summary><div class="m-body"><p><b>Why it happens</b><br>Two different rules act on one piece.</p><p><b>Prevent it</b><br>Split $\frac{Dx+E}{x^2+c^2}$ into $\frac{Dx}{x^2+c^2}$ (substitution: $\frac D2\ln(x^2+c^2)$) and $\frac{E}{x^2+c^2}$ (arctan: $\frac Ec\tan^{-1}\frac xc$), as on notes p. 16.</p></div></details>
+  </div>
+
+  <!-- ============================== 6 PRACTICE -->
+  <div class="stage" id="R-practice">
+    <div class="stage-head"><span class="n">Stage 6 · Practice</span><h3>Practice: standard applications</h3></div>
+    <div class="problem" data-pid="R-p1" data-topic="R" data-title="Practice 1" data-src="Notes p. 13 · redo it" data-help="Type an antiderivative in x. Use ln(abs(x+1))." data-prompt="Find the antiderivative of (x - 7)/(x^2 - 2x - 3) dx.">
+      <div class="p-body">Find $\displaystyle\int\frac{x-7}{x^2-2x-3}\,dx.$</div>
+      <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="x" data-integrand="(x-7)/(x^2-2*x-3)" data-answer="2*ln(abs(x+1)) - ln(abs(x-3))" data-dom="3.5,6" data-show="2 ln|x + 1| − ln|x − 3| + C" data-vid="R-p1"></label></div>
+      <div class="hint">$x^2-2x-3=(x+1)(x-3)$. Template $\frac{A}{x+1}+\frac{B}{x-3}$.</div>
+      <div class="hint">$x-7=(A+B)x+(-3A+B)$: ① $A+B=1$, ② $-3A+B=-7$.</div>
+      <div class="solution">① − ②: $4A=8$, so $A=2$ and $B=-1$. The integral is $2\ln|x+1|-\ln|x-3|+C$ (notes p. 13).</div>
+    </div>
+    <div class="problem" data-pid="R-p2" data-topic="R" data-title="Practice 2" data-src="Notes p. 15 · redo it (repeated factor)" data-help="Type an antiderivative in x. Use ln(abs(x)) and 1/(x+2)." data-prompt="Find the antiderivative of (x^2 - 3x - 8)/(x^3 + 4x^2 + 4x) dx.">
+      <div class="p-body">Find $\displaystyle\int\frac{x^2-3x-8}{x^3+4x^2+4x}\,dx.$</div>
+      <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="x" data-integrand="(x^2-3*x-8)/(x^3+4*x^2+4*x)" data-answer="-2*ln(abs(x)) + 3*ln(abs(x+2)) + 1/(x+2)" data-dom="0.5,3" data-show="−2 ln|x| + 3 ln|x + 2| + 1/(x + 2) + C" data-vid="R-p2" data-wrong='[{"f":"-2*ln(abs(x)) + 3*ln(abs(x+2)) - ln(abs(x+2))","m":"The squared term integrates by the power rule, not to a log: ∫−1/(x + 2)² dx = +1/(x + 2)."}]'></label></div>
+      <div class="hint">$x^3+4x^2+4x=x(x+2)^2$. Template: $\frac Ax+\frac{B}{x+2}+\frac{C}{(x+2)^2}$.</div>
+      <div class="hint">You should find $A=-2$, $B=3$, $C=-1$.</div>
+      <div class="solution">$\int\Big(-\frac2x+\frac{3}{x+2}-\frac{1}{(x+2)^2}\Big)dx=-2\ln|x|+3\ln|x+2|+\frac{1}{x+2}+C$ (notes p. 15).</div>
+    </div>
+    <div class="problem" data-pid="R-p3" data-topic="R" data-title="Practice 3" data-src="Notes p. 17 · redo it (irreducible quadratic)" data-help="Type an antiderivative in x. Use ln(x^2+1) and arctan(x)." data-prompt="Find the antiderivative of (3x^2 + x - 5)/((x + 2)(x^2 + 1)) dx.">
+      <div class="p-body">Find $\displaystyle\int\frac{3x^2+x-5}{(x+2)(x^2+1)}\,dx.$</div>
+      <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="x" data-integrand="(3*x^2+x-5)/((x+2)*(x^2+1))" data-answer="ln(abs(x+2)) + ln(x^2+1) - 3*arctan(x)" data-dom="0,2" data-show="ln|x + 2| + ln(x² + 1) − 3tan⁻¹x + C" data-vid="R-p3"></label></div>
+      <div class="hint">Template $\frac{A}{x+2}+\frac{Bx+C}{x^2+1}$. Matching gives $A+B=3$, $2B+C=1$, $A+2C=-5$.</div>
+      <div class="hint">$A=1$, $B=2$, $C=-3$. Split $\frac{2x-3}{x^2+1}$ into $\frac{2x}{x^2+1}-\frac{3}{x^2+1}$.</div>
+      <div class="solution">$\ln|x+2|+\ln(x^2+1)-3\tan^{-1}x+C$ (notes p. 17).</div>
+    </div>
+    <div class="problem" data-pid="R-p4" data-topic="R" data-title="Practice 4" data-src="Notes p. 18 = textbook §1.3 Suggested Ex. 5" data-help="Type an antiderivative in r, e.g. (1/2)ln(r^2+1) - ..." data-prompt="Find the antiderivative of 3r/(r^4 + 5r^2 + 4) dr.">
+      <div class="p-body">Find $\displaystyle\int\frac{3r}{r^4+5r^2+4}\,dr.$ Treat the bottom as a quadratic in $r^2$.</div>
+      <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="r" data-integrand="3*r/(r^4+5*r^2+4)" data-answer="(1/2)*ln(r^2+1) - (1/2)*ln(r^2+4)" data-dom="0.2,2" data-show="½ ln(r² + 1) − ½ ln(r² + 4) + C" data-vid="R-p4"></label></div>
+      <div class="hint">$r^4+5r^2+4=(r^2+1)(r^2+4)$. Template $\frac{Ar+B}{r^2+1}+\frac{Cr+D}{r^2+4}$.</div>
+      <div class="hint">Matching gives $B=D=0$, $A=1$, $C=-1$. Each piece is a substitution.</div>
+      <div class="solution">$\int\Big(\frac{r}{r^2+1}-\frac{r}{r^2+4}\Big)dr=\tfrac12\ln(r^2+1)-\tfrac12\ln(r^2+4)+C$.
+        <p class="small muted" style="margin:6px 0 0">Notes p. 18 has two cosmetic slips that don't affect the answer: the numerators are labeled $Ax+B$, $Cx+D$ though the variable is $r$, and “④ − ②” should read “④ − ③”.</p></div>
+    </div>
+    <div class="problem" data-pid="R-p5" data-topic="R" data-title="Practice 5" data-src="Notes p. 19 · redo it (long division first)" data-help="Type an antiderivative in t. Use arctan(t/2)." data-prompt="Find the antiderivative of (t^4 + 6t^2 + 11)/(t^2 + 4) dt.">
+      <div class="p-body">Find $\displaystyle\int\frac{t^4+6t^2+11}{t^2+4}\,dt.$</div>
+      <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="t" data-integrand="(t^4+6*t^2+11)/(t^2+4)" data-answer="t^3/3 + 2*t + (3/2)*arctan(t/2)" data-dom="0,2" data-show="t³/3 + 2t + (3/2)tan⁻¹(t/2) + C" data-vid="R-p5" data-wrong='[{"f":"t^3/3 + 2*t + 3*arctan(t/2)","m":"Check the arctan rule: ∫3/(t² + 4) dt = (3/2)tan⁻¹(t/2). The 1/a factor with a = 2 is missing."}]'></label></div>
+      <div class="hint">Degree 4 ≥ 2: divide. $t^4+6t^2+11=(t^2+4)(t^2+2)+3$.</div>
+      <div class="hint">So the integrand is $t^2+2+\frac{3}{t^2+4}$. Use $\int\frac{dt}{a^2+t^2}=\frac1a\tan^{-1}\frac ta$.</div>
+      <div class="solution">$\tfrac13t^3+2t+\tfrac32\tan^{-1}\tfrac t2+C$ (notes p. 19).</div>
+    </div>
+    <div class="problem" data-pid="R-p6" data-topic="R" data-title="Practice 6" data-src="Textbook §1.3 Suggested Ex. 4" data-help="Type an antiderivative in y. Use ln(abs(y-1)), ln(y^2+1), arctan(y)." data-prompt="Find the antiderivative of (4y - 2)/((y - 1)(y^2 + 1)) dy.">
+      <div class="p-body">Find $\displaystyle\int\frac{4y-2}{(y-1)(y^2+1)}\,dy.$</div>
+      <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="y" data-integrand="(4*y-2)/((y-1)*(y^2+1))" data-answer="ln(abs(y-1)) - (1/2)*ln(y^2+1) + 3*arctan(y)" data-dom="1.5,4" data-show="ln|y − 1| − ½ ln(y² + 1) + 3tan⁻¹y + C" data-vid="R-p6"></label></div>
+      <div class="hint">Template $\frac{A}{y-1}+\frac{By+C}{y^2+1}$: $4y-2=(A+B)y^2+(C-B)y+(A-C)$.</div>
+      <div class="hint">① $A+B=0$, ② $C-B=4$, ③ $A-C=-2$. Adding all three: $2A=2$.</div>
+      <div class="solution">$A=1$, $B=-1$, $C=3$: $\int\Big(\frac{1}{y-1}+\frac{-y+3}{y^2+1}\Big)dy=\ln|y-1|-\tfrac12\ln(y^2+1)+3\tan^{-1}y+C$.</div>
+    </div>
+    <div class="problem" data-pid="R-p7" data-topic="R" data-title="Practice 7" data-src="Textbook §1.3 Suggested Ex. 7 (a cubed factor)" data-help="Type an antiderivative in j, e.g. 2ln(abs(j+5)) + ..." data-prompt="Find the antiderivative of (2j^2 + 18j + 43)/(j + 5)^3 dj.">
+      <div class="p-body">Find $\displaystyle\int\frac{2j^2+18j+43}{(j+5)^3}\,dj.$</div>
+      <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="j" data-integrand="(2*j^2+18*j+43)/(j+5)^3" data-answer="2*ln(abs(j+5)) + 2/(j+5) - 3/(2*(j+5)^2)" data-dom="-4,0" data-show="2 ln|j + 5| + 2/(j + 5) − 3/(2(j + 5)²) + C" data-vid="R-p7"></label></div>
+      <div class="hint">A cubed factor gets three terms: $\frac{A}{j+5}+\frac{B}{(j+5)^2}+\frac{C}{(j+5)^3}$ (notes p. 14).</div>
+      <div class="hint">$2j^2+18j+43=A(j+5)^2+B(j+5)+C$ gives $A=2$, $B=-2$, $C=3$.</div>
+      <div class="solution">$\int\Big(\frac{2}{j+5}-\frac{2}{(j+5)^2}+\frac{3}{(j+5)^3}\Big)dj=2\ln|j+5|+\frac{2}{j+5}-\frac{3}{2(j+5)^2}+C$.</div>
+    </div>
+    <div class="problem" data-pid="R-p8" data-topic="R" data-title="Practice 8" data-src="Textbook §1.3 Suggested Ex. 10 (long division first)" data-help="Type an antiderivative in x. Use ln(abs(x+3))." data-prompt="Find the antiderivative of (x^3 + 12x^2 + 51x + 74)/(x^2 + 8x + 15) dx.">
+      <div class="p-body">Find $\displaystyle\int\frac{x^3+12x^2+51x+74}{x^2+8x+15}\,dx.$</div>
+      <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="x" data-integrand="(x^3+12*x^2+51*x+74)/(x^2+8*x+15)" data-answer="x^2/2 + 4*x + ln(abs(x+3)) + 3*ln(abs(x+5))" data-dom="0,3" data-show="x²/2 + 4x + ln|x + 3| + 3 ln|x + 5| + C" data-vid="R-p8" data-wrong='[{"f":"ln(abs(x+3)) + 3*ln(abs(x+5))","m":"That is only the fraction part. The quotient x + 4 from long division integrates too."}]'></label></div>
+      <div class="hint">Divide: quotient $x+4$, remainder $4x+14$.</div>
+      <div class="hint">$\frac{4x+14}{(x+3)(x+5)}=\frac{A}{x+3}+\frac{B}{x+5}$ with $A=1$, $B=3$.</div>
+      <div class="solution">$\int\Big(x+4+\frac{1}{x+3}+\frac{3}{x+5}\Big)dx=\frac{x^2}{2}+4x+\ln|x+3|+3\ln|x+5|+C$.</div>
+    </div>
+    <div class="problem" data-pid="R-p9" data-topic="R" data-title="Practice 9" data-src="Definite · partial fractions + FTC (§2.4)" data-prompt="Evaluate the integral from 0 to 1 of 1/(x^2 + 3x + 2) dx.">
+      <div class="p-body">Evaluate $\displaystyle\int_0^1\frac{dx}{x^2+3x+2}.$</div>
+      <div class="answers"><label>Answer <input class="ans" data-vid="R-p9" data-answer="0.287682072452" data-exact="ln(4/3) = 2 ln 2 − ln 3" data-wrong='[{"v":1.098612288668,"m":"That is ln 3, which is what 1/(x + 1) + 1/(x + 2) gives. Check the sign of B: recombining shows 1/(x + 1) − 1/(x + 2) = 1/((x + 1)(x + 2))."},{"v":-0.405465108108,"m":"That is only F(1) = ln 2 − ln 3. Subtract F(0) = ln 1 − ln 2 = −ln 2 as well."}]'></label></div>
+      <div class="hint">$\frac{1}{(x+1)(x+2)}=\frac{1}{x+1}-\frac{1}{x+2}$.</div>
+      <div class="hint">The antiderivative is $\ln|x+1|-\ln|x+2|$. Evaluate from 0 to 1.</div>
+      <div class="solution">$(\ln2-\ln3)-(\ln1-\ln2)=2\ln2-\ln3=\ln\frac43\approx0.2877$.</div>
+    </div>
+  </div>
+
+  <!-- ============================== 7 MASTER -->
+  <div class="stage" id="R-master">
+    <div class="stage-head"><span class="n">Stage 7 · Master</span><h3>Mastery check</h3></div>
+    <p class="muted">No hints are offered until you've committed to an answer. This checks recognition, understanding, an unfamiliar problem, and whether you can explain why.</p>
+    <div class="mcq" data-qid="R-m1" data-topic="R" data-level="1" data-count data-multi>
+      <div class="q"><b>Recognition.</b> Which of these need long division <em>before</em> partial fractions? Select all that apply.</div>
+      <div class="opts cols-2">
+        <button class="opt" data-correct>$\displaystyle\int\frac{x^3}{x^2-1}\,dx$</button>
+        <button class="opt" data-correct>$\displaystyle\int\frac{x^2+1}{x^2-1}\,dx$</button>
+        <button class="opt">$\displaystyle\int\frac{x}{x^2-1}\,dx$</button>
+        <button class="opt">$\displaystyle\int\frac{x+1}{x^3-x}\,dx$</button>
+        <button class="opt" data-correct>$\displaystyle\int\frac{2x^2}{x^2-9}\,dx$</button>
+        <button class="opt">$\displaystyle\int\frac{5}{x^2+4}\,dx$</button>
+      </div>
+      <div class="why callout why"><div class="label">Why</div><p style="margin:0">Divide exactly when $\deg P\ge\deg Q$: that's $3\ge2$, $2\ge2$, and $2\ge2$ (notes p. 23). $\frac{x}{x^2-1}$ is proper (and a substitution works too), $\frac{x+1}{x^3-x}$ is proper, and $\frac{5}{x^2+4}$ is the arctan rule.</p></div>
+    </div>
+    <div class="mcq" data-qid="R-m2" data-topic="R" data-level="2" data-count>
+      <div class="q"><b>Understanding.</b> Why does the repeated factor in $\frac{x^2-3x-8}{x(x+2)^2}$ need <em>both</em> $\frac{B}{x+2}$ and $\frac{C}{(x+2)^2}$?</div>
+      <div class="opts">
+        <button class="opt" data-correct data-why="Right: three unknowns for a degree-3 denominator, one per coefficient to match.">The denominator has degree 3, so matching gives three equations. With only $\frac Ax+\frac{B}{x+2}$ there are two unknowns and the system has no solution (notes p. 15).</button>
+        <button class="opt" data-why="(x + 2)² is a repeated <em>linear</em> factor. Nothing here involves arctan.">Because the squared term produces the arctan.</button>
+        <button class="opt" data-why="Try it: without the squared term the equations contradict each other.">It's only a convention; one term would also work.</button>
+        <button class="opt" data-why="(x + 2)² factors completely into linear pieces; it's not irreducible.">Because $(x+2)^2$ is irreducible.</button>
+      </div>
+    </div>
+    <div class="problem" data-pid="R-m3" data-topic="R" data-level="6" data-title="Unfamiliar problem" data-src="Textbook §1.3 Additional Ex. 1" data-help="Type an antiderivative in n. Use ln(abs(n-2)) and ln(n^2+5)." data-prompt="Find the antiderivative of (6n^2 - 4n + 20)/((n - 2)(n^2 + 5)) dn.">
+      <div class="p-body">Find $\displaystyle\int\frac{6n^2-4n+20}{(n-2)(n^2+5)}\,dn.$</div>
+      <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="n" data-integrand="(6*n^2-4*n+20)/((n-2)*(n^2+5))" data-answer="4*ln(abs(n-2)) + ln(n^2+5)" data-dom="2.5,5" data-show="4 ln|n − 2| + ln(n² + 5) + C" data-vid="R-m3"></label></div>
+      <div class="hint">Template $\frac{A}{n-2}+\frac{Bn+C}{n^2+5}$.</div>
+      <div class="hint">Matching: $A+B=6$, $C-2B=-4$, $5A-2C=20$. You'll find the arctan term vanishes.</div>
+      <div class="solution">$A=4$, $B=2$, $C=0$: $\int\Big(\frac{4}{n-2}+\frac{2n}{n^2+5}\Big)dn=4\ln|n-2|+\ln(n^2+5)+C$.</div>
+    </div>
+    <div class="problem" data-pid="R-m4" data-topic="R" data-level="6" data-title="Unfamiliar problem" data-src="New variant (like textbook §1.3 Additional Ex. 13)" data-help="Type an antiderivative in x. Use arctan(x) and arctan(x/2)." data-prompt="Find the antiderivative of (3x^2 + 7)/(x^4 + 5x^2 + 4) dx.">
+      <div class="p-body">Find $\displaystyle\int\frac{3x^2+7}{x^4+5x^2+4}\,dx.$</div>
+      <div class="answers"><label>Answer <input class="ans" data-kind="anti" data-var="x" data-integrand="(3*x^2+7)/(x^4+5*x^2+4)" data-answer="(4/3)*arctan(x) + (5/6)*arctan(x/2)" data-dom="0,2" data-show="(4/3)tan⁻¹x + (5/6)tan⁻¹(x/2) + C" data-vid="R-m4"></label></div>
+      <div class="hint">As on notes p. 18, $x^4+5x^2+4=(x^2+1)(x^2+4)$. Only even powers appear on top, so try $\frac{A}{x^2+1}+\frac{C}{x^2+4}$.</div>
+      <div class="hint">$3x^2+7=A(x^2+4)+C(x^2+1)$: $A+C=3$ and $4A+C=7$.</div>
+      <div class="solution">$A=\tfrac43$, $C=\tfrac53$: $\tfrac43\tan^{-1}x+\tfrac53\cdot\tfrac12\tan^{-1}\tfrac x2+C=\tfrac43\tan^{-1}x+\tfrac56\tan^{-1}\tfrac x2+C$. (The full template $\frac{Ax+B}{x^2+1}+\frac{Cx+D}{x^2+4}$ gives the same, with the $x$-coefficients forced to 0.)</div>
+    </div>
+    <div class="explain card" data-eid="R-explain" data-topic="R">
+      <h4>Explain why (Level 7)</h4>
+      <p>In your own words: why must the top's degree be lower than the bottom's before you decompose, and what does long division accomplish?</p>
+      <textarea aria-label="Your explanation"></textarea>
+      <div class="model callout why"><div class="label">A model explanation</div><p style="margin:0">Every simple fraction in the table ($\frac{A}{x-a}$, $\frac{B}{(x-b)^2}$, $\frac{Dx+E}{x^2+c^2}$) goes to 0 as $x\to\pm\infty$, and so does any sum of them. So a sum of simple fractions can only equal a fraction that also dies out, which means one with $\deg P&lt;\deg Q$. If $\deg P\ge\deg Q$, the fraction grows or levels off like a polynomial (notes p. 20 hugs the line $-2x+4$). Long division peels off that polynomial part, the quotient, and leaves a proper remainder fraction, which <em>can</em> be decomposed. Also, the number of unknowns in the template equals $\deg Q$, which is exactly the number of coefficients to match when $\deg P&lt;\deg Q$.</p></div>
+    </div>
+  </div>
+</section>
