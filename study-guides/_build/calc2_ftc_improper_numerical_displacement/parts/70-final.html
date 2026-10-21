@@ -2,9 +2,9 @@
   <div class="topic-banner">
     <div class="topic-letter" aria-hidden="true">✓</div>
     <div><h2>Final mastery check</h2>
-    <div class="sources">New problems across all ten topics, in course order. Try each one exam-style: commit to an answer before opening a hint.</div></div>
+    <div class="sources">New problems across all fourteen topics, in course order. Try each one exam-style: commit to an answer before opening a hint.</div></div>
   </div>
-  <div class="callout big"><div class="label">Exam mode</div><p style="margin:0">Treat this like a timed quiz: about 75 minutes, or three sittings (items 1–9 on §1.1–§1.3, items 10–24 on §2.4–§3.3 motion, then items 25–30 on arc length and volume). No explorers, no looking back. Hints are still available, but a problem only counts as <b>solved alone</b> if you used none. Your mastery report below updates as you go.</p></div>
+  <div class="callout big"><div class="label">Exam mode</div><p style="margin:0">Treat this like a timed quiz: about 105 minutes, or four sittings (items 1–9 on §1.1–§1.3, items 10–24 on §2.4–§3.3 motion, items 25–33 on arc length and volume, then items 34–42 on mass, center of mass and work). No explorers, no looking back. Hints are still available, but a problem only counts as <b>solved alone</b> if you used none. Your mastery report below updates as you go.</p></div>
 
   <div class="mcq" data-qid="F-U1" data-topic="U" data-level="1" data-count>
     <div class="q"><b>1.</b> For $\displaystyle\int\frac{(\ln t)^{2/5}}{3t}\,dt$ (notes p. 22), the first move is…</div>
@@ -250,6 +250,109 @@
     <div class="hint">The slices are disks: $A(x)=\pi\big(x^{-3/4}\big)^2=\pi x^{-3/2}$.</div>
     <div class="hint">$\pi\int_1^\infty x^{-3/2}\,dx$. Compare notes p. 29.</div>
     <div class="solution">$\pi\lim_{b\to\infty}\big[-2x^{-1/2}\big]_1^b=2\pi\approx6.283$. The surprise: the flat region itself has <em>infinite</em> area, since $\int_1^\infty x^{-3/4}\,dx$ diverges (like notes p. 32's $x^{-0.8}$). Yet the solid has finite volume, because squaring the radius makes it shrink fast enough.</div>
+  </div>
+
+  <div class="mcq" data-qid="F-S1" data-topic="S" data-level="1" data-count>
+    <div class="q"><b>31.</b> The region under $y=\sqrt x$, $0\le x\le4$, is spun about the $y$-axis. Which integral gives the volume?</div>
+    <div class="opts">
+      <button class="opt" data-correct data-why="Right: the vertical strip at x is parallel to the axis, so it makes a shell with r = x and h = √x (§3.5 shells).">$2\pi\int_0^4x\sqrt x\,dx$</button>
+      <button class="opt" data-why="That is the disk volume about the x-axis. Here the axis is the y-axis.">$\pi\int_0^4\big(\sqrt x\big)^2\,dx$</button>
+      <button class="opt" data-why="The radius r = x is missing: each shell is 2πr long when unrolled.">$2\pi\int_0^4\sqrt x\,dx$</button>
+      <button class="opt" data-why="πr²h is a solid cylinder. A shell is hollow: 2πr · h · Δx.">$\pi\int_0^4x^2\sqrt x\,dx$</button>
+    </div>
+  </div>
+
+  <div class="problem" data-pid="F-S2" data-topic="S" data-level="4" data-title="32 · §3.5" data-src="Solve alone" data-help="Exact (e.g. 16pi/3) or decimals." data-prompt="The region between y = 2x - x^2 and y = 0 is spun about the line x = -1. Find the volume.">
+    <div class="p-body">The region between $y=2x-x^2$ and $y=0$ is spun about the line $x=-1$. Find the volume of the solid.</div>
+    <div class="answers"><label>Volume <input class="ans" data-vid="F-S2" data-answer="16.7551608191456" data-exact="16π/3" data-wrong='[{"v":8.37758040957278,"m":"That is the answer with r = x (8π/3), measured from the y-axis. The axis is x = −1, so r = x + 1."}]'></label></div>
+    <div class="hint">The region runs from $x=0$ to $x=2$. The axis $x=-1$ is to its left, so $r=x-(-1)=x+1$.</div>
+    <div class="hint">$V=2\pi\int_0^2(x+1)(2x-x^2)\,dx$. Expand: $(x+1)(2x-x^2)=2x+x^2-x^3$.</div>
+    <div class="solution">$2\pi\Big[x^2+\frac{x^3}3-\frac{x^4}4\Big]_0^2=2\pi\Big(4+\frac83-4\Big)=\frac{16\pi}3\approx16.76$.</div>
+  </div>
+
+  <div class="problem" data-pid="F-S3" data-topic="S" data-level="6" data-title="33 · §3.5" data-src="Unfamiliar · a formula you know, derived" data-help="Exact (e.g. 36pi) or decimals." data-prompt="Use cylindrical shells to find the volume of a sphere of radius 3: spin the half-disk x^2 + y^2 &lt;= 9, x &gt;= 0, about the y-axis.">
+    <div class="p-body">Use cylindrical shells to find the volume of a sphere of radius 3: spin the half-disk $x^2+y^2\le9$, $x\ge0$, about the $y$-axis.</div>
+    <div class="answers"><label>Volume <input class="ans" data-vid="F-S3" data-answer="113.097335529233" data-exact="36π" data-wrong='[{"v":56.5486677646163,"m":"That uses h = √(9 − x²), the upper half only (a hemisphere). The strip runs from −√(9 − x²) up to +√(9 − x²)."}]'></label></div>
+    <div class="hint">The strip at $x$ runs from $y=-\sqrt{9-x^2}$ to $y=\sqrt{9-x^2}$, so $h=2\sqrt{9-x^2}$ and $r=x$.</div>
+    <div class="hint">$V=4\pi\int_0^3x\sqrt{9-x^2}\,dx$. Substitute $u=9-x^2$, $du=-2x\,dx$ (§1.1).</div>
+    <div class="solution">$4\pi\cdot\frac12\int_0^9\sqrt u\,du=2\pi\cdot\frac23\cdot27=36\pi\approx113.1$, which matches $\frac43\pi r^3=\frac43\pi\cdot27$ ✓.</div>
+  </div>
+
+  <div class="mcq" data-qid="F-K1" data-topic="K" data-level="1" data-count>
+    <div class="q"><b>34.</b> A plate occupies the region under $y=4-x^2$ and above the $x$-axis for $0\le x\le2$, with area density $\delta(x)=1+x$. The mass of the thin vertical strip at $x$ is about…</div>
+    <div class="opts">
+      <button class="opt" data-correct data-why="Right: density × strip height × width (§3.7, 3.7–3.9 notes p. 3).">$(1+x)(4-x^2)\,\Delta x$</button>
+      <button class="opt" data-why="That treats the plate as a wire: the strip’s height 4 − x² is missing.">$(1+x)\,\Delta x$</button>
+      <button class="opt" data-why="That is the strip’s area. Multiply by the density 1 + x to get its mass.">$(4-x^2)\,\Delta x$</button>
+      <button class="opt" data-why="The extra x makes that the strip’s moment, used for x̄ (§3.8), not its mass.">$x(1+x)(4-x^2)\,\Delta x$</button>
+    </div>
+  </div>
+
+  <div class="problem" data-pid="F-K2" data-topic="K" data-level="4" data-title="35 · §3.7" data-src="Solve alone" data-help="Exact (e.g. 28/3) or decimals." data-prompt="A plate occupies the region under y = 4 - x^2 and above the x-axis for 0 &lt;= x &lt;= 2, with area density delta(x) = 1 + x. Find its mass.">
+    <div class="p-body">Find the mass of the plate in item 34: the region under $y=4-x^2$ and above the $x$-axis for $0\le x\le2$, with area density $\delta(x)=1+x$.</div>
+    <div class="answers"><label>Mass <input class="ans" data-vid="F-K2" data-answer="9.333333333333" data-exact="28/3" data-wrong='[{"v":5.333333333333,"m":"That is the plate’s area, 16/3. Multiply each strip by its density 1 + x."},{"v":4,"m":"That is ∫₀²(1 + x) dx, as if the plate were a wire. Each strip also has a height, 4 − x²."}]'></label></div>
+    <div class="hint">$(1+x)(4-x^2)=4+4x-x^2-x^3$.</div>
+    <div class="solution">$M=\Big[4x+2x^2-\frac{x^3}3-\frac{x^4}4\Big]_0^2=8+8-\frac83-4=\frac{28}3\approx9.333$.</div>
+  </div>
+
+  <div class="problem" data-pid="F-K3" data-topic="K" data-level="6" data-title="36 · §3.7" data-src="Unfamiliar · a neat answer" data-help="An exact value or a decimal." data-prompt="A wire lies on 1 &lt;= x &lt;= 9 with density delta(x) = 1/x. Find its mass midpoint.">
+    <div class="p-body">A wire lies on $1\le x\le9$ with density $\delta(x)=\frac1x$. Find its mass midpoint.</div>
+    <div class="answers"><label>$x_m=$ <input class="ans" data-vid="F-K3" data-answer="3" data-exact="3" data-wrong='[{"v":5,"m":"That is the middle of the wire. The density 1/x is much larger near x = 1."}]'></label></div>
+    <div class="hint">$M=\int_1^9\frac{dx}x=\ln9$. Set $\int_1^{x_m}\frac{dx}x=\frac12\ln9$.</div>
+    <div class="solution">$\ln x_m=\frac12\ln9=\ln3$, so $x_m=3$, the geometric mean of 1 and 9. For this density, equal ratios (1 to 3, 3 to 9) hold equal mass.</div>
+  </div>
+
+  <div class="mcq" data-qid="F-G1" data-topic="G" data-level="1" data-count>
+    <div class="q"><b>37.</b> The center of mass of a wire on $[a,b]$ with density $\delta(x)$ is…</div>
+    <div class="opts">
+      <button class="opt" data-correct data-why="Right: the moment divided by the mass (§3.8, 3.7–3.9 notes p. 7).">$\displaystyle\frac{\int_a^bx\,\delta(x)\,dx}{\int_a^b\delta(x)\,dx}$</button>
+      <button class="opt" data-why="That is the moment x̄M alone. Divide it by the mass.">$\int_a^bx\,\delta(x)\,dx$</button>
+      <button class="opt" data-why="That is the mass midpoint (§3.7): half the mass on each side. It isn’t the balance point.">the $x_m$ with $\int_a^{x_m}\delta(x)\,dx=\frac12M$</button>
+      <button class="opt" data-why="Only for a constant density.">$\frac{a+b}2$</button>
+    </div>
+  </div>
+
+  <div class="problem" data-pid="F-G2" data-topic="G" data-level="4" data-title="38 · §3.8" data-src="Solve alone" data-help="Exact (e.g. 7/6) or decimals." data-prompt="A wire on 0 &lt;= x &lt;= 2 has density delta(x) = 1 + x. Find its center of mass.">
+    <div class="p-body">A wire on $0\le x\le2$ has density $\delta(x)=1+x$. Find its center of mass.</div>
+    <div class="answers"><label>$\bar x=$ <input class="ans" data-vid="F-G2" data-answer="1.166666666667" data-exact="7/6" data-wrong='[{"v":1,"m":"That is the middle of the wire. The density 1 + x makes the right side heavier."},{"v":4.666666666667,"m":"That is the moment x̄M = 14/3. Divide it by the mass M = 4."}]'></label></div>
+    <div class="hint">$M=\int_0^2(1+x)\,dx=4$.</div>
+    <div class="solution">$\bar xM=\int_0^2(x+x^2)\,dx=2+\frac83=\frac{14}3$, so $\bar x=\frac{14}{3}\div4=\frac76\approx1.167$.</div>
+  </div>
+
+  <div class="problem" data-pid="F-G3" data-topic="G" data-level="6" data-title="39 · §3.8" data-src="Unfamiliar · textbook §3.8 Additional Ex. 10" data-help="Exact (e.g. 27/5) or decimals." data-prompt="Find the centroid (constant density) of the region between y = 9 and y = x^2.">
+    <div class="p-body">Find the centroid (constant density) of the region between $y=9$ and $y=x^2$.</div>
+    <div class="answers">
+      <label>$\bar x=$ <input class="ans" data-label="x̄" data-vid="F-G3-x" data-answer="0" data-exact="0"></label>
+      <label>$\bar y=$ <input class="ans" data-label="ȳ" data-vid="F-G3-y" data-answer="5.4" data-exact="27/5" data-wrong='[{"v":10.8,"m":"The ½ is missing: the strip’s midpoint is (9 + x²)/2."}]'></label>
+    </div>
+    <div class="hint">The curves meet at $x=\pm3$. Area $=\int_{-3}^3(9-x^2)\,dx=36$.</div>
+    <div class="hint">$\bar y=\frac1{36}\int_{-3}^3\frac{9+x^2}2(9-x^2)\,dx=\frac1{72}\int_{-3}^3(81-x^4)\,dx$.</div>
+    <div class="solution">$\bar x=0$ by symmetry. $\int_{-3}^3(81-x^4)\,dx=486-\frac{486}5=\frac{1944}5$, so $\bar y=\frac{1944}{5\cdot72}=\frac{27}5=5.4$, above the middle height 4.5 because the region is wider at the top.</div>
+  </div>
+
+  <div class="mcq" data-qid="F-W1" data-topic="W" data-level="1" data-count>
+    <div class="q"><b>40.</b> A tank holds oil with density 900 kg/m³. A thin slice of the oil has volume $\Delta V$ m³. The force needed to lift it (its weight) is…</div>
+    <div class="opts">
+      <button class="opt" data-correct data-why="Right: mass 900ΔV kg times g = 9.8 m/s² gives newtons (§3.9, 3.7–3.9 notes p. 17).">$900\cdot9.8\,\Delta V$ N</button>
+      <button class="opt" data-why="That is the slice’s mass in kg. A force needs × 9.8.">$900\,\Delta V$ N</button>
+      <button class="opt" data-why="32 ft/s² is for English units. Here the density is in kg/m³.">$900\cdot32\,\Delta V$ N</button>
+      <button class="opt" data-why="The density is missing: 9.8ΔV would be the weight of a slice with density 1 kg/m³.">$9.8\,\Delta V$ N</button>
+    </div>
+  </div>
+
+  <div class="problem" data-pid="F-W2" data-topic="W" data-level="4" data-title="41 · §3.9" data-src="Solve alone" data-help="A number, with or without J." data-prompt="A force of 12 N holds a spring stretched 0.3 m beyond its natural length. How much work does it take to stretch it from its natural length to 0.5 m beyond it?">
+    <div class="p-body">A force of 12 N holds a spring stretched 0.3 m beyond its natural length. How much work does it take to stretch it from its natural length to 0.5 m beyond it?</div>
+    <div class="answers"><label>Work <input class="ans" data-vid="F-W2" data-units="J" data-answer="5" data-exact="5 J" data-wrong='[{"v":6,"m":"That is 12 N × 0.5 m. The 12 N is the force at 0.3 m, and the force kx changes."},{"v":10,"m":"The ½ is missing: ∫₀^0.5 kx dx = ½k(0.5)²."}]'></label></div>
+    <div class="hint">$k=\frac{12}{0.3}=40$ N/m.</div>
+    <div class="solution">$W=\int_0^{0.5}40x\,dx=20(0.5)^2=5$ J.</div>
+  </div>
+
+  <div class="problem" data-pid="F-W3" data-topic="W" data-level="6" data-title="42 · §3.9" data-src="Unfamiliar · a rope and a load together" data-help="A number, with or without J." data-prompt="A 10 m cable with mass 2 kg/m hangs from the top of a building, with a 50 kg bucket attached to its lower end. Find the work needed to pull the cable and the bucket up to the top.">
+    <div class="p-body">A 10 m cable with mass 2 kg/m hangs from the top of a building, with a 50 kg bucket attached to its lower end. Find the work needed to pull the cable and the bucket up to the top. Use $g=9.8$ m/s².</div>
+    <div class="answers"><label>Work <input class="ans" data-vid="F-W3" data-units="J" data-answer="5880" data-exact="5880 J" data-wrong='[{"v":4900,"m":"That is the bucket alone (50 · 9.8 · 10). The cable has weight too."},{"v":6860,"m":"That lifts the whole cable 10 m. The piece of cable at height y only rises 10 − y."},{"v":980,"m":"That is the cable alone. Add the bucket, which rises the full 10 m."}]'></label></div>
+    <div class="hint">Split it: the bucket moves as a whole (constant force, $W=Fd$); the cable needs slicing (notes pp. 15–16).</div>
+    <div class="hint">Cable: $\int_0^{10}2\cdot9.8\,(10-y)\,dy$. Bucket: $50\cdot9.8\cdot10$.</div>
+    <div class="solution">Cable: $19.6\cdot50=980$ J. Bucket: $4900$ J. Total $5880$ J. The two kinds of work problem in one: a constant force for the bucket, slices for the cable.</div>
   </div>
 
   <div class="card" id="report">

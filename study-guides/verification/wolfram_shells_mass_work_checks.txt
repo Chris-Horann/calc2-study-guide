@@ -1,0 +1,298 @@
+Wolfram Language checks for the 2026-10-14 (shells) and 2026-10-19 (mass, center of mass, work) updates.
+Run with the Wolfram MCP (WolframLanguageEvaluator) on 2026-10-19. Inputs and outputs are verbatim.
+The 'Symbol::undefined2' warnings refer to the local names M and R used as pattern variables inside the
+helper definitions (mid, wash); they do not affect the results.
+
+====================================================================================================
+Batch 1: every new §3.7 and §3.8 answer, from the problem statements   [2026-10-19T21:24:24.787Z]
+---------------------------------------- INPUT
+mid[d_, a_, b_] := Module[{t, M = Integrate[d, {x, a, b}]}, t /. First[Solve[{Integrate[d, {x, a, t}] == M/2, a < t < b}, t, Reals]]];
+cm[d_, a_, b_] := Integrate[x d, {x, a, b}]/Integrate[d, {x, a, b}];
+plM[d_, f_, g_, a_, b_] := Integrate[d (f - g), {x, a, b}];
+plX[d_, f_, g_, a_, b_] := Integrate[x d (f - g), {x, a, b}]/plM[d, f, g, a, b];
+plY[d_, f_, g_, a_, b_] := Integrate[(f + g)/2 d (f - g), {x, a, b}]/plM[d, f, g, a, b];
+rows = {
+ {"K-guided-b", Max[x /. Solve[x - x^2 == -x, x]]},
+ {"K-guided-val", plM[x, x - x^2, -x, 0, 2]},
+ {"K-indep", plM[x^2 + 1, 0, 2 x - 6, 0, 3]},
+ {"K-p1-M", Integrate[3 x^2, {x, 0, 2}]}, {"K-p1-xm", mid[3 x^2, 0, 2]},
+ {"K-p2-a", Min[x /. Solve[x^2 == 2 - x^2, x]]}, {"K-p2-b", Max[x /. Solve[x^2 == 2 - x^2, x]]},
+ {"K-p3-L", Integrate[Exp[-x], {x, 0, 2}]}, {"K-p3-R", Integrate[Exp[-x], {x, 2, 4}]}, {"K-p3-xm", mid[Exp[-x], 0, 4]},
+ {"K-p4-M", Integrate[x + 7, {x, 0, 4}]}, {"K-p4-xm", mid[x + 7, 0, 4]},
+ {"K-p5-M", Integrate[Sin[x], {x, 0, Pi/2}]}, {"K-p5-xm", mid[Sin[x], 0, Pi/2]},
+ {"K-p6-c", c /. First[Solve[plM[c x^2, 2 - 2 x/5, 0, 0, 5] == 25, c]]},
+ {"K-p7", Integrate[4/(9 - x^2), {x, 1, 2}]},
+ {"K-p8", Integrate[x Log[x], {x, 3, 9}]},
+ {"K-m3", mid[c Exp[x], 0, 10] /. c -> 7},
+ {"K-m4-M", Integrate[1/(1 + x)^2, {x, 0, Infinity}]},
+ {"K-m4-xm", t /. First[Solve[Integrate[1/(1 + x)^2, {x, 0, t}] == 1/2 && t > 0, t]]},
+ {"G-guided-M", Integrate[4 x^2 + 2, {x, 0, 3}]}, {"G-guided-Mx", Integrate[x (4 x^2 + 2), {x, 0, 3}]}, {"G-guided-xbar", cm[4 x^2 + 2, 0, 3]},
+ {"G-indep-M", plM[2 x + 1, x, x^2, 0, 1]}, {"G-indep-x", plX[2 x + 1, x, x^2, 0, 1]}, {"G-indep-y", plY[2 x + 1, x, x^2, 0, 1]},
+ {"G-p1-M", Integrate[2 Exp[3 x], {x, 3, 4}]}, {"G-p1-Mx", Integrate[2 x Exp[3 x], {x, 3, 4}]}, {"G-p1-x", cm[2 Exp[3 x], 3, 4]},
+ {"G-p2-x", plX[x^2, 2/x^2, 0, 1, 2]}, {"G-p2-y", plY[x^2, 2/x^2, 0, 1, 2]},
+ {"G-p3-a", Min[x /. Solve[x^2 == 2 x + 3, x]]}, {"G-p3-b", Max[x /. Solve[x^2 == 2 x + 3, x]]},
+ {"G-p4", (2 (-1) + 5 (2) + 3 (6))/(2 + 5 + 3)},
+ {"G-p5", cm[Exp[-x], 0, 4]},
+ {"G-p6-Mx", Integrate[x (3 x^2 + 2 x + 4), {x, 2, 7}]}, {"G-p6-x", cm[3 x^2 + 2 x + 4, 2, 7]},
+ {"G-p7-M", plM[2 - x^2, x, -x, 0, 1]}, {"G-p7-x", plX[2 - x^2, x, -x, 0, 1]}, {"G-p7-y", plY[2 - x^2, x, -x, 0, 1]},
+ {"G-p8-x", plX[x, x^2, 1, 1, 2]}, {"G-p8-y", plY[x, x^2, 1, 1, 2]},
+ {"G-p9-x", plX[1, Sqrt[x], x, 0, 1]}, {"G-p9-y", plY[1, Sqrt[x], x, 0, 1]},
+ {"G-m3-x", (3 (-1) + 6 (0) + 4 (1) + 9 (0))/22}, {"G-m3-y", (3 (0) + 6 (1) + 4 (0) + 9 (-1))/22},
+ {"G-m4-x", plX[1, Sqrt[16 - x^2], 0, -4, 4]}, {"G-m4-y", plY[1, Sqrt[16 - x^2], 0, -4, 4]}
+};
+StringRiffle[(#[[1]] <> " | " <> ToString[FullSimplify[#[[2]]], InputForm] <> " | " <> ToString[N[#[[2]], 16], InputForm]) & /@ rows, "\n"]
+---------------------------------------- OUTPUT
+Symbol::undefined2: Warning: Global symbols "M, M" are undefined.
+General::messages: Messages were generated which may indicate errors.
+
+Out[1]= "K-guided-b | 2 | 2.`16.\nK-guided-val | 4/3 | 1.33333333333333333333333333333333333333`16.\nK-indep | 45/2 | 22.5`16.\nK-p1-M | 8 | 8.`16.\nK-p1-xm | 2^(2/3) | 1.58740105196819947475170563927231635491`16.\nK-p2-a | -1 | -1.`16.\nK-p2-b | 1 | 1.`16.\nK-p3-L | 1 - Cosh[2] + Sinh[2] | 0.86466471676338730810600050502751559659`16.\nK-p3-R | (-1 + E^2)/E^4 | 0.11701964434787851160028147369924316119`16.\nK-p3-xm | Log[2] - Log[1 + E^(-4)] | 0.67499725264213556906224880317042268332`16.\nK-p4-M | 36 | 36.`16.\nK-p4-xm | -7 + Sqrt[85] | 2.21954445729288731000227428176279315725`16.\nK-p5-M | 1 | 1.`16.\nK-p5-xm | Pi/3 | 1.04719755119659774615421446109316762806`16.\nK-p6-c | 6/5 | 1.2`16.\nK-p7 | (2*Log[5/2])/3 | 0.61086048791610337678901814117867404764`16.\nK-p8 | (9*(-4 + 17*Log[3]))/2 | 66.04384008311039139173626062457321640547`16.\nK-m3 | Log[(1 + E^10)/2] | 9.30689821833927155522953736637113053752`16.\nK-m4-M | 1 | 1.`16.\nK-m4-xm | 1 | 1.`16.\nG-guided-M | 42 | 42.`16.\nG-guided-Mx | 90 | 90.`16.\nG-guided-xbar | 15/7 | 2.14285714285714285714285714285714285714`16.\nG-indep-M | 1/3 | 0.33333333333333333333333333333333333333`16.\nG-indep-x | 11/20 | 0.55`16.\nG-indep-y | 9/20 | 0.45`16.\nG-p1-M | (2*E^9*(-1 + E^3))/3 | 103101.13832761902453353013880603601547029095`16.\nG-p1-Mx | (2*E^9*(-8 + 11*E^3))/9 | 383439.56315298667929475050674842056336774908`16.\nG-p1-x | (8 - 11*E^3)/(3 - 3*E^3) | 3.71906236315792261863866606126642172201`16.\nG-p2-x | 3/2 | 1.5`16.\nG-p2-y | 1/2 | 0.5`16.\nG-p3-a | -1 | -1.`16.\nG-p3-b | 3 | 3.`16.\nG-p4 | 13/5 | 2.6`16.\nG-p5 | (-5 + E^4)/(-1 + E^4) | 0.92537055854490380824438047046435857668`16.\nG-p6-Mx | 25225/12 | 2102.08333333333333333333333333333333333333`16.\nG-p6-x | 1009/192 | 5.25520833333333333333333333333333333333`16.\nG-p7-M | 3/2 | 1.5`16.\nG-p7-x | 28/45 | 0.62222222222222222222222222222222222222`16.\nG-p7-y | 0 | 0\nG-p8-x | 232/135 | 1.71851851851851851851851851851851851852`16.\nG-p8-y | 2 | 2.`16.\nG-p9-x | 2/5 | 0.4`16.\nG-p9-y | 1/2 | 0.5`16.\nG-m3-x | 1/22 | 0.04545454545454545454545454545454545455`16.\nG-m3-y | -3/22 | -0.13636363636363636363636363636363636364`16.\nG-m4-x | 0 | 0\nG-m4-y | 16/(3*Pi) | 1.69765272631355024820142680930681986169`16."
+
+====================================================================================================
+Batch 2: every new §3.9, mixed-practice and final-check answer, plus the 2026-10-14 shells and washer answers   [2026-10-19T21:24:58.985Z]
+---------------------------------------- INPUT
+g = 98/10;
+shell[r_, h_, a_, b_] := Integrate[2 Pi r h, {x, a, b}];
+wash[R_, r_, a_, b_] := Integrate[Pi (R^2 - r^2), {x, a, b}];
+rows = {
+ {"W-guided-val", Integrate[1000 Pi (5 y/12)^2 g (12 - y), {y, 0, 12}]},
+ {"W-indep", Integrate[624/10 20 8 (30 - y), {y, 0, 10}]},
+ {"W-p1", Integrate[2 (50 - y), {y, 0, 50}]},
+ {"W-p2-b", 3/4 12},
+ {"W-p2", Integrate[1000 5^2 g (12 + 2 - y), {y, 0, 9}]},
+ {"W-p3", Integrate[75 Pi ((100 - y)/5)^2 (100 - y), {y, 0, 80}]},
+ {"W-p4-k", k /. First[Solve[k (4/12) == 10, k]]},
+ {"W-p4-W", Integrate[30 x, {x, 0, 6/12}]},
+ {"W-p5", Integrate[10 x, {x, 0, -2}]},
+ {"W-p6", k /. First[Solve[Integrate[k x, {x, 0, 4}] == 240, k]]},
+ {"W-p7", Integrate[32 - 2/10 (y/2), {y, 0, 100}]},
+ {"W-p8", 1/2 10 (D[4 - t^2, t] /. t -> 3)^2 - 1/2 10 (D[4 - t^2, t] /. t -> 0)^2},
+ {"W-p9", Integrate[80 - 1/2 (y/4), {y, 0, 60}]},
+ {"W-p10-k", 39/(3/10)},
+ {"W-p10-W", Integrate[130 x, {x, 0, -1/2}]},
+ {"W-m3", Integrate[Max[50 - y/2, 1], {y, 0, 120}]},
+ {"W-m4", Integrate[(x^2 + x + 1)/(x + 1), {x, 0, 4}]},
+ {"M-K1", Integrate[Sqrt[x], {x, 1, 4}]},
+ {"M-G1", Integrate[x Sqrt[x], {x, 1, 4}]/Integrate[Sqrt[x], {x, 1, 4}]},
+ {"M-W1", Integrate[1000 g Pi 2^2 (5 - y), {y, 0, 5}]},
+ {"M-K2", Integrate[x (Sqrt[x] - x^2), {x, 0, 1}]},
+ {"M-W2", Module[{kk = k /. First[Solve[Integrate[k x, {x, 0, 1/5}] == 6, k]]}, Integrate[kk x, {x, 1/5, 2/5}]]},
+ {"M-G2-x", Integrate[x x 2, {x, 0, 2}]/Integrate[x 2, {x, 0, 2}]},
+ {"M-G2-y", Integrate[(2 + 0)/2 x 2, {x, 0, 2}]/Integrate[x 2, {x, 0, 2}]},
+ {"F-S2", shell[x + 1, 2 x - x^2, 0, 2]},
+ {"F-S3", shell[x, 2 Sqrt[9 - x^2], 0, 3]},
+ {"F-K2", Integrate[(1 + x) (4 - x^2), {x, 0, 2}]},
+ {"F-K3", t /. First[Solve[Integrate[1/x, {x, 1, t}] == Integrate[1/x, {x, 1, 9}]/2 && t > 1, t]]},
+ {"F-G2", Integrate[x (1 + x), {x, 0, 2}]/Integrate[1 + x, {x, 0, 2}]},
+ {"F-G3-x", Integrate[x (9 - x^2), {x, -3, 3}]/Integrate[9 - x^2, {x, -3, 3}]},
+ {"F-G3-y", Integrate[(9 + x^2)/2 (9 - x^2), {x, -3, 3}]/Integrate[9 - x^2, {x, -3, 3}]},
+ {"F-W2", Integrate[(12/(3/10)) x, {x, 0, 1/2}]},
+ {"F-W3", Integrate[2 g (10 - y), {y, 0, 10}] + 50 g 10},
+ {"S-guided-val", shell[x, x - x^2, 0, 1]}, {"S-indep", shell[x, x - x^2, 0, 1]},
+ {"S-p1", shell[x - 1, 4 x - x^2 - 3, 1, 3]}, {"S-p2", shell[4 - x, 4 x - x^2 - 3, 1, 3]},
+ {"S-p3", shell[5 - x, (-x + 3) - (x^2 + 1), -2, 1]}, {"S-p4", shell[x + 2, Sqrt[8 x] - x^2, 0, 2]},
+ {"S-p5", shell[x, Sin[x], 0, Pi]}, {"S-p6", shell[x, 1 - x^(1/4), 0, 1]}, {"S-p7", shell[x, Sin[x^2], 0, Sqrt[Pi]]},
+ {"S-p8", shell[x, (-x^2 + 7 x) - (x^2 + 3), 1/2, 3]}, {"S-p9", shell[5 - x, 4 x - x^2 - 3, 1, 3]},
+ {"S-p10", shell[4 - x, (3 x - x^2) - x, 0, 2]}, {"S-m3", shell[x, Exp[-x^2], 0, Infinity]},
+ {"S-m4", shell[x, 2 Sqrt[1 - (x - 3)^2], 2, 4]},
+ {"V-p11", wash[Sqrt[x] + 2, x^2 + 2, 0, 1]}, {"V-p12", wash[7 - (x^2 + 1), 7 - (-x + 3), -2, 1]},
+ {"V-p13", wash[Sqrt[8 x], x^2, 0, 2]},
+ {"M-S1", shell[4 - x, (x + 2) - x^2, -1, 2]}, {"M-V4", wash[(x + 2) + 1, x^2 + 1, -1, 2]}, {"M-S3", shell[x, Exp[x^2], 0, 1]}
+};
+StringRiffle[(#[[1]] <> " | " <> ToString[FullSimplify[#[[2]]], InputForm] <> " | " <> ToString[N[#[[2]], 16], InputForm]) & /@ rows, "\n"]
+---------------------------------------- OUTPUT
+Symbol::undefined2: Warning: Global symbols "R, R" are undefined.
+General::messages: Messages were generated which may indicate errors.
+
+Out[1]= "W-guided-val | 2940000*Pi | 9.2362824015539921210801716`16.*^6\nW-indep | 2496000 | 2.496`16.*^6\nW-p1 | 2500 | 2500.`16.\nW-p2-b | 9 | 9.`16.\nW-p2 | 20947500 | 2.09475`16.*^7\nW-p3 | 74880000*Pi | 2.352424579008037176960827365`16.*^8\nW-p4-k | 30 | 30.`16.\nW-p4-W | 15/4 | 3.75`16.\nW-p5 | 20 | 20.`16.\nW-p6 | 30 | 30.`16.\nW-p7 | 2700 | 2700.`16.\nW-p8 | 180 | 180.`16.\nW-p9 | 4575 | 4575.`16.\nW-p10-k | 130 | 130.`16.\nW-p10-W | 65/4 | 16.25`16.\nW-m3 | 2521 | 2521.`16.\nW-m4 | 8 + Log[5] | 9.60943791243410037460075933322618763952`16.\nM-K1 | 14/3 | 4.66666666666666666666666666666666666667`16.\nM-G1 | 93/35 | 2.65714285714285714285714285714285714286`16.\nM-W1 | 490000*Pi | 1.5393804002589986868466952578069564132571303`16.*^6\nM-K2 | 3/20 | 0.15`16.\nM-W2 | 18 | 18.`16.\nM-G2-x | 4/3 | 1.33333333333333333333333333333333333333`16.\nM-G2-y | 1 | 1.`16.\nF-S2 | (16*Pi)/3 | 16.75516081914556393846743137749068204905`16.\nF-S3 | 36*Pi | 113.09733552923255658465516179806210383114`16.\nF-K2 | 28/3 | 9.33333333333333333333333333333333333333`16.\nF-K3 | 3 | 3.`16.\nF-G2 | 7/6 | 1.16666666666666666666666666666666666667`16.\nF-G3-x | 0 | 0\nF-G3-y | 27/5 | 5.4`16.\nF-W2 | 5 | 5.`16.\nF-W3 | 5880 | 5880.`16.\nS-guided-val | Pi/6 | 0.52359877559829887307710723054658381404`16.\nS-indep | Pi/6 | 0.52359877559829887307710723054658381404`16.\nS-p1 | (8*Pi)/3 | 8.37758040957278196923371568874534102453`16.\nS-p2 | (16*Pi)/3 | 16.75516081914556393846743137749068204905`16.\nS-p3 | (99*Pi)/2 | 155.50883635269476530390084747233539276781`16.\nS-p4 | (232*Pi)/15 | 48.58996637552213542155555099472297794226`16.\nS-p5 | 2*Pi^2 | 19.73920880217871723766898199975230227064`16.\nS-p6 | Pi/9 | 0.34906585039886591538473815369772254268`16.\nS-p7 | 2*Pi | 6.2831853071795864769252867665590057684`16.\nS-p8 | (875*Pi)/48 | 57.26861608106393924280860334103260465987`16.\nS-p9 | 8*Pi | 25.13274122871834590770114706623602307359`16.\nS-p10 | 8*Pi | 25.13274122871834590770114706623602307359`16.\nS-m3 | Pi | 3.1415926535897932384626433832795028842`16.\nS-m4 | 6*Pi^2 | 59.21762640653615171300694599925690681193`16.\nV-p11 | (49*Pi)/30 | 5.13126800086332895615565085935652137752`16.\nV-p12 | (198*Pi)/5 | 124.40706908215581224312067797786831421425`16.\nV-p13 | (48*Pi)/5 | 30.15928947446201508924137647948322768831`16.\nM-S1 | (63*Pi)/2 | 98.96016858807848701157326657330434085225`16.\nM-V4 | (117*Pi)/5 | 73.51326809400116178002585516874036749023`16.\nM-S3 | (-1 + E)*Pi | 5.3981415690837738270009074862563999838`16."
+
+====================================================================================================
+Batch 3: every targeted wrong-answer value, computed from the mistake its message describes   [2026-10-19T21:26:10.882Z]
+---------------------------------------- INPUT
+g = 98/10; e = E;
+shell[r_, h_, a_, b_] := Integrate[2 Pi r h, {x, a, b}];
+wash[R_, r_, a_, b_] := Integrate[Pi (R^2 - r^2), {x, a, b}];
+rows = {
+ {"K-guided-val|top only", Integrate[x (x - x^2), {x, 0, 2}]},
+ {"K-indep|area", Integrate[6 - 2 x, {x, 0, 3}]}, {"K-indep|swapped", Integrate[(x^2 + 1) (2 x - 6), {x, 0, 3}]}, {"K-indep|wire", Integrate[x^2 + 1, {x, 0, 3}]},
+ {"K-p1-xm|solve for M", t /. First[Solve[t^3 == 8 && t > 0, t]]}, {"K-p1-xm|xbar", Integrate[x 3 x^2, {x, 0, 2}]/8},
+ {"K-p6-c|wire", c /. First[Solve[Integrate[c x^2, {x, 0, 5}] == 25, c]]},
+ {"K-p7|sign slip", 2/3 ((Log[1] + Log[5]) - (Log[2] + Log[4]))},
+ {"G-guided-xbar|upside down", 42/90},
+ {"G-indep-M|area", Integrate[x - x^2, {x, 0, 1}]}, {"G-indep-x|centroid", Integrate[x (x - x^2), {x, 0, 1}]/Integrate[x - x^2, {x, 0, 1}]},
+ {"G-indep-y|no half", Integrate[(x + x^2) (2 x + 1) (x - x^2), {x, 0, 1}]/(1/3)}, {"G-indep-y|centroid", Integrate[(x^2 - x^4)/2, {x, 0, 1}]/Integrate[x - x^2, {x, 0, 1}]},
+ {"G-p1-Mx|2/3 slip", 2/3 (11 e^12 - 8 e^9)}, {"G-p1-x|slip quotient", (11 e^12 - 8 e^9)/(e^12 - e^9)}, {"G-p1-x|mass midpoint", Log[(e^12 + e^9)/2]/3},
+ {"G-p2-x|centroid", Integrate[x 2/x^2, {x, 1, 2}]/Integrate[2/x^2, {x, 1, 2}]}, {"G-p2-y|top factor", Integrate[(2/x^2) x^2 (2/x^2), {x, 1, 2}]/2},
+ {"G-p4|plain average", (-1 + 2 + 6)/3},
+ {"G-p5|mass midpoint", Log[2/(1 + e^-4)]},
+ {"G-p7-x|centroid", Integrate[x 2 x, {x, 0, 1}]/Integrate[2 x, {x, 0, 1}]},
+ {"G-p8-y|centroid", Integrate[(x^4 - 1)/2, {x, 1, 2}]/Integrate[x^2 - 1, {x, 1, 2}]},
+ {"G-m3-y|divide by 4", (6 - 9)/4},
+ {"W-guided-val|no 9.8", Integrate[1000 Pi (5 y/12)^2 (12 - y), {y, 0, 12}]}, {"W-guided-val|distance y", Integrate[1000 g Pi (5 y/12)^2 y, {y, 0, 12}]},
+ {"W-indep|x9.8", Integrate[624/10 160 g (30 - y), {y, 0, 10}]}, {"W-indep|0..30", Integrate[624/10 160 (30 - y), {y, 0, 30}]},
+ {"W-indep|distance y", Integrate[624/10 160 y, {y, 0, 10}]}, {"W-indep|weight x 30", 624/10 160 10 30},
+ {"W-p2|no 9.8", Integrate[1000 25 (14 - y), {y, 0, 9}]}, {"W-p2|0..12", Integrate[1000 25 g (14 - y), {y, 0, 12}]}, {"W-p2|12-y", Integrate[1000 25 g (12 - y), {y, 0, 9}]},
+ {"W-p3|x9.8", Integrate[75 g Pi ((100 - y)/5)^2 (100 - y), {y, 0, 80}]}, {"W-p3|r=y/5", Integrate[75 Pi (y/5)^2 (100 - y), {y, 0, 80}]},
+ {"W-p4-k|inches", 10/4}, {"W-p4-W|in-lb", Integrate[(10/4) x, {x, 0, 6}]}, {"W-p4-W|Fend x d", 30 (1/2) (1/2)},
+ {"W-p5|Fend x d", 10 2 2}, {"W-p6|16k", k /. First[Solve[16 k == 240, k]]},
+ {"W-p7|no leak", 32 100}, {"W-p7|dt", Integrate[32 - 2/10 t, {t, 0, 50}]}, {"W-p7|final weight", (32 - 2/10 50) 100},
+ {"W-p9|no leak", 80 60}, {"W-p9|per foot", Integrate[80 - y/2, {y, 0, 60}]}, {"W-p10-W|39 x 0.5", 39/2},
+ {"W-m3|no stop", Integrate[50 - y/2, {y, 0, 120}]}, {"W-m4|remainder only", Integrate[1/(x + 1), {x, 0, 4}]}, {"W-m4|quotient only", Integrate[x, {x, 0, 4}]},
+ {"M-K1|end density", Sqrt[4] 3}, {"M-G1|mass midpoint", t /. First[Solve[Integrate[Sqrt[x], {x, 1, t}] == 7/3 && t > 1, t]]},
+ {"M-W1|weight x 5", 1000 g Pi 4 5 5}, {"M-K2|shell volume", shell[x, Sqrt[x] - x^2, 0, 1]},
+ {"M-W2|0..0.4", Integrate[300 x, {x, 0, 2/5}]},
+ {"F-S2|r=x", shell[x, 2 x - x^2, 0, 2]}, {"F-S3|top half", shell[x, Sqrt[9 - x^2], 0, 3]},
+ {"F-K2|area", Integrate[4 - x^2, {x, 0, 2}]}, {"F-K2|wire", Integrate[1 + x, {x, 0, 2}]},
+ {"F-G2|moment", Integrate[x (1 + x), {x, 0, 2}]}, {"F-G3-y|no half", 2 27/5},
+ {"F-W2|12 x 0.5", 12 1/2}, {"F-W2|no half", 40 (1/2)^2},
+ {"F-W3|bucket", 50 g 10}, {"F-W3|cable whole", 2 10 g 10 + 50 g 10}, {"F-W3|cable only", Integrate[2 g (10 - y), {y, 0, 10}]},
+ {"V-p11|x-axis", wash[Sqrt[x], x^2, 0, 1]}, {"V-p12|x-axis", wash[-x + 3, x^2 + 1, -2, 1]}, {"V-p13|x-axis", wash[Sqrt[8 x] + 1, x^2 + 1, 0, 2]},
+ {"S-val|no r", shell[1, x - x^2, 0, 1]}, {"S-val|no 2", shell[x, x - x^2, 0, 1]/2},
+ {"S-indep|h=x", shell[x, x, 0, 1]}, {"S-indep|area", Integrate[x - x^2, {x, 0, 1}]},
+ {"S-p1|r=x", shell[x, 4 x - x^2 - 3, 1, 3]}, {"S-p3|h top", shell[5 - x, -x + 3, -2, 1]}, {"S-p4|r=x", shell[x, Sqrt[8 x] - x^2, 0, 2]},
+ {"S-p5|no r", shell[1, Sin[x], 0, Pi]}, {"S-p5|no 2", shell[x, Sin[x], 0, Pi]/2}, {"S-p6|no r", shell[1, 1 - x^(1/4), 0, 1]},
+ {"S-p7|no 2", shell[x, Sin[x^2], 0, Sqrt[Pi]]/2}, {"S-p8|h top", shell[x, -x^2 + 7 x, 1/2, 3]}, {"S-p9|r=x", shell[x, 4 x - x^2 - 3, 1, 3]},
+ {"S-p10|r=x", shell[x, 2 x - x^2, 0, 2]}, {"S-m3|no 2", shell[x, Exp[-x^2], 0, Infinity]/2}, {"S-m4|top half", shell[x, Sqrt[1 - (x - 3)^2], 2, 4]},
+ {"M-S1|r=x", shell[x, x + 2 - x^2, -1, 2]}, {"M-V4|x-axis", wash[x + 2, x^2, -1, 2]}, {"M-V4|(R-r)^2", Integrate[Pi ((x + 3) - (x^2 + 1))^2, {x, -1, 2}]},
+ {"M-S3|no 2", shell[x, Exp[x^2], 0, 1]/2}
+};
+StringRiffle[(#[[1]] <> " | " <> ToString[FullSimplify[#[[2]]], InputForm] <> " | " <> ToString[N[#[[2]], 16], InputForm]) & /@ rows, "\n"]
+---------------------------------------- OUTPUT
+Symbol::undefined2: Warning: Global symbols "R, R" are undefined.
+General::messages: Messages were generated which may indicate errors.
+
+Out[1]= "K-guided-val|top only | -4/3 | -1.33333333333333333333333333333333333333`16.\nK-indep|area | 9 | 9.`16.\nK-indep|swapped | -45/2 | -22.5`16.\nK-indep|wire | 12 | 12.`16.\nK-p1-xm|solve for M | 2 | 2.`16.\nK-p1-xm|xbar | 3/2 | 1.5`16.\nK-p6-c|wire | 3/5 | 0.6`16.\nK-p7|sign slip | (-2*Log[8/5])/3 | -0.31333575283049036910062468743222804313`16.\nG-guided-xbar|upside down | 7/15 | 0.46666666666666666666666666666666666667`16.\nG-indep-M|area | 1/6 | 0.16666666666666666666666666666666666667`16.\nG-indep-x|centroid | 1/2 | 0.5`16.\nG-indep-y|no half | 9/10 | 0.9`16.\nG-indep-y|centroid | 2/5 | 0.4`16.\nG-p1-Mx|2/3 slip | (2*E^9*(-8 + 11*E^3))/3 | 1.15031868945896003788425152024526169010316379`16.*^6\nG-p1-x|slip quotient | (-8 + 11*E^3)/(-1 + E^3) | 11.15718708947376785591599818379926612385`16.\nG-p1-x|mass midpoint | (9 + Log[(1 + E^3)/2])/3 | 3.78514672367126558311389793279883780994`16.\nG-p2-x|centroid | Log[4] | 1.38629436111989061883446424291635313615`16.\nG-p2-y|top factor | 1 | 1.`16.\nG-p4|plain average | 7/3 | 2.33333333333333333333333333333333333333`16.\nG-p5|mass midpoint | Log[2/(1 + E^(-4))] | 0.67499725264213556906224880317042268331`16.\nG-p7-x|centroid | 2/3 | 0.66666666666666666666666666666666666667`16.\nG-p8-y|centroid | 39/20 | 1.95`16.\nG-m3-y|divide by 4 | -3/4 | -0.75`16.\nW-guided-val|no 9.8 | 300000*Pi | 942477.79607693797153879301498385086525946753`16.\nW-guided-val|distance y | 8820000*Pi | 2.77088472046619763632405147`16.*^7\nW-indep|x9.8 | 24460800 | 2.44608`16.*^7\nW-indep|0..30 | 4492800 | 4.4928`16.*^6\nW-indep|distance y | 499200 | 499200.`16.\nW-indep|weight x 30 | 2995200 | 2.9952`16.*^6\nW-p2|no 9.8 | 2137500 | 2.1375`16.*^6\nW-p2|0..12 | 23520000 | 2.352`16.*^7\nW-p2|12-y | 16537500 | 1.65375`16.*^7\nW-p3|x9.8 | 733824000*Pi | 2.3053760874278764334216108181`16.*^9\nW-p3|r=y/5 | 20480000*Pi | 6.43398175455189655237149365`16.*^7\nW-p4-k|inches | 5/2 | 2.5`16.\nW-p4-W|in-lb | 45 | 45.`16.\nW-p4-W|Fend x d | 15/2 | 7.5`16.\nW-p5|Fend x d | 40 | 40.`16.\nW-p6|16k | 15 | 15.`16.\nW-p7|no leak | 3200 | 3200.`16.\nW-p7|dt | 1350 | 1350.`16.\nW-p7|final weight | 2200 | 2200.`16.\nW-p9|no leak | 4800 | 4800.`16.\nW-p9|per foot | 3900 | 3900.`16.\nW-p10-W|39 x 0.5 | 39/2 | 19.5`16.\nW-m3|no stop | 2400 | 2400.`16.\nW-m4|remainder only | Log[5] | 1.60943791243410037460075933322618763952`16.\nW-m4|quotient only | 8 | 8.`16.\nM-K1|end density | 6 | 6.`16.\nM-G1|mass midpoint | (3*3^(1/3))/2^(2/3) | 2.72568088924820948833681763449088907158`16.\nM-W1|weight x 5 | 980000*Pi | 3.07876080051799737369339050006844527018756708`16.*^6\nM-K2|shell volume | (3*Pi)/10 | 0.94247779607693797153879301498385086526`16.\nM-W2|0..0.4 | 24 | 24.`16.\nF-S2|r=x | (8*Pi)/3 | 8.37758040957278196923371568874534102453`16.\nF-S3|top half | 18*Pi | 56.54866776461627829232758089903105191557`16.\nF-K2|area | 16/3 | 5.33333333333333333333333333333333333333`16.\nF-K2|wire | 4 | 4.`16.\nF-G2|moment | 14/3 | 4.66666666666666666666666666666666666667`16.\nF-G3-y|no half | 54/5 | 10.8`16.\nF-W2|12 x 0.5 | 6 | 6.`16.\nF-W2|no half | 10 | 10.`16.\nF-W3|bucket | 4900 | 4900.`16.\nF-W3|cable whole | 6860 | 6860.`16.\nF-W3|cable only | 980 | 980.`16.\nV-p11|x-axis | (3*Pi)/10 | 0.94247779607693797153879301498385086526`16.\nV-p12|x-axis | (117*Pi)/5 | 73.51326809400116178002585516874036749023`16.\nV-p13|x-axis | (224*Pi)/15 | 46.91445029360757902770880785697390973736`16.\nS-val|no r | Pi/3 | 1.04719755119659774615421446109316762806`16.\nS-val|no 2 | Pi/12 | 0.26179938779914943653855361527329190701`16.\nS-indep|h=x | (2*Pi)/3 | 2.09439510239319549230842892218633525614`16.\nS-indep|area | 1/6 | 0.16666666666666666666666666666666666667`16.\nS-p1|r=x | (16*Pi)/3 | 16.75516081914556393846743137749068204905`16.\nS-p3|h top | 120*Pi | 376.99111843077518861551720599354034610379`16.\nS-p4|r=x | (24*Pi)/5 | 15.07964473723100754462068823974161384415`16.\nS-p5|no r | 4*Pi | 12.56637061435917295385057353311801153679`16.\nS-p5|no 2 | Pi^2 | 9.86960440108935861883449099987615113532`16.\nS-p6|no r | (2*Pi)/5 | 1.25663706143591729538505735331180115368`16.\nS-p7|no 2 | Pi | 3.1415926535897932384626433832795028842`16.\nS-p8|h top | (8155*Pi)/96 | 266.87175093775795687148809156921193771497`16.\nS-p9|r=x | (16*Pi)/3 | 16.75516081914556393846743137749068204905`16.\nS-p10|r=x | (8*Pi)/3 | 8.37758040957278196923371568874534102453`16.\nS-m3|no 2 | Pi/2 | 1.5707963267948966192313216916397514421`16.\nS-m4|top half | 3*Pi^2 | 29.60881320326807585650347299962845340596`16.\nM-S1|r=x | (9*Pi)/2 | 14.13716694115406957308189522475776297889`16.\nM-V4|x-axis | (72*Pi)/5 | 45.23893421169302263386206471922484153245`16.\nM-V4|(R-r)^2 | (81*Pi)/10 | 25.44690049407732523154741140456397336201`16.\nM-S3|no 2 | ((-1 + E)*Pi)/2 | 2.6990707845418869135004537431281999919`16."
+
+====================================================================================================
+Batch 4: the lecture's own worked answers and set-ups (3.7_3.9.pdf), the p. 9 slip, and numbers quoted in explanations   [2026-10-19T21:27:22.288Z]
+---------------------------------------- INPUT
+g = 98/10; e = E;
+rows = {
+ {"n37-p2-M", Integrate[3 x^2, {x, 0, 2}]}, {"n37-p2-xm", t /. First[Solve[t^3 == 4 && t > 0, t]]},
+ {"n37-p4-M-setup", Integrate[3^x (2 - 2 x^2), {x, -1, 1}]},
+ {"n37-p5-M", Integrate[x (x - x^2 - (-x)), {x, 0, 2}]},
+ {"n37-p8-M", Integrate[4 x^2 + 2, {x, 0, 3}]}, {"n37-p8-Mx", Integrate[x (4 x^2 + 2), {x, 0, 3}]}, {"n37-p8-xbar", 90/42},
+ {"n37-p9-M", Integrate[2 Exp[3 x], {x, 3, 4}]}, {"n37-p9-xm", t /. First[Solve[Integrate[2 Exp[3 x], {x, 3, t}] == 1/3 (e^12 - e^9) && 3 < t < 4, t, Reals]]},
+ {"n37-p9-Mx-true", Integrate[2 x Exp[3 x], {x, 3, 4}]}, {"n37-p9-Mx-as-written", 2/3 (11 e^12 - 8 e^9)}, {"n37-p9-xbar", (11 e^12 - 8 e^9)/(3 (e^12 - e^9))},
+ {"n37-p9-antideriv-check", Simplify[D[2/3 x Exp[3 x] - 2/9 Exp[3 x], x] - 2 x Exp[3 x]]},
+ {"n37-p12-M", Integrate[x^2 (2/x^2), {x, 1, 2}]}, {"n37-p12-Mx", Integrate[x x^2 (2/x^2), {x, 1, 2}]}, {"n37-p12-My", Integrate[(2/x^2)/2 x^2 (2/x^2), {x, 1, 2}]},
+ {"n37-p13-M", Integrate[2^x (2 x + 3 - x^2), {x, -1, 3}]},
+ {"n37-p13-xbar", Integrate[x 2^x (2 x + 3 - x^2), {x, -1, 3}]/Integrate[2^x (2 x + 3 - x^2), {x, -1, 3}]},
+ {"n37-p13-ybar", Integrate[(x^2 + 2 x + 3)/2 2^x (2 x + 3 - x^2), {x, -1, 3}]/Integrate[2^x (2 x + 3 - x^2), {x, -1, 3}]},
+ {"n37-p15-W", 2 50 50}, {"n37-p16-W", Integrate[2 (50 - y), {y, 0, 50}]},
+ {"n37-p17-W", Integrate[25000 g (14 - y), {y, 0, 9}]}, {"n37-p18-W", Integrate[1000 Pi (5 y/12)^2 g (12 - y), {y, 0, 12}]},
+ {"n37-p19-W", Integrate[75 Pi ((100 - y)/5)^2 (100 - y), {y, 0, 80}]},
+ {"n37-p21-k", 10/(1/3)}, {"n37-p21-W", Integrate[30 x, {x, 0, 1/2}]}, {"n37-p21-compress", Integrate[10 x, {x, 0, -2}]},
+ {"n37-p22-k", k /. First[Solve[Integrate[k x, {x, 0, 4}] == 240, k]]},
+ {"n37-p23-W", Integrate[-1/10 y + 32, {y, 0, 100}]}, {"n37-p24-W", 1/2 10 (-6)^2 - 1/2 10 0^2},
+ {"q-K-wrong-limit-xm", t /. First[Solve[2/3 (Exp[3 t] - 1) == 1/3 (e^12 - e^9) && t > 0, t, Reals]]},
+ {"q-K-p4-mass-ratio-right-left", 3^1/3^-1},
+ {"q-K-guided-centroid-x", Integrate[x (2 x - x^2), {x, 0, 2}]/Integrate[2 x - x^2, {x, 0, 2}]},
+ {"q-G-p8-xm", t /. First[Solve[4/3 t^3 + 2 t == 21 && t > 0, t, Reals]]},
+ {"q-G-385-ratio", ((1 - 5 e^-4)/(1 - e^-4))/Log[2/(1 + e^-4)]},
+ {"q-W-p17-weight", 1000 g 25 9}, {"q-W-p18-weight", 1000 g (1/3) Pi 25 12},
+ {"q-W-p18-cm-height", Integrate[y Pi (5 y/12)^2, {y, 0, 12}]/Integrate[Pi (5 y/12)^2, {y, 0, 12}]},
+ {"q-W-up-cone-full", Integrate[1000 g Pi (5 (12 - y)/12)^2 (12 - y), {y, 0, 12}]},
+ {"q-W-315-cm", 624/10 64 Pi 10 (30 - 5)}, {"q-W-316", Integrate[624/10 16 Pi y^2/225 (30 - y), {y, 0, 10}]}
+};
+StringRiffle[(#[[1]] <> " | " <> ToString[FullSimplify[#[[2]]], InputForm] <> " | " <> ToString[N[#[[2]], 16], InputForm]) & /@ rows, "\n"]
+---------------------------------------- OUTPUT
+Out[1]= "n37-p2-M | 8 | 8.`16.\nn37-p2-xm | 2^(2/3) | 1.58740105196819947475170563927231635491`16.\nn37-p4-M-setup | (4*(-8 + 5*Log[9]))/(3*Log[3]^3) | 3.00270768164086655988087037428352754869`16.\nn37-p5-M | 4/3 | 1.33333333333333333333333333333333333333`16.\nn37-p8-M | 42 | 42.`16.\nn37-p8-Mx | 90 | 90.`16.\nn37-p8-xbar | 15/7 | 2.14285714285714285714285714285714285714`16.\nn37-p9-M | (2*E^9*(-1 + E^3))/3 | 103101.13832761902453353013880603601547029095`16.\nn37-p9-xm | (9 + Log[(1 + E^3)/2])/3 | 3.78514672367126558311389793279883780994`16.\nn37-p9-Mx-true | (2*E^9*(-8 + 11*E^3))/9 | 383439.56315298667929475050674842056336774908`16.\nn37-p9-Mx-as-written | (2*E^9*(-8 + 11*E^3))/3 | 1.15031868945896003788425152024526169010316379`16.*^6\nn37-p9-xbar | (8 - 11*E^3)/(3 - 3*E^3) | 3.71906236315792261863866606126642373152`16.\nn37-p9-antideriv-check | 0 | 0\nn37-p12-M | 2 | 2.`16.\nn37-p12-Mx | 3 | 3.`16.\nn37-p12-My | 1 | 1.`16.\nn37-p13-M | (-15 + 34*Log[2])/Log[2]^3 | 25.72483474683708347506926341870013510964`16.\nn37-p13-xbar | -3/Log[2] + (-15 + 94*Log[2])/(-15 + 34*Log[2]) | 1.52645097403985190046472188212938895674`16.\nn37-p13-ybar | (-90 + Log[2]*(294 + Log[2]*(-399 + 290*Log[2])))/(Log[2]^2*(-15 + 34*Log[2])) | 4.53388552904278629927855185938976345762`16.\nn37-p15-W | 5000 | 5000.`16.\nn37-p16-W | 2500 | 2500.`16.\nn37-p17-W | 20947500 | 2.09475`16.*^7\nn37-p18-W | 2940000*Pi | 9.2362824015539921210801716`16.*^6\nn37-p19-W | 74880000*Pi | 2.352424579008037176960827365`16.*^8\nn37-p21-k | 30 | 30.`16.\nn37-p21-W | 15/4 | 3.75`16.\nn37-p21-compress | 20 | 20.`16.\nn37-p22-k | 30 | 30.`16.\nn37-p23-W | 2700 | 2700.`16.\nn37-p24-W | 180 | 180.`16.\nq-K-wrong-limit-xm | Log[(2 - E^9 + E^12)/2]/3 | 3.75193219023300325525709739987993629114`16.\nq-K-p4-mass-ratio-right-left | 9 | 9.`16.\nq-K-guided-centroid-x | 1 | 1.`16.\nq-G-p8-xm | Root[-63 + 6*#1 + 4*#1^3 & , 1, 0] | 2.30763370571463804534546702097681321896`16.\nq-G-385-ratio | (-5 + E^4)/((-1 + E^4)*Log[2/(1 + E^(-4))]) | 1.37092492587597104887975535297757098391`16.\nq-W-p17-weight | 2205000 | 2.205`16.*^6\nq-W-p18-weight | 980000*Pi | 3.07876080051799737369339050006844527018756708`16.*^6\nq-W-p18-cm-height | 9 | 9.`16.\nq-W-up-cone-full | 8820000*Pi | 2.77088472046619763632405147`16.*^7\nq-W-315-cm | 998400*Pi | 3.1365661053440495692811031494019735621492373`16.*^6\nq-W-316 | 33280*Pi | 104552.20351146831897603677179554185598611693`16."
+
+====================================================================================================
+Batch 5a (2026-10-20): the wrong-answer values batch 3 did not cover, the intersection limits, the explorers' closed forms, and numbers quoted in explanations   [2026-10-20T22:15:38.593Z]
+---------------------------------------- INPUT
+g = 98/10; e = E;
+shell[r_, h_, a_, b_] := Integrate[2 Pi r h, {x, a, b}];
+wash[rr_, r_, a_, b_] := Integrate[Pi (rr^2 - r^2), {x, a, b}];
+rows = {
+ (* (a) wrong values not in batch 3, each computed from the mistake its message describes *)
+ {"V-p12|R and r swapped", Integrate[Pi ((7 - (-x + 3))^2 - (7 - (x^2 + 1))^2), {x, -2, 1}]},
+ {"S-indep|bottom minus top", shell[x, x^2 - x, 0, 1]}, {"S-indep|no 2", shell[x, x - x^2, 0, 1]/2},
+ {"S-p2|r = x - 4", shell[x - 4, 4 x - x^2 - 3, 1, 3]},
+ {"K-p1-xm|middle", (0 + 2)/2}, {"K-p3-xm|middle", (0 + 4)/2}, {"K-p4-xm|middle", (0 + 4)/2}, {"K-p5-xm|middle", (0 + Pi/2)/2}, {"K-m3|middle", (0 + 10)/2},
+ {"G-guided-xbar|middle", (0 + 3)/2}, {"G-guided-xbar|moment itself", Integrate[x (4 x^2 + 2), {x, 0, 3}]},
+ {"G-indep-y|factor x", Integrate[x (2 x + 1) (x - x^2), {x, 0, 1}]/Integrate[(2 x + 1) (x - x^2), {x, 0, 1}]},
+ {"G-p1-x|middle", (3 + 4)/2}, {"G-p5|middle", (0 + 4)/2}, {"G-p6-x|middle", (2 + 7)/2}, {"G-m4-y|half radius", 4/2},
+ {"W-p1|helicopter Fd", 2 50 50}, {"W-p2-b|tank height", 12},
+ {"W-p5|spring's own force", Integrate[-10 x, {x, 0, -2}]}, {"W-p8|v not squared", 1/2 10 (D[4 - t^2, t] /. t -> 3) Abs[D[4 - t^2, t] /. t -> 3]},
+ {"M-S1|r = x - 4", shell[x - 4, (x + 2) - x^2, -1, 2]}, {"M-G1|middle", (1 + 4)/2},
+ {"M-W2|first 0.2 m again", Module[{kk = k /. First[Solve[Integrate[k x, {x, 0, 1/5}] == 6, k]]}, Integrate[kk x, {x, 0, 1/5}]]},
+ {"M-G2-x|middle", (0 + 2)/2}, {"F-K3|middle", (1 + 9)/2}, {"F-G2|middle", (0 + 2)/2},
+ (* intersection limits *)
+ {"S-guided-b", Max[x /. Solve[x - x^2 == 0, x]]}, {"S-p3-a", Min[x /. Solve[x^2 + 1 == -x + 3, x]]}, {"S-p3-b", Max[x /. Solve[x^2 + 1 == -x + 3, x]]},
+ {"S-p8-a", Min[x /. Solve[-x^2 + 7 x == x^2 + 3, x]]}, {"S-p8-b", Max[x /. Solve[-x^2 + 7 x == x^2 + 3, x]]},
+ (* (c) the explorers' built-in closed forms *)
+ {"xS-J0 notes p5", Integrate[x - x^2, {x, 0, 1}]}, {"xS-J1 notes p5", Integrate[x (x - x^2), {x, 0, 1}]},
+ {"xS-J0 notes p7", Integrate[4 x - x^2 - 3, {x, 1, 3}]}, {"xS-J1 notes p7", Integrate[x (4 x - x^2 - 3), {x, 1, 3}]},
+ {"xS-J0 notes p8", Integrate[(-x + 3) - (x^2 + 1), {x, -2, 1}]}, {"xS-J1 notes p8", Integrate[x ((-x + 3) - (x^2 + 1)), {x, -2, 1}]},
+ {"xS-J0 notes p9", Integrate[Sqrt[8 x] - x^2, {x, 0, 2}]}, {"xS-J1 notes p9", Integrate[x (Sqrt[8 x] - x^2), {x, 0, 2}]},
+ {"xS-J0 Ex3512", Integrate[2 - x - Sqrt[x], {x, 0, 1}]}, {"xS-J1 Ex3512", Integrate[x (2 - x - Sqrt[x]), {x, 0, 1}]},
+ {"xS-V Ex3512", shell[x, 2 - x - Sqrt[x], 0, 1]},
+ {"xG-M Ex385", Integrate[Exp[-x], {x, 0, 4}]}, {"xG-Mx Ex385", Integrate[x Exp[-x], {x, 0, 4}]},
+ {"xG-M Ex387", Integrate[x (x^2 - 1), {x, 1, 2}]}, {"xG-Mx Ex387", Integrate[x x (x^2 - 1), {x, 1, 2}]}, {"xG-My Ex387", Integrate[(x^2 + 1)/2 x (x^2 - 1), {x, 1, 2}]},
+ {"xG-M Ex388", Integrate[2 x, {x, 0, 3}]}, {"xG-Mx Ex388", Integrate[x 2 x, {x, 0, 3}]}, {"xG-My Ex388", Integrate[(2 x)/2 2 x, {x, 0, 3}]},
+ {"xK-M p4 widget form", 8 (5 Log[3] - 4)/(3 Log[3]^3)},
+ {"xW-bucket sum n", Simplify[Sum[(32 - (1/10) j (100/n)) (100/n), {j, 1, n}]]}, {"xW-bucket sum n=10", Sum[(32 - (1/10) j 10) 10, {j, 1, 10}]},
+ (* (d) numbers quoted in explanations (including the 2026-10-20 wording fixes) *)
+ {"qK-p3 left share", (1 - e^-2)/(1 - e^-4)}, {"qK-Ex376 total", 1 - e^-4}, {"qK-e12", e^12},
+ {"qK-endpoint average", (3 0^2 + 3 2^2)/2 2}, {"qK-delta(2) x 2", 3 2^2 2}, {"qK-delta(1) x 2", 3 1^2 2},
+ {"qK-p2 area", Integrate[2 - 2 x^2, {x, -1, 1}]}, {"qK-m3 gap to right end", 10 - Log[(1 + e^10)/2]}, {"qK-indep area", 1/2 3 6},
+ {"qK-p6 bracket", 250/3 - 625/10}, {"qK-p8 at 9 minus at 3", (81/2 Log[9] - 81/4) - (9/2 Log[3] - 9/4)},
+ {"qG-seesaw weighted avg", (3 90 + 1 60)/4}, {"qG-p8 density ratio", (4 3^2 + 2)/(4 0^2 + 2)}, {"qG-p13 density ratio", 2^3/2^-1},
+ {"qG-m4 integral", Integrate[(16 - x^2)/2, {x, -4, 4}]}, {"qG-p6 M", Integrate[3 x^2 + 2 x + 4, {x, 2, 7}]},
+ {"qG-p6 at 7", 3/4 7^4 + 2/3 7^3 + 2 7^2}, {"qG-p6 at 2", 3/4 2^4 + 2/3 2^3 + 2 2^2}, {"qG-indep Mx", Integrate[x^2 + x^3 - 2 x^4, {x, 0, 1}]},
+ {"qG-indep My", 1/2 Integrate[2 x^3 + x^2 - 2 x^5 - x^4, {x, 0, 1}]}, {"qG-indep centroid y", Integrate[(x^2 - x^4)/2, {x, 0, 1}]/Integrate[x - x^2, {x, 0, 1}]},
+ {"qG-p7 Mx", Integrate[4 x^2 - 2 x^4, {x, 0, 1}]}, {"qG-p8 My", 1/2 Integrate[x^5 - x, {x, 1, 2}]}, {"qG-p9 Mx", Integrate[x (Sqrt[x] - x), {x, 0, 1}]},
+ {"qG-spot2 at 4", 8/3 - 2/9}, {"qG-spot2 at 3", 2 - 2/9}, {"qG-F-G3 integral", Integrate[81 - x^4, {x, -3, 3}]},
+ {"qW-slab weight", 1000 g 25 1/10}, {"qW-p17 weight", 1000 g 225}, {"qW-p17 cm check", 1000 g 225 (14 - 9/2)},
+ {"qW-cone share", Integrate[1000 g Pi (5 y/12)^2 (12 - y), {y, 0, 12}]/(1000 g Pi/3 25 12 12)},
+ {"qW-guided bracket", Integrate[12 y^2 - y^3, {y, 0, 12}]}, {"qW-indep cm check", 624/10 160 10 (30 - 5)},
+ {"qW-p2 bracket", 245000 (14 9 - 81/2)}, {"qW-p3 by u", 3 Pi Integrate[u^3, {u, 20, 100}]},
+ {"qW-p9 per-foot leak", 1/2/4}, {"qW-m3 time to 1 lb", t /. First[Solve[50 - t == 1, t]]}, {"qW-m3 height then", 2 49},
+ {"qW-spring triangle", 1/2 1/2 15}, {"qW-bucket trapezoid", (32 + 22)/2 100}, {"qW-M-W2 k", 6/(1/2 (1/5)^2)},
+ {"qS-p1 washer route", 4 Pi Integrate[Sqrt[4 - y], {y, 3, 4}]}, {"qS-p6 washer route", Pi Integrate[y^8, {y, 0, 1}]},
+ {"qS-guided cylinder bound", Pi 1^2 1/4}, {"qV-p11 shells in y", 2 Pi Integrate[(y + 2) (Sqrt[y] - y^2), {y, 0, 1}]},
+ {"qS-m4 doughnut rule", Pi 1^2 2 Pi 3}, {"qS-p5 by parts", Integrate[x Sin[x], {x, 0, Pi}]}
+};
+StringRiffle[(#[[1]] <> " | " <> ToString[FullSimplify[#[[2]]], InputForm] <> " | " <> ToString[N[#[[2]], 16], InputForm]) & /@ rows, "\n"]
+---------------------------------------- OUTPUT
+Out[1]= "V-p12|R and r swapped | (-198*Pi)/5 | -124.40706908215581224312067797786831421425`16.\nS-indep|bottom minus top | -1/6*Pi | -0.52359877559829887307710723054658381404`16.\nS-indep|no 2 | Pi/12 | 0.26179938779914943653855361527329190701`16.\nS-p2|r = x - 4 | (-16*Pi)/3 | -16.75516081914556393846743137749068204905`16.\nK-p1-xm|middle | 1 | 1.`16.\nK-p3-xm|middle | 2 | 2.`16.\nK-p4-xm|middle | 2 | 2.`16.\nK-p5-xm|middle | Pi/4 | 0.78539816339744830961566084581987572105`16.\nK-m3|middle | 5 | 5.`16.\nG-guided-xbar|middle | 3/2 | 1.5`16.\nG-guided-xbar|moment itself | 90 | 90.`16.\nG-indep-y|factor x | 11/20 | 0.55`16.\nG-p1-x|middle | 7/2 | 3.5`16.\nG-p5|middle | 2 | 2.`16.\nG-p6-x|middle | 9/2 | 4.5`16.\nG-m4-y|half radius | 2 | 2.`16.\nW-p1|helicopter Fd | 5000 | 5000.`16.\nW-p2-b|tank height | 12 | 12.`16.\nW-p5|spring's own force | -20 | -20.`16.\nW-p8|v not squared | -180 | -180.`16.\nM-S1|r = x - 4 | (-63*Pi)/2 | -98.96016858807848701157326657330434085225`16.\nM-G1|middle | 5/2 | 2.5`16.\nM-W2|first 0.2 m again | 6 | 6.`16.\nM-G2-x|middle | 1 | 1.`16.\nF-K3|middle | 5 | 5.`16.\nF-G2|middle | 1 | 1.`16.\nS-guided-b | 1 | 1.`16.\nS-p3-a | -2 | -2.`16.\nS-p3-b | 1 | 1.`16.\nS-p8-a | 1/2 | 0.5`16.\nS-p8-b | 3 | 3.`16.\nxS-J0 notes p5 | 1/6 | 0.16666666666666666666666666666666666667`16.\nxS-J1 notes p5 | 1/12 | 0.08333333333333333333333333333333333333`16.\nxS-J0 notes p7 | 4/3 | 1.33333333333333333333333333333333333333`16.\nxS-J1 notes p7 | 8/3 | 2.66666666666666666666666666666666666667`16.\nxS-J0 notes p8 | 9/2 | 4.5`16.\nxS-J1 notes p8 | -9/4 | -2.25`16.\nxS-J0 notes p9 | 8/3 | 2.66666666666666666666666666666666666667`16.\nxS-J1 notes p9 | 12/5 | 2.4`16.\nxS-J0 Ex3512 | 5/6 | 0.83333333333333333333333333333333333333`16.\nxS-J1 Ex3512 | 4/15 | 0.26666666666666666666666666666666666667`16.\nxS-V Ex3512 | (8*Pi)/15 | 1.67551608191455639384674313774906820491`16.\nxG-M Ex385 | 1 - Cosh[4] + Sinh[4] | 0.98168436111126581970628197872675875779`16.\nxG-Mx Ex385 | 1 - 5/E^4 | 0.90842180555632909853140989363379378894`16.\nxG-M Ex387 | 9/4 | 2.25`16.\nxG-Mx Ex387 | 58/15 | 3.86666666666666666666666666666666666667`16.\nxG-My Ex387 | 9/2 | 4.5`16.\nxG-M Ex388 | 9 | 9.`16.\nxG-Mx Ex388 | 18 | 18.`16.\nxG-My Ex388 | 18 | 18.`16.\nxK-M p4 widget form | (8*(-4 + Log[243]))/(3*Log[3]^3) | 3.00270768164086655988087037428352754871`16.\nxW-bucket sum n | 2700 - 500/n | 2700.`16. - 500.`16./n\nxW-bucket sum n=10 | 2650 | 2650.`16.\nqK-p3 left share | E^2/(1 + E^2) | 0.8807970779778824440597291413023967952`16.\nqK-Ex376 total | 1 - E^(-4) | 0.98168436111126581970628197872675875779`16.\nqK-e12 | E^12 | 162754.79141900392080800520489848678317020929`16.\nqK-endpoint average | 12 | 12.`16.\nqK-delta(2) x 2 | 24 | 24.`16.\nqK-delta(1) x 2 | 6 | 6.`16.\nqK-p2 area | 8/3 | 2.66666666666666666666666666666666666667`16.\nqK-m3 gap to right end | 10 + Log[2/(1 + E^10)] | 0.69310178166072844477046263362886946248`16.\nqK-indep area | 9 | 9.`16.\nqK-p6 bracket | 125/6 | 20.83333333333333333333333333333333333333`16.\nqK-p8 at 9 minus at 3 | (9*(-4 + 17*Log[3]))/2 | 66.04384008311039139173626062457321640547`16.\nqG-seesaw weighted avg | 165/2 | 82.5`16.\nqG-p8 density ratio | 19 | 19.`16.\nqG-p13 density ratio | 16 | 16.`16.\nqG-m4 integral | 128/3 | 42.66666666666666666666666666666666666667`16.\nqG-p6 M | 400 | 400.`16.\nqG-p6 at 7 | 25529/12 | 2127.41666666666666666666666666666666666667`16.\nqG-p6 at 2 | 76/3 | 25.33333333333333333333333333333333333333`16.\nqG-indep Mx | 11/60 | 0.18333333333333333333333333333333333333`16.\nqG-indep My | 3/20 | 0.15`16.\nqG-indep centroid y | 2/5 | 0.4`16.\nqG-p7 Mx | 14/15 | 0.93333333333333333333333333333333333333`16.\nqG-p8 My | 9/2 | 4.5`16.\nqG-p9 Mx | 1/15 | 0.06666666666666666666666666666666666667`16.\nqG-spot2 at 4 | 22/9 | 2.44444444444444444444444444444444444445`16.\nqG-spot2 at 3 | 16/9 | 1.77777777777777777777777777777777777778`16.\nqG-F-G3 integral | 1944/5 | 388.8`16.\nqW-slab weight | 24500 | 24500.`16.\nqW-p17 weight | 2205000 | 2.205`16.*^6\nqW-p17 cm check | 20947500 | 2.09475`16.*^7\nqW-cone share | 1/4 | 0.25`16.\nqW-guided bracket | 1728 | 1728.`16.\nqW-indep cm check | 2496000 | 2.496`16.*^6\nqW-p2 bracket | 20947500 | 2.09475`16.*^7\nqW-p3 by u | 74880000*Pi | 2.352424579008037176960827365`16.*^8\nqW-p9 per-foot leak | 1/8 | 0.125`16.\nqW-m3 time to 1 lb | 49 | 49.`16.\nqW-m3 height then | 98 | 98.`16.\nqW-spring triangle | 15/4 | 3.75`16.\nqW-bucket trapezoid | 2700 | 2700.`16.\nqW-M-W2 k | 300 | 300.`16.\nqS-p1 washer route | (8*Pi)/3 | 8.37758040957278196923371568874534102453`16.\nqS-p6 washer route | Pi/9 | 0.34906585039886591538473815369772254268`16.\nqS-guided cylinder bound | Pi/4 | 0.78539816339744830961566084581987572105`16.\nqV-p11 shells in y | (49*Pi)/30 | 5.13126800086332895615565085935652137752`16.\nqS-m4 doughnut rule | 6*Pi^2 | 59.21762640653615171300694599925690681193`16.\nqS-p5 by parts | Pi | 3.1415926535897932384626433832795028842`16."
+
+====================================================================================================
+Batch 5b (2026-10-20): every typed-expression key vs the expression written from the problem statement; every listed wrong expression must differ   [2026-10-20T22:16:00.044Z]
+---------------------------------------- INPUT
+exprs = {
+ {"V-p11-R", Sqrt[x]+2, Sqrt[x] - (-2), {Sqrt[x]}},
+ {"V-p11-r", x^2+2, x^2 - (-2), {x^2}},
+ {"V-p12-R", 6-x^2, 7 - (x^2 + 1), {4+x}},
+ {"V-p12-r", 4+x, 7 - (-x + 3), {6-x^2}},
+ {"V-p13-R", Sqrt[8*x], (Sqrt[8 x] + 1) - 1, {Sqrt[8*x]+1}},
+ {"V-p13-r", x^2, (x^2 + 1) - 1, {x^2+1}},
+ {"S-guided-r", x, x - 0, {1-x, x-x^2}},
+ {"S-guided-h", x-x^2, (x - x^2) - 0, {x, x^2-x}},
+ {"S-guided-shell", 2*Pi*x*(x-x^2), 2 Pi (x - 0) ((x - x^2) - 0), {2*Pi*(x-x^2), Pi*x^2*(x-x^2)}},
+ {"S-p1-r", x-1, x - 1, {x, 1-x}},
+ {"S-p1-h", 4*x-x^2-3, (4 x - x^2) - 3, {4*x-x^2}},
+ {"S-p2-r", 4-x, 4 - x, {x, x-4}},
+ {"S-p3-h", -x^2-x+2, (-x + 3) - (x^2 + 1), {-x+3}},
+ {"S-p4-r", x+2, x - (-2), {x, x-2}},
+ {"S-p4-h", Sqrt[8*x]-x^2, (Sqrt[8 x] + 1) - (x^2 + 1), {Sqrt[8*x]+1}},
+ {"S-p10-r", 4-x, 4 - x, {x}},
+ {"S-p10-h", 2*x-x^2, (3 x - x^2) - x, {3*x-x^2}},
+ {"K-guided-h", 2*x-x^2, (x - x^2) - (-x), {x-x^2, x^2-2*x}},
+ {"K-guided-dm", x*(2*x-x^2), x ((x - x^2) - (-x)), {2*x-x^2, x}},
+ {"K-p2-dm", 3^x*(2-2*x^2), 3^x ((2 - x^2) - x^2), {2-2*x^2, 3^x*(2-x^2), 3^x*(2*x^2-2)}},
+ {"K-p6-h", 2-2*x/5, 2 + (0 - 2)/(5 - 0) x, {2}},
+ {"G-guided-mom", x*(4*x^2+2), x (4 x^2 + 2), {4*x^2+2}},
+ {"G-p3-dm", 2^x*(2*x+3-x^2), 2^x ((2 x + 3) - x^2), {2^x*(x^2-2*x-3), 2*x+3-x^2}},
+ {"G-p3-yf", (x^2+2*x+3)/2, ((2 x + 3) + x^2)/2, {2*x+3, x^2+2*x+3, (2*x+3-x^2)/2}},
+ {"W-guided-r", 5*y/12, 5 y/12, {5-5*y/12, 12*y/5}},
+ {"W-guided-F", 9800*Pi*(5*y/12)^2, 1000 (98/10) Pi (5 y/12)^2, {1000*Pi*(5*y/12)^2, 9800*Pi*(5*y/12)}},
+ {"W-guided-d", 12-y, 12 - y, {y}},
+ {"W-p2-d", 14-y, (12 + 2) - y, {12-y, y}},
+ {"W-p3-r", (100-y)/5, 20 (100 - y)/100, {y/5}}
+};
+chk[{id_, key_, int_, wr_}] := id <> " | key = intended: " <> ToString[Simplify[key - int, x > 0] === 0] <> " | every listed wrong expression differs: " <> ToString[AllTrue[wr, Simplify[# - int, x > 0] =!= 0 &]];
+StringRiffle[chk /@ exprs, "\n"]
+---------------------------------------- OUTPUT
+Out[1]= "V-p11-R | key = intended: True | every listed wrong expression differs: True\nV-p11-r | key = intended: True | every listed wrong expression differs: True\nV-p12-R | key = intended: True | every listed wrong expression differs: True\nV-p12-r | key = intended: True | every listed wrong expression differs: True\nV-p13-R | key = intended: True | every listed wrong expression differs: True\nV-p13-r | key = intended: True | every listed wrong expression differs: True\nS-guided-r | key = intended: True | every listed wrong expression differs: True\nS-guided-h | key = intended: True | every listed wrong expression differs: True\nS-guided-shell | key = intended: True | every listed wrong expression differs: True\nS-p1-r | key = intended: True | every listed wrong expression differs: True\nS-p1-h | key = intended: True | every listed wrong expression differs: True\nS-p2-r | key = intended: True | every listed wrong expression differs: True\nS-p3-h | key = intended: True | every listed wrong expression differs: True\nS-p4-r | key = intended: True | every listed wrong expression differs: True\nS-p4-h | key = intended: True | every listed wrong expression differs: True\nS-p10-r | key = intended: True | every listed wrong expression differs: True\nS-p10-h | key = intended: True | every listed wrong expression differs: True\nK-guided-h | key = intended: True | every listed wrong expression differs: True\nK-guided-dm | key = intended: True | every listed wrong expression differs: True\nK-p2-dm | key = intended: True | every listed wrong expression differs: True\nK-p6-h | key = intended: True | every listed wrong expression differs: True\nG-guided-mom | key = intended: True | every listed wrong expression differs: True\nG-p3-dm | key = intended: True | every listed wrong expression differs: True\nG-p3-yf | key = intended: True | every listed wrong expression differs: True\nW-guided-r | key = intended: True | every listed wrong expression differs: True\nW-guided-F | key = intended: True | every listed wrong expression differs: True\nW-guided-d | key = intended: True | every listed wrong expression differs: True\nW-p2-d | key = intended: True | every listed wrong expression differs: True\nW-p3-r | key = intended: True | every listed wrong expression differs: True"

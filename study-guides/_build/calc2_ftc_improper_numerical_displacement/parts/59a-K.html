@@ -1,0 +1,440 @@
+<section id="K" class="topic">
+  <div class="topic-banner">
+    <div class="topic-letter sec" aria-hidden="true">3.7</div>
+    <div><h2>Mass and density</h2>
+    <div class="sources">3.7–3.9 notes pp. 1–5 (and p. 9) · Textbook §3.7 (Propositions 3.7.5, 3.7.7; Example 3.7.6; Suggested Ex. 1–5; Additional Ex. 1, 3, 6)</div></div>
+  </div>
+  <nav class="stagebar" data-topic="K" aria-label="Stages in §3.7 (mass and density)">
+    <a href="#K-learn"><span class="n">1</span>Learn</a><a href="#K-understand"><span class="n">2</span>Understand</a><a href="#K-explore"><span class="n">3</span>Explore</a><a href="#K-attempt"><span class="n">4</span>Attempt</a><a href="#K-compare"><span class="n">5</span>Compare</a><a href="#K-practice"><span class="n">6</span>Practice</a><a href="#K-master"><span class="n">7</span>Master</a>
+  </nav>
+
+  <!-- ============================== 1 LEARN -->
+  <div class="stage" id="K-learn">
+    <div class="stage-head"><span class="n">Stage 1 · Learn</span><h3>The big idea</h3></div>
+    <div class="callout big">
+      <div class="label">Big idea</div>
+      <p><b>Density</b> says how tightly mass is packed. If it's the same everywhere, mass is just density × size: $m=\delta V$ (3.7–3.9 notes p. 1). For a thin wire the “size” is a length; for a flat metal plate it's an area.</p>
+      <p style="margin:0">If the density <em>changes</em> from place to place, $m=\delta V$ fails for the whole object, but it still works on a piece small enough that the density is nearly constant. So cut the object into thin pieces, find each piece's mass as <b>density × size</b>, and add them up. In the limit that sum is an integral: $M=\int_a^b\delta(x)\,dx$ for a wire. It's the Riemann-sum idea from area and volume (§2.6, §3.5) a third time.</p>
+    </div>
+    <div class="card tight">
+      <div class="small muted" style="margin-bottom:6px"><b>What to notice:</b> on the left, the wire's density $3x^2$ grows to the right, so the right-hand pieces are darker and heavier even though every piece has the same length $\Delta x$. On the right, the plate (notes p. 5) is cut into vertical strips. Each strip has its own density $\delta(x_i)$ and its own height $f-g$, so its mass is $\delta(x_i)\cdot[f(x_i)-g(x_i)]\cdot\Delta x$.</div>
+      <div data-fig="masspieces"></div>
+    </div>
+    <div class="grid-2">
+      <div class="callout why">
+        <div class="label">An everyday version</div>
+        <p style="margin:0">A fishing rod or a baseball bat is thick at one end and thin at the other. Per centimetre, the thick end holds more mass. To weigh it in your head, you'd go along it a centimetre at a time: “this bit is about so heavy, this next bit a little lighter…” and add up. That running total is the integral, and the point where half the mass is behind you is the <b>mass midpoint</b>.</p>
+      </div>
+      <div class="callout">
+        <div class="label">Three questions to ask every time</div>
+        <ol style="margin:0">
+          <li><b>What is the size of one piece?</b> A length $\Delta x$ for a wire. An area $[f(x)-g(x)]\,\Delta x$ for a plate (top minus bottom, times the width).</li>
+          <li><b>What is the density on that piece?</b> $\delta(x_i)$, which depends only on $x$, so each piece or strip has one density (notes p. 3).</li>
+          <li><b>Where does the object start and end?</b> Those are the limits: the ends of the wire, or where the plate's curves meet.</li>
+        </ol>
+      </div>
+    </div>
+    <label class="toggle"><input type="checkbox" data-self="K"> I can explain why the mass of a wire is $\int\delta(x)\,dx$ and not density × length, and what extra factor a plate's strip needs.</label>
+  </div>
+
+  <!-- ============================== 2 UNDERSTAND -->
+  <div class="stage" id="K-understand">
+    <div class="stage-head"><span class="n">Stage 2 · Understand</span><h3>What it's built from, and why it works</h3></div>
+    <div class="grid-2">
+      <div class="card tight">
+        <h4>Prerequisite map</h4>
+        <div class="tree"><ul><li class="root">Mass from density
+          <ul>
+            <li>Constant density: $m=\delta V$<br><span class="qc">Quick check: a 2 m bar with density 3 kg/m? <details class="qcheck"><summary>show</summary>$m=3\cdot2=6$ kg. With units: kg/m × m = kg.</details></span></li>
+            <li><a href="#C-understand">Riemann sums (notes p. 34)</a>: slice, add up, take the limit</li>
+            <li>Area between two curves: top minus bottom<br><span class="qc">Quick check: where do $y=x^2$ and $y=2-x^2$ meet, and which is on top between them? <details class="qcheck"><summary>show</summary>$x^2=2-x^2$, so $x=\pm1$. At $x=0$: $0$ vs $2$, so $2-x^2$ is on top (notes p. 4).</details></span></li>
+            <li>Exponential antiderivatives<br><span class="qc">Quick check: $\int3^x\,dx=$? <details class="qcheck"><summary>show</summary>$\dfrac{3^x}{\ln3}+C$, since $\frac{d}{dx}3^x=3^x\ln3$ (notes p. 2).</details></span></li>
+            <li>Solving for an upper limit<br><span class="qc">Quick check: solve $\int_0^{t}3x^2\,dx=4$. <details class="qcheck"><summary>show</summary>$t^3=4$, so $t=\sqrt[3]4\approx1.587$ (notes p. 2).</details></span></li>
+          </ul></li></ul></div>
+      </div>
+      <div class="card tight">
+        <h4>From pieces to an integral <span class="small muted">(3.7–3.9 notes pp. 1, 3)</span></h4>
+        $$\text{wire: }\ \sum_{i=1}^{n}\delta(x_i)\,\Delta x\ \longrightarrow\ \int_a^b\delta(x)\,dx$$
+        $$\text{plate: }\ \sum_{i=1}^{n}\delta(x_i)\,\Delta x\,[f(x_i)-g(x_i)]\ \longrightarrow\ \int_a^b\delta(x)\,[f(x)-g(x)]\,dx$$
+        <p class="small" style="margin:6px 0 0">Subdivide $[a,b]$ into $n$ pieces of width $\Delta x=\frac{b-a}n$. The professor's key sentence: “$\delta(x)\approx$ constant on each subinterval”. On a piece where the density is constant, mass = density × size is exact, so the only error comes from the density changing a little across a piece, and that vanishes as $n\to\infty$.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>Why a plate's density has to depend only on $x$</h4>
+      <p>A vertical strip runs from $g(x)$ up to $f(x)$. If the density depended on $y$ too, different parts of the same strip would have different densities, and “density × strip area” wouldn't be right even for a thin strip. The notes avoid this by assuming “density only depends on $x$” (p. 3). Then every point of the strip at $x$ has density $\delta(x)$, and the strip's mass is $\delta(x)$ times its area, $[f(x)-g(x)]\,\Delta x$.</p>
+      <p style="margin:0">The units check this too. An <b>area density</b> is mass per area (kg/m²). Times an area (m²) it gives kg. A <b>length density</b> (kg/m) times a length (m) gives kg. The professor's green rule on p. 1: <em>“If the question includes units, your answer needs to include units as well.”</em></p>
+    </div>
+
+    <div class="formula-card">
+      <div class="fc-title">Mass of a thin wire <span>3.7–3.9 notes p. 1 · textbook Prop. 3.7.5</span></div>
+      $$M=\int_{\htmlClass{fp fp-3}{a}}^{\htmlClass{fp fp-3}{b}}\htmlClass{fp fp-1}{\delta(x)}\,\htmlClass{fp fp-2}{dx}$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="The <b>density</b>: mass per unit length (kg/m, or slugs/ft) at the point x. It is the only thing that changes from piece to piece.">δ(x): density</button>
+        <button class="fp-chip" data-part="2" data-explain="The <b>length</b> of a tiny piece of wire. Density × length = the mass of that piece.">dx: length of a piece</button>
+        <button class="fp-chip" data-part="3" data-explain="The two <b>ends</b> of the wire. On notes p. 9 the wire runs from x = 3 to x = 4, so the integral starts at 3, not 0.">a, b: the ends</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+      <div class="fc-meta">
+        <div><b>When it applies</b>A thin wire (1D object) along the $x$-axis whose density changes with $x$. If $\delta$ is a constant, it reduces to $M=\delta\cdot(b-a)$.</div>
+        <div><b>Watch out</b>$M\ne\delta\times$ length when $\delta$ varies. Which $\delta$ would you even use?</div>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <div class="fc-title">Mass of a thin plate <span>3.7–3.9 notes p. 3 · textbook Prop. 3.7.7</span></div>
+      $$M=\int_a^b\htmlClass{fp fp-1}{\delta(x)}\,\htmlClass{fp fp-2}{\big[f(x)-g(x)\big]}\,\htmlClass{fp fp-3}{dx}$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="The <b>area density</b>: mass per unit area (kg/m²). It depends only on x, so a whole vertical strip has one density.">δ(x): area density</button>
+        <button class="fp-chip" data-part="2" data-explain="The strip’s <b>height</b>: top curve minus bottom curve. It stays positive even where the plate dips below the x-axis (notes p. 5).">f − g: strip height</button>
+        <button class="fp-chip" data-part="3" data-explain="The strip’s <b>width</b>. Height × width = the strip’s area, and density × area = its mass.">dx: strip width</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+      <div class="fc-meta">
+        <div><b>When it applies</b>A flat plate between $y=g(x)$ and $y=f(x)$ with $f\ge g$ on $[a,b]$, whose density depends only on $x$.</div>
+        <div><b>Watch out</b>Find where the curves meet, then test a point to see which is on top (notes p. 5 tests $x=1$). Without $\delta$ you'd just get the area.</div>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <div class="fc-title">Mass midpoint <span>3.7–3.9 notes p. 1 (red ✱) · textbook Example 3.7.6</span></div>
+      $$\int_{a}^{\htmlClass{fp fp-1}{x_m}}\delta(x)\,dx=\htmlClass{fp fp-2}{\tfrac12M}$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="The unknown <b>upper limit</b>: the cut point with exactly half the mass on each side. Solve for it.">xₘ: the cut point</button>
+        <button class="fp-chip" data-part="2" data-explain="<b>Half the total mass.</b> Find M first, then set the mass from a to xₘ equal to M/2.">½M: half the mass</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+      <div class="fc-meta">
+        <div><b>When it applies</b>“Find the mass midpoint”: half the mass on each side. The lower limit is where the object <em>starts</em> ($a=3$ on notes p. 9).</div>
+        <div><b>Watch out</b>It is <em>not</em> the middle of the object unless the density is constant, and it is not the center of mass (§3.8): it splits the mass, it doesn't balance it.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>Recognition: what does the problem want?</h4>
+      <div class="table-scroll"><table>
+        <thead><tr><th>You notice…</th><th>So you…</th></tr></thead>
+        <tbody>
+          <tr><td>A wire (or rod) along $a\le x\le b$ with density $\delta(x)$</td><td>Integrate the density: $M=\int_a^b\delta(x)\,dx$ (notes p. 2).</td></tr>
+          <tr><td>A plate “enclosed by” or “bounded by” two curves, with area density $\delta(x)$</td><td>Find the intersections, test a point for the top curve, then $M=\int\delta(x)[f-g]\,dx$ (notes pp. 4–5).</td></tr>
+          <tr><td>The density is a constant</td><td>No integral needed: mass = density × length (or × area).</td></tr>
+          <tr><td>“Mass midpoint”, or “where is half the mass?”</td><td>Find $M$, then solve $\int_a^{x_m}\delta\,dx=\frac12M$ for $x_m$ (notes pp. 2, 9).</td></tr>
+          <tr><td>“Set up only”</td><td>Write the integral with its limits and stop (notes p. 4).</td></tr>
+          <tr><td>The problem gives units (kg/m, slugs/ft, kg/m²)</td><td>Your answer gets units too: kg, slugs (notes p. 1, green).</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout warn" style="margin-bottom:0">
+        <div class="label">Tempting alternative, and why to reject it</div>
+        <p style="margin:0">“Average the density at the two ends and multiply by the length.” For $\delta=3x^2$ on $[0,2]$ that gives $\frac{0+12}{2}\cdot2=12$, but the mass is $8$. Averaging the endpoints works only when the density is a straight line (that's the Trapezoid Rule with $n=1$, §2.6). The integral is the honest average of the density, times the length.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 3 EXPLORE -->
+  <div class="stage" id="K-explore">
+    <div class="stage-head"><span class="n">Stage 3 · Explore</span><h3>Mass explorer</h3></div>
+    <div class="widget">
+      <div class="w-head"><h4>Cut a wire or a plate into pieces, add up density × size, and find where half the mass is</h4><span class="small muted">presets · number of pieces · cut position</span></div>
+      <div class="w-sub">Top: the object, cut into $n$ pieces, each shaded by its density (darker = denser). The dashed line is a cut you can move. Bottom: the mass per unit of $x$, $\delta(x)$ for a wire or $\delta(x)[f(x)-g(x)]$ for a plate. The bars are the pieces (right endpoints), and the shaded areas are the masses on each side of the cut.</div>
+      <div id="widget-mass">
+        <div class="w-formula">$$M=\int_0^2 3x^2\,dx=x^3\Big|_0^2=8,\qquad \int_0^{x_m}3x^2\,dx=4\ \Rightarrow\ x_m=\sqrt[3]{4}\approx1.587$$</div>
+        <div class="w-formula">$$\int_0^2e^{-x}dx=1-e^{-2},\quad\int_2^4e^{-x}dx=e^{-2}-e^{-4},\quad x_m=\ln\frac{2}{1+e^{-4}}\approx0.675$$</div>
+        <div class="w-formula">$$M=\int_3^4 2e^{3x}dx=\tfrac23\big(e^{12}-e^9\big),\qquad x_m=\tfrac13\ln\frac{e^{12}+e^9}{2}\approx3.785$$</div>
+        <div class="w-formula">$$M=\int_0^2 x\big[(x-x^2)-(-x)\big]dx=\int_0^2\big(2x^2-x^3\big)dx=\tfrac43$$</div>
+        <div class="w-formula">$$M=\int_{-1}^{1}3^x\big[(2-x^2)-x^2\big]dx=\int_{-1}^{1}3^x\big(2-2x^2\big)dx\approx3.0027$$</div>
+        <div class="w-formula">$$M=\int_0^3\big(x^2+1\big)\big[0-(2x-6)\big]dx=\int_0^3\big(x^2+1\big)(6-2x)\,dx=\tfrac{45}{2}$$</div>
+      </div>
+      <div class="try"><h5>What to notice</h5><ol>
+        <li>With <b>3.7–3.9 notes p. 2: wire, δ = 3x²</b>, put the cut at $x=1$, the middle of the wire. Only $1$ of the $8$ units of mass is on the left (12.5%), because the left half is the light half. Press “Cut at the mass midpoint”: it jumps to $\sqrt[3]4\approx1.587$, well right of the middle.</li>
+        <li>Raise $n$ from 1 to 40. The pieces' total, $\sum\delta(x_i)\Delta x$, comes down to the exact mass 8 from above: with right endpoints and a density that increases, each piece is slightly overestimated.</li>
+        <li>With <b>Textbook Ex. 3.7.6: wire, δ = e^(−x)</b>, it's the other way round: the density falls, so the mass midpoint is far to the <em>left</em> ($\approx0.675$ on a wire of length 4). The left half holds $1-e^{-2}\approx0.865$ of the total $\approx0.982$.</li>
+        <li>With <b>3.7–3.9 notes p. 9: wire, δ = 2e^(3x)</b>, the wire starts at $x=3$, not $0$. The numbers are large ($M\approx103{,}101$) because $e^{12}$ is about 163,000. The mass midpoint $3.785$ is close to the heavy right end.</li>
+        <li>Switch to <b>3.7–3.9 notes p. 5: plate, x − x² over −x, δ = x</b>. The plate dips below the $x$-axis, but every strip's height $(x-x^2)-(-x)=2x-x^2$ is positive, so no splitting is needed. The strips near $x=0$ are both short and light.</li>
+        <li><b>3.7–3.9 notes p. 4: plate, 2 − x² over x², δ = 3ˣ</b> is the lens between two parabolas. It's symmetric, but the density $3^x$ isn't: the right side is $9$ times denser than the left at the edges, so more than half the mass is right of $x=0$.</li>
+        <li><b>Textbook Suggested Ex. 4: triangle under the axis, δ = x² + 1</b> lies entirely below the $x$-axis. Top minus bottom is $0-(2x-6)=6-2x$. The tall strips near $x=0$ are light; the dense strips near $x=3$ are short.</li>
+      </ol></div>
+    </div>
+
+    <div class="tryout" data-topic="K">
+      <div class="q">A thin wire lies on $0\le x\le2$ with density $\delta(x)=3x^2$ (notes p. 2). Which number is its mass?</div>
+      <div class="try-opts">
+        <button class="try-opt">$\int_0^2 3x^2\,dx=8$</button>
+        <button class="try-opt">$\delta(2)\cdot2=24$</button>
+        <button class="try-opt">$\frac{\delta(0)+\delta(2)}{2}\cdot2=12$</button>
+        <button class="try-opt">$\delta(1)\cdot2=6$</button>
+      </div>
+      <div class="try-res" data-verdict="good">Each tiny piece has mass $3x^2\,dx$, and the integral adds them: $x^3\big|_0^2=8$.</div>
+      <div class="try-res" data-verdict="bad">That uses the densest value, at the right end, for the whole wire. Most of the wire is much lighter than that.</div>
+      <div class="try-res" data-verdict="bad">Averaging the two ends assumes the density grows in a straight line. $3x^2$ curves upward, so the endpoint average overestimates. (It's the Trapezoid Rule with one strip, §2.6.)</div>
+      <div class="try-res" data-verdict="bad">That's the density at the middle times the length: the Midpoint Rule with one strip. Because $3x^2$ curves upward, it underestimates. Close, but not the mass.</div>
+    </div>
+
+    <div class="tryout" data-topic="K">
+      <div class="q">The plate between $y=x-x^2$ (top) and $y=-x$ (bottom) has area density $\delta(x)=x$ (notes p. 5). What is the mass of the thin strip at $x$, of width $\Delta x$?</div>
+      <div class="try-opts">
+        <button class="try-opt">$x\,(2x-x^2)\,\Delta x$</button>
+        <button class="try-opt">$x\,(x-x^2)\,\Delta x$</button>
+        <button class="try-opt">$(2x-x^2)\,\Delta x$</button>
+      </div>
+      <div class="try-res" data-verdict="good">Density × height × width, with height $=(x-x^2)-(-x)=2x-x^2$. Integrating from 0 to 2 gives $M=\frac43$.</div>
+      <div class="try-res" data-verdict="bad">That's only the top curve. The strip runs down to $y=-x$, so its height is $(x-x^2)-(-x)$. With this height the “mass” comes out <em>negative</em> ($-\frac43$), which is impossible.</div>
+      <div class="try-res" data-verdict="bad">That's the strip's <em>area</em>, with no density. Integrated, it gives the plate's area. (Here the area happens to be $\frac43$ too, a coincidence explained in the guided example below.)</div>
+    </div>
+
+    <div class="tryout" data-topic="K">
+      <div class="q">For the wire with $\delta(x)=3x^2$ on $[0,2]$, the mass midpoint is $\sqrt[3]4\approx1.59$, not $1$. Why is it right of the middle?</div>
+      <div class="try-opts">
+        <button class="try-opt">The right end is denser, so the left half (by length) holds less than half the mass</button>
+        <button class="try-opt">The mass midpoint is always to the right of the middle</button>
+        <button class="try-opt">Because integrating shifts everything to the right</button>
+      </div>
+      <div class="try-res" data-verdict="good">Only $\int_0^1 3x^2\,dx=1$ of the $8$ units lie left of $x=1$. You have to go further right to collect $4$.</div>
+      <div class="try-res" data-verdict="bad">Not always: for $\delta=e^{-x}$ (textbook Example 3.7.6) the dense part is on the left, and the mass midpoint is far left of the middle (0.675 on $[0,4]$).</div>
+      <div class="try-res" data-verdict="bad">Integration doesn't shift anything. For a constant density the mass midpoint is exactly the middle.</div>
+    </div>
+  </div>
+
+  <!-- ============================== 4 ATTEMPT -->
+  <div class="stage" id="K-attempt">
+    <div class="stage-head"><span class="n">Stage 4 · Attempt</span><h3>Guided example, then your turn</h3></div>
+    <div class="guided" data-gid="K-guided">
+      <div class="g-intro"><span class="badge">Guided example</span>
+        <p style="margin-top:8px">A plate is bounded by the curves $f(x)=x-x^2$ and $g(x)=-x$, with area density $\delta(x)=x$. Find the mass of the plate. This is 3.7–3.9 notes p. 5 (and textbook §3.7 Suggested Ex. 5). Work it as the notes do.</p></div>
+      <div class="gstep"><span class="g-label">Step 1 · Limits</span>
+        <p>Set $x-x^2=-x$: $x^2-2x=0$, so $x(x-2)=0$. The plate runs from $x=0$ to $x=$ <label class="inline"><input class="ans" data-vid="K-guided-b" data-answer="2" data-exact="2" placeholder="a number"></label></p>
+        <div class="greveal">$x=0$ or $x=2$. The curves meet at $(0,0)$ and $(2,-2)$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 2 · Which curve is on top?</span>
+        <div class="mcq" data-qid="K-g2"><div class="q">The notes test a point between the intersections. At $x=1$: $x-x^2=0$ and $-x=-1$. So…</div>
+          <div class="opts">
+            <button class="opt" data-correct>$f(x)=x-x^2$ is on top on $(0,2)$</button>
+            <button class="opt" data-why="At x = 1, −x = −1 is below 0 = x − x². One test point between the intersections decides it for the whole interval, because the curves don’t cross in between.">$g(x)=-x$ is on top</button>
+            <button class="opt" data-why="They only meet at x = 0 and x = 2, so between those points one of them stays on top.">They swap in the middle, so the integral must be split at $x=1$</button>
+          </div></div>
+        <div class="greveal">Notes p. 5: “$x=1\to x-x^2=0,\ -x=-1$”. The parabola is on top, even though part of the plate is below the $x$-axis.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 3 · Strip height</span>
+        <p><label class="inline">$f(x)-g(x)=$ <input class="ans" data-vid="K-guided-h" data-kind="expr" data-var="x" data-answer="2*x-x^2" data-dom="0.1,1.9" data-show="2x − x²" placeholder="top minus bottom" data-wrong='[{"f":"x-x^2","m":"That’s only the top curve. The strip runs down to y = −x, so subtract it: (x − x²) − (−x)."},{"f":"x^2-2*x","m":"Bottom minus top: that’s negative on (0, 2). It’s top minus bottom."}]'></label></p>
+        <div class="greveal">$(x-x^2)-(-x)=2x-x^2$, positive on $(0,2)$ even where the strip is below the axis.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 4 · Mass of one strip</span>
+        <p><label class="inline">Mass of the strip $\approx$ <input class="ans" data-vid="K-guided-dm" data-kind="expr" data-var="x" data-answer="x*(2*x-x^2)" data-dom="0.1,1.9" data-show="x(2x − x²) = 2x² − x³" placeholder="density × height" data-wrong='[{"f":"2*x-x^2","m":"That’s the strip’s area per unit width: the density δ(x) = x is missing."},{"f":"x","m":"That’s the density alone. Multiply by the strip’s height, 2x − x²."}]'> <span class="muted small">(the factor in front of $\Delta x$)</span></label></p>
+        <div class="greveal">density × height × width $=x\,(2x-x^2)\,\Delta x$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 5 · Integrate</span>
+        <p><label class="inline">$M=\int_0^2(2x^2-x^3)\,dx=$ <input class="ans" data-vid="K-guided-val" data-answer="1.333333333333" data-exact="4/3" data-wrong='[{"v":-1.333333333333,"m":"A negative mass means the strip height has the wrong sign: you used the top curve alone, x − x², or bottom minus top. The height is (x − x²) − (−x) = 2x − x²."}]'></label></p>
+        <div class="greveal">$\big(\frac23x^3-\frac14x^4\big)\Big|_0^2=\frac{16}3-4=\frac43$ (verified by hand, SymPy and Wolfram). <b>A coincidence worth noticing:</b> the plate's <em>area</em>, $\int_0^2(2x-x^2)\,dx$, is also $\frac43$. That's because the strip heights $2x-x^2$ are symmetric about $x=1$, so weighting each strip by $\delta=x$ averages out to weighting it by 1. (§3.8 makes this precise: the plate's centroid is at $x=1$.) Don't let it fool you into dropping $\delta$: with any other density the two differ.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 6 · Sanity check</span>
+        <div class="mcq" data-qid="K-g6"><div class="q">Part of the plate lies below the $x$-axis. Did the mass integral need to be split where the plate crosses the axis ($x=1$)?</div>
+          <div class="opts">
+            <button class="opt" data-correct>No. Mass uses the strip's height $f-g$, which is positive everywhere between the intersections; where the strip sits doesn't matter</button>
+            <button class="opt" data-why="Signed area (§2.4) counts area below the axis as negative, but here we integrate the strip height f − g, which is never negative. The x-axis plays no role.">Yes, the part below the axis counts as negative mass</button>
+            <button class="opt" data-why="Sliding a strip up or down doesn’t change its length or its density, so it doesn’t change its mass.">Yes, because the density is different below the axis</button>
+          </div></div>
+        <div class="greveal">Mass is always positive. A negative answer is a red flag for bottom-minus-top (Step 3).</div>
+      </div>
+      <div class="takeaway"><b>Takeaway.</b> Intersections give the limits; a test point gives the top curve. Each strip's mass is density × height × width, $\delta(x)[f(x)-g(x)]\Delta x$. Integrate over the plate's $x$-range. The plate's position relative to the $x$-axis doesn't matter.</div>
+    </div>
+
+    <div class="problem" data-pid="K-indep" data-topic="K" data-level="4" data-title="Independent attempt" data-src="Your turn: textbook §3.7 Suggested Ex. 4" data-help="A number, with or without its unit (kg)." data-prompt="A thin metal plate occupies the triangular region bounded by the coordinate axes and the line y = 2x - 6. Its area density is delta(x) = x^2 + 1 kg/m^2. Find the mass of the plate.">
+      <div class="p-body">A thin metal plate occupies the triangular region bounded by the coordinate axes and the line $y=2x-6$. Its area density is $\delta(x)=x^2+1$ kg/m². Find the mass of the plate.</div>
+      <div class="answers"><label>Mass <input class="ans" data-vid="K-indep" data-units="kg" data-answer="22.5" data-exact="45/2 kg" data-wrong='[{"v":9,"m":"That is the triangle’s area (½ · 3 · 6). Each strip’s area must be multiplied by its density x² + 1."},{"v":-22.5,"m":"Negative: the strip height has the wrong sign. The triangle is below the x-axis, so the top is y = 0 and the bottom is y = 2x − 6. Height = 0 − (2x − 6) = 6 − 2x."},{"v":12,"m":"That is ∫₀³(x² + 1) dx, as if the plate were a wire. A plate’s strip also has a height, 6 − 2x."}]'></label></div>
+      <ol class="know">
+        <li>Sketch the triangle. Where does $y=2x-6$ cross each axis? Is the triangle above or below the $x$-axis?</li>
+        <li>Which curve is the top of a vertical strip, and which is the bottom?</li>
+        <li>Write density × height and integrate over the triangle's $x$-range.</li>
+      </ol>
+      <div class="hint">The line meets the $x$-axis at $x=3$ and the $y$-axis at $y=-6$. The triangle is <em>below</em> the $x$-axis, for $0\le x\le3$.</div>
+      <div class="hint">Top $y=0$, bottom $y=2x-6$, so the height is $0-(2x-6)=6-2x$.</div>
+      <div class="hint">$M=\int_0^3(x^2+1)(6-2x)\,dx=\int_0^3\big(6x^2-2x^3+6-2x\big)\,dx$.</div>
+      <div class="solution">
+        <p>$M=\Big[2x^3-\frac{x^4}2+6x-x^2\Big]_0^3=54-40.5+18-9=\frac{45}2=22.5$ kg.</p>
+        <p style="margin:0"><b>Check:</b> the triangle's area is $\frac12\cdot3\cdot6=9$ m², and the density ranges from 1 to 10 kg/m². So the mass must be between 9 and 90 kg. Since the dense part (near $x=3$) is the narrow tip, it should be toward the low end, and $22.5$ is.</p>
+      </div>
+      <div class="reflect"><h5>Compare your approach</h5>
+        <label><input type="checkbox"> I sketched the region and saw that it lies below the $x$-axis.</label>
+        <label><input type="checkbox"> I used top minus bottom, $0-(2x-6)$, and multiplied by the density.</label>
+        <label><input type="checkbox"> I checked the answer against the area times the smallest and largest density.</label>
+        <p class="small muted" style="margin:6px 0 0">The clue to recognize next time: <b>“plate … area density δ(x)” → vertical strips → density × (top − bottom) × dx</b>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 5 COMPARE -->
+  <div class="stage" id="K-compare">
+    <div class="stage-head"><span class="n">Stage 5 · Compare</span><h3>Tempting approaches vs. correct reasoning</h3></div>
+    <div class="vs">
+      <div class="tempt"><h5>✗ Tempting</h5>“Mass = density × length.” For the wire on $[0,2]$ with $\delta=3x^2$: $3x^2\cdot2=6x^2$, or, plugging in some $x$, a single number like $24$.</div>
+      <div class="right"><h5>✓ Correct</h5>$m=\delta V$ only holds for a <em>constant</em> density. Here it holds on each tiny piece, so $M=\int_0^2 3x^2\,dx=8$ (notes p. 2).</div>
+      <div class="clue"><b>Clue for next time:</b> if the density has an $x$ in it, the answer can't have an $x$ in it, and it can't be density × length. Cut into pieces and integrate.</div>
+    </div>
+
+    <div class="spot" data-sid="K-spot1">
+      <p><b>Spot the error.</b> A student finds the mass midpoint of the wire $0\le x\le2$ with density $\delta(x)=3x^2$ (notes p. 2):</p>
+      <button class="sline"><span class="ln">Line 1</span><span>$M=\int_0^2 3x^2\,dx=x^3\big|_0^2=8$.</span></button>
+      <button class="sline" data-bad><span class="ln">Line 2</span><span>The mass midpoint splits the wire into two pieces of equal length.</span></button>
+      <button class="sline"><span class="ln">Line 3</span><span>So $x_m=1$.</span></button>
+      <button class="sline"><span class="ln">Line 4</span><span>Check: the mass left of $x=1$ is $\int_0^1 3x^2\,dx=1$.</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout warn"><div class="label">What went wrong</div><p style="margin:0">Line 2 splits the <em>length</em> in half. The mass midpoint splits the <em>mass</em> in half: $\int_0^{x_m}3x^2\,dx=\frac12M=4$, so $x_m^3=4$ and $x_m=\sqrt[3]4\approx1.587$. The student's own check in Line 4 shows the problem: only 1 of the 8 units is left of $x=1$.</p></div>
+    </div>
+
+    <div class="spot" data-sid="K-spot2">
+      <p><b>Spot the error.</b> A student finds the mass midpoint of the wire $3\le x\le4$ with density $\delta(x)=2e^{3x}$ (notes p. 9):</p>
+      <button class="sline"><span class="ln">Line 1</span><span>$M=\int_3^4 2e^{3x}\,dx=\frac23e^{3x}\Big|_3^4=\frac23\big(e^{12}-e^9\big)$.</span></button>
+      <button class="sline"><span class="ln">Line 2</span><span>Half the mass is $\frac13\big(e^{12}-e^9\big)$.</span></button>
+      <button class="sline" data-bad><span class="ln">Line 3</span><span>$\int_0^{x_m}2e^{3x}\,dx=\frac23\big(e^{3x_m}-1\big)$.</span></button>
+      <button class="sline"><span class="ln">Line 4</span><span>Set Line 3 equal to Line 2 and solve for $x_m$.</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout warn"><div class="label">What went wrong</div><p style="margin:0">Line 3 starts at $x=0$, but the wire starts at $x=3$. The mass from the left end is $\int_3^{x_m}2e^{3x}\,dx=\frac23\big(e^{3x_m}-e^9\big)$. Setting it equal to $\frac13(e^{12}-e^9)$ gives $2e^{3x_m}=e^{12}+e^9$, so $x_m=\frac13\ln\frac{e^{12}+e^9}2\approx3.785$, as on notes p. 9. With the wrong limit, $x_m$ comes out at about 3.75, still inside the wire, so the mistake is easy to miss.</p></div>
+    </div>
+
+    <h4 style="margin-top:22px">Common mistakes: why they happen and how to prevent them</h4>
+    <details class="mistake"><summary>Density × length when the density varies</summary><div class="m-body"><p><b>Why it happens</b><br>$m=\delta V$ is the formula you know from physics, and it's the first line of the notes.</p><p><b>Prevent it</b><br>Read the rest of that line: “if density is constant”. If $\delta$ depends on $x$, cut into pieces and integrate.</p></div></details>
+    <details class="mistake"><summary>Forgetting the strip height for a plate</summary><div class="m-body"><p><b>Why it happens</b><br>The wire formula $\int\delta\,dx$ is shorter, and it's the one you learned first.</p><p><b>Prevent it</b><br>A plate's strip is an area, not a length. Write its mass in words first: density × height × width.</p></div></details>
+    <details class="mistake"><summary>Forgetting the density for a plate</summary><div class="m-body"><p><b>Why it happens</b><br>$\int(f-g)\,dx$ is the familiar area-between-curves integral.</p><p><b>Prevent it</b><br>That's the plate's area, not its mass. Check: the units of your integrand should be mass per unit $x$ (kg/m), not length.</p></div></details>
+    <details class="mistake"><summary>Bottom minus top, or splitting at the $x$-axis</summary><div class="m-body"><p><b>Why it happens</b><br>Regions below the axis feel “negative” from signed area (§2.4).</p><p><b>Prevent it</b><br>Find the intersections, test one point between them (notes p. 5 tests $x=1$), and write top minus bottom. A strip's mass doesn't care where the axis is.</p></div></details>
+    <details class="mistake"><summary>The mass midpoint as the middle of the object</summary><div class="m-body"><p><b>Why it happens</b><br>“Midpoint” sounds like half the length.</p><p><b>Prevent it</b><br>It's the point with half the <em>mass</em> on each side: solve $\int_a^{x_m}\delta\,dx=\frac12M$. It equals the middle only when the density is constant.</p></div></details>
+    <details class="mistake"><summary>The wrong lower limit for the mass midpoint</summary><div class="m-body"><p><b>Why it happens</b><br>Most examples start at $x=0$.</p><p><b>Prevent it</b><br>The lower limit is where the object starts: $a=3$ on notes p. 9.</p></div></details>
+    <details class="mistake"><summary>Leaving off the units</summary><div class="m-body"><p><b>Why it happens</b><br>The integral produces a bare number.</p><p><b>Prevent it</b><br>The professor's green note on p. 1: if the question has units, the answer must too. Density in kg/m times length in m gives kg.</p></div></details>
+  </div>
+
+  <!-- ============================== 6 PRACTICE -->
+  <div class="stage" id="K-practice">
+    <div class="stage-head"><span class="n">Stage 6 · Practice</span><h3>Practice: standard applications</h3></div>
+    <p class="muted">Professor's examples to redo, textbook exercises, and new variants. Where a problem has units, you may type them (e.g. <kbd>8 kg</kbd>); the checker reads the number either way.</p>
+
+    <div class="problem" data-pid="K-p1" data-topic="K" data-title="Practice 1" data-src="3.7–3.9 notes p. 2 · redo it" data-help="Exact values (e.g. cbrt(4)) or decimals." data-prompt="A thin wire lies on 0 &lt;= x &lt;= 2 with density delta(x) = 3x^2. (1) Find the mass of the wire. (2) Find the mass midpoint x_m.">
+      <div class="p-body">A thin wire lies on $0\le x\le2$ with density $\delta(x)=3x^2$. (1) Find the mass of the wire. (2) Find the mass midpoint $x_m$.</div>
+      <div class="answers">
+        <label>(1) $M=$ <input class="ans" data-label="(1) M" data-vid="K-p1-M" data-answer="8" data-exact="8"></label>
+        <label>(2) $x_m=$ <input class="ans" data-label="(2) xₘ" data-vid="K-p1-xm" data-answer="1.587401051968" data-exact="∛4" data-wrong='[{"v":1,"m":"That’s the middle of the wire’s length. The mass midpoint has half the mass on each side: solve ∫₀^(xₘ) 3x² dx = 4."},{"v":2,"m":"That solves ∫₀^(xₘ) 3x² dx = 8, the whole mass. Use half of it: 4."},{"v":1.5,"m":"That is the center of mass x̄ = ∫x·3x² dx / 8 (§3.8), the balance point. The mass midpoint splits the mass in half instead."}]'></label>
+      </div>
+      <div class="hint">$M=x^3\big|_0^2$.</div>
+      <div class="hint">$\frac12M=4=\int_0^{x_m}3x^2\,dx=x_m^3$.</div>
+      <div class="solution">(1) $M=x^3\big|_0^2=8$. (2) $x_m^3=4$, so $x_m=\sqrt[3]4\approx1.5874$, as on notes p. 2.</div>
+    </div>
+
+    <div class="problem" data-pid="K-p2" data-topic="K" data-title="Practice 2" data-src="3.7–3.9 notes p. 4 · set up only (redo it)" data-help="The limits are numbers. Type the integrand in x, e.g. 3^x*(...)." data-prompt="A plate is enclosed by the curves y = x^2 and y = 2 - x^2, with area density delta(x) = 3^x. Find an integral that gives the mass of the plate. Set up only.">
+      <div class="p-body">A plate is enclosed by the curves $y=x^2$ and $y=2-x^2$, with area density $\delta(x)=3^x$. Find an integral that gives the mass of the plate. <b>Set up only.</b></div>
+      <div class="answers">
+        <label>lower limit <input class="ans" data-label="a" data-vid="K-p2-a" data-answer="-1" data-exact="−1"></label>
+        <label>upper limit <input class="ans" data-label="b" data-vid="K-p2-b" data-answer="1" data-exact="1"></label>
+        <label>integrand <input class="ans" data-label="integrand" data-vid="K-p2-dm" data-kind="expr" data-var="x" data-answer="3^x*(2-2*x^2)" data-dom="-0.9,0.9" data-show="3ˣ(2 − 2x²)" placeholder="density × (top − bottom)" data-wrong='[{"f":"2-2*x^2","m":"That’s the strip height alone: the plate’s area. Multiply by the density 3ˣ."},{"f":"3^x*(2-x^2)","m":"That uses the top curve only. Subtract the bottom curve, x²."},{"f":"3^x*(2*x^2-2)","m":"Bottom minus top: negative on (−1, 1). At x = 0 the top is 2 − 0 = 2 and the bottom is 0."}]'></label>
+      </div>
+      <div class="hint">$x^2=2-x^2$ gives $2x^2=2$, so $x=\pm1$.</div>
+      <div class="hint">At $x=0$, $2-x^2=2$ is above $x^2=0$. Height $=(2-x^2)-x^2$.</div>
+      <div class="solution"><p>$M=\int_{-1}^{1}3^x\big(2-x^2-x^2\big)\,dx=\int_{-1}^{1}3^x\big(2-2x^2\big)\,dx$, as on notes p. 4. The notes stop here.</p>
+        <p style="margin:0">If you want the number: integration by parts twice gives $M=\frac{8(5\ln3-4)}{3\ln^3 3}\approx3.0027$ (checked with SymPy, mpmath and Wolfram). The plate's area is $\frac83\approx2.667$; the mass is a bit bigger because the dense right half outweighs the light left half.</p></div>
+    </div>
+
+    <div class="problem" data-pid="K-p3" data-topic="K" data-title="Practice 3" data-src="Textbook §3.7 Example 3.7.6" data-help="Exact (e.g. 1 - e^(-2)) or decimals. Units: slugs and feet." data-prompt="A wire is stretched along the x-axis from x = 0 to x = 4 feet, with length-density e^(-x) slugs/ft. Find the mass of the left half (0 to 2), the mass of the right half (2 to 4), and the mass midpoint.">
+      <div class="p-body">A wire is stretched along the $x$-axis from $x=0$ to $x=4$ feet. Its density is $\delta(x)=e^{-x}$ slugs/ft. Find the mass of the left half ($0\le x\le2$), the mass of the right half ($2\le x\le4$), and the mass midpoint $x_m$.</div>
+      <div class="answers">
+        <label>left half <input class="ans" data-label="left half" data-vid="K-p3-L" data-units="slugs" data-answer="0.864664716763" data-exact="1 − e⁻² slugs"></label>
+        <label>right half <input class="ans" data-label="right half" data-vid="K-p3-R" data-units="slugs" data-answer="0.117019644348" data-exact="e⁻² − e⁻⁴ slugs"></label>
+        <label>$x_m=$ <input class="ans" data-label="xₘ" data-vid="K-p3-xm" data-units="ft" data-answer="0.674997252642" data-exact="ln(2/(1 + e⁻⁴)) ft" data-wrong='[{"v":2,"m":"That’s the middle of the length. The left half holds most of the mass, so the mass midpoint is far left of 2."}]'></label>
+      </div>
+      <div class="hint">$\int e^{-x}\,dx=-e^{-x}+C$ (substitute $u=-x$).</div>
+      <div class="hint">For $x_m$: set $\int_0^{x_m}e^{-x}\,dx=\int_{x_m}^4e^{-x}\,dx$, so $1-e^{-x_m}=e^{-x_m}-e^{-4}$.</div>
+      <div class="solution">Left: $1-e^{-2}\approx0.8647$ slugs. Right: $e^{-2}-e^{-4}\approx0.1170$ slugs. Midpoint: $2e^{-x_m}=1+e^{-4}$, so $x_m=\ln\frac{2}{1+e^{-4}}\approx0.6750$ ft. About 88% of the mass is in the left half, a bit more than seven-eighths.</div>
+    </div>
+
+    <div class="problem" data-pid="K-p4" data-topic="K" data-title="Practice 4" data-src="Textbook §3.7 Suggested Ex. 1" data-help="Exact (e.g. sqrt(85) - 7) or decimals." data-prompt="The density of a thin wire on 0 &lt;= x &lt;= 4 is delta(x) = x + 7. Find the total mass and the mass midpoint.">
+      <div class="p-body">The density of a thin wire lying on $0\le x\le4$ is $\delta(x)=x+7$. Find (a) the total mass and (b) the mass midpoint.</div>
+      <div class="answers">
+        <label>(a) $M=$ <input class="ans" data-label="(a) M" data-vid="K-p4-M" data-answer="36" data-exact="36"></label>
+        <label>(b) $x_m=$ <input class="ans" data-label="(b) xₘ" data-vid="K-p4-xm" data-answer="2.219544457293" data-exact="√85 − 7" data-wrong='[{"v":2,"m":"That’s the middle of the wire. The density grows to the right, so the mass midpoint is a little right of 2."}]'></label>
+      </div>
+      <div class="hint">$M=\Big[\frac{x^2}2+7x\Big]_0^4$.</div>
+      <div class="hint">$\frac{x_m^2}2+7x_m=18$ is a quadratic: $x_m^2+14x_m-36=0$. Keep the root that lies on the wire.</div>
+      <div class="solution">(a) $8+28=36$. (b) $x_m=\frac{-14+\sqrt{196+144}}{2}=-7+\sqrt{85}\approx2.2195$. The other root, $-7-\sqrt{85}$, isn't on the wire. The density only changes from 7 to 11, so the midpoint is just a little right of 2.</div>
+    </div>
+
+    <div class="problem" data-pid="K-p5" data-topic="K" data-title="Practice 5" data-src="Textbook §3.7 Suggested Ex. 2" data-help="Exact (e.g. pi/3) or decimals." data-prompt="The density of a thin wire on 0 &lt;= x &lt;= pi/2 is delta(x) = sin x. Find the total mass and the mass midpoint.">
+      <div class="p-body">The density of a thin wire lying on $0\le x\le\frac\pi2$ is $\delta(x)=\sin x$. Find (a) the total mass and (b) the mass midpoint.</div>
+      <div class="answers">
+        <label>(a) $M=$ <input class="ans" data-label="(a) M" data-vid="K-p5-M" data-answer="1" data-exact="1"></label>
+        <label>(b) $x_m=$ <input class="ans" data-label="(b) xₘ" data-vid="K-p5-xm" data-answer="1.047197551197" data-exact="π/3" data-wrong='[{"v":0.785398163397,"m":"That’s π/4, the middle of the wire. sin x is small near 0, so the mass midpoint is to the right."}]'></label>
+      </div>
+      <div class="hint">$M=-\cos x\Big|_0^{\pi/2}$.</div>
+      <div class="hint">$\int_0^{x_m}\sin x\,dx=1-\cos x_m=\frac12$.</div>
+      <div class="solution">(a) $M=0-(-1)=1$. (b) $\cos x_m=\frac12$, so $x_m=\frac\pi3\approx1.0472$, since $\cos\frac\pi3=\frac12$.</div>
+    </div>
+
+    <div class="problem" data-pid="K-p6" data-topic="K" data-title="Practice 6" data-src="Textbook §3.7 Additional Ex. 6 · solve for a constant" data-help="The height is an expression in x. The constant c is a number." data-prompt="A triangular plate has vertices (0, 0), (0, 2) and (5, 0) and area density delta(x) = c x^2 kg/m^2. Its total mass is 25 kg. Find c.">
+      <div class="p-body">A thin plate is the triangle with vertices $(0,0)$, $(0,2)$ and $(5,0)$, with area density $\delta(x)=cx^2$ kg/m². Its total mass is 25 kg. Find the strip height and the constant $c$.</div>
+      <div class="answers">
+        <label>strip height $h(x)=$ <input class="ans" data-label="h" data-vid="K-p6-h" data-kind="expr" data-var="x" data-answer="2-2*x/5" data-dom="0.5,4.5" data-show="2 − 2x/5" data-wrong='[{"f":"2","m":"The top edge slopes down from (0, 2) to (5, 0). Find the equation of that line."}]'></label>
+        <label>$c=$ <input class="ans" data-label="c" data-vid="K-p6-c" data-answer="1.2" data-exact="6/5" data-wrong='[{"v":0.6,"m":"That solves ∫₀⁵ cx² dx = 25, as if the plate were a wire. Multiply the density by the strip height 2 − 2x/5."}]'></label>
+      </div>
+      <div class="hint">The hypotenuse goes through $(0,2)$ and $(5,0)$: $y=2-\frac25x$. The bottom is the $x$-axis.</div>
+      <div class="hint">$\int_0^5cx^2\big(2-\frac25x\big)\,dx=c\Big[\frac23x^3-\frac1{10}x^4\Big]_0^5$.</div>
+      <div class="solution">$c\big(\frac{250}3-\frac{625}{10}\big)=c\cdot\frac{125}6=25$, so $c=\frac65=1.2$ kg/m⁴ (the units make $cx^2$ come out in kg/m²).</div>
+    </div>
+
+    <div class="problem" data-pid="K-p7" data-topic="K" data-title="Practice 7" data-src="Textbook §3.7 Additional Ex. 1 · uses partial fractions (§1.3)" data-help="Exact (e.g. (2/3)ln(5/2)) or decimals." data-prompt="The density of a thin wire on 1 &lt;= x &lt;= 2 is delta(x) = 4/(9 - x^2). Find its total mass.">
+      <div class="p-body">The density of a thin wire lying on $1\le x\le2$ is $\delta(x)=\dfrac{4}{9-x^2}$. Find its total mass.</div>
+      <div class="answers"><label>$M=$ <input class="ans" data-vid="K-p7" data-answer="0.610860487916" data-exact="(2/3) ln(5/2)" data-wrong='[{"v":-0.313335752830,"m":"Negative, so a sign slipped: ∫dx/(3 − x) = −ln|3 − x|, not +ln|3 − x|."}]'></label></div>
+      <div class="hint">Factor: $9-x^2=(3-x)(3+x)$. Write $\frac{4}{(3-x)(3+x)}=\frac{A}{3-x}+\frac{B}{3+x}$.</div>
+      <div class="hint">$A=B=\frac23$. Then $\int\frac{dx}{3-x}=-\ln|3-x|$ and $\int\frac{dx}{3+x}=\ln|3+x|$.</div>
+      <div class="solution">$M=\frac23\Big[\ln\Big|\frac{3+x}{3-x}\Big|\Big]_1^2=\frac23\big(\ln5-\ln2\big)=\frac23\ln\frac52\approx0.6109$.</div>
+    </div>
+
+    <div class="problem" data-pid="K-p8" data-topic="K" data-title="Practice 8" data-src="Textbook §3.7 Suggested Ex. 3 · uses integration by parts (§1.1)" data-help="Exact (e.g. (153/2)ln(3) - 18) or decimals." data-prompt="The density of a thin wire on 3 &lt;= x &lt;= 9 is delta(x) = x ln x. Find its total mass.">
+      <div class="p-body">The density of a thin wire lying on $3\le x\le9$ is $\delta(x)=x\ln x$. Find its total mass.</div>
+      <div class="answers"><label>$M=$ <input class="ans" data-vid="K-p8" data-answer="66.043840083110" data-exact="(153/2) ln 3 − 18"></label></div>
+      <div class="hint">By parts with $u=\ln x$ (LIATE), $dv=x\,dx$: $\int x\ln x\,dx=\frac{x^2}2\ln x-\frac{x^2}4+C$.</div>
+      <div class="hint">At $x=9$: $\frac{81}2\ln9-\frac{81}4$. At $x=3$: $\frac92\ln3-\frac94$. Use $\ln9=2\ln3$.</div>
+      <div class="solution">$M=\big(81\ln3-\frac{81}4\big)-\big(\frac92\ln3-\frac94\big)=\frac{153}2\ln3-18\approx66.044$.</div>
+    </div>
+  </div>
+
+  <!-- ============================== 7 MASTER -->
+  <div class="stage" id="K-master">
+    <div class="stage-head"><span class="n">Stage 7 · Master</span><h3>Mastery check</h3></div>
+    <p class="muted">No hints are offered until you've committed to an answer. This checks recognition, understanding, unfamiliar problems, and whether you can explain why.</p>
+    <div class="mcq" data-qid="K-m1" data-topic="K" data-level="1" data-count>
+      <div class="q"><b>Recognition.</b> A thin wire lies on $1\le x\le3$ with density $\delta(x)=x^2$. Which integral is its mass?</div>
+      <div class="opts">
+        <button class="opt" data-correct data-why="Right: density × length for each tiny piece, added up.">$\int_1^3x^2\,dx$</button>
+        <button class="opt" data-why="The extra factor x makes that the moment x̄M (§3.8), used for the balance point, not the mass.">$\int_1^3x\cdot x^2\,dx$</button>
+        <button class="opt" data-why="That’s density × length with the density at the right end, which only works for a constant density.">$3^2\cdot2$</button>
+        <button class="opt" data-why="That integrates the derivative of the density. Mass integrates the density itself.">$\int_1^32x\,dx$</button>
+      </div>
+    </div>
+    <div class="mcq" data-qid="K-m2" data-topic="K" data-level="2" data-count>
+      <div class="q"><b>Understanding.</b> Wires A and B both run from $x=0$ to $x=4$ and have the same total mass. A's density is constant; B's increases from left to right. Where is B's mass midpoint?</div>
+      <div class="opts">
+        <button class="opt" data-correct data-why="Right: B’s left half is its light half, so you have to go past x = 2 to collect half the mass. (A’s is exactly at 2.)">to the right of $x=2$</button>
+        <button class="opt" data-why="That’s A’s. For B the left half by length holds less than half the mass.">at $x=2$</button>
+        <button class="opt" data-why="That would be a wire that is heavier on the left.">to the left of $x=2$</button>
+        <button class="opt" data-why="Knowing which side is heavier is enough to tell which side of the middle it’s on.">you can't tell without the formula</button>
+      </div>
+    </div>
+    <div class="problem" data-pid="K-m3" data-topic="K" data-level="6" data-title="Unfamiliar problem" data-src="Textbook §3.7 Additional Ex. 3 · an unknown constant" data-help="Exact (e.g. ln((1 + e^10)/2)) or decimals." data-prompt="The density of a wire is delta(x) = c e^x for x in [0, 10], where c &gt; 0 is a constant. What is the mass midpoint?">
+      <div class="p-body">A wire on $[0,10]$ has density $\delta(x)=ce^x$, where $c>0$ is a constant you aren't told. Find the mass midpoint.</div>
+      <div class="answers"><label>$x_m=$ <input class="ans" data-vid="K-m3" data-answer="9.306898218339" data-exact="ln((1 + e¹⁰)/2)" data-wrong='[{"v":5,"m":"That’s the middle of the wire. The density grows by a factor e every unit, so almost all the mass is near x = 10."}]'></label></div>
+      <div class="hint">$M=c(e^{10}-1)$. Set $\int_0^{x_m}ce^x\,dx=\frac12M$. What happens to $c$?</div>
+      <div class="hint">$c(e^{x_m}-1)=\frac c2(e^{10}-1)$, so $e^{x_m}=\frac{1+e^{10}}2$.</div>
+      <div class="solution">$c$ cancels, so it doesn't matter: $x_m=\ln\frac{1+e^{10}}2\approx9.3069$. That's about $\ln2\approx0.69$ from the right end: halving an exponential moves you back by $\ln 2$. Doubling every density (changing $c$) doubles both halves, so it can't move the midpoint.</div>
+    </div>
+    <div class="problem" data-pid="K-m4" data-topic="K" data-level="6" data-title="Unfamiliar problem" data-src="New variant · combines §2.5 improper integrals" data-help='A number, or "diverges".' data-prompt="A very long thin wire lies along x &gt;= 0 with density delta(x) = 1/(1 + x)^2 kg/m. Find its total mass, or show it is infinite, and find its mass midpoint.">
+      <div class="p-body">A thin wire lies along the whole half-line $x\ge0$, with density $\delta(x)=\dfrac{1}{(1+x)^2}$ kg/m. Find (a) its total mass, or show it's infinite, and (b) its mass midpoint.</div>
+      <div class="answers">
+        <label>(a) $M=$ <input class="ans" data-label="(a) M" data-vid="K-m4-M" data-accept="div" data-units="kg" data-answer="1" data-exact="1 kg" data-divmsg="An infinitely long wire can still have a finite mass. Compute ∫₀^b (1 + x)⁻² dx = 1 − 1/(1 + b) and let b → ∞."></label>
+        <label>(b) $x_m=$ <input class="ans" data-label="(b) xₘ" data-vid="K-m4-xm" data-units="m" data-answer="1" data-exact="1 m"></label>
+      </div>
+      <div class="hint">The integral is improper (Type I, §2.5). Replace $\infty$ by $b$: $\int_0^b(1+x)^{-2}\,dx$.</div>
+      <div class="hint">$\int_0^{x_m}(1+x)^{-2}\,dx=1-\frac1{1+x_m}=\frac12$.</div>
+      <div class="solution">(a) $\lim_{b\to\infty}\big(1-\frac1{1+b}\big)=1$ kg, finite even though the wire is infinitely long. (b) $\frac1{1+x_m}=\frac12$, so $x_m=1$ m: half of all the mass is in the first metre.</div>
+    </div>
+    <div class="explain card" data-eid="K-explain" data-topic="K">
+      <h4>Explain why (Level 7)</h4>
+      <p>Why isn't the mass of a wire just its density times its length? And why does a plate's mass integral need both $\delta(x)$ and $f(x)-g(x)$?</p>
+      <textarea aria-label="Your explanation"></textarea>
+      <div class="model callout why"><div class="label">A model explanation</div><p style="margin:0">Mass = density × size is only true when the density is the same everywhere. If $\delta$ changes along the wire, there's no single density to multiply by. So cut the wire into short pieces of length $\Delta x$. On each piece the density is nearly constant, $\delta(x_i)$, so that piece's mass is about $\delta(x_i)\Delta x$. Adding the pieces gives a Riemann sum, and as the pieces shrink the error goes away: $M=\int_a^b\delta(x)\,dx$ (3.7–3.9 notes p. 1). For a plate, the pieces are vertical strips. Because the density depends only on $x$, a whole strip has one density $\delta(x_i)$. But a strip is an area, not a length: its height is top minus bottom, $f(x_i)-g(x_i)$, and its width is $\Delta x$. So its mass is $\delta(x_i)\,[f(x_i)-g(x_i)]\,\Delta x$, and $M=\int_a^b\delta(x)[f(x)-g(x)]\,dx$ (notes p. 3). Without $\delta$ you'd get the area; without $f-g$ you'd be treating the plate as a wire.</p></div>
+    </div>
+  </div>
+</section>

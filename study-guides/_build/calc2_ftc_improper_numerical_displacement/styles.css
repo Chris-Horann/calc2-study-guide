@@ -575,7 +575,47 @@ input.ans.fn { width: 23ch; font-family: var(--mono); }
 .plot .slab-face { fill: color-mix(in srgb, var(--s1) 42%, var(--surface)); stroke: var(--s1); stroke-width: 1.2; }
 .plot .slab-hole { fill: var(--surface); stroke: var(--s1); stroke-width: 1.1; stroke-dasharray: 3 2; }
 .cmap .edge-lbl { paint-order: stroke fill; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+/* additions: §3.5 cylindrical shells (nested translucent shells, so the order they are drawn in doesn't hide anything) */
+.plot .shell-band { fill: color-mix(in srgb, var(--s1) 16%, transparent); stroke: var(--s1); stroke-width: .8; }
+.plot .shell-top { fill: color-mix(in srgb, var(--s1) 28%, transparent); stroke: var(--s1); stroke-width: .9; }
+.plot .shell-hole { fill: var(--surface); stroke: var(--s1); stroke-width: 1.1; stroke-dasharray: 3 2; }
+.plot .shell-hi-band { fill: color-mix(in srgb, var(--s2) 38%, transparent); stroke: var(--s2); stroke-width: 1.6; }
+.plot .shell-hi-top { fill: color-mix(in srgb, var(--s2) 55%, transparent); stroke: var(--s2); stroke-width: 1.6; }
 @media (forced-colors: active) {
   .plot .slab-back, .plot .slab-band, .plot .slab-face { fill: Canvas; stroke: CanvasText; forced-color-adjust: none; }
   .plot .slab-hole { fill: Canvas; stroke: CanvasText; }
+  .plot .shell-band, .plot .shell-top, .plot .shell-hi-band, .plot .shell-hi-top { fill: Canvas; stroke: CanvasText; forced-color-adjust: none; }
+  .plot .shell-hole { fill: Canvas; stroke: CanvasText; }
 }
+/* additions: §3.7–§3.9 mass, center of mass, work */
+.plot .dens-piece { fill: var(--s1); stroke: var(--surface); stroke-width: .9; }
+.plot .dens-piece.hi { stroke: var(--s2); stroke-width: 2.4; }
+.plot .mass-left { fill: var(--s2); fill-opacity: calc(var(--wash) + 0.12); }
+.plot .mass-right { fill: var(--s1); fill-opacity: calc(var(--wash) + 0.06); }
+.plot .rect-outline.hi { stroke: var(--s2); stroke-width: 2.2; stroke-dasharray: none; }
+.plot .beam { stroke: var(--ink); stroke-width: 4; stroke-linecap: round; }
+.plot .fulcrum { fill: var(--ink-2); }
+.plot .pmass { fill: var(--s2); fill-opacity: .75; stroke: var(--ink); stroke-width: 1.2; }
+.plot .cm-dot { fill: var(--s3); stroke: var(--surface); stroke-width: 2.2; }
+.plot .wall { stroke: var(--axis); stroke-width: 6; stroke-linecap: square; }
+.plot .rope { stroke: var(--ink-2); stroke-width: 3.2; stroke-linecap: round; }
+.plot .rope.ghost { stroke-dasharray: 5 5; opacity: .55; }
+.plot .liquid { fill: var(--s1); fill-opacity: calc(var(--wash) + 0.04); stroke: var(--s1); stroke-width: .6; }
+.plot .liquid.alt { fill-opacity: calc(var(--wash) + 0.14); }
+.plot .slice-hi { fill: var(--s2); fill-opacity: .6; stroke: var(--s2); stroke-width: 1.2; }
+.plot .tank { fill: none; stroke: var(--ink); stroke-width: 2.2; stroke-linejoin: round; }
+.plot .spout { stroke: var(--ink-2); stroke-width: 1.4; stroke-dasharray: 6 4; }
+.plot .spring { fill: none; stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
+.plot .arrow.lift { color: var(--s2); }
+@media (forced-colors: active) {
+  .plot .dens-piece, .plot .liquid, .plot .slice-hi, .plot .pmass, .plot .cm-dot, .plot .mass-left, .plot .mass-right { fill: Canvas; stroke: CanvasText; forced-color-adjust: none; }
+  .plot .dens-piece.hi, .plot .slice-hi { stroke-width: 3; }
+}
+
+/* phone widths (2026-10-20): a grid item may shrink below its content's width, so wide formulas scroll inside
+   their own .katex-display instead of widening the page; the 14-topic mastery report scrolls sideways in its box */
+.grid-2 > *, .grid-3 > *, .vs > *, .fc-meta > * { min-width: 0; }
+#masteryReport { overflow-x: auto; }
+#masteryReport .mastery-grid { min-width: 560px; }
+code { overflow-wrap: anywhere; }
+@media (max-width: 720px) { label.inline { flex-wrap: wrap; max-width: 100%; } label.inline .lbl-text { min-width: 0; } }

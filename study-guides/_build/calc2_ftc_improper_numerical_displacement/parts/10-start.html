@@ -5,8 +5,8 @@
   </div>
 
   <div class="card" id="concepts">
-    <h3>How the ten topics connect</h3>
-    <p><b>Left:</b> the techniques for finding antiderivatives (§1.1, §1.3). Each one is a derivative rule run backwards. <b>Middle:</b> the FTC (§2.4), which turns an antiderivative into a definite integral. <b>Right:</b> what to do when the FTC's conditions fail (§2.5 improper, §2.6 numerical), and how it applies to motion on a line (§3.1) and in space (§3.3). At the bottom right are two geometric applications: the length of a curve (§3.3 arc length) and volume by slicing (§3.5). Dashed boxes are prerequisites from earlier material.</p>
+    <h3>How the fourteen topics connect</h3>
+    <p><b>Left:</b> the techniques for finding antiderivatives (§1.1, §1.3). Each one is a derivative rule run backwards. <b>Middle:</b> the FTC (§2.4), which turns an antiderivative into a definite integral. <b>Right:</b> what to do when the FTC's conditions fail (§2.5 improper, §2.6 numerical), and how it applies to motion on a line (§3.1) and in space (§3.3). At the bottom right are three geometric applications: the length of a curve (§3.3 arc length), and volume by slicing in two ways (§3.5): washers, slicing perpendicular to the axis, and cylindrical shells, slicing parallel to it. <b>Bottom left:</b> three physical applications of the same slice-and-add idea: mass from density (§3.7), the center of mass (§3.8), and work (§3.9). Dashed boxes are prerequisites from earlier material.</p>
     <p class="small muted">Mark each concept by how well you know it. The prompt at the bottom updates to match, so you can paste it into Claude for a targeted session.</p>
     <div id="concept-map"></div>
   </div>
@@ -108,7 +108,41 @@
           <button class="opt" data-correct data-why="Right: the region sits above the axis, with a gap below it, so each slice has a hole (§3.5, 3.3–3.5 notes p. 7).">a washer (a disk with a hole)</button>
           <button class="opt" data-why="A disk needs the region to reach the axis. Here there’s a gap between y = 0 and y = x².">a disk</button>
           <button class="opt" data-why="The flat region’s strip is a rectangle; spinning it makes a ring.">a rectangle</button>
-          <button class="opt" data-why="Shells come from slices parallel to the axis, and they aren’t in your notes.">a cylindrical shell</button>
+          <button class="opt" data-why="Shells come from slices parallel to the axis (§3.5 shells). A slice perpendicular to the x-axis is a ring.">a cylindrical shell</button>
+        </div>
+      </div>
+      <div class="mcq" data-qid="diag-S" data-topic="S" data-level="1">
+        <div class="q"><b>12.</b> A thin vertical strip of a region is spun around a vertical line $x=k$ that lies to the left of the region. The solid it sweeps out is…</div>
+        <div class="opts">
+          <button class="opt" data-correct data-why="Right: the strip is parallel to the axis, so it makes a thin hollow cylinder. Its volume is about 2πr·h·Δx (§3.5 shells, MATH1342 notes p. 6).">a thin cylindrical shell</button>
+          <button class="opt" data-why="A washer comes from a strip perpendicular to the axis. This strip is parallel to it.">a washer (a disk with a hole)</button>
+          <button class="opt" data-why="A solid disk would come from a strip that reaches the axis and lies perpendicular to it.">a solid disk</button>
+          <button class="opt" data-why="A cone comes from spinning a slanted line, not a thin strip.">a cone</button>
+        </div>
+      </div>
+      <div class="mcq" data-qid="diag-K" data-topic="K" data-level="1">
+        <div class="q"><b>13.</b> A thin wire lies on $0\le x\le2$, and its density $\delta(x)$ (kg/m) changes along it. Its mass is…</div>
+        <div class="opts">
+          <button class="opt" data-correct data-why="Right: each tiny piece has mass δ(x) dx, and the integral adds them up (§3.7, 3.7–3.9 notes p. 1).">$\int_0^2\delta(x)\,dx$</button>
+          <button class="opt" data-why="Density × length only works when the density is constant. Which value of δ would you use?">$2\,\delta(2)$</button>
+          <button class="opt" data-why="The extra x makes that the moment, used for the balance point (§3.8), not the mass.">$\int_0^2x\,\delta(x)\,dx$</button>
+          <button class="opt" data-why="That is how fast the density changes, not how much mass there is.">$\delta'(x)$</button>
+        </div>
+      </div>
+      <div class="mcq" data-qid="diag-G" data-topic="G" data-level="1">
+        <div class="q"><b>14.</b> A 30 kg child and a 60 kg child sit at the two ends of a seesaw. To balance it, the fulcrum goes…</div>
+        <div class="opts">
+          <button class="opt" data-correct data-why="Right: the heavier child needs a shorter lever arm, m₁d₁ = m₂d₂ (§3.8, 3.7–3.9 notes p. 6).">closer to the 60 kg child</button>
+          <button class="opt" data-why="The middle only balances equal masses.">exactly in the middle</button>
+          <button class="opt" data-why="That gives the heavy side both more mass and a longer arm, so it tips even further.">closer to the 30 kg child</button>
+        </div>
+      </div>
+      <div class="mcq" data-qid="diag-W" data-topic="W" data-level="1">
+        <div class="q"><b>15.</b> Lifting a box onto a roof is just force × distance. Pulling a hanging rope up onto the roof needs an integral, because…</div>
+        <div class="opts">
+          <button class="opt" data-correct data-why="Right: the bottom of the rope rises the whole way, the top hardly at all, so you slice the rope and add weight × distance for each piece (§3.9, 3.7–3.9 notes p. 16).">different pieces of the rope rise different distances</button>
+          <button class="opt" data-why="The rope’s weight doesn’t change. What changes from piece to piece is how far it moves.">the rope gets heavier as you pull it</button>
+          <button class="opt" data-why="A box’s work is just Fd. Work needs an integral only when the force or the distance varies.">work always needs an integral</button>
         </div>
       </div>
     </div>

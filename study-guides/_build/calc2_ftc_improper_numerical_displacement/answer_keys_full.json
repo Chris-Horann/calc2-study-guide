@@ -1759,6 +1759,124 @@
   ]
  },
  {
+  "vid": "V-p11-R",
+  "answer": "sqrt(x)+2",
+  "kind": "expr",
+  "var": "x",
+  "dom": "0.1,0.9",
+  "wrong": [
+   {
+    "f": "sqrt(x)",
+    "m": "That’s the distance from the x-axis. The axis is y = −2, so add 2: R = √x − (−2)."
+   }
+  ]
+ },
+ {
+  "vid": "V-p11-r",
+  "answer": "x^2+2",
+  "kind": "expr",
+  "var": "x",
+  "dom": "0.1,0.9",
+  "wrong": [
+   {
+    "f": "x^2",
+    "m": "That’s the distance from the x-axis. The axis is y = −2, so add 2: r = x² − (−2)."
+   }
+  ]
+ },
+ {
+  "vid": "V-p11",
+  "answer": "5.131268000863",
+  "kind": "num",
+  "exact": "49π/30",
+  "wrong": [
+   {
+    "v": 0.942477796077,
+    "m": "That is the answer about the x-axis (3π/10). Measure R and r from the line y = −2."
+   }
+  ]
+ },
+ {
+  "vid": "V-p12-R",
+  "answer": "6-x^2",
+  "kind": "expr",
+  "var": "x",
+  "dom": "-1.8,0.8",
+  "wrong": [
+   {
+    "f": "4+x",
+    "m": "That’s r, the near edge. R is the distance to the far edge: the axis y = 7 is above the region, so the lower curve (the parabola) is farthest, 7 − (x² + 1)."
+   }
+  ]
+ },
+ {
+  "vid": "V-p12-r",
+  "answer": "4+x",
+  "kind": "expr",
+  "var": "x",
+  "dom": "-1.8,0.8",
+  "wrong": [
+   {
+    "f": "6-x^2",
+    "m": "That’s R, the far edge. r is the distance to the near edge, the line y = −x + 3: 7 − (−x + 3)."
+   }
+  ]
+ },
+ {
+  "vid": "V-p12",
+  "answer": "124.407069082156",
+  "kind": "num",
+  "exact": "198π/5",
+  "wrong": [
+   {
+    "v": 73.513268094001,
+    "m": "That is the answer about the x-axis (117π/5). Measure R and r from the line y = 7."
+   },
+   {
+    "v": -124.407069082156,
+    "m": "Negative: R and r are swapped. The axis is above the region, so the lower curve is the far edge."
+   }
+  ]
+ },
+ {
+  "vid": "V-p13-R",
+  "answer": "sqrt(8*x)",
+  "kind": "expr",
+  "var": "x",
+  "dom": "0.1,1.9",
+  "wrong": [
+   {
+    "f": "sqrt(8*x)+1",
+    "m": "That’s the distance from the x-axis. The axis is y = 1, so subtract 1: R = (√(8x) + 1) − 1."
+   }
+  ]
+ },
+ {
+  "vid": "V-p13-r",
+  "answer": "x^2",
+  "kind": "expr",
+  "var": "x",
+  "dom": "0.1,1.9",
+  "wrong": [
+   {
+    "f": "x^2+1",
+    "m": "That’s the distance from the x-axis. The axis is y = 1, so subtract 1: r = (x² + 1) − 1."
+   }
+  ]
+ },
+ {
+  "vid": "V-p13",
+  "answer": "30.159289474462",
+  "kind": "num",
+  "exact": "48π/5",
+  "wrong": [
+   {
+    "v": 46.914450293608,
+    "m": "That is the answer about the x-axis (224π/15). Measure R and r from the line y = 1."
+   }
+  ]
+ },
+ {
   "vid": "V-m3",
   "answer": "3.141592653590",
   "kind": "num",
@@ -1774,6 +1892,1367 @@
    {
     "v": 56.548667764616,
     "m": "That is half the ball. Integrate from −3 to 3 (or double the half)."
+   }
+  ]
+ },
+ {
+  "vid": "S-guided-b",
+  "answer": "1",
+  "kind": "num",
+  "exact": "1",
+  "wrong": []
+ },
+ {
+  "vid": "S-guided-r",
+  "answer": "x",
+  "kind": "expr",
+  "var": "x",
+  "dom": "0.1,0.9",
+  "wrong": [
+   {
+    "f": "1-x",
+    "m": "That’s the distance to the right-hand end of the region, x = 1. r is the distance from the axis, the y-axis (x = 0), to the strip."
+   },
+   {
+    "f": "x-x^2",
+    "m": "That’s the strip’s height h, not its distance from the axis."
+   }
+  ]
+ },
+ {
+  "vid": "S-guided-h",
+  "answer": "x-x^2",
+  "kind": "expr",
+  "var": "x",
+  "dom": "0.1,0.9",
+  "wrong": [
+   {
+    "f": "x",
+    "m": "That’s r. h is the strip’s length: the top curve y = x − x² minus the bottom curve y = 0."
+   },
+   {
+    "f": "x^2-x",
+    "m": "Top minus bottom, not bottom minus top: on (0, 1), x − x² is positive."
+   }
+  ]
+ },
+ {
+  "vid": "S-guided-shell",
+  "answer": "2*pi*x*(x-x^2)",
+  "kind": "expr",
+  "var": "x",
+  "dom": "0.1,0.9",
+  "wrong": [
+   {
+    "f": "2*pi*(x-x^2)",
+    "m": "The factor r = x is missing: ∫2πh dx forgets how far each strip is from the axis."
+   },
+   {
+    "f": "pi*x^2*(x-x^2)",
+    "m": "That is πr²h, the volume of a solid cylinder. A shell is hollow: its volume is circumference × height × thickness, 2πrh Δx."
+   }
+  ]
+ },
+ {
+  "vid": "S-guided-val",
+  "answer": "0.523598775598",
+  "kind": "num",
+  "exact": "π/6",
+  "wrong": [
+   {
+    "v": 1.047197551197,
+    "m": "That is ∫2πh dx, with the radius r = x left out. The integrand is 2π·x·(x − x²)."
+   },
+   {
+    "v": 0.261799387799,
+    "m": "The 2 in 2π is missing: π∫x(x − x²) dx. A shell’s length is 2πr."
+   }
+  ]
+ },
+ {
+  "vid": "S-indep",
+  "answer": "0.523598775598",
+  "kind": "num",
+  "exact": "π/6",
+  "wrong": [
+   {
+    "v": 2.094395102393,
+    "m": "That uses h = x, the top curve only. The strip runs from y = x² up to y = x, so h = x − x²."
+   },
+   {
+    "v": -0.523598775598,
+    "m": "Negative: top and bottom are swapped. On (0, 1), x is above x², so h = x − x²."
+   },
+   {
+    "v": 0.261799387799,
+    "m": "The 2 in 2π is missing: a shell’s volume is 2πrhΔx."
+   },
+   {
+    "v": 0.166666666667,
+    "m": "That is the area of the flat region. Spin it: each strip becomes a shell of volume 2πrhΔx."
+   }
+  ]
+ },
+ {
+  "vid": "S-p1-r",
+  "answer": "x-1",
+  "kind": "expr",
+  "var": "x",
+  "dom": "1.2,2.8",
+  "wrong": [
+   {
+    "f": "x",
+    "m": "That’s the distance from the y-axis. The axis is x = 1."
+   },
+   {
+    "f": "1-x",
+    "m": "Negative on (1, 3). A radius is a distance, so it’s x − 1."
+   }
+  ]
+ },
+ {
+  "vid": "S-p1-h",
+  "answer": "4*x-x^2-3",
+  "kind": "expr",
+  "var": "x",
+  "dom": "1.2,2.8",
+  "wrong": [
+   {
+    "f": "4*x-x^2",
+    "m": "That’s the top curve only. The strip runs from y = 3 up to the parabola: subtract 3."
+   }
+  ]
+ },
+ {
+  "vid": "S-p1",
+  "answer": "8.377580409573",
+  "kind": "num",
+  "exact": "8π/3",
+  "wrong": [
+   {
+    "v": 16.755160819146,
+    "m": "That is the answer with r = x (distance from the y-axis). Measure r from the axis x = 1."
+   }
+  ]
+ },
+ {
+  "vid": "S-p2-r",
+  "answer": "4-x",
+  "kind": "expr",
+  "var": "x",
+  "dom": "1.2,2.8",
+  "wrong": [
+   {
+    "f": "x",
+    "m": "That’s the distance from the y-axis. Careful: for this particular region it still gives the right total, because the y-axis and x = 4 are mirror images in the line x = 2. But it is the wrong r."
+   },
+   {
+    "f": "x-4",
+    "m": "Negative on (1, 3). A radius is a distance: the region is left of the axis, so 4 − x."
+   }
+  ]
+ },
+ {
+  "vid": "S-p2",
+  "answer": "16.755160819146",
+  "kind": "num",
+  "exact": "16π/3",
+  "wrong": [
+   {
+    "v": -16.755160819146,
+    "m": "Negative: r = x − 4 is negative on [1, 3]. Use the distance 4 − x."
+   }
+  ]
+ },
+ {
+  "vid": "S-p3-a",
+  "answer": "-2",
+  "kind": "num",
+  "exact": "−2",
+  "wrong": []
+ },
+ {
+  "vid": "S-p3-b",
+  "answer": "1",
+  "kind": "num",
+  "exact": "1",
+  "wrong": []
+ },
+ {
+  "vid": "S-p3-h",
+  "answer": "-x^2-x+2",
+  "kind": "expr",
+  "var": "x",
+  "dom": "-1.8,0.8",
+  "wrong": [
+   {
+    "f": "-x+3",
+    "m": "That’s the top curve only. Subtract the bottom curve, x² + 1."
+   }
+  ]
+ },
+ {
+  "vid": "S-p3",
+  "answer": "155.508836352695",
+  "kind": "num",
+  "exact": "99π/2",
+  "wrong": [
+   {
+    "v": 376.991118430775,
+    "m": "That uses h = −x + 3 only (120π). The strip runs from the parabola up to the line: h = (−x + 3) − (x² + 1)."
+   }
+  ]
+ },
+ {
+  "vid": "S-p4-r",
+  "answer": "x+2",
+  "kind": "expr",
+  "var": "x",
+  "dom": "0.1,1.9",
+  "wrong": [
+   {
+    "f": "x",
+    "m": "That’s the distance from the y-axis. The axis is x = −2, to the left of the region."
+   },
+   {
+    "f": "x-2",
+    "m": "That would be the distance from x = 2. The axis is x = −2, so the distance is x − (−2) = x + 2."
+   }
+  ]
+ },
+ {
+  "vid": "S-p4-h",
+  "answer": "sqrt(8*x)-x^2",
+  "kind": "expr",
+  "var": "x",
+  "dom": "0.1,1.9",
+  "wrong": [
+   {
+    "f": "sqrt(8*x)+1",
+    "m": "That’s the top curve only. Subtract the bottom curve, x² + 1."
+   }
+  ]
+ },
+ {
+  "vid": "S-p4",
+  "answer": "48.589966375522",
+  "kind": "num",
+  "exact": "232π/15",
+  "wrong": [
+   {
+    "v": 15.079644737231,
+    "m": "That is the answer with r = x (24π/5), measured from the y-axis. The axis is x = −2: r = x + 2."
+   }
+  ]
+ },
+ {
+  "vid": "S-p5",
+  "answer": "19.739208802179",
+  "kind": "num",
+  "exact": "2π²",
+  "wrong": [
+   {
+    "v": 12.566370614359,
+    "m": "That is ∫2π sin x dx = 4π: the radius r = x is missing."
+   },
+   {
+    "v": 9.869604401089,
+    "m": "The 2 in 2π is missing: π∫x sin x dx = π²."
+   }
+  ]
+ },
+ {
+  "vid": "S-p6",
+  "answer": "0.349065850399",
+  "kind": "num",
+  "exact": "π/9",
+  "wrong": [
+   {
+    "v": 1.256637061436,
+    "m": "That is ∫2π(1 − x^(1/4)) dx = 2π/5: the radius r = x is missing."
+   }
+  ]
+ },
+ {
+  "vid": "S-p7",
+  "answer": "6.283185307180",
+  "kind": "num",
+  "exact": "2π",
+  "wrong": [
+   {
+    "v": 3.14159265359,
+    "m": "The 2 in 2π is missing: π∫x sin(x²) dx = π."
+   }
+  ]
+ },
+ {
+  "vid": "S-p8-a",
+  "answer": "0.5",
+  "kind": "num",
+  "exact": "1/2",
+  "wrong": []
+ },
+ {
+  "vid": "S-p8-b",
+  "answer": "3",
+  "kind": "num",
+  "exact": "3",
+  "wrong": []
+ },
+ {
+  "vid": "S-p8",
+  "answer": "57.268616081064",
+  "kind": "num",
+  "exact": "875π/48",
+  "wrong": [
+   {
+    "v": 266.871750937758,
+    "m": "That uses h = −x² + 7x only (the top curve). Subtract the bottom curve x² + 3: h = −2x² + 7x − 3."
+   }
+  ]
+ },
+ {
+  "vid": "S-p9",
+  "answer": "25.132741228718",
+  "kind": "num",
+  "exact": "8π",
+  "wrong": [
+   {
+    "v": 16.755160819146,
+    "m": "That is the answer with r = x (16π/3), measured from the y-axis. Here r = 5 − x."
+   }
+  ]
+ },
+ {
+  "vid": "S-p10-r",
+  "answer": "4-x",
+  "kind": "expr",
+  "var": "x",
+  "dom": "0.2,1.8",
+  "wrong": [
+   {
+    "f": "x",
+    "m": "That’s the distance from the y-axis. The axis is x = 4."
+   }
+  ]
+ },
+ {
+  "vid": "S-p10-h",
+  "answer": "2*x-x^2",
+  "kind": "expr",
+  "var": "x",
+  "dom": "0.2,1.8",
+  "wrong": [
+   {
+    "f": "3*x-x^2",
+    "m": "That’s the top curve only. Subtract the bottom curve y = x."
+   }
+  ]
+ },
+ {
+  "vid": "S-p10",
+  "answer": "25.132741228718",
+  "kind": "num",
+  "exact": "8π",
+  "wrong": [
+   {
+    "v": 8.377580409573,
+    "m": "That is the answer with r = x (8π/3). The axis is x = 4: r = 4 − x."
+   }
+  ]
+ },
+ {
+  "vid": "S-m3",
+  "answer": "3.141592653590",
+  "kind": "num",
+  "exact": "π",
+  "wrong": [
+   {
+    "v": 1.570796326795,
+    "m": "The 2 in 2π is missing: π∫x e^(−x²) dx = π/2."
+   }
+  ]
+ },
+ {
+  "vid": "S-m4",
+  "answer": "59.217626406536",
+  "kind": "num",
+  "exact": "6π²",
+  "wrong": [
+   {
+    "v": 29.608813203268,
+    "m": "That is 3π²: h was taken as √(1 − (x − 3)²), the upper half only. The strip runs from the bottom of the circle to the top: h = 2√(1 − (x − 3)²)."
+   }
+  ]
+ },
+ {
+  "vid": "K-guided-b",
+  "answer": "2",
+  "kind": "num",
+  "exact": "2",
+  "wrong": []
+ },
+ {
+  "vid": "K-guided-h",
+  "answer": "2*x-x^2",
+  "kind": "expr",
+  "var": "x",
+  "dom": "0.1,1.9",
+  "wrong": [
+   {
+    "f": "x-x^2",
+    "m": "That’s only the top curve. The strip runs down to y = −x, so subtract it: (x − x²) − (−x)."
+   },
+   {
+    "f": "x^2-2*x",
+    "m": "Bottom minus top: that’s negative on (0, 2). It’s top minus bottom."
+   }
+  ]
+ },
+ {
+  "vid": "K-guided-dm",
+  "answer": "x*(2*x-x^2)",
+  "kind": "expr",
+  "var": "x",
+  "dom": "0.1,1.9",
+  "wrong": [
+   {
+    "f": "2*x-x^2",
+    "m": "That’s the strip’s area per unit width: the density δ(x) = x is missing."
+   },
+   {
+    "f": "x",
+    "m": "That’s the density alone. Multiply by the strip’s height, 2x − x²."
+   }
+  ]
+ },
+ {
+  "vid": "K-guided-val",
+  "answer": "1.333333333333",
+  "kind": "num",
+  "exact": "4/3",
+  "wrong": [
+   {
+    "v": -1.333333333333,
+    "m": "A negative mass means the strip height has the wrong sign: you used the top curve alone, x − x², or bottom minus top. The height is (x − x²) − (−x) = 2x − x²."
+   }
+  ]
+ },
+ {
+  "vid": "K-indep",
+  "answer": "22.5",
+  "kind": "num",
+  "exact": "45/2 kg",
+  "units": "kg",
+  "wrong": [
+   {
+    "v": 9,
+    "m": "That is the triangle’s area (½ · 3 · 6). Each strip’s area must be multiplied by its density x² + 1."
+   },
+   {
+    "v": -22.5,
+    "m": "Negative: the strip height has the wrong sign. The triangle is below the x-axis, so the top is y = 0 and the bottom is y = 2x − 6. Height = 0 − (2x − 6) = 6 − 2x."
+   },
+   {
+    "v": 12,
+    "m": "That is ∫₀³(x² + 1) dx, as if the plate were a wire. A plate’s strip also has a height, 6 − 2x."
+   }
+  ]
+ },
+ {
+  "vid": "K-p1-M",
+  "answer": "8",
+  "kind": "num",
+  "exact": "8",
+  "wrong": []
+ },
+ {
+  "vid": "K-p1-xm",
+  "answer": "1.587401051968",
+  "kind": "num",
+  "exact": "∛4",
+  "wrong": [
+   {
+    "v": 1,
+    "m": "That’s the middle of the wire’s length. The mass midpoint has half the mass on each side: solve ∫₀^(xₘ) 3x² dx = 4."
+   },
+   {
+    "v": 2,
+    "m": "That solves ∫₀^(xₘ) 3x² dx = 8, the whole mass. Use half of it: 4."
+   },
+   {
+    "v": 1.5,
+    "m": "That is the center of mass x̄ = ∫x·3x² dx / 8 (§3.8), the balance point. The mass midpoint splits the mass in half instead."
+   }
+  ]
+ },
+ {
+  "vid": "K-p2-a",
+  "answer": "-1",
+  "kind": "num",
+  "exact": "−1",
+  "wrong": []
+ },
+ {
+  "vid": "K-p2-b",
+  "answer": "1",
+  "kind": "num",
+  "exact": "1",
+  "wrong": []
+ },
+ {
+  "vid": "K-p2-dm",
+  "answer": "3^x*(2-2*x^2)",
+  "kind": "expr",
+  "var": "x",
+  "dom": "-0.9,0.9",
+  "wrong": [
+   {
+    "f": "2-2*x^2",
+    "m": "That’s the strip height alone: the plate’s area. Multiply by the density 3ˣ."
+   },
+   {
+    "f": "3^x*(2-x^2)",
+    "m": "That uses the top curve only. Subtract the bottom curve, x²."
+   },
+   {
+    "f": "3^x*(2*x^2-2)",
+    "m": "Bottom minus top: negative on (−1, 1). At x = 0 the top is 2 − 0 = 2 and the bottom is 0."
+   }
+  ]
+ },
+ {
+  "vid": "K-p3-L",
+  "answer": "0.864664716763",
+  "kind": "num",
+  "exact": "1 − e⁻² slugs",
+  "units": "slugs",
+  "wrong": []
+ },
+ {
+  "vid": "K-p3-R",
+  "answer": "0.117019644348",
+  "kind": "num",
+  "exact": "e⁻² − e⁻⁴ slugs",
+  "units": "slugs",
+  "wrong": []
+ },
+ {
+  "vid": "K-p3-xm",
+  "answer": "0.674997252642",
+  "kind": "num",
+  "exact": "ln(2/(1 + e⁻⁴)) ft",
+  "units": "ft",
+  "wrong": [
+   {
+    "v": 2,
+    "m": "That’s the middle of the length. The left half holds most of the mass, so the mass midpoint is far left of 2."
+   }
+  ]
+ },
+ {
+  "vid": "K-p4-M",
+  "answer": "36",
+  "kind": "num",
+  "exact": "36",
+  "wrong": []
+ },
+ {
+  "vid": "K-p4-xm",
+  "answer": "2.219544457293",
+  "kind": "num",
+  "exact": "√85 − 7",
+  "wrong": [
+   {
+    "v": 2,
+    "m": "That’s the middle of the wire. The density grows to the right, so the mass midpoint is a little right of 2."
+   }
+  ]
+ },
+ {
+  "vid": "K-p5-M",
+  "answer": "1",
+  "kind": "num",
+  "exact": "1",
+  "wrong": []
+ },
+ {
+  "vid": "K-p5-xm",
+  "answer": "1.047197551197",
+  "kind": "num",
+  "exact": "π/3",
+  "wrong": [
+   {
+    "v": 0.785398163397,
+    "m": "That’s π/4, the middle of the wire. sin x is small near 0, so the mass midpoint is to the right."
+   }
+  ]
+ },
+ {
+  "vid": "K-p6-h",
+  "answer": "2-2*x/5",
+  "kind": "expr",
+  "var": "x",
+  "dom": "0.5,4.5",
+  "wrong": [
+   {
+    "f": "2",
+    "m": "The top edge slopes down from (0, 2) to (5, 0). Find the equation of that line."
+   }
+  ]
+ },
+ {
+  "vid": "K-p6-c",
+  "answer": "1.2",
+  "kind": "num",
+  "exact": "6/5",
+  "wrong": [
+   {
+    "v": 0.6,
+    "m": "That solves ∫₀⁵ cx² dx = 25, as if the plate were a wire. Multiply the density by the strip height 2 − 2x/5."
+   }
+  ]
+ },
+ {
+  "vid": "K-p7",
+  "answer": "0.610860487916",
+  "kind": "num",
+  "exact": "(2/3) ln(5/2)",
+  "wrong": [
+   {
+    "v": -0.31333575283,
+    "m": "Negative, so a sign slipped: ∫dx/(3 − x) = −ln|3 − x|, not +ln|3 − x|."
+   }
+  ]
+ },
+ {
+  "vid": "K-p8",
+  "answer": "66.043840083110",
+  "kind": "num",
+  "exact": "(153/2) ln 3 − 18",
+  "wrong": []
+ },
+ {
+  "vid": "K-m3",
+  "answer": "9.306898218339",
+  "kind": "num",
+  "exact": "ln((1 + e¹⁰)/2)",
+  "wrong": [
+   {
+    "v": 5,
+    "m": "That’s the middle of the wire. The density grows by a factor e every unit, so almost all the mass is near x = 10."
+   }
+  ]
+ },
+ {
+  "vid": "K-m4-M",
+  "answer": "1",
+  "kind": "num",
+  "exact": "1 kg",
+  "units": "kg",
+  "wrong": []
+ },
+ {
+  "vid": "K-m4-xm",
+  "answer": "1",
+  "kind": "num",
+  "exact": "1 m",
+  "units": "m",
+  "wrong": []
+ },
+ {
+  "vid": "G-guided-M",
+  "answer": "42",
+  "kind": "num",
+  "exact": "42",
+  "wrong": []
+ },
+ {
+  "vid": "G-guided-mom",
+  "answer": "x*(4*x^2+2)",
+  "kind": "expr",
+  "var": "x",
+  "dom": "0.5,2.5",
+  "wrong": [
+   {
+    "f": "4*x^2+2",
+    "m": "That’s the mass integrand. The moment multiplies each piece’s mass by its position x."
+   }
+  ]
+ },
+ {
+  "vid": "G-guided-Mx",
+  "answer": "90",
+  "kind": "num",
+  "exact": "90",
+  "wrong": []
+ },
+ {
+  "vid": "G-guided-xbar",
+  "answer": "2.142857142857",
+  "kind": "num",
+  "exact": "15/7",
+  "wrong": [
+   {
+    "v": 0.466666666667,
+    "m": "Upside down: that is M ÷ x̄M = 42/90. The center of mass is the moment divided by the mass."
+   },
+   {
+    "v": 1.5,
+    "m": "That’s the middle of the wire, which is the center only if the density is constant. Divide the moment by the mass."
+   },
+   {
+    "v": 90,
+    "m": "That is the moment x̄M itself. Divide it by the mass M = 42."
+   }
+  ]
+ },
+ {
+  "vid": "G-indep-M",
+  "answer": "0.333333333333",
+  "kind": "num",
+  "exact": "1/3",
+  "wrong": [
+   {
+    "v": 0.166666666667,
+    "m": "That is the area of the region. Multiply each strip by its density 2x + 1."
+   }
+  ]
+ },
+ {
+  "vid": "G-indep-x",
+  "answer": "0.55",
+  "kind": "num",
+  "exact": "11/20",
+  "wrong": [
+   {
+    "v": 0.5,
+    "m": "That is the centroid’s x (the density ignored). Keep δ = 2x + 1 in both the moment and the mass."
+   }
+  ]
+ },
+ {
+  "vid": "G-indep-y",
+  "answer": "0.45",
+  "kind": "num",
+  "exact": "9/20",
+  "wrong": [
+   {
+    "v": 0.9,
+    "m": "The ½ is missing. The strip’s midpoint is (x + x²)/2."
+   },
+   {
+    "v": 0.55,
+    "m": "That’s x̄. For ȳ, the factor is the strip’s midpoint height (x + x²)/2, not x."
+   },
+   {
+    "v": 0.4,
+    "m": "That is the centroid’s y (the density ignored). Keep δ = 2x + 1."
+   }
+  ]
+ },
+ {
+  "vid": "G-p1-M",
+  "answer": "103101.138327619",
+  "kind": "num",
+  "exact": "(2/3)(e¹² − e⁹)",
+  "wrong": []
+ },
+ {
+  "vid": "G-p1-Mx",
+  "answer": "383439.563152987",
+  "kind": "num",
+  "exact": "(2/9)(11e¹² − 8e⁹)",
+  "wrong": [
+   {
+    "v": 1150318.68945896,
+    "m": "That is (2/3)(11e¹² − 8e⁹), three times too big: the slip on notes p. 9. Evaluate (2/3)xe^(3x) − (2/9)e^(3x) at 4 and 3 carefully."
+   }
+  ]
+ },
+ {
+  "vid": "G-p1-x",
+  "answer": "3.719062363158",
+  "kind": "num",
+  "exact": "(11e¹² − 8e⁹)/(3(e¹² − e⁹))",
+  "wrong": [
+   {
+    "v": 11.157187089474,
+    "m": "That is not on the wire (3 ≤ x ≤ 4), a sure sign the moment is too big. Check its coefficient: (2/9), not (2/3)."
+   },
+   {
+    "v": 3.785146723671,
+    "m": "That is the mass midpoint xₘ (half the mass on each side), not the balance point."
+   },
+   {
+    "v": 3.5,
+    "m": "That’s the middle of the wire. The density grows fast to the right, so the balance point is further right."
+   }
+  ]
+ },
+ {
+  "vid": "G-p2-x",
+  "answer": "1.5",
+  "kind": "num",
+  "exact": "3/2",
+  "wrong": [
+   {
+    "v": 1.38629436112,
+    "m": "That is the centroid’s x, 2 ln 2 (the density ignored). Keep δ = x² in both integrals."
+   }
+  ]
+ },
+ {
+  "vid": "G-p2-y",
+  "answer": "0.5",
+  "kind": "num",
+  "exact": "1/2",
+  "wrong": [
+   {
+    "v": 1,
+    "m": "That uses the top of each strip, 2/x², instead of its midpoint (2/x² + 0)/2."
+   }
+  ]
+ },
+ {
+  "vid": "G-p3-a",
+  "answer": "-1",
+  "kind": "num",
+  "exact": "−1",
+  "wrong": []
+ },
+ {
+  "vid": "G-p3-b",
+  "answer": "3",
+  "kind": "num",
+  "exact": "3",
+  "wrong": []
+ },
+ {
+  "vid": "G-p3-dm",
+  "answer": "2^x*(2*x+3-x^2)",
+  "kind": "expr",
+  "var": "x",
+  "dom": "-0.9,2.9",
+  "wrong": [
+   {
+    "f": "2^x*(x^2-2*x-3)",
+    "m": "Bottom minus top. The notes test x = 0: x² = 0 is below 2x + 3 = 3."
+   },
+   {
+    "f": "2*x+3-x^2",
+    "m": "The density 2ˣ is missing: that’s the strip height alone."
+   }
+  ]
+ },
+ {
+  "vid": "G-p3-yf",
+  "answer": "(x^2+2*x+3)/2",
+  "kind": "expr",
+  "var": "x",
+  "dom": "-0.9,2.9",
+  "wrong": [
+   {
+    "f": "2*x+3",
+    "m": "That’s the top of the strip. Use its midpoint: (top + bottom)/2."
+   },
+   {
+    "f": "x^2+2*x+3",
+    "m": "The ½ is missing: the midpoint is (top + bottom)/2."
+   },
+   {
+    "f": "(2*x+3-x^2)/2",
+    "m": "That’s half the strip’s height, measured from the bottom. The midpoint’s y-coordinate is (top + bottom)/2."
+   }
+  ]
+ },
+ {
+  "vid": "G-p4",
+  "answer": "2.6",
+  "kind": "num",
+  "exact": "13/5 m",
+  "units": "m",
+  "wrong": [
+   {
+    "v": 2.333333333333,
+    "m": "That is the plain average of the positions, (−1 + 2 + 6)/3. Weight each position by its mass."
+   }
+  ]
+ },
+ {
+  "vid": "G-p5",
+  "answer": "0.925370558545",
+  "kind": "num",
+  "exact": "(1 − 5e⁻⁴)/(1 − e⁻⁴) ft",
+  "units": "ft",
+  "wrong": [
+   {
+    "v": 0.674997252642,
+    "m": "That is the mass midpoint xₘ from §3.7. The balance point is different: it divides the moment by the mass."
+   },
+   {
+    "v": 2,
+    "m": "That’s the middle of the wire. Most of the mass is near x = 0."
+   }
+  ]
+ },
+ {
+  "vid": "G-p6-Mx",
+  "answer": "2102.083333333333",
+  "kind": "num",
+  "exact": "25225/12",
+  "wrong": []
+ },
+ {
+  "vid": "G-p6-x",
+  "answer": "5.255208333333",
+  "kind": "num",
+  "exact": "1009/192",
+  "wrong": [
+   {
+    "v": 4.5,
+    "m": "That’s the middle of the wire. Divide the moment by the mass M = ∫(3x² + 2x + 4) dx."
+   }
+  ]
+ },
+ {
+  "vid": "G-p7-M",
+  "answer": "1.5",
+  "kind": "num",
+  "exact": "3/2",
+  "wrong": []
+ },
+ {
+  "vid": "G-p7-x",
+  "answer": "0.622222222222",
+  "kind": "num",
+  "exact": "28/45",
+  "wrong": [
+   {
+    "v": 0.666666666667,
+    "m": "That is the triangle’s centroid, 2/3 (the density ignored). The density 2 − x² is larger near x = 0, which pulls x̄ left."
+   }
+  ]
+ },
+ {
+  "vid": "G-p7-y",
+  "answer": "0",
+  "kind": "num",
+  "exact": "0",
+  "wrong": []
+ },
+ {
+  "vid": "G-p8-x",
+  "answer": "1.718518518519",
+  "kind": "num",
+  "exact": "232/135",
+  "wrong": []
+ },
+ {
+  "vid": "G-p8-y",
+  "answer": "2",
+  "kind": "num",
+  "exact": "2",
+  "wrong": [
+   {
+    "v": 1.95,
+    "m": "That is the centroid’s y (the density ignored). Keep δ = x: the tall strips on the right are also the dense ones."
+   }
+  ]
+ },
+ {
+  "vid": "G-p9-x",
+  "answer": "0.4",
+  "kind": "num",
+  "exact": "2/5",
+  "wrong": []
+ },
+ {
+  "vid": "G-p9-y",
+  "answer": "0.5",
+  "kind": "num",
+  "exact": "1/2",
+  "wrong": []
+ },
+ {
+  "vid": "G-m3-x",
+  "answer": "0.045454545455",
+  "kind": "num",
+  "exact": "1/22",
+  "wrong": []
+ },
+ {
+  "vid": "G-m3-y",
+  "answer": "-0.136363636364",
+  "kind": "num",
+  "exact": "−3/22",
+  "wrong": [
+   {
+    "v": -0.75,
+    "m": "That divides by 4, the number of masses. Divide by the total mass, 22."
+   }
+  ]
+ },
+ {
+  "vid": "G-m4-x",
+  "answer": "0",
+  "kind": "num",
+  "exact": "0",
+  "wrong": []
+ },
+ {
+  "vid": "G-m4-y",
+  "answer": "1.697652726313",
+  "kind": "num",
+  "exact": "16/(3π)",
+  "wrong": [
+   {
+    "v": 2,
+    "m": "That’s half the radius. The half-disk is wider near its base, so its centroid is lower than 2."
+   }
+  ]
+ },
+ {
+  "vid": "W-guided-r",
+  "answer": "5*y/12",
+  "kind": "expr",
+  "var": "y",
+  "dom": "0.5,11.5",
+  "wrong": [
+   {
+    "f": "5-5*y/12",
+    "m": "That’s the radius for a cone with its vertex at the top. Here the vertex is at the bottom, so the radius is 0 at y = 0 and grows to 5 at y = 12."
+   },
+   {
+    "f": "12*y/5",
+    "m": "The ratio is upside down: r/5 = y/12, so r = 5y/12. Check: at y = 12, r must be 5."
+   }
+  ]
+ },
+ {
+  "vid": "W-guided-F",
+  "answer": "9800*pi*(5*y/12)^2",
+  "kind": "expr",
+  "var": "y",
+  "dom": "0.5,11.5",
+  "wrong": [
+   {
+    "f": "1000*pi*(5*y/12)^2",
+    "m": "That’s the slice’s mass in kg. Its weight (a force, in N) is mass × 9.8."
+   },
+   {
+    "f": "9800*pi*(5*y/12)",
+    "m": "The radius must be squared: a disk’s area is πr²."
+   }
+  ]
+ },
+ {
+  "vid": "W-guided-d",
+  "answer": "12-y",
+  "kind": "expr",
+  "var": "y",
+  "dom": "0.5,11.5",
+  "wrong": [
+   {
+    "f": "y",
+    "m": "That’s how high the slice already is. It still has to go from y up to 12."
+   }
+  ]
+ },
+ {
+  "vid": "W-guided-val",
+  "answer": "9236282.401553992",
+  "kind": "num",
+  "exact": "2,940,000π J",
+  "units": "J",
+  "wrong": [
+   {
+    "v": 942477.796076938,
+    "m": "That’s 300,000π: the 9.8 is missing, so it’s in kg·m, not joules."
+   },
+   {
+    "v": 27708847.20466198,
+    "m": "That uses distance y instead of 12 − y: 8,820,000π."
+   }
+  ]
+ },
+ {
+  "vid": "W-indep",
+  "answer": "2496000",
+  "kind": "num",
+  "exact": "2,496,000 ft-lb",
+  "units": "ft-lb",
+  "wrong": [
+   {
+    "v": 24460800,
+    "m": "That multiplies by 9.8. 62.4 lb/ft³ is already a weight per volume; 9.8 is only for kg/m³."
+   },
+   {
+    "v": 4492800,
+    "m": "Those limits go to 30 ft, the tank’s height. The water only fills 0 ≤ y ≤ 10."
+   },
+   {
+    "v": 499200,
+    "m": "That uses the slice’s height y as its distance. It has to rise from y to the top, 30 − y."
+   },
+   {
+    "v": 2995200,
+    "m": "That lifts all the water the full 30 ft. The water starts between 0 and 10 ft up, so each slice rises 30 − y."
+   }
+  ]
+ },
+ {
+  "vid": "W-p1",
+  "answer": "2500",
+  "kind": "num",
+  "exact": "2500 ft-lb",
+  "units": "ft-lb",
+  "wrong": [
+   {
+    "v": 5000,
+    "m": "That is W = Fd with every piece rising 50 ft, which is the helicopter problem (notes p. 15). Here the piece at height y only rises 50 − y."
+   }
+  ]
+ },
+ {
+  "vid": "W-p2-b",
+  "answer": "9",
+  "kind": "num",
+  "exact": "9",
+  "wrong": [
+   {
+    "v": 12,
+    "m": "That’s the tank’s height. The tank is only ¾ full: the water goes up to 9 m."
+   }
+  ]
+ },
+ {
+  "vid": "W-p2-d",
+  "answer": "14-y",
+  "kind": "expr",
+  "var": "y",
+  "dom": "0.5,8.5",
+  "wrong": [
+   {
+    "f": "12-y",
+    "m": "That pumps to the top of the tank. The spout is 2 m higher: 12 − y + 2."
+   },
+   {
+    "f": "y",
+    "m": "That’s how high the slice already is, not how far it still has to rise."
+   }
+  ]
+ },
+ {
+  "vid": "W-p2",
+  "answer": "20947500",
+  "kind": "num",
+  "exact": "20,947,500 J",
+  "units": "J",
+  "wrong": [
+   {
+    "v": 2137500,
+    "m": "The 9.8 is missing: 1000 kg/m³ is a mass density. Weight = mass × 9.8."
+   },
+   {
+    "v": 23520000,
+    "m": "That integrates up to 12 m, but the water only reaches 9 m."
+   },
+   {
+    "v": 16537500,
+    "m": "That uses 12 − y: the spout is 2 m above the top, so the distance is 14 − y."
+   }
+  ]
+ },
+ {
+  "vid": "W-p3-r",
+  "answer": "(100-y)/5",
+  "kind": "expr",
+  "var": "y",
+  "dom": "1,79",
+  "wrong": [
+   {
+    "f": "y/5",
+    "m": "That’s the vertex-down ratio. With the vertex up, r = 20 at the bottom and 0 at the top."
+   }
+  ]
+ },
+ {
+  "vid": "W-p3",
+  "answer": "235242457.9008037",
+  "kind": "num",
+  "exact": "74,880,000π ft-lb",
+  "units": "ft-lb",
+  "wrong": [
+   {
+    "v": 2305376087.427876,
+    "m": "That multiplies by 9.8. 75 lb/ft³ is already a weight per volume."
+   },
+   {
+    "v": 64339817.54551897,
+    "m": "That uses r = y/5, the radius of a vertex-down cone."
+   }
+  ]
+ },
+ {
+  "vid": "W-p4-k",
+  "answer": "30",
+  "kind": "num",
+  "exact": "30 lb/ft",
+  "units": "lb/ft",
+  "wrong": [
+   {
+    "v": 2.5,
+    "m": "That’s k in lb per inch. Convert first: 4 in = 1/3 ft."
+   }
+  ]
+ },
+ {
+  "vid": "W-p4-W",
+  "answer": "3.75",
+  "kind": "num",
+  "exact": "15/4 ft-lb",
+  "units": "ft-lb",
+  "wrong": [
+   {
+    "v": 45,
+    "m": "45 is the work in inch-pounds. 45 in-lb = 45/12 = 3.75 ft-lb."
+   },
+   {
+    "v": 7.5,
+    "m": "That’s F × d with the final force, 15 lb × ½ ft. The force grows from 0, so the work is half that: ∫kx dx."
+   }
+  ]
+ },
+ {
+  "vid": "W-p5",
+  "answer": "20",
+  "kind": "num",
+  "exact": "20 J",
+  "units": "J",
+  "wrong": [
+   {
+    "v": -20,
+    "m": "Compressing a spring takes positive work: from 0 to −2 both the displacement and the force kx are negative, so their product is positive."
+   },
+   {
+    "v": 40,
+    "m": "That’s F × d with the final force, 20 N × 2 m. The force grows from 0: W = ∫kx dx."
+   }
+  ]
+ },
+ {
+  "vid": "W-p6",
+  "answer": "30",
+  "kind": "num",
+  "exact": "30 N/m",
+  "units": "N/m",
+  "wrong": [
+   {
+    "v": 15,
+    "m": "That uses W = F × d with the final force 4k: 16k = 240. The force grows from 0, so W = ∫₀⁴ kx dx = 8k."
+   }
+  ]
+ },
+ {
+  "vid": "W-p7",
+  "answer": "2700",
+  "kind": "num",
+  "exact": "2700 ft-lb",
+  "units": "ft-lb",
+  "wrong": [
+   {
+    "v": 3200,
+    "m": "That ignores the leak: 32 lb × 100 ft. The bucket gets lighter on the way up."
+   },
+   {
+    "v": 1350,
+    "m": "That integrates F = 32 − 0.2t with respect to t. Work is ∫F dy: change variables with y = 2t first."
+   },
+   {
+    "v": 2200,
+    "m": "That uses the final weight, 22 lb, the whole way. The weight goes from 32 lb down to 22 lb."
+   }
+  ]
+ },
+ {
+  "vid": "W-p8",
+  "answer": "180",
+  "kind": "num",
+  "exact": "180 J",
+  "units": "J",
+  "wrong": [
+   {
+    "v": -180,
+    "m": "Kinetic energy is ½mv², with v squared, so the change here is positive: the object speeds up from 0 to 6 m/s."
+   }
+  ]
+ },
+ {
+  "vid": "W-p9",
+  "answer": "4575",
+  "kind": "num",
+  "exact": "4575 ft-lb",
+  "units": "ft-lb",
+  "wrong": [
+   {
+    "v": 4800,
+    "m": "That ignores the leak: 80 lb × 60 ft."
+   },
+   {
+    "v": 3900,
+    "m": "That takes the leak as 0.5 lb per foot. It’s 0.5 lb per second, and at 4 ft/s that is 0.125 lb per foot."
+   }
+  ]
+ },
+ {
+  "vid": "W-p10-k",
+  "answer": "130",
+  "kind": "num",
+  "exact": "130 N/m",
+  "units": "N/m",
+  "wrong": []
+ },
+ {
+  "vid": "W-p10-W",
+  "answer": "16.25",
+  "kind": "num",
+  "exact": "65/4 J",
+  "units": "J",
+  "wrong": [
+   {
+    "v": 19.5,
+    "m": "That treats 39 N as a constant force over 0.5 m. The force is kx, which changes."
+   }
+  ]
+ },
+ {
+  "vid": "W-m3",
+  "answer": "2521",
+  "kind": "num",
+  "exact": "2521 ft-lb",
+  "units": "ft-lb",
+  "wrong": [
+   {
+    "v": 2400,
+    "m": "That lets the weight keep falling the whole way, F = 50 − y/2 on [0, 120]. The sand stops leaking when 1 lb is left. When is that, and how high is the bucket then?"
+   }
+  ]
+ },
+ {
+  "vid": "W-m4",
+  "answer": "9.609437912434",
+  "kind": "num",
+  "exact": "8 + ln 5 J",
+  "units": "J",
+  "wrong": [
+   {
+    "v": 1.609437912434,
+    "m": "That’s only the remainder part, ln 5. After dividing, the quotient x also has to be integrated."
+   },
+   {
+    "v": 8,
+    "m": "That’s only the quotient part, ∫₀⁴x dx. The remainder 1/(x + 1) adds ln 5."
    }
   ]
  },
@@ -2025,6 +3504,141 @@
   "wrong": []
  },
  {
+  "vid": "M-S1",
+  "answer": "98.960168588078",
+  "kind": "num",
+  "exact": "63π/2",
+  "wrong": [
+   {
+    "v": 14.137166941154,
+    "m": "That is the answer with r = x (9π/2), measured from the y-axis. The axis is x = 4: r = 4 − x."
+   },
+   {
+    "v": -98.960168588078,
+    "m": "Negative: r = x − 4 is negative on [−1, 2]. Use the distance 4 − x."
+   }
+  ]
+ },
+ {
+  "vid": "M-V4",
+  "answer": "73.513268094001",
+  "kind": "num",
+  "exact": "117π/5",
+  "wrong": [
+   {
+    "v": 45.238934211693,
+    "m": "That is the answer about the x-axis (72π/5). Measure R and r from the line y = −1."
+   },
+   {
+    "v": 25.446900494077,
+    "m": "That is π∫(R − r)² (81π/10). A washer’s area is π(R² − r²)."
+   }
+  ]
+ },
+ {
+  "vid": "M-S3",
+  "answer": "5.398141569084",
+  "kind": "num",
+  "exact": "π(e − 1)",
+  "wrong": [
+   {
+    "v": 2.699070784542,
+    "m": "The 2 in 2π is missing: π∫x e^(x²) dx would be π(e − 1)/2. A shell has length 2πr."
+   }
+  ]
+ },
+ {
+  "vid": "M-K1",
+  "answer": "4.666666666667",
+  "kind": "num",
+  "exact": "14/3 kg",
+  "units": "kg",
+  "wrong": [
+   {
+    "v": 6,
+    "m": "That is density × length with the density at the right end, √4 · 3. The density changes along the rod, so integrate."
+   }
+  ]
+ },
+ {
+  "vid": "M-G1",
+  "answer": "2.657142857143",
+  "kind": "num",
+  "exact": "93/35 m",
+  "units": "m",
+  "wrong": [
+   {
+    "v": 2.5,
+    "m": "That is the middle of the rod. The density √x is larger on the right, so the balance point is right of 2.5."
+   },
+   {
+    "v": 2.725680889248,
+    "m": "That is the mass midpoint (half the mass on each side), not the balance point."
+   }
+  ]
+ },
+ {
+  "vid": "M-W1",
+  "answer": "1539380.400259",
+  "kind": "num",
+  "exact": "490,000π J",
+  "units": "J",
+  "wrong": [
+   {
+    "v": 3078760.800518,
+    "m": "That lifts every slice the full 5 m: weight × height. A slice at height y only rises 5 − y."
+   }
+  ]
+ },
+ {
+  "vid": "M-K2",
+  "answer": "0.15",
+  "kind": "num",
+  "exact": "3/20",
+  "wrong": [
+   {
+    "v": 0.9424777960769,
+    "m": "That is the shell volume about the y-axis, 2π times the mass. Nothing is spun here."
+   }
+  ]
+ },
+ {
+  "vid": "M-W2",
+  "answer": "18",
+  "kind": "num",
+  "exact": "18 J",
+  "units": "J",
+  "wrong": [
+   {
+    "v": 6,
+    "m": "The second 0.2 m takes more work than the first: the force kx keeps growing."
+   },
+   {
+    "v": 24,
+    "m": "That is the work from 0 to 0.4 m. Subtract the 6 J already done from 0 to 0.2 m."
+   }
+  ]
+ },
+ {
+  "vid": "M-G2-x",
+  "answer": "1.333333333333",
+  "kind": "num",
+  "exact": "4/3",
+  "wrong": [
+   {
+    "v": 1,
+    "m": "The square’s middle is x = 1, but the density x makes the right side heavier."
+   }
+  ]
+ },
+ {
+  "vid": "M-G2-y",
+  "answer": "1",
+  "kind": "num",
+  "exact": "1",
+  "wrong": []
+ },
+ {
   "vid": "F-U2",
   "answer": "-1/(9*(x^3+5)^3)",
   "kind": "anti",
@@ -2207,5 +3821,130 @@
   "kind": "num",
   "exact": "2π",
   "wrong": []
+ },
+ {
+  "vid": "F-S2",
+  "answer": "16.7551608191456",
+  "kind": "num",
+  "exact": "16π/3",
+  "wrong": [
+   {
+    "v": 8.37758040957278,
+    "m": "That is the answer with r = x (8π/3), measured from the y-axis. The axis is x = −1, so r = x + 1."
+   }
+  ]
+ },
+ {
+  "vid": "F-S3",
+  "answer": "113.097335529233",
+  "kind": "num",
+  "exact": "36π",
+  "wrong": [
+   {
+    "v": 56.5486677646163,
+    "m": "That uses h = √(9 − x²), the upper half only (a hemisphere). The strip runs from −√(9 − x²) up to +√(9 − x²)."
+   }
+  ]
+ },
+ {
+  "vid": "F-K2",
+  "answer": "9.333333333333",
+  "kind": "num",
+  "exact": "28/3",
+  "wrong": [
+   {
+    "v": 5.333333333333,
+    "m": "That is the plate’s area, 16/3. Multiply each strip by its density 1 + x."
+   },
+   {
+    "v": 4,
+    "m": "That is ∫₀²(1 + x) dx, as if the plate were a wire. Each strip also has a height, 4 − x²."
+   }
+  ]
+ },
+ {
+  "vid": "F-K3",
+  "answer": "3",
+  "kind": "num",
+  "exact": "3",
+  "wrong": [
+   {
+    "v": 5,
+    "m": "That is the middle of the wire. The density 1/x is much larger near x = 1."
+   }
+  ]
+ },
+ {
+  "vid": "F-G2",
+  "answer": "1.166666666667",
+  "kind": "num",
+  "exact": "7/6",
+  "wrong": [
+   {
+    "v": 1,
+    "m": "That is the middle of the wire. The density 1 + x makes the right side heavier."
+   },
+   {
+    "v": 4.666666666667,
+    "m": "That is the moment x̄M = 14/3. Divide it by the mass M = 4."
+   }
+  ]
+ },
+ {
+  "vid": "F-G3-x",
+  "answer": "0",
+  "kind": "num",
+  "exact": "0",
+  "wrong": []
+ },
+ {
+  "vid": "F-G3-y",
+  "answer": "5.4",
+  "kind": "num",
+  "exact": "27/5",
+  "wrong": [
+   {
+    "v": 10.8,
+    "m": "The ½ is missing: the strip’s midpoint is (9 + x²)/2."
+   }
+  ]
+ },
+ {
+  "vid": "F-W2",
+  "answer": "5",
+  "kind": "num",
+  "exact": "5 J",
+  "units": "J",
+  "wrong": [
+   {
+    "v": 6,
+    "m": "That is 12 N × 0.5 m. The 12 N is the force at 0.3 m, and the force kx changes."
+   },
+   {
+    "v": 10,
+    "m": "The ½ is missing: ∫₀^0.5 kx dx = ½k(0.5)²."
+   }
+  ]
+ },
+ {
+  "vid": "F-W3",
+  "answer": "5880",
+  "kind": "num",
+  "exact": "5880 J",
+  "units": "J",
+  "wrong": [
+   {
+    "v": 4900,
+    "m": "That is the bucket alone (50 · 9.8 · 10). The cable has weight too."
+   },
+   {
+    "v": 6860,
+    "m": "That lifts the whole cable 10 m. The piece of cable at height y only rises 10 − y."
+   },
+   {
+    "v": 980,
+    "m": "That is the cable alone. Add the bucket, which rises the full 10 m."
+   }
+  ]
  }
 ]

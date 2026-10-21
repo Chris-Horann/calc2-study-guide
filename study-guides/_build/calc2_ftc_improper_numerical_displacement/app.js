@@ -243,7 +243,7 @@
       const k0 = ratios[0];
       if (ratios.every(r => Math.abs(r - k0) <= 1e-6 * Math.max(1, Math.abs(k0))) && Math.abs(k0 - 1) > 1e-6 && Math.abs(k0) > 1e-9) {
         if (Math.abs(k0 + 1) < 1e-6) return { msg: 'Your answer is the right one with the opposite sign. Recheck a sign: ∫sin x dx = −cos x + C, du for u = −x³ is −3x² dx, and parts is uv <b>minus</b> ∫v du.' + tip, specific: true };
-        return { msg: `Your answer is exactly ${fracStr(k0)} × the right one, so a constant factor is off. Check the factor that comes from du (for u = 4x + 1, dx = ¼ du) or from the power rule.` + tip, specific: true };
+        return { msg: `Your answer is exactly ${fracStr(k0)} × the right one, so a constant factor is off. ` + (inp.dataset.factormsg || 'Check the factor that comes from du (for u = 4x + 1, dx = ¼ du) or from the power rule.') + tip, specific: true };
       }
     }
     const near = ds.every((y, k) => Math.abs(y - dr[k]) <= 5e-3 * (1 + Math.abs(dr[k])));
@@ -251,9 +251,27 @@
     return { msg: (kind === 'anti' ? 'Not yet. Differentiate your answer: you should get back the integrand.' : 'Not yet. Recheck the rewrite step by step.') + tip };
   }
   // One grader for every input: returns {empty} | {ok, note} | {msg, specific}
+  // Units (3.7–3.9 notes p. 1, green: "If the question includes units, your answer needs to include units as well").
+  // An input with data-units accepts a trailing unit; it is stripped before grading and compared loosely with the expected one.
+  const UNIT_RE = /\s*\(?\s*((?:ft|in)\s*[-·*]?\s*lbs?|foot[-\s]?pounds?|n\s*[-·*]\s*m|newton[-\s]?met(?:er|re)s?|joules?|j|n\s*\/\s*m|lbs?\s*\/\s*ft|kg\s*\/\s*m(?:\^?2|²)?|kg|kilograms?|slugs?|lbs?|pounds?|newtons?|n|met(?:er|re)s?|m|feet|foot|ft|inch(?:es)?|in)\s*\)?\s*$/i;
+  function unitKey(u) {
+    const s = u.toLowerCase().replace(/\s+/g, '').replace(/[·*]/g, '-').replace(/s$/, '');
+    const map = [[/^(ft-?lb|foot-?pound)$/, 'ft-lb'], [/^in-?lb$/, 'in-lb'], [/^(j|joule|n-m|newton-?met(er|re))$/, 'J'], [/^n\/m$/, 'N/m'], [/^lb\/ft$/, 'lb/ft'],
+      [/^(lb|pound)$/, 'lb'], [/^(n|newton)$/, 'N'], [/^(kg|kilogram)$/, 'kg'], [/^slug$/, 'slug'], [/^(m|meter|metre)$/, 'm'], [/^(ft|feet|foot)$/, 'ft'], [/^(in|inch|inche)$/, 'in']];
+    for (const [re, k] of map) if (re.test(s)) return k;
+    return s;
+  }
+  function unitNote(inp, typed) {
+    const want = inp.dataset.units; if (!want) return '';
+    if (!typed) return `On paper, write the units too: <b>${want}</b>.`;
+    if (unitKey(typed) !== unitKey(want)) return `The number is right, but check the units: this answer is in <b>${want}</b>, not ${typed.trim()}.`;
+    return '';
+  }
   function gradeInput(inp) {
     if (inp.dataset.kind === 'anti' || inp.dataset.kind === 'expr') return gradeFn(inp);
-    const r = parseAnswer(inp.value);
+    let raw = inp.value, typedU = null;
+    if (inp.dataset.units) { const m = UNIT_RE.exec(raw); if (m && raw.slice(0, m.index).trim()) { typedU = m[1]; raw = raw.slice(0, m.index); } }
+    const r = parseAnswer(raw);
     if (!r) return { empty: true };
     const wantDiv = inp.dataset.answer === 'diverges';
     if (r.err) return { msg: "I couldn't read that. Try forms like 23/3, 2sqrt(3) - 2, pi/4, 0.7546, or the word diverges." };
@@ -266,7 +284,7 @@
     if (r.div) return { msg: inp.dataset.divmsg || 'This one actually has a finite value. Recheck your limit: does the troublesome term really blow up?' };
     const ans = parseFloat(inp.dataset.answer);
     const tol = inp.dataset.tol ? parseFloat(inp.dataset.tol) : Math.max(6e-4, 1e-4 * Math.abs(ans));
-    if (close(r.value, ans, tol)) return { ok: true };
+    if (close(r.value, ans, tol)) return { ok: true, note: unitNote(inp, typedU) };
     const special = specialFor(r.value);
     if (special) return { msg: special, specific: true };
     if (Math.abs(r.value - ans) <= 0.012 * Math.max(1, Math.abs(ans))) return { msg: 'Very close. Check your rounding, or give more decimal places (or an exact value).' };
@@ -543,7 +561,7 @@
       // choice step: reveal after any answer
       s.addEventListener('answered', () => reveal());
       nextBtn.addEventListener('click', () => {
-        if (k < steps.length - 1) { st.step = Math.max(st.step, k + 1); steps[k + 1].hidden = false; steps[k + 1].scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
+        if (k < steps.length - 1) { st.step = Math.max(st.step, k + 1); steps[k + 1].hidden = false; steps[k + 1].scrollIntoView({ block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); }
         else { st.done = true; if (take) take.hidden = false; }
         nextBtn.hidden = true; paint(); save();
       });
@@ -625,7 +643,9 @@
       this.host = host; host.classList.add('plot-wrap');
       // narrow screens: use a smaller drawing width so tick labels and annotations stay readable
       const avail = host.clientWidth || (host.parentElement && host.parentElement.clientWidth) || 0;
-      if (avail && avail < this.o.W * 0.85) { const k = Math.max(0.6, avail / this.o.W); this.o.W = Math.round(this.o.W * k); this.o.H = Math.round(this.o.H * Math.max(0.8, k)); }
+      // (o.fixed: a drawing in fixed pixel coordinates; keep its viewBox and let it scale down as a whole)
+      this.narrow = !o.fixed && !!avail && avail < this.o.W * 0.85;
+      if (this.narrow) { const k = Math.max(0.6, avail / this.o.W); this.o.W = Math.round(this.o.W * k); this.o.H = Math.round(this.o.H * Math.max(0.8, k)); }
       const { W, H } = this.o;
       this.svg = svgEl('svg', { class: 'plot', viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': o.aria || '' }, host);
       this.id = 'clip' + Math.random().toString(36).slice(2, 8);
@@ -687,7 +707,12 @@
     line(x1, y1, x2, y2, cls, layer) { return svgEl('line', { class: cls, x1: this.sx(x1), y1: this.sy(y1), x2: this.sx(x2), y2: this.sy(y2) }, layer || this.gData); }
     poly(pts, cls, layer) { return svgEl('polygon', { class: cls, points: pts.map(([x, y]) => this.sx(x).toFixed(2) + ',' + this.sy(y).toFixed(2)).join(' ') }, layer || this.gData); }
     dot(x, y, cls = 'dot ink', r = 4.5, layer) { return svgEl('circle', { class: cls, cx: this.sx(x), cy: this.sy(y), r }, layer || this.gTop); }
-    text(x, y, s, cls, anchor = 'middle', dy = 0, layer) { const T = svgEl('text', { class: cls, x: this.sx(x), y: this.sy(y) + dy, 'text-anchor': anchor }, layer || this.gTop); T.textContent = s; return T; }
+    text(x, y, s, cls, anchor = 'middle', dy = 0, layer) {
+      const T = svgEl('text', { class: cls, x: this.sx(x), y: this.sy(y) + dy, 'text-anchor': anchor }, layer || this.gTop); T.textContent = s;
+      // narrow screens keep the font size but shrink the drawing, so a long label can run past an edge: nudge it back inside
+      if (this.narrow) { try { const b = T.getBBox(), W = this.o.W; let d = 0; if (b.width && b.x + b.width > W - 2) d = W - 2 - (b.x + b.width); if (b.width && b.x + d < 2) d = 2 - b.x; if (d) T.setAttribute('x', parseFloat(T.getAttribute('x')) + d); } catch (e) {} }
+      return T;
+    }
     // signed area between f and the axis on [a,b]: separate polygons for positive and negative runs
     area(f, a, b, opt = {}) {
       if (!(b > a)) return [];
@@ -1807,6 +1832,9 @@
       { name: 'Textbook Ex. 3.5.8: between y = x and y = x²', ax: 'h', c: 0, a: 0, b: 1, up: x => x, lo: x => x * x, upT: 'x', loT: 'x²', I1: 1 / 6, I2: 2 / 15 },
       { name: 'Textbook Ex. 3.5.9: same region, axis y = 2', ax: 'h', c: 2, a: 0, b: 1, up: x => x, lo: x => x * x, upT: 'x', loT: 'x²', I1: 1 / 6, I2: 2 / 15 },
       { name: 'Textbook Ex. 3.5.10: same region, the y-axis', ax: 'v', c: 0, a: 0, b: 1, up: y => Math.sqrt(y), lo: y => y, upT: '√y', loT: 'y', I1: 1 / 6, I2: 1 / 6 },
+      { name: 'MATH1342 notes p. 4: axis y = −2', ax: 'h', c: -2, a: 0, b: 1, up: x => Math.sqrt(x), lo: x => x * x, upT: '√x', loT: 'x²', I1: 1 / 3, I2: 3 / 10 },
+      { name: 'MATH1342 notes p. 8: axis y = 7', ax: 'h', c: 7, a: -2, b: 1, up: x => -x + 3, lo: x => x * x + 1, upT: '−x + 3', loT: 'x² + 1', I1: 9 / 2, I2: 117 / 5 },
+      { name: 'MATH1342 notes p. 9: axis y = 1', ax: 'h', c: 1, a: 0, b: 2, up: x => Math.sqrt(8 * x) + 1, lo: x => x * x + 1, upT: '√(8x) + 1', loT: 'x² + 1', I1: 8 / 3, I2: 224 / 15 },
     ];
     let cur = PRE[0];
     const st = { k: 0, c: 0, n: 6, s: 1.2 };
@@ -1945,6 +1973,546 @@
     root._set = (k, c, n, s) => { cur = PRE[k]; st.k = k; st.c = c === undefined ? cur.c : c; st.n = n || 6; st.s = s === undefined ? cur.a + 0.6 * (cur.b - cur.a) : s; presets.mark(st.c === cur.c ? k : -1); sync(); render(); };
   }
 
+  /* ================================================================== Widget S: volume by cylindrical shells */
+  // Oblique view of a solid of revolution about a VERTICAL axis x = c, drawn as n nested cylindrical shells.
+  // Shell i comes from the strip [x(i−1), x(i)] of the region, sampled at its right endpoint x(i), as on MATH1342 notes p. 1.
+  function drawShells(P, sp, c, n, hi) {
+    const dx = (sp.b - sp.a) / n, kx = P.iw / (P.o.xmax - P.o.xmin), ky = P.ih / (P.o.ymax - P.o.ymin);
+    const ell = (cx, cy, rx, ry, cls) => svgEl('ellipse', { class: cls, cx: P.sx(cx), cy: P.sy(cy), rx: Math.max(0.2, rx * kx), ry: Math.max(0.2, ry * ky) }, P.gData);
+    const radii = i => [Math.abs(sp.a + (i - 1) * dx - c), Math.abs(sp.a + i * dx - c)];
+    const order = []; for (let i = 1; i <= n; i++) order.push(i);
+    order.sort((p, q) => Math.max(...radii(q)) - Math.max(...radii(p)));          // outermost shell first
+    const one = (i, bandCls, topCls) => {
+      const xi = sp.a + i * dx, lo = sp.lo(xi), up = sp.up(xi), [r0, r1] = radii(i), R = Math.max(r0, r1);
+      P.poly([[c - R, lo], [c + R, lo], [c + R, up], [c - R, up]], bandCls);
+      ell(c, up, R, R * KAPPA, topCls);
+      return { lo, up, rin: Math.min(r0, r1) };
+    };
+    let core = null;
+    order.forEach(i => { if (i === hi) return; const s = one(i, 'shell-band', 'shell-top'); if (!core || s.rin < core.rin) core = Object.assign({ i }, s); });
+    // the innermost shell leaves a hole down the middle when the region doesn't touch the axis
+    if (core && core.rin > 1e-9) ell(c, core.up, core.rin, core.rin * KAPPA, 'shell-hole');
+    if (hi) one(hi, 'shell-hi-band', 'shell-hi-top');
+  }
+  function widgetShell(root) {
+    const fbox = formulaBox(root);
+    // The strip at x runs from lo(x) to up(x). With J0 = ∫(up − lo) dx and J1 = ∫x(up − lo) dx,
+    // V(c) = 2π|J1 − c·J0| for any vertical axis x = c outside the region (c ≤ a or c ≥ b). The tests check this against direct quadrature.
+    const PRE = [
+      { name: 'MATH1342 notes p. 5: y = x − x², y-axis', c: 0, a: 0, b: 1, up: x => x - x * x, lo: x => 0, upT: 'x − x²', loT: '0', J0: 1 / 6, J1: 1 / 12 },
+      { name: 'MATH1342 notes p. 7: above y = 3, axis x = 1', c: 1, a: 1, b: 3, up: x => 4 * x - x * x, lo: x => 3, upT: '4x − x²', loT: '3', J0: 4 / 3, J1: 8 / 3 },
+      { name: 'MATH1342 notes p. 7: same region, axis x = 4', c: 4, a: 1, b: 3, up: x => 4 * x - x * x, lo: x => 3, upT: '4x − x²', loT: '3', J0: 4 / 3, J1: 8 / 3 },
+      { name: 'MATH1342 notes p. 8: axis x = 5', c: 5, a: -2, b: 1, up: x => -x + 3, lo: x => x * x + 1, upT: '−x + 3', loT: 'x² + 1', J0: 9 / 2, J1: -9 / 4 },
+      { name: 'MATH1342 notes p. 9: axis x = −2', c: -2, a: 0, b: 2, up: x => Math.sqrt(8 * x) + 1, lo: x => x * x + 1, upT: '√(8x) + 1', loT: 'x² + 1', J0: 8 / 3, J1: 12 / 5 },
+      { name: 'Textbook Ex. 3.5.12: y-axis', c: 0, a: 0, b: 1, up: x => 2 - x, lo: x => Math.sqrt(x), upT: '2 − x', loT: '√x', J0: 5 / 6, J1: 4 / 15 },
+    ];
+    let cur = PRE[0];
+    const st = { k: 0, c: 0, n: 6, s: 0.6 };
+    const valid = () => st.c <= cur.a + 1e-9 || st.c >= cur.b - 1e-9;
+    const rOf = x => Math.abs(x - st.c), hOf = x => cur.up(x) - cur.lo(x), gOf = x => 2 * PI * rOf(x) * hOf(x);
+    const exactV = () => 2 * PI * Math.abs(cur.J1 - st.c * cur.J0);
+    const fracPi = v => { const w = v / PI; for (let q = 1; q <= 240; q++) { const p = Math.round(w * q); if (Math.abs(w * q - p) < 1e-9) return p === 0 ? '0' : (q === 1 ? (p === 1 ? 'π' : p + 'π') : (p === 1 ? '' : p) + 'π/' + q); } return null; };
+    const numT = v => fmtNum(v, 2);
+    const snap = () => { const ds = (cur.b - cur.a) / st.n; return clamp(Math.round((st.s - cur.a) / ds), 1, st.n); };
+    const presets = presetRow(PRE, (p, k) => { cur = p; st.k = k; st.c = p.c; st.s = p.a + 0.6 * (p.b - p.a); sync(); render(); touched('S'); });
+    presets.mark(0);
+    const sc = slider('axis position', -4, 6, 0.5, 0, v => { st.c = v; presets.mark(st.c === cur.c ? st.k : -1); render(); touched('S'); }, v => 'x = ' + fmtNum(v, 1));
+    const sn = slider('n (number of shells)', 1, 40, 1, st.n, v => { st.n = v; render(); touched('S'); }, v => 'n = ' + v);
+    const ss = slider('strip position', 0, 1, 0.005, st.s, v => { st.s = v; render(); touched('S'); }, v => 'x = ' + fmtNum(v, 2));
+    const rHost = el('div'), sHost = el('div'), gHost = el('div');
+    const warn = el('div', { class: 'notice warn', hidden: true });
+    const custom = el('div', { class: 'w-line', hidden: true });
+    const status = el('div', { class: 'status-line' });
+    const sr = stat('r: distance to the axis'), sh = stat('h: height of the strip'), sg = stat('Shell face 2πr·h'), sSum = stat('Stack of n shells'), sV = stat('Exact volume');
+    sV.classList.add('hero'); sSum.classList.add('hero');
+    const prompt = promptBox('Ask your tutor about what you see', () => tutorText());
+    const legend = el('div', { class: 'legend' },
+      el('span', null, el('i', { class: 'sw', style: 'background:var(--s1);opacity:.35' }), 'the region'),
+      el('span', null, el('i', { class: 'ln dashed-ln' }), 'axis of rotation'),
+      el('span', null, el('i', { class: 'ln', style: 'background:var(--s3);height:3px' }), 'r (to the strip)'),
+      el('span', null, el('i', { class: 'ln', style: 'background:var(--s2);height:3px' }), 'h (strip height)'));
+    root.append(presets, fbox, custom, el('div', { class: 'controls' }, sc, sn, ss), warn,
+      el('div', { class: 'grid-2' }, el('div', null, el('div', { class: 'small muted', text: 'The region and one strip (parallel to the axis)' }), rHost), el('div', null, el('div', { class: 'small muted', text: 'The solid as n nested shells (oblique view)' }), sHost)),
+      legend, status, el('div', { class: 'w-sub', style: 'margin:12px 0 0', html: '<b>Below:</b> the unrolled shell’s face, 2πr·h, along the x-axis. Bars: the n shells, each 2πr·h at its right endpoint × thickness Δx. The shaded area is the exact volume.' }), gHost,
+      el('div', { class: 'stats' }, sr, sh, sg, sSum, sV), prompt);
+    const RP = new Plot(rHost, { W: 420, H: 300, pad: { l: 36, r: 12, t: 12, b: 30 }, aria: 'The flat region, the vertical axis of rotation, and one thin strip with its distance r to the axis and its height h.' });
+    const SP = new Plot(sHost, { W: 420, H: 300, pad: { l: 12, r: 12, t: 12, b: 12 }, aria: 'The solid of revolution drawn as a set of nested cylindrical shells.' });
+    const GP = new Plot(gHost, { W: 680, H: 210, pad: { l: 50, r: 20, t: 14, b: 36 }, aria: 'The unrolled shell face 2 pi r h as a function of x; the area under it is the volume.' });
+    function sync() {
+      sc.input.min = Math.floor(cur.a - 4); sc.input.max = Math.ceil(cur.b + 4); sc.set(st.c);
+      ss.input.min = cur.a; ss.input.max = cur.b; ss.input.step = (cur.b - cur.a) / 200; ss.set(st.s);
+      sn.set(st.n);
+    }
+    function render() {
+      const ok = valid(), n = st.n, ds = (cur.b - cur.a) / n, i = snap(), xs = cur.a + i * ds;
+      // ---- region view (it needn't be to scale, so let it fill the plot)
+      const N = 160, reg = [], mir = [];
+      for (let j = 0; j <= N; j++) { const t = cur.a + (cur.b - cur.a) * j / N; reg.push([t, cur.up(t)]); }
+      for (let j = N; j >= 0; j--) { const t = cur.a + (cur.b - cur.a) * j / N; reg.push([t, cur.lo(t)]); }
+      reg.forEach(([x, y]) => mir.push([2 * st.c - x, y]));
+      const allP = [...reg, ...(ok ? mir : []), [st.c, reg[0][1]], [0, 0]];
+      let xmn = Math.min(...allP.map(p => p[0])), xmx = Math.max(...allP.map(p => p[0])), ymn = Math.min(...allP.map(p => p[1])), ymx = Math.max(...allP.map(p => p[1]));
+      const px = (xmx - xmn) * 0.08 || 0.5, py = (ymx - ymn) * 0.1 || 0.5;
+      RP.setView({ xmin: xmn - px, xmax: xmx + px, ymin: ymn - py, ymax: ymx + py }); RP.clear();
+      RP.axes({ xlabel: 'x', ylabel: 'y', nx: 5, ny: 5 });
+      if (ok) RP.poly(mir, 'reg-mirror');
+      RP.poly(reg, 'reg1');
+      RP.line(st.c, RP.o.ymin, st.c, RP.o.ymax, 'axis-rot');
+      const lo = cur.lo(xs), up = cur.up(xs), x0 = Math.max(cur.a, xs - ds);
+      RP.poly([[x0, lo], [x0, up], [xs, up], [xs, lo]], 'shape m hi');
+      RP.line(xs, lo, xs, up, 'hyp');
+      const ym = (lo + up) / 2;
+      if (ok && rOf(xs) > 1e-9) {
+        arrow(RP, st.c, ym, xs, ym, 'rad-r');
+        RP.text((st.c + xs) / 2, ym, 'r', 'lbl', 'middle', -6);
+      }
+      RP.text(xs, up, 'h', 'lbl', 'start', -6);
+      RP.text(st.c, RP.o.ymax, `axis x = ${numT(st.c)}`, 'dlbl', 'middle', 14);
+      // ---- solid view
+      SP.clear(); SP.gGrid.replaceChildren(); SP.gAxis.replaceChildren();
+      if (ok) {
+        let Rm = 0, ylo = Infinity, yhi = -Infinity;
+        for (let j = 0; j <= 200; j++) { const t = cur.a + (cur.b - cur.a) * j / 200; Rm = Math.max(Rm, rOf(t)); ylo = Math.min(ylo, cur.lo(t)); yhi = Math.max(yhi, cur.up(t)); }
+        fitEqual(SP, [[st.c - Rm, ylo - Rm * KAPPA], [st.c + Rm, yhi + Rm * KAPPA]], 0.05);
+        drawShells(SP, cur, st.c, n, i);
+        SP.line(st.c, SP.o.ymin, st.c, SP.o.ymax, 'axis-rot');
+      } else { SP.setView({ xmin: 0, xmax: 1, ymin: 0, ymax: 1 }); SP.text(0.5, 0.5, 'no solid: the axis cuts the region', 'lbl', 'middle'); }
+      // ---- shell-face view
+      let sum = 0; const bars = [];
+      if (ok) for (let j = 1; j <= n; j++) { const gj = gOf(cur.a + j * ds); bars.push(gj); sum += gj * ds; }
+      let gm = 0; if (ok) for (let j = 0; j <= 300; j++) gm = Math.max(gm, gOf(cur.a + (cur.b - cur.a) * j / 300));
+      GP.setView({ xmin: cur.a, xmax: cur.b, ymin: 0, ymax: ok ? Math.max(gm, ...bars) * 1.15 : 1 }); GP.clear();
+      GP.axes({ xlabel: 'x', ylabel: '2πr·h', ny: 4 });
+      if (ok) {
+        bars.forEach((hh, j) => { const u0 = cur.a + j * ds; GP.poly([[u0, 0], [u0, hh], [u0 + ds, hh], [u0 + ds, 0]], 'shape m' + (j === i - 1 ? ' hi' : '')); });
+        GP.area(gOf, cur.a, cur.b, { n: 400 });
+        GP.curve(gOf, cur.a, cur.b, 'curve', 400);
+        GP.line(xs, 0, xs, GP.o.ymax, 'marker'); GP.dot(xs, gOf(xs), 'dot s2', 5);
+      }
+      // ---- numbers and text
+      warn.hidden = ok;
+      if (!ok) warn.innerHTML = `<b>The axis cuts through the region.</b> Then strips on the two sides of the axis would sweep out overlapping shells, and r = |x − axis| would count the overlap twice. Move the axis to x ≤ ${numT(cur.a)} or x ≥ ${numT(cur.b)} (left or right of the region).`;
+      const E = ok ? exactV() : NaN, isDefault = st.c === cur.c;
+      fbox.hidden = !isDefault; if (isDefault) fbox.show(st.k);
+      custom.hidden = isDefault || !ok;
+      if (!isDefault && ok) {
+        const left = st.c <= cur.a + 1e-9, rt = left ? (st.c === 0 ? 'x' : st.c < 0 ? `x + ${numT(-st.c)}` : `x − ${numT(st.c)}`) : `${numT(st.c)} − x`;
+        custom.innerHTML = `Axis <b>x = ${numT(st.c)}</b> (${left ? 'left of' : 'right of'} the region): r = <b>${rt}</b>, h = <b>${cur.upT}${cur.loT === '0' ? '' : ' − (' + cur.loT + ')'}</b>, so V = 2π∫ r h dx = <b>${fracPi(E) || fmt(E, 4)}</b> ≈ ${fmt(E, 4)}.`;
+      }
+      const r = ok ? rOf(xs) : NaN, h = ok ? hOf(xs) : NaN;
+      sr.set(ok ? fmt(r, 4) : '—', ok ? `at x = ${fmtNum(xs, 3)}` : '');
+      sh.set(ok ? fmt(h, 4) : '—', ok ? `${cur.upT}${cur.loT === '0' ? '' : ' − (' + cur.loT + ')'} at that x` : '');
+      sg.set(ok ? fmt(2 * PI * r * h, 4) : '—', ok ? 'the face of the unrolled box' : '');
+      sSum.set(ok ? fmt(sum, 5) : '—', ok ? `Σ 2πrh·Δx, right endpoints, n = ${n}` : '');
+      sV.set(ok ? fmt(E, 5) : '—', ok ? `= ${fracPi(E) || '…'}` : 'undefined for this axis');
+      status.innerHTML = !ok ? '' : `<span>◎ <b>Shell ${i} of ${n}:</b> cut it and unroll it into a box <b>${fmt(2 * PI * r, 3)}</b> long (2πr), <b>${fmt(h, 3)}</b> tall (h) and <b>${fmt(ds, 3)}</b> thick (Δx). Volume ≈ <b>${fmt(2 * PI * r * h * ds, 4)}</b>.</span>`;
+      root._last = { valid: ok, r, h, g: ok ? 2 * PI * r * h : NaN, sum: ok ? sum : NaN, exact: E, i, x: xs };
+      prompt.update();
+    }
+    function tutorText() {
+      const Ls = root._last || {};
+      return Ls.valid
+        ? `I'm using the cylindrical shells explorer with "${cur.name}", spun about the line x = ${numT(st.c)}, with n = ${st.n} shells. At my shell r = ${fmt(Ls.r, 3)} and h = ${fmt(Ls.h, 3)}; the stack of shells gives ${fmt(Ls.sum, 4)} and the exact volume is ${fmt(Ls.exact, 4)}. Ask me why a shell's volume is 2πr·h·Δx, and how I find r and h for this axis, before explaining anything. ${TUTOR_TAIL}`
+        : `I'm using the cylindrical shells explorer with "${cur.name}" and I put the axis at x = ${numT(st.c)}, inside the region. Ask me why an axis through the region breaks the shell formula. ${TUTOR_TAIL}`;
+    }
+    st.s = cur.a + 0.6 * (cur.b - cur.a);
+    sync(); render();
+    GP.hover(x => { if (!valid()) return null; const gx = gOf(x); return { x, points: [{ y: gx, cls: 'ink' }], html: `x = <b>${fmt(x, 3)}</b><br>2πr·h = <b>${fmt(gx, 4)}</b>` }; });
+    root._set = (k, c, n, s) => { cur = PRE[k]; st.k = k; st.c = c === undefined ? cur.c : c; st.n = n || 6; st.s = s === undefined ? cur.a + 0.6 * (cur.b - cur.a) : s; presets.mark(st.c === cur.c ? k : -1); sync(); render(); };
+  }
+
+  /* ================================================================== Widgets K, G, W: mass, center of mass, work (§3.7–§3.9) */
+  // Shared: an object that lies along [a, b] and whose density depends only on x (3.7–3.9 notes pp. 1, 3).
+  //   wire:  λ(x) = δ(x)              (mass per unit length)
+  //   plate: λ(x) = δ(x)·[up(x) − lo(x)] (mass per unit x of a vertical strip)
+  const lamOf = sp => (sp.kind === 'plate' ? x => sp.d(x) * (sp.up(x) - sp.lo(x)) : sp.d);
+  const quad = (g, a, b, n = 600) => (b > a ? simpsonN(g, a, b, n % 2 ? n + 1 : n) : b < a ? -simpsonN(g, b, a, n % 2 ? n + 1 : n) : 0);
+  // density shading: denser pieces look darker (opacity scales with δ)
+  const shade = (v, vmax) => (0.14 + 0.76 * clamp(vmax > 0 ? v / vmax : 0, 0, 1)).toFixed(3);
+  function bisect(F, target, a, b) { let lo = a, hi = b; for (let k = 0; k < 80; k++) { const m = (lo + hi) / 2; if (F(m) < target) lo = m; else hi = m; } return (lo + hi) / 2; }
+  // draw a wire on the x-axis as n density-shaded pieces (y in [−h, h])
+  function drawWire(P, sp, n, h, hiK) {
+    const dx = (sp.b - sp.a) / n; let dmax = 0;
+    for (let j = 0; j <= 200; j++) dmax = Math.max(dmax, sp.d(sp.a + (sp.b - sp.a) * j / 200));
+    for (let i = 1; i <= n; i++) {
+      const x0 = sp.a + (i - 1) * dx, x1 = sp.a + i * dx;
+      const pc = P.poly([[x0, -h], [x1, -h], [x1, h], [x0, h]], 'dens-piece' + (i === hiK ? ' hi' : ''));
+      pc.style.fillOpacity = shade(sp.d(x1), dmax);
+    }
+  }
+  // draw a plate as n density-shaded vertical strips that follow the boundary curves
+  function drawPlate(P, sp, n, hiK) {
+    const dx = (sp.b - sp.a) / n; let dmax = 0;
+    for (let j = 0; j <= 200; j++) dmax = Math.max(dmax, sp.d(sp.a + (sp.b - sp.a) * j / 200));
+    for (let i = 1; i <= n; i++) {
+      const x0 = sp.a + (i - 1) * dx, x1 = sp.a + i * dx, pts = [], M = 12;
+      for (let j = 0; j <= M; j++) { const t = x0 + (x1 - x0) * j / M; pts.push([t, sp.up(t)]); }
+      for (let j = M; j >= 0; j--) { const t = x0 + (x1 - x0) * j / M; pts.push([t, sp.lo(t)]); }
+      const pc = P.poly(pts, 'dens-piece' + (i === hiK ? ' hi' : ''));
+      pc.style.fillOpacity = shade(sp.d(x1), dmax);
+    }
+    P.curve(sp.up, sp.a, sp.b, 'curve'); P.curve(sp.lo, sp.a, sp.b, 'curve');
+  }
+  function plateView(P, sp, extra) {
+    let ymn = Infinity, ymx = -Infinity;
+    for (let j = 0; j <= 200; j++) { const t = sp.a + (sp.b - sp.a) * j / 200; ymn = Math.min(ymn, sp.lo(t)); ymx = Math.max(ymx, sp.up(t)); }
+    (extra || []).forEach(y => { ymn = Math.min(ymn, y); ymx = Math.max(ymx, y); });
+    const px = (sp.b - sp.a) * 0.08, py = (ymx - ymn) * 0.12 || 0.5;
+    P.setView({ xmin: sp.a - px, xmax: sp.b + px, ymin: Math.min(ymn - py, -py * 0.5), ymax: Math.max(ymx + py, py * 0.5) });
+  }
+
+  /* ---------------------------------------------------------------- Widget K: mass from density */
+  function widgetMass(root) {
+    const fbox = formulaBox(root);
+    const L3 = Math.log(3);
+    const PRE = [
+      { name: '3.7–3.9 notes p. 2: wire, δ = 3x²', kind: 'wire', a: 0, b: 2, d: x => 3 * x * x, dT: '3x²', M: 8, xm: Math.cbrt(4), u: 'kg' },
+      { name: 'Textbook Ex. 3.7.6: wire, δ = e^(−x)', kind: 'wire', a: 0, b: 4, d: x => Math.exp(-x), dT: 'e^(−x)', M: 1 - Math.exp(-4), xm: Math.log(2 / (1 + Math.exp(-4))), u: 'slugs' },
+      { name: '3.7–3.9 notes p. 9: wire, δ = 2e^(3x)', kind: 'wire', a: 3, b: 4, d: x => 2 * Math.exp(3 * x), dT: '2e^(3x)', M: 2 / 3 * (Math.exp(12) - Math.exp(9)), xm: Math.log((Math.exp(12) + Math.exp(9)) / 2) / 3, u: '' },
+      { name: '3.7–3.9 notes p. 5: plate, x − x² over −x, δ = x', kind: 'plate', a: 0, b: 2, up: x => x - x * x, lo: x => -x, d: x => x, upT: 'x − x²', loT: '−x', dT: 'x', M: 4 / 3, u: '' },
+      { name: '3.7–3.9 notes p. 4: plate, 2 − x² over x², δ = 3ˣ', kind: 'plate', a: -1, b: 1, up: x => 2 - x * x, lo: x => x * x, d: x => Math.pow(3, x), upT: '2 − x²', loT: 'x²', dT: '3ˣ', M: 8 * (5 * L3 - 4) / (3 * L3 * L3 * L3), u: '' },
+      { name: 'Textbook Suggested Ex. 4: triangle under the axis, δ = x² + 1', kind: 'plate', a: 0, b: 3, up: x => 0 * x, lo: x => 2 * x - 6, d: x => x * x + 1, upT: '0', loT: '2x − 6', dT: 'x² + 1', M: 45 / 2, u: 'kg' },
+    ];
+    let cur = PRE[0];
+    const st = { k: 0, n: 8, c: 1 };
+    const lam = x => lamOf(cur)(x);
+    const C = s => quad(lam, cur.a, s, 600);                            // mass from a to s
+    const xmOf = () => (cur.xm !== undefined ? cur.xm : bisect(C, cur.M / 2, cur.a, cur.b));
+    const presets = presetRow(PRE, (p, k) => { cur = p; st.k = k; st.c = (p.a + p.b) / 2; sync(); render(); touched('K'); });
+    presets.mark(0);
+    const sn = slider('n (number of pieces)', 1, 40, 1, st.n, v => { st.n = v; render(); touched('K'); }, v => 'n = ' + v);
+    const sc = slider('cut the object at', 0, 1, 0.001, st.c, v => { st.c = v; render(); touched('K'); }, v => 'x = ' + fmtNum(v, 3));
+    const btn = el('button', { class: 'btn small', type: 'button', text: 'Cut at the mass midpoint xₘ' });
+    btn.addEventListener('click', () => { st.c = xmOf(); sc.set(st.c); render(); touched('K'); });
+    const oHost = el('div'), gHost = el('div'), status = el('div', { class: 'status-line' });
+    const sSum = stat('Sum of the n pieces'), sM = stat('Exact mass M'), sL = stat('Mass left of the cut'), sR = stat('Mass right of the cut'), sX = stat('Mass midpoint xₘ');
+    sSum.classList.add('hero'); sM.classList.add('hero');
+    const prompt = promptBox('Ask your tutor about what you see', () => tutorText());
+    const legend = el('div', { class: 'legend' },
+      el('span', null, el('i', { class: 'sw', style: 'background:var(--s1)' }), 'darker = denser'),
+      el('span', null, el('i', { class: 'sw', style: 'background:var(--s2);opacity:.45' }), 'mass left of the cut'),
+      el('span', null, el('i', { class: 'sw', style: 'background:var(--s1);opacity:.35' }), 'mass right of the cut'));
+    root.append(presets, fbox, el('div', { class: 'controls' }, sn, sc, el('div', { class: 'ctrl' }, btn)),
+      el('div', { class: 'small muted', text: 'The object, cut into n pieces (each piece shaded by its density δ(xᵢ))' }), oHost, legend, status,
+      el('div', { class: 'w-sub', style: 'margin:12px 0 0', html: '<b>Below:</b> mass per unit of x: δ(x) for a wire, δ(x)·[f(x) − g(x)] for a plate. Each bar is one piece’s mass ÷ Δx, so the bars’ total area is the sum of the pieces. The area under the curve is the exact mass.' }), gHost,
+      el('div', { class: 'stats' }, sSum, sM, sL, sR, sX), prompt);
+    const OP = new Plot(oHost, { W: 680, H: 230, pad: { l: 44, r: 16, t: 14, b: 30 }, aria: 'The wire or plate, cut into n pieces shaded by density, with the cut position marked.' });
+    const GP = new Plot(gHost, { W: 680, H: 220, pad: { l: 56, r: 16, t: 14, b: 36 }, aria: 'Mass per unit length as a function of x, with Riemann bars; the area to the left of the cut is the mass left of the cut.' });
+    function sync() { sc.input.min = cur.a; sc.input.max = cur.b; sc.input.step = (cur.b - cur.a) / 1000; sc.set(st.c); sn.set(st.n); }
+    function render() {
+      const n = st.n, dx = (cur.b - cur.a) / n, c = clamp(st.c, cur.a, cur.b);
+      const i = clamp(Math.ceil((c - cur.a) / dx - 1e-9), 1, n), xi = cur.a + i * dx;
+      const xm = xmOf();
+      // ---- the object
+      OP.clear();
+      if (cur.kind === 'wire') {
+        OP.setView({ xmin: cur.a - 0.06 * (cur.b - cur.a), xmax: cur.b + 0.06 * (cur.b - cur.a), ymin: -1, ymax: 1 });
+        OP.axes({ xlabel: 'x', yticks: [], nx: 6 }); OP.gGrid.replaceChildren();
+        drawWire(OP, cur, n, 0.32, i);
+        OP.text((cur.a + cur.b) / 2, 0.62, `thin wire, density δ(x) = ${cur.dT}`, 'dlbl');
+      } else {
+        plateView(OP, cur); OP.axes({ xlabel: 'x', ylabel: 'y', nx: 6, ny: 4 });
+        drawPlate(OP, cur, n, i);
+        OP.text(cur.b, cur.up(cur.b), 'y = ' + cur.upT, 'lbl', 'end', -8); OP.text(cur.b, cur.lo(cur.b), 'y = ' + cur.loT, 'lbl', 'end', 16);
+      }
+      OP.line(c, OP.o.ymin, c, OP.o.ymax, 'axis-rot'); OP.text(c, OP.o.ymax, 'cut', 'dlbl', 'middle', 13);
+      OP.line(xm, OP.o.ymin, xm, OP.o.ymin + 0.18 * (OP.o.ymax - OP.o.ymin), 'marker'); OP.text(xm, OP.o.ymin, 'xₘ', 'dlbl', 'middle', -16);
+      // ---- mass per unit x
+      let lmax = 0; for (let j = 0; j <= 300; j++) lmax = Math.max(lmax, lam(cur.a + (cur.b - cur.a) * j / 300));
+      const bars = []; let sum = 0; for (let j = 1; j <= n; j++) { const v = lam(cur.a + j * dx); bars.push(v); sum += v * dx; }
+      GP.setView({ xmin: cur.a, xmax: cur.b, ymin: 0, ymax: Math.max(lmax, ...bars) * 1.15 || 1 }); GP.clear();
+      GP.axes({ xlabel: 'x', ylabel: cur.kind === 'wire' ? 'δ(x)' : 'δ(x)·[f − g]', ny: 4 });
+      if (c > cur.a) GP.area(lam, cur.a, c, { n: 300, posCls: 'mass-left' });
+      if (c < cur.b) GP.area(lam, c, cur.b, { n: 300, posCls: 'mass-right' });
+      bars.forEach((h, j) => { const u0 = cur.a + j * dx; GP.poly([[u0, 0], [u0, h], [u0 + dx, h], [u0 + dx, 0]], 'rect-outline' + (j === i - 1 ? ' hi' : '')); });
+      GP.curve(lam, cur.a, cur.b, 'curve', 400);
+      GP.line(c, 0, c, GP.o.ymax, 'axis-rot');
+      // ---- numbers
+      const left = C(c), right = cur.M - left;
+      sSum.set(fmtNum(sum, 5), `right endpoints, n = ${n}`); sM.set(fmtNum(cur.M, 5), (cur.u ? cur.u + ' · ' : '') + 'the area under the curve');
+      sL.set(fmt(left, 5), `${fmt(100 * left / cur.M, 3)}% of M`); sR.set(fmt(right, 5), `${fmt(100 * right / cur.M, 3)}% of M`);
+      sX.set(fmt(xm, 5), 'half the mass on each side');
+      const size = cur.kind === 'wire' ? dx : (cur.up(xi) - cur.lo(xi)) * dx;
+      status.innerHTML = `<span>◎ <b>Piece ${i} of ${n}</b> (ending at x = ${fmt(xi, 3)}): density δ = <b>${fmt(cur.d(xi), 4)}</b>, ${cur.kind === 'wire' ? 'length Δx' : 'area [f − g]·Δx'} = <b>${fmt(size, 4)}</b>, so its mass ≈ δ × size = <b>${fmt(cur.d(xi) * size, 4)}</b>.</span>`;
+      root._last = { sum, exact: cur.M, left, right, xm, c, n, piece: i, pieceMass: cur.d(xi) * size };
+      prompt.update();
+    }
+    function tutorText() {
+      const Ls = root._last || {};
+      return `I'm using the mass explorer with "${cur.name}" and n = ${st.n} pieces. The pieces add up to ${fmt(Ls.sum, 5)} and the exact mass is ${fmt(cur.M, 5)}. When I cut at x = ${fmt(Ls.c, 3)} there is ${fmt(Ls.left, 4)} on the left and ${fmt(Ls.right, 4)} on the right; the mass midpoint is ${fmt(Ls.xm, 4)}. Ask me why the mass of one piece is density × length (or density × strip area), and why the mass midpoint isn't the middle of the object, before explaining anything. ${TUTOR_TAIL}`;
+    }
+    st.c = (cur.a + cur.b) / 2;
+    sync(); render();
+    GP.hover(x => { const v = lam(x); return { x, points: [{ y: v, cls: 'ink' }], html: `x = <b>${fmt(x, 3)}</b><br>mass per unit x = <b>${fmt(v, 4)}</b><br>mass from ${fmtNum(cur.a, 2)} to x = <b>${fmt(C(x), 4)}</b>` }; });
+    root._set = (k, n, c) => { cur = PRE[k]; st.k = k; st.n = n || 8; st.c = c === undefined ? (cur.a + cur.b) / 2 : c; presets.mark(k); sync(); render(); };
+  }
+
+  /* ---------------------------------------------------------------- Widget G: balance (center of mass) */
+  function widgetBalance(root) {
+    const fbox = formulaBox(root);
+    const E = Math.exp;
+    const PRE = [
+      { name: '3.7–3.9 notes p. 6: seesaw, 30 kg and 60 kg', kind: 'points', pts: [[0, 30], [3, 60]], a: -0.6, b: 3.6, M: 90, Mx: 180 },
+      { name: '3.7–3.9 notes p. 8: wire, δ = 4x² + 2', kind: 'wire', a: 0, b: 3, d: x => 4 * x * x + 2, dT: '4x² + 2', M: 42, Mx: 90 },
+      { name: '3.7–3.9 notes p. 9: wire, δ = 2e^(3x)', kind: 'wire', a: 3, b: 4, d: x => 2 * E(3 * x), dT: '2e^(3x)', M: 2 / 3 * (E(12) - E(9)), Mx: 2 / 9 * (11 * E(12) - 8 * E(9)) },
+      { name: 'Textbook Ex. 3.8.5: wire, δ = e^(−x)', kind: 'wire', a: 0, b: 4, d: x => E(-x), dT: 'e^(−x)', M: 1 - E(-4), Mx: 1 - 5 * E(-4) },
+      { name: '3.7–3.9 notes p. 12: plate under 2/x², δ = x²', kind: 'plate', a: 1, b: 2, up: x => 2 / (x * x), lo: x => 0 * x, d: x => x * x, upT: '2/x²', loT: '0', dT: 'x²', M: 2, Mx: 3, My: 1 },
+      { name: 'Textbook Ex. 3.8.7: plate x² over y = 1, δ = x', kind: 'plate', a: 1, b: 2, up: x => x * x, lo: x => 1 + 0 * x, d: x => x, upT: 'x²', loT: '1', dT: 'x', M: 9 / 4, Mx: 58 / 15, My: 9 / 2 },
+      { name: '3.7–3.9 notes p. 13: plate 2x + 3 over x², δ = 2ˣ', kind: 'plate', a: -1, b: 3, up: x => 2 * x + 3, lo: x => x * x, d: x => Math.pow(2, x), upT: '2x + 3', loT: 'x²', dT: '2ˣ' },
+      { name: 'Textbook Ex. 3.8.8: triangle under y = 2x, constant δ', kind: 'plate', a: 0, b: 3, up: x => 2 * x, lo: x => 0 * x, d: x => 1 + 0 * x, upT: '2x', loT: '0', dT: '1 (constant)', M: 9, Mx: 18, My: 18 },
+    ];
+    let cur = PRE[0];
+    const st = { k: 0, c: 1.5, d: 0, n: 10, show: false };
+    // exact pieces (closed forms when given, else high-order Simpson)
+    const parts = sp => {
+      if (sp.kind === 'points') { const M = sp.pts.reduce((s, p) => s + p[1], 0); return { M, Mx: sp.pts.reduce((s, p) => s + p[0] * p[1], 0), My: 0 }; }
+      const L = lamOf(sp);
+      const M = sp.M !== undefined ? sp.M : quad(L, sp.a, sp.b, 1200);
+      const Mx = sp.Mx !== undefined ? sp.Mx : quad(x => x * L(x), sp.a, sp.b, 1200);
+      const My = sp.kind !== 'plate' ? 0 : sp.My !== undefined ? sp.My : quad(x => (sp.up(x) + sp.lo(x)) / 2 * L(x), sp.a, sp.b, 1200);
+      return { M, Mx, My };
+    };
+    const presets = presetRow(PRE, (p, k) => { cur = p; st.k = k; st.c = (p.a + p.b) / 2; st.d = mid(); sync(); render(); touched('G'); });
+    presets.mark(0);
+    const mid = () => { if (cur.kind !== 'plate') return 0; let lo = Infinity, hi = -Infinity; for (let j = 0; j <= 100; j++) { const t = cur.a + (cur.b - cur.a) * j / 100; lo = Math.min(lo, cur.lo(t)); hi = Math.max(hi, cur.up(t)); } return (lo + hi) / 2; };
+    const sc = slider('knife edge (fulcrum) at', 0, 1, 0.001, st.c, v => { st.c = v; render(); touched('G'); }, v => 'x = ' + fmtNum(v, 3));
+    const sd = slider('second knife edge, along', 0, 1, 0.001, st.d, v => { st.d = v; render(); touched('G'); }, v => 'y = ' + fmtNum(v, 3));
+    const sn = slider('n (strips or pieces)', 2, 30, 1, st.n, v => { st.n = v; render(); touched('G'); }, v => 'n = ' + v);
+    const tg = checkToggle('show the center of mass', false, v => { st.show = v; render(); touched('G'); });
+    const oHost = el('div'), gHost = el('div'), status = el('div', { class: 'status-line' });
+    const sM = stat('Total mass M'), sMx = stat('x̄M (x-component of the moment)'), sX = stat('x̄ = x̄M / M'), sNet = stat('Moment about the knife edge'), sY = stat('ȳ = ȳM / M'), sXm = stat('Mass midpoint xₘ (for contrast)');
+    sX.classList.add('hero'); sNet.classList.add('hero');
+    const prompt = promptBox('Ask your tutor about what you see', () => tutorText());
+    const legend = el('div', { class: 'legend' },
+      el('span', null, el('i', { class: 'sw', style: 'background:var(--s1)' }), 'darker = denser'),
+      el('span', null, el('i', { class: 'ln dashed-ln' }), 'knife edge (trial balance line)'),
+      el('span', null, el('i', { class: 'sw', style: 'background:var(--s2)' }), 'one point mass per strip, at the strip’s midpoint'),
+      el('span', null, el('i', { class: 'sw', style: 'background:var(--s3)' }), 'center of mass'));
+    root.append(presets, fbox, el('div', { class: 'controls' }, sc, sd, sn, el('div', { class: 'ctrl' }, tg)),
+      el('div', { class: 'small muted', text: 'The object on a knife edge. It tips toward the side with more moment; it balances when the edge is at x̄.' }), oHost, legend, status,
+      el('div', { class: 'w-sub', style: 'margin:12px 0 0', html: '<b>Below:</b> the turning effect of each bit of mass about the knife edge, (x − c)·(mass per unit x). Right of the edge it’s positive (turns clockwise), left of it negative. The net area is the total moment about the edge, x̄M − c·M. It is zero exactly when c = x̄.' }), gHost,
+      el('div', { class: 'stats' }, sM, sMx, sX, sNet, sY, sXm), prompt);
+    const OP = new Plot(oHost, { W: 680, H: 260, pad: { l: 44, r: 16, t: 16, b: 30 }, aria: 'The object balanced on a knife edge; a beam tilts toward the heavier side.' });
+    const GP = new Plot(gHost, { W: 680, H: 200, pad: { l: 60, r: 16, t: 14, b: 36 }, aria: 'Moment density about the knife edge as a function of x; positive to the right of the edge, negative to the left.' });
+    function sync() {
+      sc.input.min = cur.a; sc.input.max = cur.b; sc.input.step = (cur.b - cur.a) / 1000; sc.set(st.c);
+      if (cur.kind === 'plate') { plateView(OP, cur); sd.input.min = OP.o.ymin; sd.input.max = OP.o.ymax; sd.input.step = (OP.o.ymax - OP.o.ymin) / 1000; sd.set(st.d); }
+      sd.hidden = cur.kind !== 'plate'; sn.hidden = cur.kind === 'points'; sY.hidden = cur.kind !== 'plate'; sXm.hidden = cur.kind !== 'wire';
+    }
+    function render() {
+      const pr = parts(cur), xbar = pr.Mx / pr.M, ybar = cur.kind === 'plate' ? pr.My / pr.M : 0;
+      const c = st.c, net = pr.Mx - c * pr.M, netY = cur.kind === 'plate' ? pr.My - st.d * pr.M : 0;
+      const scale = pr.M * (cur.b - cur.a), tilt = 0.22 * Math.tanh(3 * net / scale);
+      const verdict = Math.abs(net) <= 2e-3 * scale ? 'balanced' : net > 0 ? 'tips right' : 'tips left';
+      OP.clear();
+      const n = st.n, dx = (cur.b - cur.a) / n;
+      if (cur.kind === 'plate') {
+        plateView(OP, cur, [st.d]); OP.axes({ xlabel: 'x', ylabel: 'y', nx: 6, ny: 4 });
+        drawPlate(OP, cur, n, -1);
+        // each strip → one point mass at its midpoint height (3.7–3.9 notes p. 11)
+        const L = lamOf(cur); let mmax = 0; const ms = [];
+        for (let i = 1; i <= n; i++) { const xi = cur.a + (i - 0.5) * dx, m = L(xi) * dx; ms.push([xi, (cur.up(xi) + cur.lo(xi)) / 2, m]); mmax = Math.max(mmax, m); }
+        ms.forEach(([x, y, m]) => OP.dot(x, y, 'dot s2', 2 + 5 * Math.sqrt(mmax > 0 ? m / mmax : 0)));
+        OP.line(c, OP.o.ymin, c, OP.o.ymax, 'axis-rot'); OP.text(c, OP.o.ymax, 'edge x = ' + fmtNum(c, 2), 'dlbl', 'middle', 13);
+        OP.line(cur.a - 1e3, st.d, cur.b + 1e3, st.d, 'axis-rot'); OP.text(OP.o.xmax, st.d, 'edge y = ' + fmtNum(st.d, 2), 'dlbl', 'end', -6);
+        if (st.show) { OP.dot(xbar, ybar, 'cm-dot', 7); OP.text(xbar, ybar, `(x̄, ȳ) ≈ (${fmt(xbar, 4)}, ${fmt(ybar, 4)})`, 'dlbl', 'start', -10); }
+      } else {
+        // a beam on a fulcrum, tilted toward the heavier side (drawn in screen space so the tilt is a true rotation)
+        OP.setView({ xmin: cur.a - 0.08 * (cur.b - cur.a), xmax: cur.b + 0.08 * (cur.b - cur.a), ymin: -1, ymax: 1.2 });
+        OP.axes({ xlabel: 'x', yticks: [], nx: 6 }); OP.gGrid.replaceChildren();
+        const X0 = OP.sx(c), Y0 = OP.sy(0), cs = Math.cos(tilt), sn_ = Math.sin(tilt);
+        const R = x => { const dX = OP.sx(x) - X0; return [X0 + dX * cs, Y0 + dX * sn_]; };
+        const g = OP.gData;
+        svgEl('polygon', { class: 'fulcrum', points: `${X0},${Y0 + 3} ${X0 - 13},${Y0 + 30} ${X0 + 13},${Y0 + 30}` }, g);
+        const bL = cur.kind === 'wire' ? cur.a : cur.a + 0.2, bR = cur.kind === 'wire' ? cur.b : cur.b - 0.2;
+        const [ax, ay] = R(bL), [bx, by] = R(bR);
+        svgEl('line', { class: 'beam', x1: ax, y1: ay, x2: bx, y2: by }, g);
+        if (cur.kind === 'wire') {
+          let dmax = 0; for (let j = 0; j <= 200; j++) dmax = Math.max(dmax, cur.d(cur.a + (cur.b - cur.a) * j / 200));
+          for (let i = 1; i <= n; i++) {
+            const [p0x, p0y] = R(cur.a + (i - 1) * dx), [p1x, p1y] = R(cur.a + i * dx), nx = -sn_ * 9, ny = cs * 9;
+            const pc = svgEl('polygon', { class: 'dens-piece', points: `${p0x - nx},${p0y - ny} ${p1x - nx},${p1y - ny} ${p1x + nx},${p1y + ny} ${p0x + nx},${p0y + ny}` }, g);
+            pc.style.fillOpacity = shade(cur.d(cur.a + i * dx), dmax);
+          }
+        } else {
+          const mmax = Math.max(...cur.pts.map(p => p[1]));
+          cur.pts.forEach(([x, m]) => { const [px, py] = R(x), r = 9 + 13 * Math.sqrt(m / mmax); svgEl('circle', { class: 'pmass', cx: px, cy: py - r * cs, r }, g); const t = svgEl('text', { class: 'dlbl', x: px, y: py - r * cs - r - 6, 'text-anchor': 'middle' }, g); t.textContent = `${m} kg at x = ${x}`; });
+        }
+        if (st.show) { const [qx, qy] = R(xbar); svgEl('circle', { class: 'cm-dot', cx: qx, cy: qy, r: 6.5 }, g); OP.text(xbar, -0.55, 'x̄ ≈ ' + fmt(xbar, 4), 'dlbl'); }
+        if (cur.kind === 'wire') { const xm = bisect(s => quad(cur.d, cur.a, s, 600), pr.M / 2, cur.a, cur.b); OP.line(xm, -1, xm, -0.78, 'marker'); OP.text(xm, -1, 'xₘ', 'lbl', 'middle', -14); }
+        OP.text(c, 1.2, verdict, 'dlbl', 'middle', 14);
+      }
+      // ---- moment density about the knife edge
+      GP.clear();
+      if (cur.kind === 'points') {
+        const vals = cur.pts.map(([x, m]) => (x - c) * m), ym = Math.max(1, ...vals.map(Math.abs)) * 1.2;
+        GP.setView({ xmin: cur.a, xmax: cur.b, ymin: -ym, ymax: ym }); GP.axes({ xlabel: 'x', ylabel: '(x − c)·m', ny: 4 });
+        cur.pts.forEach(([x, m], j) => { const v = vals[j], w = 0.05 * (cur.b - cur.a); GP.poly([[x - w, 0], [x - w, v], [x + w, v], [x + w, 0]], v >= 0 ? 'area-pos' : 'area-neg'); });
+      } else {
+        const L = lamOf(cur), md = x => (x - c) * L(x);
+        let lo = 0, hi = 0; for (let j = 0; j <= 300; j++) { const v = md(cur.a + (cur.b - cur.a) * j / 300); lo = Math.min(lo, v); hi = Math.max(hi, v); }
+        const pad = (hi - lo) * 0.12 || 1;
+        GP.setView({ xmin: cur.a, xmax: cur.b, ymin: lo - pad, ymax: hi + pad }); GP.axes({ xlabel: 'x', ylabel: '(x − c)·λ(x)', ny: 4 });
+        GP.area(md, cur.a, cur.b, { n: 400 }); GP.curve(md, cur.a, cur.b, 'curve', 400);
+      }
+      GP.line(c, GP.o.ymin, c, GP.o.ymax, 'axis-rot');
+      // ---- numbers
+      sM.set(fmt(pr.M, 6), cur.kind === 'points' ? 'm₁ + m₂ + …' : '∫ dm (§3.7)');
+      sMx.set(fmt(pr.Mx, 6), cur.kind === 'points' ? 'Σ mᵢxᵢ' : '∫ x dm');
+      sX.set(fmt(xbar, 6), 'the balance point');
+      sNet.set(fmt(net, 4), `about x = ${fmtNum(c, 3)}: ${verdict}`);
+      if (cur.kind === 'plate') sY.set(fmt(ybar, 6), `ȳM = ${fmt(pr.My, 5)}; about y = ${fmtNum(st.d, 2)} the moment is ${fmt(netY, 4)}`);
+      let xm = NaN;
+      if (cur.kind === 'wire') { xm = bisect(s => quad(cur.d, cur.a, s, 600), pr.M / 2, cur.a, cur.b); sXm.set(fmt(xm, 5), xm > xbar ? 'right of x̄' : 'left of x̄'); }
+      status.innerHTML = `<span>◎ With the knife edge at <b>x = ${fmt(c, 3)}</b> the total moment is x̄M − c·M = ${fmt(pr.Mx, 4)} − ${fmt(c, 3)}·${fmt(pr.M, 4)} = <b>${fmt(net, 4)}</b>, so it <b>${verdict}</b>.${verdict === 'balanced' ? ' That is the center of mass.' : ' Slide the edge toward the side it tips to.'}</span>`;
+      root._last = { M: pr.M, Mx: pr.Mx, My: pr.My, xbar, ybar, net, netY, xm, verdict };
+      prompt.update();
+    }
+    function tutorText() {
+      const Ls = root._last || {};
+      return `I'm using the balance (center of mass) explorer with "${cur.name}". The total mass is ${fmt(Ls.M, 5)} and the x-component of the moment is ${fmt(Ls.Mx, 5)}, so x̄ = ${fmt(Ls.xbar, 4)}${cur.kind === 'plate' ? ` and ȳ = ${fmt(Ls.ybar, 4)}` : ''}. With the knife edge at x = ${fmt(st.c, 3)} it ${Ls.verdict}. Ask me why the balance point is the moment divided by the mass${cur.kind === 'plate' ? ', and why ȳ uses each strip’s midpoint (f + g)/2' : ''}, before explaining anything. ${TUTOR_TAIL}`;
+    }
+    st.c = (cur.a + cur.b) / 2;
+    sync(); render();
+    root._set = (k, c, d) => { cur = PRE[k]; st.k = k; st.c = c === undefined ? (cur.a + cur.b) / 2 : c; st.d = d === undefined ? mid() : d; presets.mark(k); sync(); render(); };
+  }
+
+  /* ---------------------------------------------------------------- Widget W: work */
+  function widgetWork(root) {
+    const fbox = formulaBox(root);
+    const g = 9.8;
+    // slice presets: the stuff occupies 0 ≤ y ≤ level; a slice at height y weighs wpu(y)·Δy and must rise dist(y)
+    const PRE = [
+      { name: '3.7–3.9 notes p. 15: rope lifted whole (helicopter)', kind: 'slice', shape: 'heli', H: 50, level: 50, wpu: y => 2 + 0 * y, rise: () => 50, u: 'ft-lb', fu: 'lb', lu: 'ft' },
+      { name: '3.7–3.9 notes p. 16: rope pulled up onto a roof', kind: 'slice', shape: 'rope', H: 50, level: 50, wpu: y => 2 + 0 * y, top: 50, u: 'ft-lb', fu: 'lb', lu: 'ft' },
+      { name: '3.7–3.9 notes p. 17: square tank, ¾ full, spout 2 m up', kind: 'slice', shape: 'box', R: 2.5, H: 12, level: 9, extra: 2, area: y => 25 + 0 * y, rho: 1000 * g, u: 'J', fu: 'N', lu: 'm' },
+      { name: '3.7–3.9 notes p. 18: cone, vertex down, full', kind: 'slice', shape: 'down', R: 5, H: 12, level: 12, extra: 0, area: y => PI * (5 * y / 12) ** 2, rho: 1000 * g, u: 'J', fu: 'N', lu: 'm' },
+      { name: '3.7–3.9 notes p. 19: cone, vertex up, filled to 80 ft', kind: 'slice', shape: 'up', R: 20, H: 100, level: 80, extra: 0, area: y => PI * ((100 - y) / 5) ** 2, rho: 75, u: 'ft-lb', fu: 'lb', lu: 'ft' },
+      { name: 'Textbook Ex. 3.9.15: cylinder, water 10 ft deep', kind: 'slice', shape: 'box', R: 8, H: 30, level: 10, extra: 0, area: y => 64 * PI + 0 * y, rho: 62.4, u: 'ft-lb', fu: 'lb', lu: 'ft' },
+      { name: '3.7–3.9 notes p. 21: spring, k = 30 lb/ft, to ½ ft', kind: 'force', shape: 'spring', a: 0, b: 0.5, F: x => 30 * x, FT: '30x', u: 'ft-lb', fu: 'lb', lu: 'ft' },
+      { name: '3.7–3.9 notes p. 23: leaky bucket', kind: 'force', shape: 'bucket', a: 0, b: 100, F: y => 32 - 0.1 * y, FT: '32 − 0.1y', u: 'ft-lb', fu: 'lb', lu: 'ft' },
+    ];
+    let cur = PRE[0];
+    const st = { k: 0, n: 10, s: 0.5, level: 50, extra: 0 };
+    const dest = () => (cur.shape === 'rope' ? cur.top : cur.H + (st.extra || 0));
+    const wpu = y => (cur.wpu ? cur.wpu(y) : cur.rho * cur.area(y));                  // weight per unit height
+    const dist = y => (cur.shape === 'heli' ? 50 : dest() - y);
+    const omega = y => wpu(y) * dist(y);                                               // work per unit height
+    const lo = () => (cur.kind === 'force' ? cur.a : 0), hi = () => (cur.kind === 'force' ? cur.b : st.level);
+    const integrand = cur2 => (cur2.kind === 'force' ? cur2.F : omega);
+    const exactW = () => quad(integrand(cur), lo(), hi(), 600);
+    const presets = presetRow(PRE, (p, k) => { cur = p; st.k = k; st.level = p.level || 0; st.extra = p.extra || 0; st.s = 0.6; sync(); render(); touched('W'); });
+    presets.mark(0);
+    const sn = slider('n (number of slices or steps)', 1, 40, 1, st.n, v => { st.n = v; render(); touched('W'); }, v => 'n = ' + v);
+    const ss = slider('look at the slice (or step) at', 0, 1, 0.001, st.s, v => { st.s = v; render(); touched('W'); }, v => fmtNum(v * 100, 1) + '% of the way up');
+    const sl = slider('liquid depth', 0, 12, 0.1, 9, v => { st.level = v; render(); touched('W'); }, v => fmtNum(v, 1) + ' ' + (cur.lu || ''));
+    const se = slider('extra lift above the top (spout)', 0, 5, 0.5, 0, v => { st.extra = v; render(); touched('W'); }, v => fmtNum(v, 1) + ' ' + (cur.lu || ''));
+    const pHost = el('div'), gHost = el('div'), status = el('div', { class: 'status-line' });
+    const sw = stat('Weight of the slice (or force on the step)'), sd = stat('Distance it moves'), sp = stat('Work for that slice'), sSum = stat('Sum of the n pieces'), sW = stat('Exact work W'), sCM = stat('Check with §3.8: weight × rise of x̄');
+    sSum.classList.add('hero'); sW.classList.add('hero');
+    const prompt = promptBox('Ask your tutor about what you see', () => tutorText());
+    root.append(presets, fbox, el('div', { class: 'controls' }, sn, ss, sl, se),
+      el('div', { class: 'grid-2' }, el('div', null, el('div', { class: 'small muted', text: 'The physical picture' }), pHost), el('div', null, el('div', { class: 'small muted', html: 'Work per unit of height or distance. <b>Area under the curve = W.</b>' }), gHost)),
+      status, el('div', { class: 'stats' }, sw, sd, sp, sSum, sW, sCM), prompt);
+    const PP = new Plot(pHost, { W: 420, H: 320, pad: { l: 40, r: 12, t: 12, b: 30 }, aria: 'The rope, tank, spring or bucket, with one slice or step highlighted and the distance it moves.' });
+    const GP = new Plot(gHost, { W: 420, H: 320, pad: { l: 62, r: 12, t: 14, b: 36 }, aria: 'The work per unit height (or the force) as a function of position, with Riemann bars; the area is the total work.' });
+    const halfWidth = y => (cur.shape === 'box' ? cur.R : cur.shape === 'down' ? cur.R * y / cur.H : cur.shape === 'up' ? cur.R * (cur.H - y) / cur.H : 0);
+    function sync() {
+      const tank = cur.kind === 'slice' && cur.shape !== 'rope' && cur.shape !== 'heli';
+      sl.hidden = !tank; se.hidden = !tank;
+      if (tank) { sl.input.max = cur.H; sl.input.step = cur.H / 120; sl.set(st.level); se.input.max = cur.H / 4; se.input.step = cur.H / 48; se.set(st.extra); }
+      ss.set(st.s); sn.set(st.n);
+    }
+    function render() {
+      const a = lo(), b = hi(), n = st.n, dy = (b - a) / n;
+      const i = clamp(Math.ceil(st.s * n - 1e-9), 1, n), yi = a + i * dy;          // the i-th piece, sampled at its right/top end
+      const f = integrand(cur);
+      // ---- picture
+      PP.clear();
+      if (cur.kind === 'slice' && (cur.shape === 'rope' || cur.shape === 'heli')) {
+        const heli = cur.shape === 'heli', top = heli ? 100 : 50;
+        PP.setView({ xmin: -40, xmax: 40, ymin: -4, ymax: top + 8 }); PP.axes({ ylabel: 'y (ft)', xticks: [], ny: 5 }); PP.gGrid.replaceChildren();
+        if (!heli) { PP.line(-8, 0, -8, 50, 'wall'); PP.line(-40, 50, -8, 50, 'wall'); PP.text(-24, 50, 'roof', 'lbl', 'middle', -8); }
+        else { PP.poly([[-14, 52], [14, 52], [10, 60], [-10, 60]], 'reg0'); PP.text(0, 60, 'helicopter', 'lbl', 'middle', -6); PP.line(0, 100, 0, 52, 'rope ghost'); PP.text(6, 100, 'after: rope 50 ft higher', 'lbl', 'start', 4); }
+        PP.line(0, 0, 0, 50, 'rope');
+        PP.poly([[-3, yi - dy], [3, yi - dy], [3, yi], [-3, yi]], 'slice-hi');
+        arrow(PP, 9, yi - dy / 2, 9, heli ? yi - dy / 2 + 50 : 50, 'lift');
+        PP.text(11, heli ? yi + 25 : (yi + 50) / 2, heli ? 'rises 50 ft' : `rises 50 − y = ${fmt(50 - (yi - dy / 2), 3)} ft`, 'lbl', 'start');
+        PP.text(-3, yi - dy / 2, 'y', 'lbl', 'end', 4);
+      } else if (cur.kind === 'slice') {
+        const H = cur.H, R = cur.R, D = dest();
+        PP.setView({ xmin: -R * 1.7, xmax: R * 1.7, ymin: -H * 0.05, ymax: Math.max(H, D) * 1.12 }); PP.axes({ ylabel: `y (${cur.lu})`, xticks: [], ny: 5 }); PP.gGrid.replaceChildren();
+        // liquid: horizontal slices from 0 to the level
+        for (let j = 1; j <= n; j++) {
+          const y0 = a + (j - 1) * dy, y1 = a + j * dy, w0 = halfWidth(y0), w1 = halfWidth(y1);
+          PP.poly([[-w0, y0], [w0, y0], [w1, y1], [-w1, y1]], j === i ? 'slice-hi' : 'liquid' + (j % 2 ? '' : ' alt'));
+        }
+        const out = cur.shape === 'box' ? [[-R, H], [-R, 0], [R, 0], [R, H]] : cur.shape === 'down' ? [[-R, H], [0, 0], [R, H]] : [[-R, 0], [0, H], [R, 0], [-R, 0]];
+        svgEl('path', { class: 'tank', d: PP.d(out) }, PP.gData);
+        PP.line(-R * 1.6, D, R * 1.6, D, 'spout'); PP.text(R * 1.6, D, D > H + 1e-9 ? 'spout' : 'top', 'lbl', 'end', -5);
+        const ym = yi - dy / 2;
+        arrow(PP, R * 1.2, ym, R * 1.2, D, 'lift'); PP.text(R * 1.25, (ym + D) / 2, 'rises ' + fmt(D - ym, 3), 'lbl', 'start');
+        const hw = halfWidth(ym); if (hw > 0) { PP.line(0, ym, hw, ym, 'hyp'); PP.text(hw / 2, ym, 'r', 'lbl', 'middle', -6); }
+      } else if (cur.shape === 'spring') {
+        const x = yi, wallX = -0.25;
+        PP.setView({ xmin: -0.3, xmax: 0.62, ymin: -1, ymax: 1 }); PP.axes({ xlabel: 'stretch x (ft)', yticks: [], nx: 4 }); PP.gGrid.replaceChildren();
+        PP.line(wallX, -0.6, wallX, 0.6, 'wall');
+        const pts = [[wallX, 0]], zz = 18; for (let k = 1; k <= zz; k++) pts.push([wallX + (x - wallX) * k / (zz + 1), k % 2 ? 0.18 : -0.18]); pts.push([x, 0]);
+        svgEl('path', { class: 'spring', d: PP.d(pts) }, PP.gData);
+        PP.poly([[x, -0.25], [x + 0.08, -0.25], [x + 0.08, 0.25], [x, 0.25]], 'reg0');
+        arrow(PP, x + 0.08, 0.45, x + 0.08 + 0.1, 0.45, 'lift'); PP.text(x + 0.1, 0.62, `F = kx = ${fmt(cur.F(x), 3)} lb`, 'lbl', 'middle');
+        PP.line(0, -0.8, 0, 0.8, 'vline'); PP.text(0, -0.8, 'natural length', 'lbl', 'middle', 14);
+      } else {
+        const y = yi;
+        PP.setView({ xmin: -40, xmax: 40, ymin: -6, ymax: 110 }); PP.axes({ ylabel: 'height y (ft)', xticks: [], ny: 5 }); PP.gGrid.replaceChildren();
+        PP.line(0, y + 8, 0, 110, 'rope'); PP.poly([[-7, y], [7, y], [9, y + 8], [-9, y + 8]], 'reg0');
+        const water = 30 - 0.1 * y; PP.poly([[-6.4, y + 0.6], [6.4, y + 0.6], [6.4 + 2.2 * water / 30, y + 0.6 + 6.6 * water / 30], [-6.4 - 2.2 * water / 30, y + 0.6 + 6.6 * water / 30]], 'liquid');
+        PP.text(12, y + 7, `F = ${fmtNum(cur.F(y), 2)} lb`, 'dlbl', 'start'); PP.text(12, y - 1, `(2 lb bucket + ${fmtNum(water, 2)} lb water)`, 'lbl', 'start');
+        PP.text(-12, y + 4, `t = y/2 = ${fmtNum(y / 2, 2)} s`, 'lbl', 'end');
+      }
+      // ---- graph of the integrand with Riemann bars
+      let gm = 0; for (let j = 0; j <= 300; j++) gm = Math.max(gm, Math.abs(f(a + (b - a) * j / 300)));
+      const bars = []; let sum = 0; for (let j = 1; j <= n; j++) { const v = f(a + j * dy); bars.push(v); sum += v * dy; }
+      GP.setView({ xmin: a, xmax: b > a ? b : a + 1, ymin: 0, ymax: (gm || 1) * 1.15 }); GP.clear();
+      GP.axes({ xlabel: cur.kind === 'force' ? (cur.shape === 'spring' ? 'x (ft)' : 'y (ft)') : `y (${cur.lu})`, ylabel: cur.kind === 'force' ? `F (${cur.fu})` : 'weight/height × distance', ny: 4 });
+      if (b > a) {
+        bars.forEach((h, j) => { const u0 = a + j * dy; GP.poly([[u0, 0], [u0, h], [u0 + dy, h], [u0 + dy, 0]], 'shape m' + (j === i - 1 ? ' hi' : '')); });
+        GP.area(f, a, b, { n: 400 }); GP.curve(f, a, b, 'curve', 400);
+      }
+      // ---- numbers
+      const W = b > a ? exactW() : 0;
+      if (cur.kind === 'force') {
+        sw.set(fmtNum(cur.F(yi), 4), `${cur.fu} · F at ${cur.shape === 'spring' ? 'x' : 'y'} = ${fmt(yi, 3)}`); sd.set(fmtNum(dy, 4), `${cur.lu} · one step, Δ` + (cur.shape === 'spring' ? 'x' : 'y'));
+        sp.set(fmtNum(cur.F(yi) * dy, 4), `${cur.u} · F × step`); sCM.set('—', 'no slices here: the force changes as it moves');
+      } else {
+        const wt = wpu(yi) * dy, dd = dist(yi);
+        sw.set(fmtNum(wt, 4), `${cur.fu} · ` + (cur.rho ? (cur.rho === 1000 * g ? '1000 × 9.8 × A(y) × Δy' : `${cur.rho} × A(y) × Δy (lb/ft³ is already a weight)`) : '2 lb/ft × Δy'));
+        sd.set(fmtNum(dd, 4), `${cur.lu} · ` + (cur.shape === 'heli' ? 'every piece rises 50 ft' : `${fmtNum(dest(), 3)} − y`));
+        sp.set(fmtNum(wt * dd, 4), `${cur.u} · weight × distance`);
+      }
+      sSum.set(fmtNum(sum, 4), `${cur.u} · n = ${n}, ${cur.kind === 'force' ? 'right' : 'top'} ends`); sW.set(fmtNum(W, 4), `${cur.u} · ` + (cur.kind === 'force' ? `∫ F d${cur.shape === 'spring' ? 'x' : 'y'}` : '∫ weight × distance dy'));
+      let cm = NaN, wTot = NaN, ybar = NaN;
+      if (cur.kind === 'slice' && b > a) {
+        wTot = quad(wpu, a, b, 600); ybar = quad(y => y * wpu(y), a, b, 600) / wTot;
+        cm = cur.shape === 'heli' ? wTot * 50 : wTot * (dest() - ybar);
+        sCM.set(fmtNum(cm, 4), `${cur.u}: ${fmtNum(wTot, 4)} ${cur.fu} × ${cur.shape === 'heli' ? '50' : fmtNum(dest() - ybar, 4)} ${cur.lu} (center of mass at y = ${fmtNum(ybar, 4)})`);
+      }
+      status.innerHTML = cur.kind === 'force'
+        ? `<span>◎ <b>Step ${i} of ${n}:</b> the force is nearly constant on a short step, so its work ≈ F × step = ${fmt(cur.F(yi), 4)} × ${fmt(dy, 4)} = <b>${fmt(cur.F(yi) * dy, 4)} ${cur.u}</b> (3.7–3.9 notes p. 20). Add the steps: ∫ F.</span>`
+        : `<span>◎ <b>Slice ${i} of ${n}:</b> every bit of it rises the same distance, so its work ≈ weight × distance = <b>${fmt(wpu(yi) * dy * dist(yi), 4)} ${cur.u}</b>. Different slices rise different distances${cur.shape === 'heli' ? ' (not here: every piece rises 50 ft, so W = Fd works)' : ''}; add them up.</span>`;
+      root._last = { sum, exact: W, weight: wTot, ybar, cm, piece: i, y: yi };
+      prompt.update();
+    }
+    function tutorText() {
+      const Ls = root._last || {};
+      return `I'm using the work explorer with "${cur.name}" and n = ${st.n}. The pieces add up to ${fmt(Ls.sum, 6)} ${cur.u} and the exact work is ${fmt(Ls.exact, 6)} ${cur.u}.${cur.kind === 'slice' ? ` The center-of-mass check gives ${fmt(Ls.cm, 6)}.` : ''} Ask me ${cur.kind === 'force' ? 'why the work is the area under the force graph' : 'why each slice gets its own distance, and where the limits of the integral come from'}, before explaining anything. ${TUTOR_TAIL}`;
+    }
+    st.level = cur.level;
+    sync(); render();
+    GP.hover(x => { const v = integrand(cur)(x); return { x, points: [{ y: v, cls: 'ink' }], html: `${cur.kind === 'force' && cur.shape === 'spring' ? 'x' : 'y'} = <b>${fmt(x, 3)}</b><br>${cur.kind === 'force' ? 'F' : 'weight per unit height × distance'} = <b>${fmt(v, 4)}</b>` }; });
+    root._set = (k, n, s, level, extra) => { cur = PRE[k]; st.k = k; st.n = n || 10; st.s = s === undefined ? 0.6 : s; st.level = level === undefined ? (cur.level || 0) : level; st.extra = extra === undefined ? (cur.extra || 0) : extra; presets.mark(k); sync(); render(); };
+  }
+
   /* ================================================================== concept map */
   function conceptMap(root) {
     const N = [
@@ -1977,13 +2545,22 @@
       { id: 'v', x: 715, y: 425, w: 170, label: 'Volume: disks & washers', href: '#V-learn', desc: 'Slice perpendicular to the axis: V = ∫A(x) dx, and for a solid of revolution A = π(R² − r²) (§3.5, 3.3–3.5 notes pp. 5–7).' },
       { id: 'pl', x: 895, y: 350, w: 150, label: 'Pythagoras: ds', pre: true, href: '#L-understand', desc: 'A tiny piece of curve is a hypotenuse: (ds)² = (dx)² + (dy)² (textbook Figure 3.14).' },
       { id: 'pw', x: 895, y: 425, w: 150, label: 'Area of a disk, πr²', pre: true, href: '#V-understand', desc: 'A washer is a big disk minus a hole: π(R² − r²), not π(R − r)².' },
+      { id: 's', x: 715, y: 500, w: 170, label: 'Volume: cylindrical shells', href: '#S-learn', desc: 'Slice parallel to the axis: a thin strip spins into a shell, cut and unrolled into a box 2πr × h × Δx. V = ∫2πrh dx (§3.5, MATH1342 notes pp. 5–9).' },
+      { id: 'pk', x: 895, y: 500, w: 150, label: 'Circumference, 2πr', pre: true, href: '#S-understand', desc: 'The length of the unrolled shell: a can’s label is a rectangle 2πr long.' },
+      // physical applications (bottom left): mass, balance, work (§3.7–§3.9)
+      { id: 'k', x: 265, y: 350, w: 180, label: 'Mass & density', href: '#K-learn', desc: 'Cut the object so the density is nearly constant on each piece: M = ∫δ(x) dx for a wire, ∫δ(x)[f − g] dx for a plate (§3.7, 3.7–3.9 notes pp. 1–5).' },
+      { id: 'g', x: 265, y: 425, w: 180, label: 'Center of mass', href: '#G-learn', desc: 'The balance point: x̄ = x̄M / M, a weighted average of position; for a plate ȳ uses each strip’s midpoint (f + g)/2 (§3.8, 3.7–3.9 notes pp. 6–13).' },
+      { id: 'w', x: 265, y: 500, w: 180, label: 'Work', href: '#W-learn', desc: 'W = Fd for constant force and distance. Otherwise W = ∫F dx (springs, the leaky bucket) or ∫(weight of slice)(distance it rises) (ropes, tanks) (§3.9, 3.7–3.9 notes pp. 14–24).' },
+      { id: 'pm', x: 85, y: 350, w: 150, label: 'Density: m = δV', pre: true, href: '#K-understand', desc: 'Mass = density × volume, but only when the density is constant (3.7–3.9 notes p. 1).' },
+      { id: 'pq', x: 85, y: 425, w: 150, label: 'Seesaw: m₁d₁ = m₂d₂', pre: true, href: '#G-understand', desc: 'Two masses balance when mass × distance is the same on both sides (3.7–3.9 notes p. 6).' },
+      { id: 'pf', x: 85, y: 500, w: 150, label: 'W = Fd; weight = mg', pre: true, href: '#W-understand', desc: 'Work = force × distance when both are constant; a mass of m kg weighs 9.8m N (3.7–3.9 notes p. 14).' },
     ];
-    const E = [['pd', 'u0', 'pre'], ['pc', 'u1', 'pre'], ['pp', 'pb', 'pre'], ['pa', 'r', 'pre'], ['p3', 'b', 'pre'], ['p2', 'c', 'pre'], ['p4', 'd', 'pre'], ['pv', 'e', 'pre'], ['pl', 'l', 'pre'], ['pw', 'v', 'pre'],
-      ['u0', 'hub'], ['u1', 'hub'], ['pb', 'hub'], ['r', 'hub'], ['u1', 'a2'], ['hub', 'a2'], ['hub', 'a1'], ['hub', 'b'], ['hub', 'c'], ['hub', 'd'], ['d', 'e'], ['e', 'l'], ['hub', 'v']];
+    const E = [['pd', 'u0', 'pre'], ['pc', 'u1', 'pre'], ['pp', 'pb', 'pre'], ['pa', 'r', 'pre'], ['p3', 'b', 'pre'], ['p2', 'c', 'pre'], ['p4', 'd', 'pre'], ['pv', 'e', 'pre'], ['pl', 'l', 'pre'], ['pw', 'v', 'pre'], ['pk', 's', 'pre'],
+      ['u0', 'hub'], ['u1', 'hub'], ['pb', 'hub'], ['r', 'hub'], ['u1', 'a2'], ['hub', 'a2'], ['hub', 'a1'], ['hub', 'b'], ['hub', 'c'], ['hub', 'd'], ['d', 'e'], ['e', 'l'], ['hub', 'v'], ['v', 's'], ['pm', 'k', 'pre'], ['pq', 'g', 'pre'], ['pf', 'w', 'pre'], ['hub', 'k'], ['k', 'g'], ['k', 'w']];
     const LV = ['fuzzy', 'know', 'unknown'];
     const LVtxt = { know: '● I know this', fuzzy: '◐ Fuzzy', unknown: '○ Not yet' };
     N.forEach(n => { if (!S.concept[n.id]) S.concept[n.id] = 'fuzzy'; });
-    const W = 980, H = 470;
+    const W = 980, H = 545;
     const svg = svgEl('svg', { viewBox: `0 0 ${W} ${H}`, role: 'group', 'aria-label': 'Concept map of the topics in this guide. Click a concept to mark how well you know it.' });
     const byId = Object.fromEntries(N.map(n => [n.id, n]));
     const gE = svgEl('g', null, svg), gN = svgEl('g', null, svg);
@@ -2026,7 +2603,7 @@
     const prompt = promptBox('Ask your tutor, based on your map', () => {
       const by = lv => N.filter(n => S.concept[n.id] === lv).map(n => n.label);
       const k = by('know'), f = by('fuzzy'), u = by('unknown');
-      const parts = ["I'm studying my Calc 2 notes: antiderivatives, u-substitution, integration by parts and partial fractions (§1.1, §1.3); the FTC and signed area, improper integrals and numerical integration (§2.4–2.6); displacement and distance in 1D, 2D and 3D (§3.1, §3.3); arc length (§3.3); and volume by disks and washers (§3.5)."];
+      const parts = ["I'm studying my Calc 2 notes: antiderivatives, u-substitution, integration by parts and partial fractions (§1.1, §1.3); the FTC and signed area, improper integrals and numerical integration (§2.4–2.6); displacement and distance in 1D, 2D and 3D (§3.1, §3.3); arc length (§3.3); volume by disks, washers and cylindrical shells (§3.5); and mass, center of mass and work (§3.7–3.9)."];
       if (k.length) parts.push(`I already understand: ${k.join('; ')}.`);
       if (f.length) parts.push(`I'm fuzzy on: ${f.join('; ')}.`);
       if (u.length) parts.push(`I don't understand yet: ${u.join('; ')}.`);
@@ -2065,7 +2642,7 @@
   }
 
   /* ================================================================== mastery report */
-  const TOPICS = { U: '§1.1 Antiderivatives & substitution', P: '§1.1 Integration by parts', R: '§1.3 Partial fractions', A: '§2.4 FTC & signed area', B: '§2.5 Improper integrals', C: '§2.6 Numerical integration', D: '§3.1 Displacement & distance', E: '§3.3 Motion in 2D & 3D', L: '§3.3 Arc length', V: '§3.5 Volume (disks & washers)' };
+  const TOPICS = { U: '§1.1 Antiderivatives & substitution', P: '§1.1 Integration by parts', R: '§1.3 Partial fractions', A: '§2.4 FTC & signed area', B: '§2.5 Improper integrals', C: '§2.6 Numerical integration', D: '§3.1 Displacement & distance', E: '§3.3 Motion in 2D & 3D', L: '§3.3 Arc length', V: '§3.5 Volume (disks & washers)', S: '§3.5 Volume (cylindrical shells)', K: '§3.7 Mass & density', G: '§3.8 Center of mass', W: '§3.9 Work' };
   const LEVELS = ['Recognize', 'Understand', 'Reproduce', 'Solve alone', 'Choose method', 'Unfamiliar', 'Explain why'];
   function evidence(T) {
     const mc = id => S.mcq[id] || {};
@@ -2094,7 +2671,7 @@
     const prompt = promptBox('Ask your tutor for a study plan', () => {
       const lines = Object.keys(TOPICS).map(T => { const e = evidence(T); const missing = LEVELS.map((n, k) => (!e.has[k + 1] ? n.toLowerCase() : null)).filter(Boolean); return `${TOPICS[T]}: level ${e.level}/7${missing.length ? ' (missing: ' + missing.join(', ') + ')' : ''}`; });
       const weakest = Object.keys(TOPICS).sort((a, b) => evidence(a).level - evidence(b).level)[0];
-      return `Here is my mastery report from my Calc 2 study guide (§1.1 and §1.3 integration techniques, §2.4–2.6, §3.1, §3.3 and §3.5):\n${lines.join('\n')}\nMy weakest topic is ${TOPICS[weakest]}. Please build me a short session on it that targets the first missing level, starting by asking what I know. Then give me one mixed-practice problem where I have to choose the method myself. ${TUTOR_TAIL}`;
+      return `Here is my mastery report from my Calc 2 study guide (§1.1 and §1.3 integration techniques, §2.4–2.6, §3.1, §3.3, §3.5 with disks, washers and shells, and §3.7–3.9 mass, center of mass and work):\n${lines.join('\n')}\nMy weakest topic is ${TOPICS[weakest]}. Please build me a short session on it that targets the first missing level, starting by asking what I know. Then give me one mixed-practice problem where I have to choose the method myself. ${TUTOR_TAIL}`;
     });
     root.append(grid, summary, prompt);
     function paint() {
@@ -2246,6 +2823,100 @@
         P2.text(P2.o.xmax, -3.6, '8 disks: V ≈ Σ π(2xᵢ)² Δx', 'lbl', 'end');
         host.appendChild(el('div', { class: 'small muted', style: 'margin-top:4px', text: 'Exact volume: ∫₀² π(2x)² dx = 32π/3 ≈ 33.51, the volume of a cone with radius 4 and height 2. Checked with Python and Wolfram.' }));
       }
+      if (kind === 'shellunroll') {
+        // MATH1342 notes pp. 5–6: a thin strip of the region under y = x − x² spins about the y-axis into a shell; cut and unroll it into a box 2πr × h × Δx
+        const g2 = el('div', { class: 'grid-2' }); host.appendChild(g2);
+        const h1 = el('div'), h2 = el('div'); g2.append(h1, h2);
+        const f = x => x - x * x;
+        const P1 = new Plot(h1, { W: 420, H: 260, pad: { l: 34, r: 12, t: 12, b: 30 }, aria: 'The region under y = x − x² from x = 0 to 1, with a thin vertical strip at x = 0.62, its distance r to the y-axis, and its height h.' });
+        P1.setView({ xmin: -0.12, xmax: 1.15, ymin: -0.05, ymax: 0.31 });
+        P1.axes({ xlabel: 'x', ylabel: 'y', nx: 4, ny: 4 });
+        const reg = []; for (let k = 0; k <= 60; k++) { const x = k / 60; reg.push([x, f(x)]); } reg.push([1, 0]);
+        P1.poly(reg, 'reg1');
+        P1.line(0, P1.o.ymin, 0, P1.o.ymax, 'axis-rot');
+        P1.poly([[0.58, 0], [0.58, f(0.62)], [0.66, f(0.62)], [0.66, 0]], 'shape m hi');
+        arrow(P1, 0, 0.1, 0.58, 0.1, 'rad-r'); P1.text(0.29, 0.1, 'r = x', 'lbl', 'middle', -7);
+        P1.line(0.72, 0, 0.72, f(0.62), 'hyp'); P1.text(0.74, f(0.62) / 2, 'h = x − x²', 'lbl', 'start', 4);
+        P1.text(0.02, P1.o.ymax, 'axis of rotation', 'dlbl', 'start', 14);
+        const P2 = new Plot(h2, { W: 420, H: 260, fixed: true, pad: { l: 8, r: 8, t: 8, b: 8 }, aria: 'A thin hollow cylinder, a shell, is cut down one side and unrolled into a flat box whose sides are 2 pi r, h and delta x.' });
+        const S = (tag, a) => svgEl(tag, a, P2.gData), T = (x, y, s, anchor, cls) => { const t = S('text', { x, y, 'text-anchor': anchor || 'middle', class: cls || 'lbl' }); t.textContent = s; return t; };
+        // the shell: a short hollow cylinder, viewed from slightly above (thickness exaggerated)
+        const cx = 100, yT = 82, yB = 182, Ro = 66, ky = 0.27, Ri = 54;
+        S('path', { class: 'slab-band', d: `M${cx - Ro},${yT} L${cx - Ro},${yB} A${Ro},${Ro * ky} 0 0 0 ${cx + Ro},${yB} L${cx + Ro},${yT} Z` });
+        S('ellipse', { class: 'slab-face', cx, cy: yT, rx: Ro, ry: Ro * ky });
+        S('ellipse', { class: 'slab-hole', cx, cy: yT, rx: Ri, ry: Ri * ky });
+        T(cx, yB + Ro * ky + 18, 'a thin shell: radius r, height h');
+        T(cx, yB + Ro * ky + 34, 'thickness Δx', 'middle', 'lbl');
+        // cut and unroll
+        S('line', { class: 'hyp', x1: 192, y1: 130, x2: 238, y2: 130, 'stroke-width': 2.4 });
+        S('polygon', { class: 'dot ink', points: '238,130 228,125 228,135' });
+        T(215, 118, 'cut and', 'middle', 'lbl'); T(215, 150, 'unroll', 'middle', 'lbl');
+        // the box: length 2πr, height h, thickness Δx (drawn oblique)
+        const bx = 252, by = 102, bw = 138, bh = 80, dxo = 14, dyo = -11;
+        S('polygon', { class: 'slab-band', points: `${bx},${by} ${bx + bw},${by} ${bx + bw},${by + bh} ${bx},${by + bh}` });
+        S('polygon', { class: 'slab-face', points: `${bx},${by} ${bx + dxo},${by + dyo} ${bx + bw + dxo},${by + dyo} ${bx + bw},${by}` });
+        S('polygon', { class: 'slab-back', points: `${bx + bw},${by} ${bx + bw + dxo},${by + dyo} ${bx + bw + dxo},${by + bh + dyo} ${bx + bw},${by + bh}` });
+        T(bx + bw / 2, by + bh + 17, '2πr (the circumference)');
+        T(bx - 8, by + bh / 2 + 4, 'h', 'end');
+        T(bx + bw + dxo / 2, by + dyo - 6, 'Δx', 'middle');
+        T(bx + (bw + dxo) / 2, by + bh + 36, 'volume ≈ 2πr · h · Δx', 'middle', 'dlbl');
+        host.appendChild(el('div', { class: 'small muted', style: 'margin-top:4px', text: 'The region and the solid are those of MATH1342 notes p. 5: y = x − x² spun about the y-axis, with exact volume π/6 ≈ 0.5236. The shell is drawn thicker than a real one so you can see it.' }));
+      }
+      if (kind === 'masspieces') {
+        // 3.7–3.9 notes pp. 1–5: cut so the density is (nearly) constant on each piece, then mass of a piece ≈ density × size
+        const g2 = el('div', { class: 'grid-2' }); host.appendChild(g2);
+        const h1 = el('div'), h2 = el('div'); g2.append(h1, h2);
+        const wire = { kind: 'wire', a: 0, b: 2, d: x => 3 * x * x };
+        const P1 = new Plot(h1, { W: 420, H: 200, pad: { l: 20, r: 14, t: 14, b: 30 }, aria: 'A thin wire from x = 0 to 2 with density 3x squared, cut into 8 pieces; darker pieces are denser.' });
+        P1.setView({ xmin: -0.1, xmax: 2.1, ymin: -1, ymax: 1 }); P1.axes({ xlabel: 'x', yticks: [], nx: 4 }); P1.gGrid.replaceChildren();
+        drawWire(P1, wire, 8, 0.28, 6);
+        P1.text(1.5 - 0.125, 0.45, 'piece i: mass ≈ δ(xᵢ)·Δx', 'dlbl'); P1.text(1, -0.62, 'wire, δ(x) = 3x² (notes p. 2): M = 8', 'lbl');
+        const plate = { kind: 'plate', a: 0, b: 2, up: x => x - x * x, lo: x => -x, d: x => x };
+        const P2 = new Plot(h2, { W: 420, H: 200, pad: { l: 34, r: 14, t: 14, b: 30 }, aria: 'The plate between y = x − x² and y = −x from x = 0 to 2, with area density x, cut into 10 vertical strips; darker strips are denser.' });
+        plateView(P2, plate); P2.axes({ xlabel: 'x', ylabel: 'y', nx: 4, ny: 4 });
+        drawPlate(P2, plate, 10, 7);
+        const xs = 1.4; P2.line(xs, plate.lo(xs), xs, plate.up(xs), 'hyp');
+        P2.text(2.08, 0.3, 'strip: mass ≈ δ(xᵢ)·[f − g]·Δx', 'dlbl', 'end');
+        P2.text(0.05, -1.75, 'plate, δ(x) = x (notes p. 5): M = 4/3', 'lbl', 'start');
+        host.appendChild(el('div', { class: 'small muted', style: 'margin-top:4px', text: 'Darker = denser. Each piece is thin enough that its density is about constant, so m = δ × (length or area) works piece by piece. Values checked with Python and Wolfram.' }));
+      }
+      if (kind === 'seesaw') {
+        // 3.7–3.9 notes p. 6: m₁d₁ = m₂d₂, and the balance point is the weighted average of the positions
+        const g2 = el('div', { class: 'grid-2' }); host.appendChild(g2);
+        const h1 = el('div'), h2 = el('div'); g2.append(h1, h2);
+        const P1 = new Plot(h1, { W: 420, H: 210, pad: { l: 14, r: 14, t: 14, b: 30 }, aria: 'A seesaw with 30 kilograms at x = 0 and 60 kilograms at x = 3, balanced on a fulcrum at x = 2.' });
+        P1.setView({ xmin: -0.7, xmax: 3.7, ymin: -1, ymax: 1.4 }); P1.axes({ xlabel: 'x', yticks: [], xticks: [0, 1, 2, 3].map(v => ({ v, l: String(v) })) }); P1.gGrid.replaceChildren();
+        const Y0 = P1.sy(0), X2 = P1.sx(2);
+        svgEl('polygon', { class: 'fulcrum', points: `${X2},${Y0 + 3} ${X2 - 13},${Y0 + 30} ${X2 + 13},${Y0 + 30}` }, P1.gData);
+        P1.line(-0.4, 0, 3.4, 0, 'beam');
+        [[0, 30, 12], [3, 60, 17]].forEach(([x, m, r]) => { svgEl('circle', { class: 'pmass', cx: P1.sx(x), cy: Y0 - r, r }, P1.gData); P1.text(x, 0, `${m} kg`, 'dlbl', 'middle', -2 * r - 8); });
+        arrow(P1, 2, -0.55, 0, -0.55, 'disp'); arrow(P1, 2, -0.55, 3, -0.55, 'disp');
+        P1.text(1, -0.55, 'd₁ = 2', 'lbl', 'middle', -6); P1.text(2.5, -0.55, 'd₂ = 1', 'lbl', 'middle', -6);
+        P1.text(1.5, 1.4, '30·2 = 60·1, so it balances at x̄ = 2', 'dlbl', 'middle', 14);
+        const plate = { kind: 'plate', a: 1, b: 2, up: x => 2 / (x * x), lo: x => 0 * x, d: x => x * x };
+        const P2 = new Plot(h2, { W: 420, H: 210, pad: { l: 34, r: 14, t: 14, b: 30 }, aria: 'The plate under y = 2 over x squared from x = 1 to 2, with each strip replaced by a dot at its midpoint, and the center of mass at (3/2, 1/2).' });
+        P2.setView({ xmin: 0.85, xmax: 2.15, ymin: -0.1, ymax: 2.2 }); P2.axes({ xlabel: 'x', ylabel: 'y', nx: 4, ny: 4 });
+        drawPlate(P2, plate, 8, -1);
+        for (let i = 1; i <= 8; i++) { const x = 1 + (i - 0.5) / 8; P2.dot(x, plate.up(x) / 2, 'dot s2', 3.5); }
+        P2.dot(1.5, 0.5, 'cm-dot', 6.5); P2.line(1.5, 0.5, 1.62, 1.2, 'vline'); P2.text(1.62, 1.2, '(x̄, ȳ) = (3/2, 1/2)', 'dlbl', 'start', -4);
+        P2.text(2.1, 1.9, 'each strip → a dot at its midpoint', 'lbl', 'end'); P2.text(2.1, 1.65, 'height (f + g)/2 (notes p. 11)', 'lbl', 'end');
+        host.appendChild(el('div', { class: 'small muted', style: 'margin-top:4px', text: 'Left: notes p. 6. Right: notes p. 12, δ(x) = x²: M = 2, x̄M = 3, ȳM = 1. Checked with Python and Wolfram.' }));
+      }
+      if (kind === 'ropes') {
+        // 3.7–3.9 notes pp. 15–16: the same rope, two jobs. Lifted whole, every piece rises 50 ft; wound up, the piece at height y rises 50 − y.
+        const g2 = el('div', { class: 'grid-2' }); host.appendChild(g2);
+        const h1 = el('div'), h2 = el('div'); g2.append(h1, h2);
+        const mk = (h, title, aria) => { h.appendChild(el('div', { class: 'small', style: 'font-weight:650;margin-bottom:2px', text: title })); const P = new Plot(h, { W: 420, H: 250, pad: { l: 40, r: 12, t: 12, b: 26 }, aria }); P.setView({ xmin: -30, xmax: 50, ymin: -4, ymax: 106 }); P.axes({ ylabel: 'y (ft)', xticks: [], yticks: [0, 50, 100].map(v => ({ v, l: String(v) })) }); P.gGrid.replaceChildren(); return P; };
+        const P1 = mk(h1, 'Notes p. 15: a helicopter lifts the whole rope 50 ft', 'A 50 foot rope hanging from a helicopter is lifted 50 feet; every piece rises 50 feet.');
+        P1.line(0, 0, 0, 50, 'rope'); P1.line(0, 50, 0, 100, 'rope ghost'); P1.poly([[-12, 50], [12, 50], [8, 58], [-8, 58]], 'reg0');
+        [8, 25, 42].forEach(y => { arrow(P1, 6 + y / 6, y, 6 + y / 6, y + 50, 'lift'); });
+        P1.text(18, 72, 'every piece rises 50 ft', 'lbl', 'start'); P1.text(18, 62, 'W = 100 lb × 50 ft = 5000 ft-lb', 'dlbl', 'start');
+        const P2 = mk(h2, 'Notes p. 16: the rope is pulled up onto a roof', 'A 50 foot rope hanging from a roof is pulled up; the piece at height y rises 50 − y feet.');
+        P2.line(-6, 0, -6, 50, 'wall'); P2.line(-30, 50, -6, 50, 'wall'); P2.line(0, 0, 0, 50, 'rope');
+        [5, 20, 38].forEach(y => { arrow(P2, 4 + y / 8, y, 4 + y / 8, 50, 'lift'); P2.poly([[-2, y - 1.2], [2, y - 1.2], [2, y + 1.2], [-2, y + 1.2]], 'slice-hi'); });
+        P2.text(12, 26, 'the piece at y rises 50 − y', 'lbl', 'start'); P2.text(12, 16, 'W = ∫₀⁵⁰ 2(50 − y) dy = 2500 ft-lb', 'dlbl', 'start');
+        host.appendChild(el('div', { class: 'small muted', style: 'margin-top:4px', text: 'The same 100 lb rope. Lifted whole, W = Fd. Wound up, the pieces near the top barely move, so the work is half as much: on average a piece rises 25 ft. Checked with Python and Wolfram.' }));
+      }
     });
   }
 
@@ -2289,13 +2960,17 @@
     const we = $('#widget-path'); if (we) widgetPath(we);
     const wl = $('#widget-arc'); if (wl) widgetArc(wl);
     const wv = $('#widget-volume'); if (wv) widgetVolume(wv);
+    const ws = $('#widget-shell'); if (ws) widgetShell(ws);
+    const wk = $('#widget-mass'); if (wk) widgetMass(wk);
+    const wg = $('#widget-balance'); if (wg) widgetBalance(wg);
+    const ww = $('#widget-work'); if (ww) widgetWork(ww);
     const cm = $('#concept-map'); if (cm) conceptMap(cm);
     const dg = $('#diagnostic'); if (dg) diagnostic(dg);
     const mr = $('#masteryReport'); if (mr) masteryReport(mr);
     initNav();
     refreshProgress();
     // expose for automated verification (read-only helpers)
-    window.__guide = { parseAnswer, gradeInput, compileExpr: (s, v) => compileExpr(normMath(s), v || []), state: () => S, widgets: { area: wa, improper: wb, numeric: wc, motion: wd, anti: wu, parts: wp, pf: wr, path: we, arc: wl, volume: wv } };
+    window.__guide = { parseAnswer, gradeInput, compileExpr: (s, v) => compileExpr(normMath(s), v || []), state: () => S, widgets: { area: wa, improper: wb, numeric: wc, motion: wd, anti: wu, parts: wp, pf: wr, path: we, arc: wl, volume: wv, shell: ws, mass: wk, balance: wg, work: ww } };
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();

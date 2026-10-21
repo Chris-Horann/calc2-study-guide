@@ -2,7 +2,7 @@
   <div class="topic-banner">
     <div class="topic-letter sec" aria-hidden="true">3.5</div>
     <div><h2>Volume by slicing: disks and washers</h2>
-    <div class="sources">3.3–3.5 notes pp. 5–7 · Textbook §3.5 (Proposition 3.5.1, Remark 3.5.2; Examples 3.5.3, 3.5.6–3.5.10, 3.5.14; Suggested Ex. 1, 2, 4, 7, 9; Additional Ex. 1, 9, 13, 14). Cylindrical shells aren't in your notes, so they're left out.</div></div>
+    <div class="sources">3.3–3.5 notes pp. 5–7 · MATH1342 notes pp. 1–4 and the washer parts of pp. 8–9 (the same pages with the professor's solutions, plus more axes) · Textbook §3.5 (Proposition 3.5.1, Remark 3.5.2; Examples 3.5.3, 3.5.6–3.5.10, 3.5.14; Suggested Ex. 1, 2, 4, 7, 9; Additional Ex. 1, 9, 13, 14). Cylindrical shells are the next topic.</div></div>
   </div>
   <nav class="stagebar" data-topic="V" aria-label="Stages in §3.5 (volume)">
     <a href="#V-learn"><span class="n">1</span>Learn</a><a href="#V-understand"><span class="n">2</span>Understand</a><a href="#V-explore"><span class="n">3</span>Explore</a><a href="#V-attempt"><span class="n">4</span>Attempt</a><a href="#V-compare"><span class="n">5</span>Compare</a><a href="#V-practice"><span class="n">6</span>Practice</a><a href="#V-master"><span class="n">7</span>Master</a>
@@ -28,7 +28,7 @@
       <div class="callout">
         <div class="label">Three questions to ask every time</div>
         <ol style="margin:0">
-          <li><b>Which way do I slice?</b> Always perpendicular to the axis of rotation: $dx$ for a horizontal axis, $dy$ for a vertical one.</li>
+          <li><b>Which way do I slice?</b> For washers, always perpendicular to the axis of rotation: $dx$ for a horizontal axis, $dy$ for a vertical one. (Slicing <em>parallel</em> to the axis gives shells, the <a href="#S-learn">next topic</a>.)</li>
           <li><b>Disk or washer?</b> Does the region reach the axis all along the slice? If not, there's a hole.</li>
           <li><b>What are $R$ and $r$?</b> The distances from the axis to the far edge and the near edge of the region. For an axis like $y=-2$, measure from $y=-2$, not from the $x$-axis (the green note on 3.3–3.5 notes p. 7).</li>
         </ol>
@@ -91,7 +91,7 @@
       <div class="fp-explain">Hover over or tap a part to see what it means.</div>
       <div class="fc-meta">
         <div><b>Disks</b>When the region reaches the axis, $r=0$ and $V=\int_a^b\pi R^2\,dx$ (notes p. 6's cone).</div>
-        <div><b>Other axes</b>For the axis $y=k$, measure $R$ and $r$ from $y=k$: for example $2-x^2$ for the axis $y=2$. For a vertical axis, slice horizontally and integrate in $y$.</div>
+        <div><b>Other axes</b>For the axis $y=k$, measure $R$ and $r$ from $y=k$: for example $2-x^2$ for the axis $y=2$, or $\text{curve}+2$ for $y=-2$ (MATH1342 notes p. 4). For a vertical axis, slice horizontally and integrate in $y$, or use shells in $x$ (the <a href="#S-learn">next topic</a>).</div>
       </div>
     </div>
 
@@ -103,7 +103,7 @@
           <tr><td>A region between a curve and the axis, spun about that axis</td><td>Disks: $\int\pi R^2\,dx$ with $r=0$ (notes p. 6).</td></tr>
           <tr><td>A region between two curves, or a gap between the region and the axis</td><td>Washers: $\int\pi(R^2-r^2)\,dx$ (notes p. 7).</td></tr>
           <tr><td>The axis is a horizontal line $y=k$, not the $x$-axis</td><td>Still slice in $x$, but $R$ and $r$ are distances to $y=k$ (textbook Ex. 3.5.9).</td></tr>
-          <tr><td>The axis is vertical: the $y$-axis or a line $x=h$</td><td>Slice horizontally, write $x$ in terms of $y$, and integrate $dy$ with $y$-limits (textbook Ex. 3.5.10).</td></tr>
+          <tr><td>The axis is vertical: the $y$-axis or a line $x=h$</td><td>Slice horizontally, write $x$ in terms of $y$, and integrate $dy$ with $y$-limits (textbook Ex. 3.5.10). Or slice <em>vertically</em> and use <a href="#S-learn">shells</a> in $x$: that's what your professor does (MATH1342 notes pp. 5–9).</td></tr>
           <tr><td>The cross-sections are squares, half-disks and so on, with no spinning</td><td>Find $A(x)$ from geometry, then compute $\int A(x)\,dx$ (textbook Suggested Ex. 1).</td></tr>
           <tr><td>The region runs off to infinity</td><td>An improper integral (§2.5). Gabriel's horn has finite volume $\pi$.</td></tr>
         </tbody>
@@ -128,6 +128,9 @@
         <div class="w-formula">$$R=x,\ \ r=x^2,\quad A(x)=\pi\big(x^2-x^4\big),\quad V=\int_0^1\pi(x^2-x^4)\,dx=\tfrac{2\pi}{15}$$</div>
         <div class="w-formula">$$R=2-x^2,\ \ r=2-x,\quad A(x)=\pi\big((2-x^2)^2-(2-x)^2\big),\quad V=\int_0^1A(x)\,dx=\tfrac{8\pi}{15}$$</div>
         <div class="w-formula">$$\text{slice in }y:\ \ R=\sqrt y,\ \ r=y,\quad A(y)=\pi\big(y-y^2\big),\quad V=\int_0^1\pi(y-y^2)\,dy=\tfrac{\pi}{6}$$</div>
+        <div class="w-formula">$$R=\sqrt x+2,\ \ r=x^2+2,\quad A(x)=\pi\big((\sqrt x+2)^2-(x^2+2)^2\big),\quad V=\int_0^1A(x)\,dx=\tfrac{49\pi}{30}$$</div>
+        <div class="w-formula">$$R=6-x^2,\ \ r=4+x,\quad A(x)=\pi\big((6-x^2)^2-(4+x)^2\big),\quad V=\int_{-2}^{1}A(x)\,dx=\tfrac{198\pi}{5}$$</div>
+        <div class="w-formula">$$R=\sqrt{8x},\ \ r=x^2,\quad A(x)=\pi\big(8x-x^4\big),\quad V=\int_0^2\pi(8x-x^4)\,dx=\tfrac{48\pi}{5}$$</div>
       </div>
       <div class="try"><h5>What to notice</h5><ol>
         <li>With <b>3.3–3.5 notes p. 6: y = 2x, y = 0, x = 2</b>, every slice is a disk: the region reaches the axis, so $r=0$. The bottom graph shows $A(x)=4\pi x^2$. The area under it, $\frac{32\pi}3\approx33.51$, is the cone formula $\frac13\pi(4)^2(2)$.</li>
@@ -136,6 +139,9 @@
         <li>Drag the axis. For the notes p. 7 region, move it down to $y=-1$: $R$ and $r$ both grow by 1, and the volume jumps. Move it into the region and the explorer refuses, because the slices would no longer be washers.</li>
         <li>Compare <b>Textbook Ex. 3.5.8: between y = x and y = x²</b> with <b>Textbook Ex. 3.5.9: same region, axis y = 2</b>. Around $y=2$ the far edge is the <em>lower</em> curve, so $R=2-x^2$ and $r=2-x$. The volume grows from $\frac{2\pi}{15}$ to $\frac{8\pi}{15}$ because the region is farther from the axis.</li>
         <li><b>Textbook Ex. 3.5.10: same region, the y-axis</b> spins the same region around the $y$-axis. Slices perpendicular to the $y$-axis are horizontal, so everything is written in $y$: $R=\sqrt y$, $r=y$, $V=\frac\pi6$.</li>
+        <li><b>MATH1342 notes p. 4: axis y = −2</b> puts the axis <em>below</em> the region between $y=\sqrt x$ and $y=x^2$. Both radii measure up from $y=-2$, so each one is the curve plus 2: $R=\sqrt x+2$ and $r=x^2+2$. $V=\frac{49\pi}{30}\approx5.131$. Move the axis to $y=0$ and you get $\frac{3\pi}{10}$, the same region about the $x$-axis.</li>
+        <li><b>MATH1342 notes p. 8: axis y = 7</b> puts the axis <em>above</em> the region, so the lower curve (the parabola) is the far edge: $R=6-x^2$ and $r=4+x$. At both ends of the region, where the line meets the parabola, $R=r$ and the washer has no width: look at the bottom graph, where $A=0$ at $x=-2$ and $x=1$. $V=\frac{198\pi}5\approx124.41$.</li>
+        <li><b>MATH1342 notes p. 9: axis y = 1</b> touches the region at the single point $(0,1)$, the lowest point of both curves, and lies below everything else. So $R=\sqrt{8x}$ and $r=x^2$: the “+1” on both curves cancels against the axis. $V=\frac{48\pi}5\approx30.16$. The same region is spun about $x=-2$ with shells in the next topic.</li>
       </ol></div>
     </div>
 
@@ -186,7 +192,7 @@
           <div class="opts">
             <button class="opt" data-correct>washer: there's a gap of height $x$ between the axis and the region</button>
             <button class="opt" data-why="A disk needs the region to reach the axis. Here the region starts at y = x, above the axis.">disk</button>
-            <button class="opt" data-why="Shells come from slices parallel to the axis, and they aren’t in your notes.">cylindrical shell</button>
+            <button class="opt" data-why="Shells come from slices parallel to the axis (the next topic). A slice perpendicular to the x-axis is a ring.">cylindrical shell</button>
           </div></div>
         <div class="greveal">At position $x$ the region runs from $y=x$ up to $y=2x$. Spinning that segment sweeps out a ring.</div>
       </div>
@@ -350,6 +356,42 @@
       <div class="hint">Distances to $y=6$: the line $y=3$ is farther, so $R=6-3=3$. The parabola is nearer, so $r=6-(4x-x^2)$.</div>
       <div class="hint">$A(x)=\pi\big(9-(x^2-4x+6)^2\big)$. With $w=x-2$, $x^2-4x+6=w^2+2$.</div>
       <div class="solution">$V=\pi\int_{-1}^{1}\big(9-(w^2+2)^2\big)\,dw=\pi\int_{-1}^1\big(5-4w^2-w^4\big)\,dw=\pi\big(10-\frac83-\frac25\big)=\frac{104\pi}{15}\approx21.78$.</div>
+    </div>
+    <div class="problem" data-pid="V-p11" data-topic="V" data-title="Practice 11" data-src="MATH1342 notes p. 4 · set up only (redo it)" data-prompt="Let S be the region between y = x^2 and x = y^2. Set up and evaluate the volume of the solid obtained by rotating S about the line y = -2." data-help="R and r in terms of x (use sqrt(x)). The volume can be exact (49pi/30) or a decimal.">
+      <div class="p-body">Let $S$ be the region between $y=x^2$ and $x=y^2$. Find the volume of the solid obtained by rotating $S$ about the line $y=-2$. The notes stop at the integral; write $R$ and $r$, then evaluate it.</div>
+      <div class="answers">
+        <label>$R(x)=$ <input class="ans" data-label="R" data-vid="V-p11-R" data-kind="expr" data-var="x" data-answer="sqrt(x)+2" data-dom="0.1,0.9" data-show="√x + 2" data-wrong='[{"f":"sqrt(x)","m":"That’s the distance from the x-axis. The axis is y = −2, so add 2: R = √x − (−2)."}]'></label>
+        <label>$r(x)=$ <input class="ans" data-label="r" data-vid="V-p11-r" data-kind="expr" data-var="x" data-answer="x^2+2" data-dom="0.1,0.9" data-show="x² + 2" data-wrong='[{"f":"x^2","m":"That’s the distance from the x-axis. The axis is y = −2, so add 2: r = x² − (−2)."}]'></label>
+        <label>Volume <input class="ans" data-vid="V-p11" data-answer="5.131268000863" data-exact="49π/30" data-wrong='[{"v":0.942477796077,"m":"That is the answer about the x-axis (3π/10). Measure R and r from the line y = −2."}]'></label>
+      </div>
+      <div class="hint">The curves meet where $y=x^2$ and $x=y^2$: $y=y^4$, so $y=0$ or $y=1$, and $x=0$ or $x=1$. For $x\ge0$ the second curve is $y=\sqrt x$, and it is on top.</div>
+      <div class="hint">The axis is below the region, so each distance is the curve minus $(-2)$.</div>
+      <div class="solution">$V=\pi\int_0^1\big((\sqrt x+2)^2-(x^2+2)^2\big)\,dx=\pi\int_0^1\big(x+4\sqrt x-x^4-4x^2\big)\,dx=\pi\big(\frac12+\frac83-\frac15-\frac43\big)=\frac{49\pi}{30}\approx5.131$. A different route agrees: with shells in $y$ about the horizontal axis $y=-2$, $V=2\pi\int_0^1(y+2)(\sqrt y-y^2)\,dy=\frac{49\pi}{30}$.</div>
+    </div>
+    <div class="problem" data-pid="V-p12" data-topic="V" data-title="Practice 12" data-src="MATH1342 notes p. 8, part 1 · set up only (redo it)" data-prompt="Let S be the region between y = x^2 + 1 and y = -x + 3. Set up and evaluate the volume of the solid obtained by rotating S about the line y = 7." data-help="R and r in terms of x. The volume can be exact (198pi/5) or a decimal.">
+      <div class="p-body">Let $S$ be the region between $y=x^2+1$ and $y=-x+3$. Find the volume of the solid obtained by rotating $S$ about the line $y=7$.</div>
+      <div class="answers">
+        <label>$R(x)=$ <input class="ans" data-label="R" data-vid="V-p12-R" data-kind="expr" data-var="x" data-answer="6-x^2" data-dom="-1.8,0.8" data-show="6 − x²" data-wrong='[{"f":"4+x","m":"That’s r, the near edge. R is the distance to the far edge: the axis y = 7 is above the region, so the lower curve (the parabola) is farthest, 7 − (x² + 1)."}]'></label>
+        <label>$r(x)=$ <input class="ans" data-label="r" data-vid="V-p12-r" data-kind="expr" data-var="x" data-answer="4+x" data-dom="-1.8,0.8" data-show="4 + x" data-wrong='[{"f":"6-x^2","m":"That’s R, the far edge. r is the distance to the near edge, the line y = −x + 3: 7 − (−x + 3)."}]'></label>
+        <label>Volume <input class="ans" data-vid="V-p12" data-answer="124.407069082156" data-exact="198π/5" data-wrong='[{"v":73.513268094001,"m":"That is the answer about the x-axis (117π/5). Measure R and r from the line y = 7."},{"v":-124.407069082156,"m":"Negative: R and r are swapped. The axis is above the region, so the lower curve is the far edge."}]'></label>
+      </div>
+      <div class="hint">The curves meet where $x^2+1=-x+3$: $x=-2$ and $x=1$. The line is on top, but the axis is above both, so the <em>lower</em> curve is farther from $y=7$.</div>
+      <div class="hint">$R=7-(x^2+1)$ and $r=7-(-x+3)$.</div>
+      <div class="solution">$V=\pi\int_{-2}^{1}\big((6-x^2)^2-(4+x)^2\big)\,dx$. Expand $(6-x^2)^2=36-12x^2+x^4$ and $(4+x)^2=16+8x+x^2$, so the integrand is $20-8x-13x^2+x^4$ and $V=\pi\big[20x-4x^2-\frac{13x^3}3+\frac{x^5}5\big]_{-2}^{1}=\pi\big(\frac{178}{15}+\frac{416}{15}\big)=\frac{198\pi}5\approx124.41$.</div>
+    </div>
+    <div class="problem" data-pid="V-p13" data-topic="V" data-title="Practice 13" data-src="MATH1342 notes p. 9, part 2 · set up only (redo it)" data-prompt="Let S be the region between y = x^2 + 1 and y = sqrt(8x) + 1. Set up and evaluate the volume of the solid obtained by rotating S about the line y = 1." data-help="R and r in terms of x (use sqrt(8*x)). The volume can be exact (48pi/5) or a decimal.">
+      <div class="p-body">Let $S$ be the region between $y=x^2+1$ and $y=\sqrt{8x}+1$. Find the volume of the solid obtained by rotating $S$ about the line $y=1$.</div>
+      <div class="answers">
+        <label>$R(x)=$ <input class="ans" data-label="R" data-vid="V-p13-R" data-kind="expr" data-var="x" data-answer="sqrt(8*x)" data-dom="0.1,1.9" data-show="√(8x)" data-wrong='[{"f":"sqrt(8*x)+1","m":"That’s the distance from the x-axis. The axis is y = 1, so subtract 1: R = (√(8x) + 1) − 1."}]'></label>
+        <label>$r(x)=$ <input class="ans" data-label="r" data-vid="V-p13-r" data-kind="expr" data-var="x" data-answer="x^2" data-dom="0.1,1.9" data-show="x²" data-wrong='[{"f":"x^2+1","m":"That’s the distance from the x-axis. The axis is y = 1, so subtract 1: r = (x² + 1) − 1."}]'></label>
+        <label>Volume <input class="ans" data-vid="V-p13" data-answer="30.159289474462" data-exact="48π/5" data-wrong='[{"v":46.914450293608,"m":"That is the answer about the x-axis (224π/15). Measure R and r from the line y = 1."}]'></label>
+      </div>
+      <div class="hint">The curves meet where $x^2=\sqrt{8x}$: $x^4=8x$, so $x=0$ or $x=2$. The square-root curve is on top.</div>
+      <div class="hint">The axis $y=1$ is at or below every point of the region, so each distance is the curve minus 1.</div>
+      <div class="solution">
+        <p>$V=\pi\int_0^2\big(8x-x^4\big)\,dx=\pi\big[4x^2-\frac{x^5}5\big]_0^2=\pi\big(16-\frac{32}5\big)=\frac{48\pi}5\approx30.16$.</p>
+        <div class="callout discrepancy" style="margin:8px 0 0"><div class="label">⚠ Discrepancy in the notes (p. 9)</div><p class="small" style="margin:0">The intersection work on notes p. 9 writes “$x=0\to y=0$”. It should be $y=0^2+1=1$; the sketch correctly labels $(0,1)$. The limits (0 and 2) and both integrals are unaffected.</p></div>
+      </div>
     </div>
   </div>
 

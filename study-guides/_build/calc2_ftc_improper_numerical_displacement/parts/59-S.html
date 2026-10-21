@@ -1,0 +1,455 @@
+<section id="S" class="topic">
+  <div class="topic-banner">
+    <div class="topic-letter sec" aria-hidden="true">3.5</div>
+    <div><h2>Volume by cylindrical shells</h2>
+    <div class="sources">MATH1342 notes pp. 5–9 · Textbook §3.5 (Examples 3.5.11–3.5.13; Suggested Ex. 3, 4(b), 6, 7(a), 8(b); Additional Ex. 9(b), 17)</div></div>
+  </div>
+  <nav class="stagebar" data-topic="S" aria-label="Stages in §3.5 (cylindrical shells)">
+    <a href="#S-learn"><span class="n">1</span>Learn</a><a href="#S-understand"><span class="n">2</span>Understand</a><a href="#S-explore"><span class="n">3</span>Explore</a><a href="#S-attempt"><span class="n">4</span>Attempt</a><a href="#S-compare"><span class="n">5</span>Compare</a><a href="#S-practice"><span class="n">6</span>Practice</a><a href="#S-master"><span class="n">7</span>Master</a>
+  </nav>
+
+  <!-- ============================== 1 LEARN -->
+  <div class="stage" id="S-learn">
+    <div class="stage-head"><span class="n">Stage 1 · Learn</span><h3>The big idea</h3></div>
+    <div class="callout big">
+      <div class="label">Big idea</div>
+      <p>Washers slice a solid <em>perpendicular</em> to the axis of rotation. Shells slice it <b>parallel</b> to the axis. Take a thin strip of the region, of width $\Delta x$ and height $h$, at distance $r$ from the axis. Spin it around the axis and it sweeps out a thin hollow cylinder: a can with no top or bottom. That's a <b>cylindrical shell</b> (MATH1342 notes p. 6).</p>
+      <p style="margin:0">Cut the can down one side and unroll it. You get a flat box that is $2\pi r$ long (the circumference), $h$ tall and $\Delta x$ thick. So one shell has volume about $2\pi r\cdot h\cdot\Delta x$, and adding up the shells gives $V=\int_a^b2\pi r\,h\,dx$.</p>
+    </div>
+    <div class="card tight">
+      <div class="small muted" style="margin-bottom:6px"><b>What to notice:</b> the arch $y=x-x^2$ (notes p. 5) spins around the $y$-axis. The thin strip at $x$ is parallel to the axis, $r=x$ away from it, and $h=x-x^2$ tall. Spun, it becomes a shell; unrolled, a box. Notice that the box's length is the <em>circumference</em>, not the radius.</div>
+      <div data-fig="shellunroll"></div>
+    </div>
+    <div class="grid-2">
+      <div class="callout why">
+        <div class="label">An everyday version</div>
+        <p style="margin:0">A roll of paper towels is made of thin cylindrical layers of paper. Unroll one layer: it's a long thin sheet, $2\pi r$ long for that layer's radius $r$, as wide as the roll is tall ($h$), and one sheet thick ($\Delta x$). The roll's paper is all those sheets added up. Tree rings and onion layers work the same way.</p>
+      </div>
+      <div class="callout">
+        <div class="label">Three questions to ask every time</div>
+        <ol style="margin:0">
+          <li><b>Which way do I slice?</b> <em>Parallel</em> to the axis. For a vertical axis ($y$-axis, $x=1$, $x=5$…) that means vertical strips of width $dx$.</li>
+          <li><b>What is $r$?</b> The distance from the axis to the strip. For the axis $x=4$ it's $4-x$, not $x$ (the green note on notes p. 6).</li>
+          <li><b>What is $h$?</b> The strip's length: the top curve minus the bottom curve, at that $x$.</li>
+        </ol>
+      </div>
+    </div>
+    <label class="toggle"><input type="checkbox" data-self="S"> I can explain why a shell's volume is $2\pi r\,h\,\Delta x$, and how to find $r$ and $h$ for a vertical axis that isn't the $y$-axis.</label>
+  </div>
+
+  <!-- ============================== 2 UNDERSTAND -->
+  <div class="stage" id="S-understand">
+    <div class="stage-head"><span class="n">Stage 2 · Understand</span><h3>What it's built from, and why it works</h3></div>
+    <div class="grid-2">
+      <div class="card tight">
+        <h4>Prerequisite map</h4>
+        <div class="tree"><ul><li class="root">Volume by shells
+          <ul>
+            <li><a href="#C-understand">Riemann sums (notes p. 34)</a>: slice, add up, take the limit</li>
+            <li>The circumference of a circle, $2\pi r$<br><span class="qc">Quick check: a can has radius 3. How long is its label, unrolled? <details class="qcheck"><summary>show</summary>$2\pi\cdot3=6\pi\approx18.85$</details></span></li>
+            <li>The volume of a box<br><span class="qc">Quick check: length $6\pi$, height 2, thickness $0.1$? <details class="qcheck"><summary>show</summary>length × height × thickness $=6\pi\cdot2\cdot0.1=1.2\pi$</details></span></li>
+            <li>The distance from a point to a vertical line<br><span class="qc">Quick check: how far is $x=3$ from the line $x=1$? From $x=4$? From $x=-2$? <details class="qcheck"><summary>show</summary>2 · 1 · 5. (Always positive: the larger minus the smaller.)</details></span></li>
+            <li>Reading a region between curves<br><span class="qc">Quick check: where does $y=4x-x^2$ meet $y=3$? <details class="qcheck"><summary>show</summary>$x^2-4x+3=0$, so $x=1$ and $x=3$, with the parabola on top in between</details></span></li>
+            <li><a href="#V-understand">Washers (this section's other method)</a>: the same solid, sliced the other way</li>
+          </ul></li></ul></div>
+      </div>
+      <div class="card tight">
+        <h4>From shells to an integral <span class="small muted">(MATH1342 notes p. 6)</span></h4>
+        $$V_{\text{shell}}\approx2\pi r\,h\,\Delta x,\qquad V\approx\sum_{i=1}^{n}2\pi r_i\,h_i\,\Delta x\ \longrightarrow\ \int_a^b2\pi r\,h\,dx$$
+        <p class="small" style="margin:6px 0 0">It's the notes p. 34 move (§2.6) a third time: strips of area $f(x_i)\,\Delta x$, then slabs of volume $A(x_i)\,\Delta x$, and now shells of volume $2\pi r_ih_i\,\Delta x$. The only new work is finding the shell's volume.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>Why the unrolled piece is a box (and why $\Delta x$ doesn't spoil it)</h4>
+      <p>A shell is a big cylinder of radius $r+\Delta x$ with a smaller cylinder of radius $r$ removed from its middle, both of height $h$. Volumes subtract, exactly as for a washer:</p>
+      $$\pi(r+\Delta x)^2h-\pi r^2h=\pi h\,(2r\,\Delta x+\Delta x^2)=2\pi\Big(r+\tfrac{\Delta x}{2}\Big)h\,\Delta x$$
+      <p style="margin:0">That is exactly a box with length $2\pi(r+\frac{\Delta x}2)$, the circumference at the shell's <em>middle</em>, times $h$ times $\Delta x$. Using $2\pi r$ instead is off by $\pi h\,\Delta x^2$, which is tiny next to $\Delta x$ and disappears in the limit. So “cut and unroll” isn't a trick: it's the big-cylinder-minus-small-cylinder idea you already know from washers.</p>
+    </div>
+
+    <div class="formula-card">
+      <div class="fc-title">Cylindrical shell method <span>MATH1342 notes p. 6 · textbook Example 3.5.11</span></div>
+      $$V=\int_a^b\htmlClass{fp fp-3}{2\pi}\,\htmlClass{fp fp-1}{r}\,\htmlClass{fp fp-2}{h}\,\htmlClass{fp fp-4}{dx}$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="The shell’s <b>radius</b>: the distance from the axis of rotation to the strip. For the axis x = k it is |x − k|, so x − k for an axis on the left and k − x for an axis on the right.">r: radius</button>
+        <button class="fp-chip" data-part="2" data-explain="The shell’s <b>height</b>: the length of the strip, <b>top curve minus bottom curve</b> at that x. It is just the top curve when the region sits on the x-axis.">h: height</button>
+        <button class="fp-chip" data-part="3" data-explain="The <b>circumference</b> of the shell, 2π × radius, is the length of the unrolled box. It is the one new factor compared with washers.">2π: circumference</button>
+        <button class="fp-chip" data-part="4" data-explain="The shell’s <b>thickness</b>. Length × height × thickness = the volume of one thin shell.">dx: thickness</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+      <div class="fc-meta">
+        <div><b>When it applies</b>The strip you slice is parallel to the axis of rotation. In your notes that's every vertical axis: the $y$-axis, $x=1$, $x=4$, $x=5$, $x=-2$.</div>
+        <div><b>Watch out</b>$r$ is measured from the <em>axis</em>, never from the $y$-axis by default, and the axis should lie outside the region (it may touch it). Limits are $x$-values.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>Washers and shells, side by side <span class="small muted">(MATH1342 notes pp. 3, 6, 8, 9)</span></h4>
+      <div class="table-scroll"><table>
+        <thead><tr><th></th><th>Washers</th><th>Shells</th></tr></thead>
+        <tbody>
+          <tr><td><b>Slice</b></td><td>perpendicular to the axis</td><td>parallel to the axis</td></tr>
+          <tr><td><b>A slice is…</b></td><td>a ring (a disk with a hole)</td><td>a thin hollow cylinder</td></tr>
+          <tr><td><b>Volume of a slice</b></td><td>$\pi(R^2-r^2)\,\Delta x$</td><td>$2\pi r\,h\,\Delta x$</td></tr>
+          <tr><td><b>Distances from the axis</b></td><td>$R$ (far edge) and $r$ (near edge)</td><td>$r$ (to the strip), and $h$ is its length</td></tr>
+          <tr><td><b>In your notes, the axis is…</b></td><td>horizontal: $y=-2$, $y=7$, $y=1$</td><td>vertical: $y$-axis, $x=1$, $x=4$, $x=5$, $x=-2$</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted" style="margin:8px 0 0">The last row is a pattern in the notes, not a rule the professor states: all seven “set up only” examples integrate in $x$, so a horizontal axis gets washers and a vertical axis gets shells. Either method <em>can</em> do either axis. You'd just have to integrate in $y$ for the other one (textbook Example 3.5.11 does shells about the $x$-axis with $dy$).</p>
+    </div>
+
+    <div class="card">
+      <h4>Recognition: which method, and why?</h4>
+      <div class="table-scroll"><table>
+        <thead><tr><th>You notice…</th><th>So you…</th></tr></thead>
+        <tbody>
+          <tr><td>The axis is a <b>vertical</b> line $x=k$, and the region is between curves $y=f(x)$ and $y=g(x)$</td><td>Shells in $x$: vertical strips, $r=|x-k|$, $h=f-g$ (notes pp. 5, 7, 8, 9).</td></tr>
+          <tr><td>The axis is a <b>horizontal</b> line $y=k$ and the region is between curves $y=f(x)$, $y=g(x)$</td><td>Washers in $x$ (notes pp. 4, 8, 9; the previous topic, §3.5 washers).</td></tr>
+          <tr><td>A vertical axis, but washers would mean solving $y=f(x)$ for $x$</td><td>Shells avoid it. For $y=\sin(x^2)$ about the $y$-axis, shells give $\int2\pi x\sin(x^2)\,dx$, a quick substitution (textbook Suggested Ex. 6).</td></tr>
+          <tr><td>Washers would force you to <b>split</b> the integral where the boundary changes</td><td>Try shells: the curved triangle between $y=2-x$ and $y=\sqrt x$ about the $y$-axis needs two washer integrals but one shell integral (textbook Example 3.5.12).</td></tr>
+          <tr><td>Shells would require solving something unsolvable</td><td>Use washers: $y=x-x^5$ about the $x$-axis needs $x$ as a function of $y$, a quintic (textbook Example 3.5.13). When one method is stuck, try the other.</td></tr>
+          <tr><td>“Set up only”</td><td>Write the integral with its limits, and stop (notes pp. 4, 7, 8, 9).</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout warn" style="margin-bottom:0">
+        <div class="label">Tempting alternative, and why to reject it</div>
+        <p style="margin:0">“Use the washer formula $\pi\int(R^2-r^2)\,dx$ with the curves as radii, for any axis.” For a <em>vertical</em> axis the strip at $x$ is <em>parallel</em> to the axis, so spinning it makes a thin cylinder, not a ring. Washers in $x$ only work when the axis is horizontal. For a vertical axis, either use shells, or slice horizontally and integrate $dy$.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 3 EXPLORE -->
+  <div class="stage" id="S-explore">
+    <div class="stage-head"><span class="n">Stage 3 · Explore</span><h3>Shell explorer</h3></div>
+    <div class="widget">
+      <div class="w-head"><h4>Spin a region about a vertical line: find r and h, stack the shells, and watch the sum approach the integral</h4><span class="small muted">presets · move the axis · number of shells · strip position</span></div>
+      <div class="w-sub">Left: the flat region, the axis of rotation (dashed), and the strip at one position, with $r$ (green) from the axis to the strip and $h$ (orange) its height. Right: the solid as $n$ nested shells, seen at an angle, with the chosen shell highlighted. Below: the unrolled shell's face $2\pi r h$ along the $x$-axis. The area under it is the volume.</div>
+      <div id="widget-shell">
+        <div class="w-formula">$$r=x,\ \ h=x-x^2,\quad V=\int_0^1 2\pi x\,(x-x^2)\,dx=\tfrac{\pi}{6}$$</div>
+        <div class="w-formula">$$r=x-1,\ \ h=4x-x^2-3,\quad V=\int_1^3 2\pi(x-1)(4x-x^2-3)\,dx=\tfrac{8\pi}{3}$$</div>
+        <div class="w-formula">$$r=4-x,\ \ h=4x-x^2-3,\quad V=\int_1^3 2\pi(4-x)(4x-x^2-3)\,dx=\tfrac{16\pi}{3}$$</div>
+        <div class="w-formula">$$r=5-x,\ \ h=(-x+3)-(x^2+1)=-x^2-x+2,\quad V=\int_{-2}^{1}2\pi(5-x)(-x^2-x+2)\,dx=\tfrac{99\pi}{2}$$</div>
+        <div class="w-formula">$$r=x+2,\ \ h=\sqrt{8x}-x^2,\quad V=\int_0^2 2\pi(x+2)\big(\sqrt{8x}-x^2\big)\,dx=\tfrac{232\pi}{15}$$</div>
+        <div class="w-formula">$$r=x,\ \ h=(2-x)-\sqrt x,\quad V=\int_0^1 2\pi x\big(2-x-\sqrt x\big)\,dx=\tfrac{8\pi}{15}$$</div>
+      </div>
+      <div class="try"><h5>What to notice</h5><ol>
+        <li>With <b>MATH1342 notes p. 5: y = x − x², y-axis</b>, the strip at $x$ has $r=x$ and $h=x-x^2$. The bottom graph shows $2\pi x(x-x^2)$, which peaks at $x=\frac23$ (value $\frac{8\pi}{27}\approx0.93$) and is zero at both ends. The area under it, $\frac\pi6\approx0.5236$, is the volume. Drag the axis to $x=-1$: every $r$ grows by 1 and the volume becomes $\frac\pi2$.</li>
+        <li>With <b>MATH1342 notes p. 7: above y = 3, axis x = 1</b>, the region is the cap of a parabola above the line $y=3$, from $x=1$ to $x=3$. The strip's height is $4x-x^2-3$: zero at both ends, 1 at $x=2$. The radius $r=x-1$ grows from the left. $V=\frac{8\pi}3\approx8.378$.</li>
+        <li>Switch to <b>MATH1342 notes p. 7: same region, axis x = 4</b>. Now $r=4-x$ <em>shrinks</em> from 3 to 1 as the strip moves right. $V=\frac{16\pi}3\approx16.755$, exactly <b>twice</b> the axis $x=1$ answer. The region is symmetric about $x=2$, so on average its strips are 1 unit from $x=1$ but 2 units from $x=4$.</li>
+        <li>With <b>MATH1342 notes p. 8: axis x = 5</b>, the region runs from $x=-2$ to $x=1$ between the line (top) and the parabola (bottom), so $h=-x^2-x+2$ is zero at both ends. $r=5-x$ is between 4 and 7. $V=\frac{99\pi}2\approx155.5$.</li>
+        <li>With <b>MATH1342 notes p. 9: axis x = −2</b>, the axis is to the <em>left</em> of the region, so $r=x-(-2)=x+2$. The region starts at the point where both curves meet, so $h=0$ at $x=0$ and at $x=2$. $V=\frac{232\pi}{15}\approx48.59$.</li>
+        <li><b>Textbook Ex. 3.5.12: y-axis</b> is the curved triangle between $y=2-x$ and $y=\sqrt x$. Shells need one integral. With washers you'd need two, because the region's boundary changes at $y=1$. $V=\frac{8\pi}{15}\approx1.676$ either way.</li>
+        <li>Raise $n$ for any preset. The stack of shells, $\sum2\pi r_ih_i\,\Delta x$ with right endpoints, approaches the exact volume. Slide the axis <em>into</em> the region and the explorer refuses: strips on both sides of the axis would overlap.</li>
+      </ol></div>
+    </div>
+
+    <div class="tryout" data-topic="S">
+      <div class="q">The region above $y=3$ and below $y=4x-x^2$ ($1\le x\le3$) is spun about the line $x=4$. What is the radius $r$ of the shell made by the strip at $x$?</div>
+      <div class="try-opts">
+        <button class="try-opt">$r=x$</button>
+        <button class="try-opt">$r=4-x$</button>
+        <button class="try-opt">$r=x-4$</button>
+        <button class="try-opt">$r=4$</button>
+      </div>
+      <div class="try-res" data-verdict="bad">That's the distance from the $y$-axis. The axis here is $x=4$, so the strip at $x$ is $4-x$ away from it. (Watch for this one in Practice 2: for this particular region the wrong $r$ can still produce the right total.)</div>
+      <div class="try-res" data-verdict="good">The strip is to the left of the axis, so the distance is the larger minus the smaller: $4-x$. Then $V=\int_1^32\pi(4-x)(4x-x^2-3)\,dx=\frac{16\pi}3\approx16.755$.</div>
+      <div class="try-res" data-verdict="bad">That's negative on $[1,3]$, so you'd get $V=-\frac{16\pi}3$. A radius is a distance: always positive.</div>
+      <div class="try-res" data-verdict="bad">That's the distance from the axis to the $y$-axis, a constant. $r$ changes from strip to strip: it's the distance from the axis to <em>that</em> strip.</div>
+    </div>
+
+    <div class="tryout" data-topic="S">
+      <div class="q">Spin the same region (above $y=3$, below $y=4x-x^2$) about $x=1$ and about $x=4$. Which solid is bigger?</div>
+      <div class="try-opts">
+        <button class="try-opt">$x=1$</button>
+        <button class="try-opt">$x=4$</button>
+        <button class="try-opt">They're equal</button>
+      </div>
+      <div class="try-res" data-verdict="bad">The axis $x=1$ is at the region's left edge, so its strips are 0 to 2 units away, 1 on average. The solid is $\frac{8\pi}3\approx8.378$, the smaller one.</div>
+      <div class="try-res" data-verdict="good">The axis $x=4$ is 1 unit beyond the region's right edge, so its strips are 1 to 3 units away, 2 on average: twice as far, so shells with twice the circumference. $V=\frac{16\pi}3\approx16.755=2\cdot\frac{8\pi}3$.</div>
+      <div class="try-res" data-verdict="bad">Same region, different axes: not the same solid. The farther the strips are from the axis, the longer each shell's circumference $2\pi r$.</div>
+    </div>
+
+    <div class="tryout" data-topic="S">
+      <div class="q">Region A lies under $y=x-x^2$ and above the $x$-axis. Region B lies between $y=x$ and $y=x^2$. Both have $0\le x\le1$, and both are spun about the $y$-axis. Which solid is bigger?</div>
+      <div class="try-opts">
+        <button class="try-opt">A</button>
+        <button class="try-opt">B</button>
+        <button class="try-opt">They're equal</button>
+      </div>
+      <div class="try-res" data-verdict="bad">Compare the strips. At each $x$, A's strip runs from $0$ to $x-x^2$, so $h=x-x^2$.</div>
+      <div class="try-res" data-verdict="bad">At each $x$, B's strip runs from $x^2$ to $x$, so $h=x-x^2$. That's the same as A's.</div>
+      <div class="try-res" data-verdict="good">At every $x$ both strips have the same distance to the axis ($r=x$) and the same height ($h=x-x^2$). Shells don't care <em>where</em> a strip sits vertically, only how long it is. Both volumes are $\frac\pi6$: A by notes p. 5, B by the washer method in the previous topic (Practice 5 there).</div>
+    </div>
+  </div>
+
+  <!-- ============================== 4 ATTEMPT -->
+  <div class="stage" id="S-attempt">
+    <div class="stage-head"><span class="n">Stage 4 · Attempt</span><h3>Guided example, then your turn</h3></div>
+    <div class="guided" data-gid="S-guided">
+      <div class="g-intro"><span class="badge">Guided example</span>
+        <p style="margin-top:8px">Let $S$ be the region bounded by $y=x-x^2$ and $y=0$. Find the volume of the solid obtained by rotating $S$ about the $y$-axis. This is MATH1342 notes p. 5. Work it as the notes do.</p></div>
+      <div class="gstep"><span class="g-label">Step 1 · Slice</span>
+        <div class="mcq" data-qid="S-g1"><div class="q">How do you slice for the shell method?</div>
+          <div class="opts">
+            <button class="opt" data-correct>Parallel to the axis of rotation: vertical strips of width $dx$ (the $y$-axis is vertical)</button>
+            <button class="opt" data-why="That's the washer method. It works, but each horizontal slice runs between the two solutions of x − x² = y, so you'd have to solve a quadratic for x. The notes slice parallel to the axis here (notes pp. 5–6).">Perpendicular to the axis: horizontal strips of thickness $dy$</button>
+            <button class="opt" data-why="The formulas differ: shells use 2πrh, washers use π(R² − r²). The slice direction decides which one you need.">It doesn't matter: the formulas are the same</button>
+          </div></div>
+        <div class="greveal">The notes' rule: “slice parallel to axis of rotation.” Each strip at position $x$ spins into a thin shell around the $y$-axis.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 2 · Limits</span>
+        <p>Set $x-x^2=0$, so $x(1-x)=0$. The region runs from $x=0$ to $x=$ <label class="inline"><input class="ans" data-vid="S-guided-b" data-answer="1" data-exact="1" placeholder="a number"></label></p>
+        <div class="greveal">$x=0$ or $x=1$. These are the $x$-limits of the integral, because the strips are labeled by $x$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 3 · Radius</span>
+        <p><label class="inline">$r(x)=$ <input class="ans" data-vid="S-guided-r" data-kind="expr" data-var="x" data-answer="x" data-dom="0.1,0.9" data-show="x" placeholder="in terms of x" data-wrong='[{"f":"1-x","m":"That’s the distance to the right-hand end of the region, x = 1. r is the distance from the axis, the y-axis (x = 0), to the strip."},{"f":"x-x^2","m":"That’s the strip’s height h, not its distance from the axis."}]'></label></p>
+        <div class="greveal">The axis is the $y$-axis ($x=0$), so the strip at $x$ is $r=x-0=x$ away.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 4 · Height</span>
+        <p><label class="inline">$h(x)=$ <input class="ans" data-vid="S-guided-h" data-kind="expr" data-var="x" data-answer="x-x^2" data-dom="0.1,0.9" data-show="x − x²" placeholder="top minus bottom" data-wrong='[{"f":"x","m":"That’s r. h is the strip’s length: the top curve y = x − x² minus the bottom curve y = 0."},{"f":"x^2-x","m":"Top minus bottom, not bottom minus top: on (0, 1), x − x² is positive."}]'></label></p>
+        <div class="greveal">The strip runs from $y=0$ up to $y=x-x^2$, so $h=(x-x^2)-0=x-x^2$ (the notes write the “$-0$”).</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 5 · One shell</span>
+        <p><label class="inline">Volume of shell $\approx$ <input class="ans" data-vid="S-guided-shell" data-kind="expr" data-var="x" data-answer="2*pi*x*(x-x^2)" data-dom="0.1,0.9" data-show="2πx(x − x²)" data-factormsg="Check the 2 in 2πrh: the shell’s length is the circumference, 2π times the radius." placeholder="2πrh, then × Δx is implied" data-wrong='[{"f":"2*pi*(x-x^2)","m":"The factor r = x is missing: ∫2πh dx forgets how far each strip is from the axis."},{"f":"pi*x^2*(x-x^2)","m":"That is πr²h, the volume of a solid cylinder. A shell is hollow: its volume is circumference × height × thickness, 2πrh Δx."}]'> <span class="muted small">(the factor in front of $\Delta x$)</span></label></p>
+        <div class="greveal">$2\pi rh\,\Delta x=2\pi x(x-x^2)\,\Delta x$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 6 · Integrate</span>
+        <p><label class="inline">$V=\int_0^12\pi x(x-x^2)\,dx=$ <input class="ans" data-vid="S-guided-val" data-answer="0.523598775598" data-exact="π/6" data-wrong='[{"v":1.047197551197,"m":"That is ∫2πh dx, with the radius r = x left out. The integrand is 2π·x·(x − x²)."},{"v":0.261799387799,"m":"The 2 in 2π is missing: π∫x(x − x²) dx. A shell’s length is 2πr."}]'></label></p>
+        <div class="greveal">$2\pi\int_0^1(x^2-x^3)\,dx=2\pi\big[\frac{x^3}3-\frac{x^4}4\big]_0^1=2\pi\big(\frac13-\frac14\big)=\frac\pi6\approx0.5236$. The notes write it as $\big(\frac23\pi x^3-\frac12\pi x^4\big)\Big|_0^1=\frac\pi6$ (verified by hand, SymPy and Wolfram).</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 7 · Sanity check</span>
+        <div class="mcq" data-qid="S-g7"><div class="q">The arch peaks at height $\frac14$ (at $x=\frac12$) and spans $x\le1$, so the solid fits inside a cylinder of radius 1 and height $\frac14$. Does $\frac\pi6$ fit?</div>
+          <div class="opts">
+            <button class="opt" data-correct>Yes: the cylinder has volume $\pi(1)^2\cdot\frac14=\frac\pi4\approx0.785$, and $\frac\pi6\approx0.524$ is smaller, as it must be</button>
+            <button class="opt" data-why="The solid fills only part of that cylinder: it's a dome-shaped ring, empty in the middle and thin near the edges. It can't equal the whole cylinder.">No: it should be exactly $\frac\pi4$</button>
+            <button class="opt" data-why="You can often bound a solid by a simple shape. A volume bigger than its bounding cylinder would be a red flag.">You can't check a volume without redoing the integral</button>
+          </div></div>
+        <div class="greveal">A cheap plausibility check: the answer must be smaller than the volume of a simple shape that contains the solid. It also rules out the common slips: $\frac{2\pi}{3}\approx2.09$ (using $h=x$) is bigger than $\frac\pi4$, so it can't be right.</div>
+      </div>
+      <div class="takeaway"><b>Takeaway.</b> Slice parallel to the axis. $r$ is the distance from the axis to the strip, $h$ is the strip's length (top minus bottom), and the shell's volume is circumference × height × thickness, $2\pi rh\,\Delta x$. Integrate over the region's $x$-range.</div>
+    </div>
+
+    <div class="problem" data-pid="S-indep" data-topic="S" data-level="4" data-title="Independent attempt" data-src="Your turn: a region between two curves" data-prompt="Let S be the region between y = x and y = x^2 for 0 &lt;= x &lt;= 1. Find the volume of the solid obtained by rotating S about the y-axis, using cylindrical shells.">
+      <div class="p-body">Let $S$ be the region between $y=x$ and $y=x^2$ for $0\le x\le1$. Find the volume of the solid obtained by rotating $S$ about the $y$-axis, using cylindrical shells.</div>
+      <div class="answers"><label>Volume <input class="ans" data-vid="S-indep" data-answer="0.523598775598" data-exact="π/6" data-wrong='[{"v":2.094395102393,"m":"That uses h = x, the top curve only. The strip runs from y = x² up to y = x, so h = x − x²."},{"v":-0.523598775598,"m":"Negative: top and bottom are swapped. On (0, 1), x is above x², so h = x − x²."},{"v":0.261799387799,"m":"The 2 in 2π is missing: a shell’s volume is 2πrhΔx."},{"v":0.166666666667,"m":"That is the area of the flat region. Spin it: each strip becomes a shell of volume 2πrhΔx."}]'></label></div>
+      <ol class="know">
+        <li>Sketch the region. Which curve is on top for $0<x<1$?</li>
+        <li>The axis is the $y$-axis, so the strips are vertical. What are $r$ and $h$ for the strip at $x$?</li>
+        <li>Write $2\pi rh$ and integrate it from 0 to 1.</li>
+      </ol>
+      <div class="hint">Try $x=\frac12$: the line is at $\frac12$ and the parabola at $\frac14$. So the line is on top, and the strip is $\frac12-\frac14=\frac14$ tall.</div>
+      <div class="hint">$r=x$ and $h=x-x^2$, so the integrand is $2\pi x(x-x^2)$.</div>
+      <div class="hint">$2\pi\int_0^1(x^2-x^3)\,dx=2\pi\big(\frac13-\frac14\big)$.</div>
+      <div class="solution">
+        <p>$V=2\pi\int_0^1x\,(x-x^2)\,dx=2\pi\big(\frac13-\frac14\big)=\frac\pi6\approx0.5236$.</p>
+        <p style="margin:0"><b>Notice:</b> this is the same number as for notes p. 5's region (under $y=x-x^2$), and as the washer answer in the previous topic (Practice 5, textbook Example 3.5.10). Same strip heights, same radii, same shells. “Math works again!!!”, as the textbook says after Example 3.5.11.</p>
+      </div>
+      <div class="reflect"><h5>Compare your approach</h5>
+        <label><input type="checkbox"> I sliced parallel to the axis and wrote $r$ and $h$ for the strip at $x$.</label>
+        <label><input type="checkbox"> I used $2\pi rh$, with the 2π and the $r$.</label>
+        <label><input type="checkbox"> I checked the answer against the washer result, or against a bounding cylinder.</label>
+        <p class="small muted" style="margin:6px 0 0">The clue to recognize next time: <b>“spin about a vertical line” → vertical strips parallel to it → shells, with $r$ = distance from the axis to the strip and $h$ = top − bottom</b>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 5 COMPARE -->
+  <div class="stage" id="S-compare">
+    <div class="stage-head"><span class="n">Stage 5 · Compare</span><h3>Tempting approaches vs. correct reasoning</h3></div>
+    <div class="vs">
+      <div class="tempt"><h5>✗ Tempting</h5>“The radius of a shell is $x$,” so for the region above $y=3$ and below $y=4x-x^2$ spun about $x=1$: $V=2\pi\int_1^3x(4x-x^2-3)\,dx=\frac{16\pi}{3}$.</div>
+      <div class="right"><h5>✓ Correct</h5>$r$ is the distance to <em>the axis</em>, which is $x=1$: $r=x-1$. So $V=2\pi\int_1^3(x-1)(4x-x^2-3)\,dx=\frac{8\pi}3$ (MATH1342 notes p. 7).</div>
+      <div class="clue"><b>Clue for next time:</b> $r$ measures from the axis you're given, not from the $y$-axis. The green note on notes p. 6 says it: check how the region sits relative to the axis when finding $r$ and $h$.</div>
+    </div>
+
+    <div class="spot" data-sid="S-spot1">
+      <p><b>Spot the error.</b> A student spins the region above $y=3$ and below $y=4x-x^2$ about the line $x=1$ (MATH1342 notes p. 7):</p>
+      <button class="sline"><span class="ln">Line 1</span><span>Slice parallel to the axis $x=1$: vertical strips, $1\le x\le3$ (the curves meet at $x=1$ and $x=3$).</span></button>
+      <button class="sline"><span class="ln">Line 2</span><span>$h=(4x-x^2)-3=4x-x^2-3$.</span></button>
+      <button class="sline" data-bad><span class="ln">Line 3</span><span>$r=x$.</span></button>
+      <button class="sline"><span class="ln">Line 4</span><span>$V=2\pi\int_1^3x\,(4x-x^2-3)\,dx=\frac{16\pi}3$.</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout warn"><div class="label">What went wrong</div><p style="margin:0">Line 3 measures from the $y$-axis, but the axis is $x=1$. The strip at $x$ is $x-1$ away, so $r=x-1$ and $V=2\pi\int_1^3(x-1)(4x-x^2-3)\,dx=\frac{8\pi}{3}$. The wrong radius makes the answer twice too big, because each shell is 1 unit too wide on average.</p></div>
+    </div>
+
+    <div class="spot" data-sid="S-spot2">
+      <p><b>Spot the error.</b> A student spins the region between $y=x^2+1$ and $y=-x+3$ about the line $x=5$ (MATH1342 notes p. 8):</p>
+      <button class="sline"><span class="ln">Line 1</span><span>The curves meet where $x^2+1=-x+3$: $x=-2$ and $x=1$.</span></button>
+      <button class="sline"><span class="ln">Line 2</span><span>The region is to the left of the axis, so $r=5-x$.</span></button>
+      <button class="sline" data-bad><span class="ln">Line 3</span><span>$h=-x+3$ (the top curve).</span></button>
+      <button class="sline"><span class="ln">Line 4</span><span>$V=2\pi\int_{-2}^{1}(5-x)(3-x)\,dx=120\pi$.</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout warn"><div class="label">What went wrong</div><p style="margin:0">Line 3 uses only the top curve, as if the region sat on the $x$-axis. This region is between two curves, so the strip runs from the parabola up to the line: $h=(-x+3)-(x^2+1)=-x^2-x+2$. Then $V=2\pi\int_{-2}^{1}(5-x)(-x^2-x+2)\,dx=\frac{99\pi}{2}\approx155.5$. The wrong $h$ gives $120\pi\approx377$, more than twice too big.</p></div>
+    </div>
+
+    <h4 style="margin-top:22px">Common mistakes: why they happen and how to prevent them</h4>
+    <details class="mistake"><summary>Measuring $r$ from the $y$-axis when the axis is $x=k$</summary><div class="m-body"><p><b>Why it happens</b><br>The first example (notes p. 5) uses the $y$-axis, where $r=x$. It's easy to carry that over to every problem.</p><p><b>Prevent it</b><br>Draw the axis, then write $r$ as a distance to it: $x-1$ for $x=1$, $4-x$ for $x=4$, $5-x$ for $x=5$, $x+2$ for $x=-2$.</p></div></details>
+    <details class="mistake"><summary>A radius that is negative</summary><div class="m-body"><p><b>Why it happens</b><br>Writing “$x-4$” for the axis $x=4$ without checking which side the strip is on.</p><p><b>Prevent it</b><br>A radius is a distance, so it's positive. For a region to the left of the axis use “axis − $x$”; to the right, “$x$ − axis”. A negative volume is the red flag.</p></div></details>
+    <details class="mistake"><summary>A right answer from a wrong set-up</summary><div class="m-body"><p><b>Why it happens</b><br>For the notes p. 7 region about $x=4$, the wrong radius $r=x$ gives $\frac{16\pi}3$, which is also the right answer. That's luck: the region is symmetric about $x=2$, and the $y$-axis and $x=4$ are mirror images in that line.</p><p><b>Prevent it</b><br>Check $r$ and $h$ themselves, not just the final number. The “set up only” instruction on notes pp. 7–9 means the set-up is what's graded.</p></div></details>
+    <details class="mistake"><summary>Using only the top curve for $h$</summary><div class="m-body"><p><b>Why it happens</b><br>On notes p. 5 the region sits on the $x$-axis, so $h$ is just the top curve. It isn't on pp. 7–9.</p><p><b>Prevent it</b><br>Always write $h$ as top minus bottom: $(4x-x^2)-3$, $(-x+3)-(x^2+1)$, $(\sqrt{8x}+1)-(x^2+1)$.</p></div></details>
+    <details class="mistake"><summary>Dropping the $2\pi$ (or using $\pi r^2h$)</summary><div class="m-body"><p><b>Why it happens</b><br>The washer formula starts with $\pi$, and $\pi r^2h$ is the volume of a <em>solid</em> cylinder.</p><p><b>Prevent it</b><br>A shell is hollow: unrolled, it's a box of length $2\pi r$, height $h$ and thickness $\Delta x$.</p></div></details>
+    <details class="mistake"><summary>Using washers with $dx$ for a vertical axis</summary><div class="m-body"><p><b>Why it happens</b><br>$\pi(R^2-r^2)\,dx$ was the first formula you learned for volumes.</p><p><b>Prevent it</b><br>Ask whether the strip is parallel or perpendicular to the axis. Washers need a strip <em>perpendicular</em> to it, which for a vertical axis means integrating in $y$.</p></div></details>
+    <details class="mistake"><summary>Taking the $y$-values of the intersection points as the limits</summary><div class="m-body"><p><b>Why it happens</b><br>Solving $x^2+1=\sqrt{8x}+1$ gives $x=0$ and $x=2$. Then you compute the $y$-values, which are 1 and 5, and it's easy to grab the wrong pair.</p><p><b>Prevent it</b><br>The integral is in $dx$, so the limits are $x$-values. (Notes p. 9's own work slips here: it writes $x=0\to y=0$, but $y=0^2+1=1$. The limits it uses are right.)</p></div></details>
+    <details class="mistake"><summary>An axis that cuts through the region</summary><div class="m-body"><p><b>Why it happens</b><br>The formula $r=|x-\text{axis}|$ looks like it should work anywhere.</p><p><b>Prevent it</b><br>If the axis passes through the region, strips on the two sides sweep out overlapping shells, and adding them counts the overlap twice. Every example in your notes has the axis outside the region (or touching it).</p></div></details>
+  </div>
+
+  <!-- ============================== 6 PRACTICE -->
+  <div class="stage" id="S-practice">
+    <div class="stage-head"><span class="n">Stage 6 · Practice</span><h3>Practice: standard applications</h3></div>
+    <p class="muted">The professor's examples say “set up only”. Most problems here ask for $r$ and $h$ (the set-up) and then for the volume, so you can check the integral by evaluating it.</p>
+
+    <div class="problem" data-pid="S-p1" data-topic="S" data-title="Practice 1" data-src="MATH1342 notes p. 7, part 1 · set up only (redo it)" data-prompt="Let S be the region between y = 4x - x^2 and y = 3. Set up and evaluate the volume of the solid obtained by rotating S about the line x = 1." data-help="Type r and h in terms of x, e.g. x - 1. The volume can be exact (8pi/3) or a decimal.">
+      <div class="p-body">Let $S$ be the region between $y=4x-x^2$ and $y=3$. Find the volume of the solid obtained by rotating $S$ about the line $x=1$. The notes stop at the integral; write $r$ and $h$, and then evaluate it.</div>
+      <div class="answers">
+        <label>$r(x)=$ <input class="ans" data-label="r" data-vid="S-p1-r" data-kind="expr" data-var="x" data-answer="x-1" data-dom="1.2,2.8" data-show="x − 1" data-wrong='[{"f":"x","m":"That’s the distance from the y-axis. The axis is x = 1."},{"f":"1-x","m":"Negative on (1, 3). A radius is a distance, so it’s x − 1."}]'></label>
+        <label>$h(x)=$ <input class="ans" data-label="h" data-vid="S-p1-h" data-kind="expr" data-var="x" data-answer="4*x-x^2-3" data-dom="1.2,2.8" data-show="4x − x² − 3" data-wrong='[{"f":"4*x-x^2","m":"That’s the top curve only. The strip runs from y = 3 up to the parabola: subtract 3."}]'></label>
+        <label>Volume <input class="ans" data-vid="S-p1" data-answer="8.377580409573" data-exact="8π/3" data-wrong='[{"v":16.755160819146,"m":"That is the answer with r = x (distance from the y-axis). Measure r from the axis x = 1."}]'></label>
+      </div>
+      <div class="hint">The curves meet where $4x-x^2=3$, at $x=1$ and $x=3$. The parabola is on top (it reaches 4 at $x=2$).</div>
+      <div class="hint">The axis $x=1$ is at the left edge of the region, so the strip at $x$ is $x-1$ away.</div>
+      <div class="solution">$V=\int_1^32\pi(x-1)(4x-x^2-3)\,dx$. With $w=x-1$, $4x-x^2-3=w(2-w)$, so $V=2\pi\int_0^2w^2(2-w)\,dw=2\pi\big(\frac{16}3-4\big)=\frac{8\pi}3\approx8.378$. A check by washers in $y$ (slice horizontally for $3\le y\le4$): $V=4\pi\int_3^4\sqrt{4-y}\,dy=\frac{8\pi}3$ ✓.</div>
+    </div>
+
+    <div class="problem" data-pid="S-p2" data-topic="S" data-title="Practice 2" data-src="MATH1342 notes p. 7, part 2 · set up only (redo it)" data-prompt="Same region as practice 1 (between y = 4x - x^2 and y = 3), rotated about the line x = 4. Set up and evaluate the volume." data-help="Type r in terms of x. The volume can be exact or a decimal.">
+      <div class="p-body">The same region, between $y=4x-x^2$ and $y=3$, is rotated about the line $x=4$. Find $r$ and the volume.</div>
+      <div class="answers">
+        <label>$r(x)=$ <input class="ans" data-label="r" data-vid="S-p2-r" data-kind="expr" data-var="x" data-answer="4-x" data-dom="1.2,2.8" data-show="4 − x" data-wrong='[{"f":"x","m":"That’s the distance from the y-axis. Careful: for this particular region it still gives the right total, because the y-axis and x = 4 are mirror images in the line x = 2. But it is the wrong r."},{"f":"x-4","m":"Negative on (1, 3). A radius is a distance: the region is left of the axis, so 4 − x."}]'></label>
+        <label>Volume <input class="ans" data-vid="S-p2" data-answer="16.755160819146" data-exact="16π/3" data-wrong='[{"v":-16.755160819146,"m":"Negative: r = x − 4 is negative on [1, 3]. Use the distance 4 − x."}]'></label>
+      </div>
+      <div class="hint">The region is to the left of $x=4$, so the distance from the axis to the strip is the larger minus the smaller.</div>
+      <div class="hint">$h=4x-x^2-3$ again, and the limits are still 1 and 3.</div>
+      <div class="solution"><p>$V=\int_1^32\pi(4-x)(4x-x^2-3)\,dx$. With $w=x-1$: $4-x=3-w$ and $4x-x^2-3=w(2-w)$, so $V=2\pi\int_0^2(3-w)(2w-w^2)\,dw=2\pi\int_0^2\big(6w-5w^2+w^3\big)\,dw=2\pi\big(12-\frac{40}3+4\big)=2\pi\cdot\frac83=\frac{16\pi}3\approx16.755$.</p>
+        <p style="margin:0"><b>Notice two things.</b> It's exactly twice the axis-$x=1$ answer ($\frac{8\pi}3$), because the strips are twice as far away on average. And the <em>wrong</em> radius $r=x$ also gives $\frac{16\pi}3$ here, by symmetry about $x=2$. That's luck, which is why this problem asks for $r$ itself.</p></div>
+    </div>
+
+    <div class="problem" data-pid="S-p3" data-topic="S" data-title="Practice 3" data-src="MATH1342 notes p. 8, part 2 · set up only (redo it)" data-prompt="Let S be the region between y = x^2 + 1 and y = -x + 3. Set up and evaluate the volume of the solid obtained by rotating S about the line x = 5." data-help="Limits are numbers. h is in terms of x. The volume can be exact or a decimal.">
+      <div class="p-body">Let $S$ be the region between $y=x^2+1$ and $y=-x+3$. Find the volume of the solid obtained by rotating $S$ about the line $x=5$.</div>
+      <div class="answers">
+        <label>left limit <input class="ans" data-label="a" data-vid="S-p3-a" data-answer="-2" data-exact="−2"></label>
+        <label>right limit <input class="ans" data-label="b" data-vid="S-p3-b" data-answer="1" data-exact="1"></label>
+        <label>$h(x)=$ <input class="ans" data-label="h" data-vid="S-p3-h" data-kind="expr" data-var="x" data-answer="-x^2-x+2" data-dom="-1.8,0.8" data-show="−x² − x + 2" data-wrong='[{"f":"-x+3","m":"That’s the top curve only. Subtract the bottom curve, x² + 1."}]'></label>
+        <label>Volume <input class="ans" data-vid="S-p3" data-answer="155.508836352695" data-exact="99π/2" data-wrong='[{"v":376.991118430775,"m":"That uses h = −x + 3 only (120π). The strip runs from the parabola up to the line: h = (−x + 3) − (x² + 1)."}]'></label>
+      </div>
+      <div class="hint">Set $x^2+1=-x+3$, so $x^2+x-2=0$ and $(x-1)(x+2)=0$.</div>
+      <div class="hint">At $x=0$ the line is at 3 and the parabola at 1, so the line is on top. The region is left of $x=5$, so $r=5-x$.</div>
+      <div class="solution">$V=\int_{-2}^{1}2\pi(5-x)(-x^2-x+2)\,dx=2\pi\big(5\cdot\frac92+\frac94\big)=2\pi\cdot\frac{99}4=\frac{99\pi}2\approx155.51$. (Here $\int_{-2}^1(-x^2-x+2)\,dx=\frac92$ and $\int_{-2}^1x(-x^2-x+2)\,dx=-\frac94$.) The intersection points are $(-2,5)$ and $(1,2)$.</div>
+    </div>
+
+    <div class="problem" data-pid="S-p4" data-topic="S" data-title="Practice 4" data-src="MATH1342 notes p. 9, part 1 · set up only (redo it)" data-prompt="Let S be the region between y = x^2 + 1 and y = sqrt(8x) + 1. Set up and evaluate the volume of the solid obtained by rotating S about the line x = -2." data-help="r and h are in terms of x; use sqrt(8*x). The volume can be exact (232pi/15) or a decimal.">
+      <div class="p-body">Let $S$ be the region between $y=x^2+1$ and $y=\sqrt{8x}+1$. Find the volume of the solid obtained by rotating $S$ about the line $x=-2$.</div>
+      <div class="answers">
+        <label>$r(x)=$ <input class="ans" data-label="r" data-vid="S-p4-r" data-kind="expr" data-var="x" data-answer="x+2" data-dom="0.1,1.9" data-show="x + 2" data-wrong='[{"f":"x","m":"That’s the distance from the y-axis. The axis is x = −2, to the left of the region."},{"f":"x-2","m":"That would be the distance from x = 2. The axis is x = −2, so the distance is x − (−2) = x + 2."}]'></label>
+        <label>$h(x)=$ <input class="ans" data-label="h" data-vid="S-p4-h" data-kind="expr" data-var="x" data-answer="sqrt(8*x)-x^2" data-dom="0.1,1.9" data-show="√(8x) − x²" data-wrong='[{"f":"sqrt(8*x)+1","m":"That’s the top curve only. Subtract the bottom curve, x² + 1."}]'></label>
+        <label>Volume <input class="ans" data-vid="S-p4" data-answer="48.589966375522" data-exact="232π/15" data-wrong='[{"v":15.079644737231,"m":"That is the answer with r = x (24π/5), measured from the y-axis. The axis is x = −2: r = x + 2."}]'></label>
+      </div>
+      <div class="hint">The curves meet where $x^2=\sqrt{8x}$, so $x^4=8x$ and $x(x^3-8)=0$: $x=0$ or $x=2$.</div>
+      <div class="hint">On $(0,2)$, $\sqrt{8x}>x^2$ (try $x=1$: $2.83>1$), so the square-root curve is on top. The $+1$ cancels in $h$.</div>
+      <div class="solution">
+        <p>$V=\int_0^22\pi(x+2)\big(\sqrt{8x}-x^2\big)\,dx=2\pi\big(\frac{12}5+2\cdot\frac83\big)=2\pi\cdot\frac{116}{15}=\frac{232\pi}{15}\approx48.59$. (Here $\int_0^2(\sqrt{8x}-x^2)\,dx=\frac83$ and $\int_0^2x(\sqrt{8x}-x^2)\,dx=\frac{12}5$.)</p>
+        <div class="callout discrepancy" style="margin:8px 0 0"><div class="label">⚠ Discrepancy in the notes (p. 9)</div><p class="small" style="margin:0">The intersection work on notes p. 9 writes “$x=0\to y=0$”. It should be $y=0^2+1=1$; the sketch on the same page correctly labels $(0,1)$. The $x=2\to y=5$ is right. The limits (0 and 2) and the integrals are unaffected. Checked with SymPy and Wolfram.</p></div>
+      </div>
+    </div>
+
+    <div class="problem" data-pid="S-p5" data-topic="S" data-title="Practice 5" data-src="Textbook §3.5 Suggested Ex. 3 · uses integration by parts" data-prompt="Find the volume obtained by revolving the region below y = sin x and above the x-axis on [0, pi] about the y-axis." data-help="Exact (e.g. 2pi^2) or decimals.">
+      <div class="p-body">Find the volume obtained by revolving the region below $y=\sin x$ and above the $x$-axis, for $0\le x\le\pi$, about the $y$-axis.</div>
+      <div class="answers"><label>Volume <input class="ans" data-vid="S-p5" data-answer="19.739208802179" data-exact="2π²" data-wrong='[{"v":12.566370614359,"m":"That is ∫2π sin x dx = 4π: the radius r = x is missing."},{"v":9.869604401089,"m":"The 2 in 2π is missing: π∫x sin x dx = π²."}]'></label></div>
+      <div class="hint">The strip at $x$ is vertical with $r=x$ and $h=\sin x$ (the region sits on the $x$-axis).</div>
+      <div class="hint">$V=2\pi\int_0^\pi x\sin x\,dx$. A product of $x$ and $\sin x$: integration by parts (notes pp. 7–12).</div>
+      <div class="solution">$\int_0^\pi x\sin x\,dx=\big[-x\cos x+\sin x\big]_0^\pi=\pi$ (with $u=x$, $dv=\sin x\,dx$), so $V=2\pi\cdot\pi=2\pi^2\approx19.74$. Washers would need $x$ as a function of $y$, with two branches ($\pi-\sin^{-1}y$ and $\sin^{-1}y$).</div>
+    </div>
+
+    <div class="problem" data-pid="S-p6" data-topic="S" data-title="Practice 6" data-src="Textbook §3.5 Suggested Ex. 4(b)" data-prompt="Let B be the region bounded by y = x^(1/4), y = 1 and x = 0. Find the volume of the solid obtained by revolving B about the y-axis, using shells." data-help="Exact (e.g. pi/9) or decimals.">
+      <div class="p-body">Let $B$ be the region bounded by $y=\sqrt[4]{x}$, $y=1$ and $x=0$. Find the volume of the solid obtained by revolving $B$ about the $y$-axis, using shells. (The washer topic found the same volume with horizontal slices, in Practice 8(b).)</div>
+      <div class="answers"><label>Volume <input class="ans" data-vid="S-p6" data-answer="0.349065850399" data-exact="π/9" data-wrong='[{"v":1.256637061436,"m":"That is ∫2π(1 − x^(1/4)) dx = 2π/5: the radius r = x is missing."}]'></label></div>
+      <div class="hint">For $0\le x\le1$ the strip at $x$ runs from $y=\sqrt[4]x$ up to $y=1$, so $h=1-x^{1/4}$.</div>
+      <div class="hint">$r=x$, so $V=2\pi\int_0^1x\big(1-x^{1/4}\big)\,dx$.</div>
+      <div class="solution">$2\pi\int_0^1\big(x-x^{5/4}\big)\,dx=2\pi\big(\frac12-\frac49\big)=2\pi\cdot\frac1{18}=\frac\pi9\approx0.3491$, the same as the washers answer $\pi\int_0^1y^8\,dy=\frac\pi9$ ✓.</div>
+    </div>
+
+    <div class="problem" data-pid="S-p7" data-topic="S" data-title="Practice 7" data-src="Textbook §3.5 Suggested Ex. 6 · uses u-substitution" data-prompt="Consider the region bounded by y = sin(x^2) and the x-axis for 0 &lt;= x &lt;= sqrt(pi). Find the volume of the solid obtained by revolving it about the y-axis." data-help="Exact (e.g. 2pi) or decimals.">
+      <div class="p-body">The region is bounded by $y=\sin(x^2)$ and the $x$-axis, for $0\le x\le\sqrt\pi$. Find the volume of the solid obtained by revolving it about the $y$-axis.</div>
+      <div class="answers"><label>Volume <input class="ans" data-vid="S-p7" data-answer="6.283185307180" data-exact="2π" data-wrong='[{"v":3.141592653590,"m":"The 2 in 2π is missing: π∫x sin(x²) dx = π."}]'></label></div>
+      <div class="hint">$r=x$ and $h=\sin(x^2)$, so $V=2\pi\int_0^{\sqrt\pi}x\sin(x^2)\,dx$.</div>
+      <div class="hint">There's an inside/derivative pair: $u=x^2$, $du=2x\,dx$ (notes pp. 3–6). The limits become $0$ and $\pi$.</div>
+      <div class="solution">$2\pi\int_0^{\sqrt\pi}x\sin(x^2)\,dx=2\pi\cdot\frac12\int_0^{\pi}\sin u\,du=\pi\cdot2=2\pi\approx6.283$. With washers you'd have to solve $y=\sin(x^2)$ for $x$, and the curve rises and falls on $[0,\sqrt\pi]$: shells are the easy route here.</div>
+    </div>
+
+    <div class="problem" data-pid="S-p8" data-topic="S" data-title="Practice 8" data-src="Textbook §3.5 Suggested Ex. 8(b) · set up, then evaluate" data-prompt="Let S be the region between the curves y = -x^2 + 7x and y = x^2 + 3. Find the volume of the solid obtained by revolving S about the y-axis." data-help="Exact (e.g. 875pi/48) or decimals.">
+      <div class="p-body">Let $S$ be the region between the curves $y=-x^2+7x$ and $y=x^2+3$. Find the volume of the solid obtained by revolving $S$ about the $y$-axis. (The textbook asks only for the set-up; evaluate it here.)</div>
+      <div class="answers">
+        <label>left limit <input class="ans" data-label="a" data-vid="S-p8-a" data-answer="0.5" data-exact="1/2"></label>
+        <label>right limit <input class="ans" data-label="b" data-vid="S-p8-b" data-answer="3" data-exact="3"></label>
+        <label>Volume <input class="ans" data-vid="S-p8" data-answer="57.268616081064" data-exact="875π/48" data-wrong='[{"v":266.871750937758,"m":"That uses h = −x² + 7x only (the top curve). Subtract the bottom curve x² + 3: h = −2x² + 7x − 3."}]'></label>
+      </div>
+      <div class="hint">Set $-x^2+7x=x^2+3$: $2x^2-7x+3=0$, so $(2x-1)(x-3)=0$.</div>
+      <div class="hint">The parabola $-x^2+7x$ is on top between the intersection points. $h=-2x^2+7x-3$ and $r=x$.</div>
+      <div class="solution">$V=2\pi\int_{1/2}^{3}x\big(-2x^2+7x-3\big)\,dx=2\pi\Big[-\frac{x^4}2+\frac{7x^3}3-\frac{3x^2}2\Big]_{1/2}^{3}=2\pi\Big(9+\frac{11}{96}\Big)=\frac{875\pi}{48}\approx57.27$.</div>
+    </div>
+
+    <div class="problem" data-pid="S-p9" data-topic="S" data-title="Practice 9" data-src="Textbook §3.5 Additional Ex. 9(b) · the notes' region, a third axis" data-prompt="Let B be the region bounded by y = 4x - x^2 and y = 3. Find the volume of the solid obtained by revolving B about the line x = 5." data-help="Exact (e.g. 8pi) or decimals.">
+      <div class="p-body">Let $B$ be the region bounded by $y=4x-x^2$ and $y=3$ (the region of notes p. 7). Find the volume of the solid obtained by revolving $B$ about the line $x=5$.</div>
+      <div class="answers"><label>Volume <input class="ans" data-vid="S-p9" data-answer="25.132741228718" data-exact="8π" data-wrong='[{"v":16.755160819146,"m":"That is the answer with r = x (16π/3), measured from the y-axis. Here r = 5 − x."}]'></label></div>
+      <div class="hint">The region is left of $x=5$, so $r=5-x$. The height is $4x-x^2-3$ and the limits are 1 and 3.</div>
+      <div class="solution">$V=2\pi\int_1^3(5-x)(4x-x^2-3)\,dx=2\pi\int_0^2(4-w)\,w(2-w)\,dw=2\pi\big(16-16+4\big)=8\pi\approx25.13$. <b>The pattern:</b> axes $x=1$, $x=4$, $x=5$ give $\frac{8\pi}3$, $\frac{16\pi}3$, $8\pi$. Measured from the region's middle line $x=2$, the axes are 1, 2 and 3 units away, and the volume is $\frac{8\pi}{3}$ per unit of distance.</div>
+    </div>
+
+    <div class="problem" data-pid="S-p10" data-topic="S" data-title="Practice 10" data-src="Textbook §3.5 Suggested Ex. 7(a) · set up, then evaluate" data-prompt="Let S be the region between the curves y = 3x - x^2 and y = x. Find the volume of the solid obtained by revolving S about the line x = 4." data-help="r and h in terms of x. The volume can be exact or a decimal.">
+      <div class="p-body">Let $S$ be the region between the curves $y=3x-x^2$ and $y=x$. Find the volume of the solid obtained by revolving $S$ about the line $x=4$. (The textbook asks only for the set-up.)</div>
+      <div class="answers">
+        <label>$r(x)=$ <input class="ans" data-label="r" data-vid="S-p10-r" data-kind="expr" data-var="x" data-answer="4-x" data-dom="0.2,1.8" data-show="4 − x" data-wrong='[{"f":"x","m":"That’s the distance from the y-axis. The axis is x = 4."}]'></label>
+        <label>$h(x)=$ <input class="ans" data-label="h" data-vid="S-p10-h" data-kind="expr" data-var="x" data-answer="2*x-x^2" data-dom="0.2,1.8" data-show="2x − x²" data-wrong='[{"f":"3*x-x^2","m":"That’s the top curve only. Subtract the bottom curve y = x."}]'></label>
+        <label>Volume <input class="ans" data-vid="S-p10" data-answer="25.132741228718" data-exact="8π" data-wrong='[{"v":8.377580409573,"m":"That is the answer with r = x (8π/3). The axis is x = 4: r = 4 − x."}]'></label>
+      </div>
+      <div class="hint">The curves meet where $3x-x^2=x$, so $x(2-x)=0$: $x=0$ and $x=2$. The parabola is on top.</div>
+      <div class="solution">$V=2\pi\int_0^2(4-x)(2x-x^2)\,dx=2\pi\int_0^2\big(8x-6x^2+x^3\big)\,dx=2\pi\big[4x^2-2x^3+\frac{x^4}4\big]_0^2=2\pi\cdot4=8\pi\approx25.13$.</div>
+    </div>
+  </div>
+
+  <!-- ============================== 7 MASTER -->
+  <div class="stage" id="S-master">
+    <div class="stage-head"><span class="n">Stage 7 · Master</span><h3>Mastery check</h3></div>
+    <p class="muted">No hints are offered until you've committed to an answer. This checks recognition, understanding, unfamiliar problems, and whether you can explain why.</p>
+    <div class="mcq" data-qid="S-m1" data-topic="S" data-level="1" data-count data-multi data-multimsg="At least one choice is off. Ask whether the strip at x is parallel to the axis (a shell, for a vertical axis) or perpendicular to it (a washer, for a horizontal axis). Every integral in the notes is in x.">
+      <div class="q"><b>Recognition.</b> You'll integrate in $x$. For which of these is the right set-up <b>shells</b>? Select all that apply.</div>
+      <div class="opts cols-2">
+        <button class="opt" data-correct>the region under $y=x-x^2$, spun about the $y$-axis (notes p. 5)</button>
+        <button class="opt">the region between $y=x^2+1$ and $y=\sqrt{8x}+1$, spun about $y=1$ (notes p. 9)</button>
+        <button class="opt" data-correct>the region between $y=4x-x^2$ and $y=3$, spun about $x=4$ (notes p. 7)</button>
+        <button class="opt">the region between $y=x^2$ and $x=y^2$, spun about $y=-2$ (notes p. 4)</button>
+        <button class="opt" data-correct>the region between $y=x^2+1$ and $y=-x+3$, spun about $x=5$ (notes p. 8)</button>
+        <button class="opt" data-correct>the region under $y=\sin(x^2)$ for $0\le x\le\sqrt\pi$, spun about the $y$-axis</button>
+      </div>
+      <div class="why callout why"><div class="label">Why</div><p style="margin:0">A strip at $x$ is vertical. If the axis is vertical, the strip is parallel to it and spins into a shell: the first, third, fifth and sixth. If the axis is horizontal ($y=1$ and $y=-2$), the strip is perpendicular to it and spins into a washer, as on notes pp. 4 and 9. (The sixth would need $x$ in terms of $y$ with washers.)</p></div>
+    </div>
+    <div class="mcq" data-qid="S-m2" data-topic="S" data-level="2" data-count>
+      <div class="q"><b>Understanding.</b> A region lies between $x=2$ and $x=3$ and is spun about the $y$-axis. If instead you spun it about the line $x=-5$, the shells would be… and the volume…</div>
+      <div class="opts">
+        <button class="opt" data-correct data-why="Right: r = x + 5 instead of x, so every shell has a larger circumference 2πr and the same height, so each one holds more volume.">wider (each radius is 5 larger), so the volume is larger</button>
+        <button class="opt" data-why="The height h belongs to the strip, and the strip hasn't changed. Only the distance to the axis changes.">taller, so the volume is larger</button>
+        <button class="opt" data-why="The same region makes a different solid around a different axis: the radii change, so the volume changes.">the same, because the region is the same</button>
+        <button class="opt" data-why="A farther axis doesn't shrink anything: the strips are farther from it, so the shells are bigger.">smaller, because the axis is farther away</button>
+      </div>
+    </div>
+    <div class="problem" data-pid="S-m3" data-topic="S" data-level="6" data-title="Unfamiliar problem" data-src="Textbook §3.5 Additional Ex. 17 · combines §2.5 and u-substitution" data-help='A number, or "diverges".' data-prompt="Let g(x) = e^(-x^2) for x in [0, infinity). Find the volume, if it exists, obtained by revolving the region below the graph of g and above the x-axis about the y-axis.">
+      <div class="p-body">The region under $y=e^{-x^2}$ for $x\ge0$ is revolved about the $y$-axis. Find the volume of the resulting infinitely wide solid, or show that it's infinite.</div>
+      <div class="answers"><label>Volume <input class="ans" data-accept="div" data-vid="S-m3" data-answer="3.141592653590" data-exact="π" data-convmsg="The volume is 2π∫ from 0 to b of x e^(−x²) dx = π(1 − e^(−b²)). What happens as b → ∞?" data-wrong='[{"v":1.570796326795,"m":"The 2 in 2π is missing: π∫x e^(−x²) dx = π/2."}]'></label></div>
+      <div class="hint">Shells: $r=x$ and $h=e^{-x^2}$, so $V=2\pi\int_0^\infty xe^{-x^2}\,dx$. The integral is improper (Type I).</div>
+      <div class="hint">Replace $\infty$ by $b$. Substitute $u=-x^2$, $du=-2x\,dx$.</div>
+      <div class="solution">$2\pi\lim_{b\to\infty}\int_0^bxe^{-x^2}\,dx=2\pi\lim_{b\to\infty}\frac{1-e^{-b^2}}2=\pi\approx3.1416$. The solid is infinitely wide but has a finite volume. Washers would need $x=\sqrt{-\ln y}$ for $0<y\le1$, which also works, but shells are shorter.</div>
+    </div>
+    <div class="problem" data-pid="S-m4" data-topic="S" data-level="6" data-title="Unfamiliar problem" data-src="A formula you may know, derived" data-help="Exact (e.g. 6pi^2) or decimals." data-prompt="Use cylindrical shells to find the volume of the torus (doughnut) obtained by revolving the disk (x - 3)^2 + y^2 &lt;= 1 about the y-axis.">
+      <div class="p-body">The disk $(x-3)^2+y^2\le1$ is revolved about the $y$-axis, making a doughnut (a torus). Use shells to find its volume.</div>
+      <div class="answers"><label>Volume <input class="ans" data-vid="S-m4" data-answer="59.217626406536" data-exact="6π²" data-wrong='[{"v":29.608813203268,"m":"That is 3π²: h was taken as √(1 − (x − 3)²), the upper half only. The strip runs from the bottom of the circle to the top: h = 2√(1 − (x − 3)²)."}]'></label></div>
+      <div class="hint">The disk spans $2\le x\le4$. The strip at $x$ runs from $y=-\sqrt{1-(x-3)^2}$ to $y=+\sqrt{1-(x-3)^2}$, so $h=2\sqrt{1-(x-3)^2}$, and $r=x$.</div>
+      <div class="hint">$V=2\pi\int_2^4x\cdot2\sqrt{1-(x-3)^2}\,dx$. Shift by $u=x-3$, so $x=u+3$.</div>
+      <div class="hint">$\int_{-1}^{1}(u+3)\sqrt{1-u^2}\,du$: the $u\sqrt{1-u^2}$ part is odd, and $\int_{-1}^1\sqrt{1-u^2}\,du$ is the area of a half-disk of radius 1.</div>
+      <div class="solution">$V=4\pi\int_{-1}^{1}(u+3)\sqrt{1-u^2}\,du=4\pi\Big(0+3\cdot\frac\pi2\Big)=6\pi^2\approx59.22$. This matches the doughnut rule $V=(\text{area})\times(\text{distance travelled by the centre})=\pi(1)^2\cdot2\pi(3)=6\pi^2$ ✓, which is a nice geometric check.</div>
+    </div>
+    <div class="explain card" data-eid="S-explain" data-topic="S">
+      <h4>Explain why (Level 7)</h4>
+      <p>Why is the volume of a thin shell about $2\pi r\,h\,\Delta x$? And why does your professor use shells for a vertical axis but washers for a horizontal one?</p>
+      <textarea aria-label="Your explanation"></textarea>
+      <div class="model callout why"><div class="label">A model explanation</div><p style="margin:0">Take a thin vertical strip of the region at distance $r$ from the axis, of height $h$ and width $\Delta x$, and spin it around the axis. It sweeps out a thin hollow cylinder. Cut it down one side and unroll it: it's nearly a box with length $2\pi r$ (the circumference), height $h$ and thickness $\Delta x$, so its volume is about $2\pi r\,h\,\Delta x$ (MATH1342 notes p. 6). Exactly, it's a big cylinder minus a small one, $\pi(r+\Delta x)^2h-\pi r^2h=2\pi(r+\frac{\Delta x}2)h\,\Delta x$, so the error vanishes as $\Delta x\to0$. Adding the shells gives $\int_a^b2\pi rh\,dx$. As for the pairing: the professor integrates in $x$ throughout, so the strip at $x$ is vertical. If the axis is vertical, that strip is parallel to it, so it makes a shell. If the axis is horizontal, the strip is perpendicular to it, so it makes a washer. That's a pattern in the notes rather than a stated rule: either method can handle either axis, but then you'd integrate in $y$.</p></div>
+    </div>
+  </div>
+</section>

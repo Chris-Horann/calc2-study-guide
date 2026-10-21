@@ -1,0 +1,456 @@
+<section id="W" class="topic">
+  <div class="topic-banner">
+    <div class="topic-letter sec" aria-hidden="true">3.9</div>
+    <div><h2>Work</h2>
+    <div class="sources">3.7–3.9 notes pp. 14–24 · Textbook §3.9 (Definition 3.9.1; Proposition 3.9.3; Theorem 3.9.7; Examples 3.9.5, 3.9.8, 3.9.13–3.9.16; Suggested Ex. 5–7; Additional Ex. 1, 7, 9)</div></div>
+  </div>
+  <nav class="stagebar" data-topic="W" aria-label="Stages in §3.9 (work)">
+    <a href="#W-learn"><span class="n">1</span>Learn</a><a href="#W-understand"><span class="n">2</span>Understand</a><a href="#W-explore"><span class="n">3</span>Explore</a><a href="#W-attempt"><span class="n">4</span>Attempt</a><a href="#W-compare"><span class="n">5</span>Compare</a><a href="#W-practice"><span class="n">6</span>Practice</a><a href="#W-master"><span class="n">7</span>Master</a>
+  </nav>
+
+  <!-- ============================== 1 LEARN -->
+  <div class="stage" id="W-learn">
+    <div class="stage-head"><span class="n">Stage 1 · Learn</span><h3>The big idea</h3></div>
+    <div class="callout big">
+      <div class="label">Big idea</div>
+      <p><b>Work = force × distance</b>, $W=Fd$, “when the quantities are constants” (3.7–3.9 notes p. 14). Lift a 100 lb rope 50 ft and you do $5000$ ft-lb of work. Calculus is needed when something <em>isn't</em> constant, and in your notes that happens in two different ways:</p>
+      <ul style="margin:0">
+        <li><b>The force changes as the object moves.</b> A spring pulls harder the more you stretch it; a leaking bucket gets lighter on the way up. Cut the <em>path</em> into short steps, use $F\cdot\Delta x$ on each, and add: $W=\int_a^bF(x)\,dx$ (notes p. 20).</li>
+        <li><b>Different pieces of the object move different distances.</b> Pull a hanging rope onto a roof and the bottom of the rope travels 50 ft while the top barely moves; pump out a tank and the water at the bottom rises farthest. Cut the <em>object</em> into slices, use (weight of slice) × (distance it rises) on each, and add (notes pp. 16–19).</li>
+      </ul>
+    </div>
+    <div class="card tight">
+      <div class="small muted" style="margin-bottom:6px"><b>What to notice:</b> it's the same 100 lb rope in both pictures. When a helicopter lifts it, every piece rises the full 50 ft, so $W=Fd=5000$ ft-lb with no integral (notes p. 15). When it's pulled onto a roof, the piece at height $y$ only rises $50-y$ ft, so you slice: $W=\int_0^{50}2(50-y)\,dy=2500$ ft-lb (notes p. 16), exactly half.</div>
+      <div data-fig="ropes"></div>
+    </div>
+    <div class="grid-2">
+      <div class="callout why">
+        <div class="label">An everyday version</div>
+        <p style="margin:0">Carry a box of books up two flights of stairs and you've done twice the work of one flight. Now empty a full bathtub with a bucket over its rim: the first buckets from the top barely need lifting, the last ones from the bottom need the full height. Each bucketful is a “slice”: its weight times how far <em>it</em> goes.</p>
+      </div>
+      <div class="callout">
+        <div class="label">Three questions to ask every time</div>
+        <ol style="margin:0">
+          <li><b>What isn't constant?</b> The force along the path (∫F dx), or the distance for different pieces (slice the object)?</li>
+          <li><b>For one piece: what force, and what distance?</b> A slice's weight is density × volume, × 9.8 if the density is in kg/m³. Its distance is (where it goes) − (where it is).</li>
+          <li><b>What are the limits, and the units?</b> Integrate over where the stuff actually is (the water's depth, not the tank's height). Answers come in ft-lb or J.</li>
+        </ol>
+      </div>
+    </div>
+    <label class="toggle"><input type="checkbox" data-self="W"> I can explain when work needs an integral, and the difference between integrating along the path (springs, buckets) and slicing the object (ropes, tanks).</label>
+  </div>
+
+  <!-- ============================== 2 UNDERSTAND -->
+  <div class="stage" id="W-understand">
+    <div class="stage-head"><span class="n">Stage 2 · Understand</span><h3>What it's built from, and why it works</h3></div>
+    <div class="grid-2">
+      <div class="card tight">
+        <h4>Prerequisite map</h4>
+        <div class="tree"><ul><li class="root">Work
+          <ul>
+            <li>$W=Fd$ and its units<br><span class="qc">Quick check: lift 20 lb through 3 ft. <details class="qcheck"><summary>show</summary>$60$ ft-lb. In metric, newtons × metres = joules.</details></span></li>
+            <li>Weight = mass × $g$<br><span class="qc">Quick check: what does 5 kg weigh? <details class="qcheck"><summary>show</summary>$5\cdot9.8=49$ N. A density in lb/ft³ is already a weight: no 9.8.</details></span></li>
+            <li><a href="#V-understand">A slab's volume (§3.5)</a>: area × thickness<br><span class="qc">Quick check: a 5 m × 5 m slab of water 0.1 m thick? <details class="qcheck"><summary>show</summary>$25\cdot0.1=2.5$ m³, so $2500$ kg, weighing $24{,}500$ N.</details></span></li>
+            <li>Similar triangles<br><span class="qc">Quick check: a cone, vertex down, is 12 m tall with top radius 5 m. Its radius at height 6? <details class="qcheck"><summary>show</summary>$\frac{r}{5}=\frac{6}{12}$, so $r=2.5$ m. In general $r=\frac5{12}y$ (notes p. 18).</details></span></li>
+            <li>Hooke's law: $x$ is the stretch beyond natural length<br><span class="qc">Quick check: natural length 10 in, stretched to 14 in. $x=$? <details class="qcheck"><summary>show</summary>$4$ in, which is $\frac13$ ft (notes p. 21).</details></span></li>
+          </ul></li></ul></div>
+      </div>
+      <div class="card tight">
+        <h4>Two ways to slice <span class="small muted">(3.7–3.9 notes pp. 16, 20)</span></h4>
+        $$\text{along the path: }\ \sum_{i=1}^{n}F(x_i)\,\Delta x\ \longrightarrow\ \int_a^bF(x)\,dx$$
+        $$\text{across the object: }\ \sum_{i=1}^{n}\underbrace{(\text{weight of slice }i)}_{\text{e.g. }2\,\Delta y}\cdot\underbrace{(\text{distance it rises})}_{\text{e.g. }50-y_i}\ \longrightarrow\ \int_0^{50}2(50-y)\,dy$$
+        <p class="small" style="margin:6px 0 0">On a short step the force is nearly constant (the professor's green “$F\cdot d$” under $f(x_i)\Delta x$ on p. 20). On a thin slice, every bit of it rises the same distance. Either way $W=Fd$ is true for each piece, and the integral adds the pieces.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>Why the slice's weight is “density × 9.8 × volume” in metric, but not in feet and pounds</h4>
+      <p>The professor's steps on p. 17: $F_{\text{slice}}=M_{\text{slice}}\times9.8=\delta V_{\text{slice}}\times9.8=1000\cdot\Delta y\cdot5^2\cdot9.8$. Water's density 1000 kg/m³ is a <b>mass</b> per volume, so to get a force (newtons) you multiply by $g=9.8$ m/s².</p>
+      <p style="margin:0">On p. 19 the liquid “weighs 75 lb/ft³”. That's a <b>weight</b> per volume already (pounds are a force), so $F_{\text{slice}}=75\cdot\pi r^2\Delta y$ with no 9.8 and no 32. The units decide it: kg needs × 9.8 to become N; lb is already a force.</p>
+    </div>
+
+    <div class="card">
+      <h4>A check you already know from §3.8</h4>
+      <p style="margin:0">For slicing problems, the total work equals <b>(total weight) × (how far the center of mass rises)</b> (textbook after Example 3.9.15). The rope on p. 16 weighs 100 lb and its center of mass rises from 25 ft to 50 ft: $100\times25=2500$ ✓. The water on p. 17 weighs $1000\cdot9.8\cdot225=2{,}205{,}000$ N, and its center of mass rises from 4.5 m to the spout at 14 m: $2{,}205{,}000\times9.5=20{,}947{,}500$ J ✓. It's a great check, but the integral is the method: for a cone you'd need the center of mass first, which is an integral anyway.</p>
+    </div>
+
+    <div class="formula-card">
+      <div class="fc-title">Work done by a variable force <span>3.7–3.9 notes p. 20 · textbook Prop. 3.9.3</span></div>
+      $$W=\int_{\htmlClass{fp fp-3}{a}}^{\htmlClass{fp fp-3}{b}}\htmlClass{fp fp-1}{F(x)}\,\htmlClass{fp fp-2}{dx}$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="The <b>force</b> when the object is at position x: kx for a spring (Hooke’s law), the bucket’s current weight for the leaky bucket.">F(x): force at position x</button>
+        <button class="fp-chip" data-part="2" data-explain="A tiny <b>step</b> along the path. Force × step = the work for that step (“F · d”, notes p. 20).">dx: a small step</button>
+        <button class="fp-chip" data-part="3" data-explain="<b>Where the motion starts and ends.</b> For a spring, measured from its natural length: from 0 to 1/2 ft, or 0 to −2 m when compressing.">a, b: start and end</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+      <div class="fc-meta">
+        <div><b>When it applies</b>One object moves along a line and the force on it changes with its position. Springs: $F(x)=kx$ (notes p. 20). The leaky bucket: $F$ as a function of height (p. 23).</div>
+        <div><b>Watch out</b>The force must be written in terms of the <em>position</em>. The bucket's weight is given per second, so convert with $y=2t$ first.</div>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <div class="fc-title">Pumping a liquid out of a tank <span>3.7–3.9 notes pp. 17–19 · textbook Examples 3.9.15–3.9.16</span></div>
+      $$W=\int_0^{h}\htmlClass{fp fp-1}{\delta g}\;\htmlClass{fp fp-2}{A(y)}\;\htmlClass{fp fp-3}{(D-y)}\,dy$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="The <b>weight per volume</b>: density × 9.8 for kg/m³ (giving N/m³), or just the given number for lb/ft³ (already a weight).">δg: weight per volume</button>
+        <button class="fp-chip" data-part="2" data-explain="The <b>cross-section area</b> of the slice at height y: 5² for the square tank, π r(y)² for a cone, with r(y) from similar triangles.">A(y): slice area</button>
+        <button class="fp-chip" data-part="3" data-explain="The <b>distance the slice rises</b>: from height y to the destination D, the top of the tank or a spout above it (14 − y on notes p. 17).">D − y: lift distance</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+      <div class="fc-meta">
+        <div><b>When it applies</b>A liquid fills a tank up to depth $h$ and is pumped out over the top (or a spout). $y$ is measured up from the bottom.</div>
+        <div><b>Watch out</b>The limits are where the liquid <em>is</em>, $0$ to $h$, not the tank's full height. The distance goes to the spout if there is one.</div>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <div class="fc-title">Hooke's law <span>3.7–3.9 notes p. 20 (green)</span></div>
+      $$\htmlClass{fp fp-1}{F(x)}=\htmlClass{fp fp-2}{k}\,\htmlClass{fp fp-3}{x}\qquad\Longrightarrow\qquad W=\int_0^{d}kx\,dx=\tfrac12kd^2$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="The <b>force you must apply</b> to hold the spring stretched or compressed x units (notes p. 20). The textbook writes the spring’s own force, −kx, which is equal and opposite.">F(x): force needed</button>
+        <button class="fp-chip" data-part="2" data-explain="The <b>spring constant</b>, k &gt; 0, in N/m or lb/ft. Find it from one known force and stretch: k = F/x.">k: spring constant</button>
+        <button class="fp-chip" data-part="3" data-explain="The <b>stretch (or compression) beyond the natural length</b>, not the total length. x &lt; 0 for compression.">x: stretch</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+      <div class="fc-meta">
+        <div><b>When it applies</b>A spring stretched or compressed from its natural length (equilibrium, $x=0$).</div>
+        <div><b>Watch out</b>Convert units before finding $k$ (notes p. 21: 4 inches is $\frac13$ ft). $W\ne F\cdot d$ with the final force: the force grows from 0, which is where the $\frac12$ comes from.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>Recognition: what kind of work problem is it?</h4>
+      <div class="table-scroll"><table>
+        <thead><tr><th>You notice…</th><th>So you…</th></tr></thead>
+        <tbody>
+          <tr><td>A constant force moves an object a fixed distance, or the whole object moves the same distance</td><td>$W=Fd$, no integral (notes p. 15).</td></tr>
+          <tr><td>A spring, “natural length”, “equilibrium”</td><td>Hooke's law $F=kx$. Find $k$ from the given data, then $W=\int kx\,dx$ (notes pp. 21–22).</td></tr>
+          <tr><td>A force that changes along the way, given as a function</td><td>$W=\int_a^bF(x)\,dx$ (notes p. 20).</td></tr>
+          <tr><td>A hanging rope or chain pulled up</td><td>Slice the rope: weight per foot × $\Delta y$ × distance to the top (notes p. 16).</td></tr>
+          <tr><td>“Pump the water out of the tank”</td><td>Slice the liquid horizontally: weight of a slice × distance to the top or spout, integrated over the liquid's depth (notes pp. 17–19).</td></tr>
+          <tr><td>A leaking bucket lifted at a constant speed</td><td>Write the weight as a function of time, change to height ($y=vt$), then $\int F\,dy$ (notes p. 23).</td></tr>
+          <tr><td>The position (or speed) at two times is given, but no force</td><td>Total work = change in kinetic energy, $\frac12mv_1^2-\frac12mv_0^2$ (notes p. 24).</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout warn" style="margin-bottom:0">
+        <div class="label">Tempting alternative, and why to reject it</div>
+        <p style="margin:0">“Total weight × total height.” For the rope pulled onto the roof that's $100\times50=5000$ ft-lb, twice the real answer. It pretends every piece travels the full 50 ft, when most of the rope starts partway up. It's only right when the whole object moves together (the helicopter, p. 15).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 3 EXPLORE -->
+  <div class="stage" id="W-explore">
+    <div class="stage-head"><span class="n">Stage 3 · Explore</span><h3>Work explorer</h3></div>
+    <div class="widget">
+      <div class="w-head"><h4>Slice a rope or a tank (or step along a spring), and watch weight × distance add up to the work</h4><span class="small muted">presets · slices · which slice · liquid depth · spout height</span></div>
+      <div class="w-sub">Left: the physical set-up, with one slice (or step) highlighted and an arrow for how far it moves. Right: the work per unit of height (for slicing) or the force (for a variable force) as a function of position. The bars are the $n$ pieces; the area under the curve is the total work. For tanks you can change the liquid's depth and add a spout above the top.</div>
+      <div id="widget-work">
+        <div class="w-formula">$$F=2\times50=100\text{ lb},\qquad W=Fd=100\times50=5000\text{ ft-lb}$$</div>
+        <div class="w-formula">$$W=\int_0^{50}2\,(50-y)\,dy=\big(100y-y^2\big)\Big|_0^{50}=2500\text{ ft-lb}$$</div>
+        <div class="w-formula">$$W=\int_0^{9}1000\cdot5^2\cdot9.8\cdot(14-y)\,dy=20{,}947{,}500\text{ J}$$</div>
+        <div class="w-formula">$$r=\tfrac{5}{12}y,\qquad W=\int_0^{12}1000\cdot\pi\big(\tfrac{5}{12}y\big)^2\cdot9.8\cdot(12-y)\,dy=2{,}940{,}000\pi\text{ J}$$</div>
+        <div class="w-formula">$$r=\tfrac15(100-y),\qquad W=\int_0^{80}75\pi\Big(\frac{100-y}{5}\Big)^2(100-y)\,dy=74{,}880{,}000\pi\text{ ft-lb}$$</div>
+        <div class="w-formula">$$W=\int_0^{10}62.4\cdot64\pi\cdot(30-y)\,dy=998{,}400\pi\approx3{,}136{,}566\text{ ft-lb}$$</div>
+        <div class="w-formula">$$k=30\text{ lb/ft},\qquad W=\int_0^{1/2}30x\,dx=15x^2\Big|_0^{1/2}=\tfrac{15}{4}\text{ ft-lb}$$</div>
+        <div class="w-formula">$$F=32-0.2t=32-0.1y,\qquad W=\int_0^{100}(32-0.1y)\,dy=2700\text{ ft-lb}$$</div>
+      </div>
+      <div class="try"><h5>What to notice</h5><ol>
+        <li>Compare <b>3.7–3.9 notes p. 15: rope lifted whole (helicopter)</b> with <b>3.7–3.9 notes p. 16: rope pulled up onto a roof</b>. Same rope, same 100 lb. The first graph is flat (every slice rises 50 ft); the second is a triangle (slices near the top rise almost nothing). Area 5000 vs 2500.</li>
+        <li>With <b>3.7–3.9 notes p. 17: square tank, ¾ full, spout 2 m up</b>, the slices are all the same weight, so the graph is a straight line falling from $14$ m of lift at the bottom to $5$ m at the water's surface. Drag the liquid depth to 12 m (full) and watch the work grow; drag the spout to 0 and it shrinks. The last stat checks the answer with §3.8: weight × the rise of the water's center of mass.</li>
+        <li><b>3.7–3.9 notes p. 18: cone, vertex down, full</b>: the slices near the top are big (wide cone) but barely need lifting; the slices at the bottom rise 12 m but are tiny. The graph is zero at both ends. The answer, $2{,}940{,}000\pi\approx9.24$ million J, is only a quarter of “total weight × 12”.</li>
+        <li><b>3.7–3.9 notes p. 19: cone, vertex up, filled to 80 ft</b> is the opposite shape: the big slices are at the bottom and must rise the farthest. No 9.8 here: 75 lb/ft³ is already a weight. The limits stop at the liquid (80), but the distance is measured to the top (100).</li>
+        <li><b>Textbook Ex. 3.9.15: cylinder, water 10 ft deep</b>: the textbook warns “it is a common mistake to let z go from 0 to the height of the tank”. Drag the depth: only the water that's there gets lifted.</li>
+        <li><b>3.7–3.9 notes p. 21: spring, k = 30 lb/ft, to ½ ft</b> has a different kind of graph: force against stretch. The force grows from 0, so the work is a triangle's area, $\frac12\cdot\frac12\cdot15=\frac{15}4$, not $15\times\frac12$.</li>
+        <li><b>3.7–3.9 notes p. 23: leaky bucket</b>: the force falls from 32 lb to 22 lb as water leaks out, so the work is a trapezoid, $\frac{32+22}2\times100=2700$ ft-lb. Raise $n$: the bars use each step's top end, where a falling force is smallest, so they come in low. For this straight-line force the sum is exactly $2700-\frac{500}n$.</li>
+      </ol></div>
+    </div>
+
+    <div class="tryout" data-topic="W">
+      <div class="q">A rope weighs 2 lb/ft and is 50 ft long. Which job takes 2500 ft-lb of work?</div>
+      <div class="try-opts">
+        <button class="try-opt">A helicopter lifts the whole hanging rope 50 ft higher (notes p. 15)</button>
+        <button class="try-opt">The rope hangs from a roof and is pulled up onto it (notes p. 16)</button>
+        <button class="try-opt">Both: it's the same rope and the same 50 ft</button>
+      </div>
+      <div class="try-res" data-verdict="bad">Every piece rises the full 50 ft, so $W=Fd=100\times50=5000$ ft-lb.</div>
+      <div class="try-res" data-verdict="good">The piece at height $y$ rises only $50-y$: $\int_0^{50}2(50-y)\,dy=2500$ ft-lb. On average a piece rises 25 ft.</div>
+      <div class="try-res" data-verdict="bad">The weight is the same, but the distances aren't. In the roof job the top of the rope hardly moves at all.</div>
+    </div>
+
+    <div class="tryout" data-topic="W">
+      <div class="q">A tank holds a liquid weighing 75 lb/ft³ (notes p. 19). What is the weight of a slice of volume $\Delta V$ ft³?</div>
+      <div class="try-opts">
+        <button class="try-opt">$75\,\Delta V$ lb</button>
+        <button class="try-opt">$75\cdot9.8\,\Delta V$ lb</button>
+        <button class="try-opt">$75\cdot32\,\Delta V$ lb</button>
+      </div>
+      <div class="try-res" data-verdict="good">“Weighing 75 lb/ft³” is a weight per volume, and pounds are a force. No conversion needed.</div>
+      <div class="try-res" data-verdict="bad">9.8 m/s² turns a <em>mass</em> in kg into newtons. It's for kg/m³ (notes pp. 17–18), not lb/ft³.</div>
+      <div class="try-res" data-verdict="bad">32 ft/s² would turn slugs (mass) into pounds. The 75 is already in pounds.</div>
+    </div>
+
+    <div class="tryout" data-topic="W">
+      <div class="q">A tank 12 m tall is $\frac34$ full (9 m of water), and the water is pumped out of a spout 2 m above the top (notes p. 17). Which integral has the right limits and distance?</div>
+      <div class="try-opts">
+        <button class="try-opt">$\int_0^9\cdots(14-y)\,dy$</button>
+        <button class="try-opt">$\int_0^{12}\cdots(14-y)\,dy$</button>
+        <button class="try-opt">$\int_0^9\cdots(12-y)\,dy$</button>
+        <button class="try-opt">$\int_0^9\cdots y\,dy$</button>
+      </div>
+      <div class="try-res" data-verdict="good">The water occupies $0\le y\le9$, and a slice at $y$ rises to the spout at $12+2=14$: $d_{\text{slice}}=12-y+2=14-y$ (notes p. 17).</div>
+      <div class="try-res" data-verdict="bad">There's no water above 9 m, so nothing there to lift. That overcounts: $23{,}520{,}000$ J instead of $20{,}947{,}500$ J.</div>
+      <div class="try-res" data-verdict="bad">That pumps to the top of the tank and forgets the spout's extra 2 m.</div>
+      <div class="try-res" data-verdict="bad">$y$ is how high the slice already is. The work depends on how far it still has to go.</div>
+    </div>
+  </div>
+
+  <!-- ============================== 4 ATTEMPT -->
+  <div class="stage" id="W-attempt">
+    <div class="stage-head"><span class="n">Stage 4 · Attempt</span><h3>Guided example, then your turn</h3></div>
+    <div class="guided" data-gid="W-guided">
+      <div class="g-intro"><span class="badge">Guided example</span>
+        <p style="margin-top:8px">A tank is an inverted right circular cone (vertex pointing down) with radius 5 m and height 12 m. It's full of water (density 1000 kg/m³). Find the work required to pump all of the water out of the top of the tank. This is 3.7–3.9 notes p. 18; the notes ask for the integral, and here you'll evaluate it too.</p></div>
+      <div class="gstep"><span class="g-label">Step 1 · Slice</span>
+        <div class="mcq" data-qid="W-g1"><div class="q">How should you slice the water?</div>
+          <div class="opts">
+            <button class="opt" data-correct>Horizontally: every bit of a thin horizontal slice is at the same height, so it all rises the same distance</button>
+            <button class="opt" data-why="A vertical slice contains water at every height from the bottom to the top, so different parts of it rise different distances. That’s the problem slicing is supposed to remove.">Vertically, like the strips of a plate</button>
+            <button class="opt" data-why="Different water rises different distances: the water at the bottom has 12 m to go, the water at the top almost none. W = Fd needs one distance.">Don't slice: use weight × 12 m</button>
+          </div></div>
+        <div class="greveal">“Subdivide water body horizontally” (notes p. 17). A slice at height $y$ with thickness $\Delta y$ is a thin disk.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 2 · The slice's radius</span>
+        <p><label class="inline">By similar triangles, $\dfrac{y}{12}=\dfrac{r}{5}$, so $r(y)=$ <input class="ans" data-vid="W-guided-r" data-kind="expr" data-var="y" data-answer="5*y/12" data-dom="0.5,11.5" data-show="5y/12" placeholder="in terms of y" data-wrong='[{"f":"5-5*y/12","m":"That’s the radius for a cone with its vertex at the top. Here the vertex is at the bottom, so the radius is 0 at y = 0 and grows to 5 at y = 12."},{"f":"12*y/5","m":"The ratio is upside down: r/5 = y/12, so r = 5y/12. Check: at y = 12, r must be 5."}]'></label></p>
+        <div class="greveal">$r=\frac5{12}y$: zero at the vertex, 5 at the top.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 3 · The slice's weight</span>
+        <p><label class="inline">$F_{\text{slice}}=\delta\cdot\pi r^2\Delta y\cdot9.8=$ <input class="ans" data-vid="W-guided-F" data-kind="expr" data-var="y" data-answer="9800*pi*(5*y/12)^2" data-dom="0.5,11.5" data-show="1000 · π(5y/12)² · 9.8" data-factormsg="Check the constants: weight = 1000 kg/m³ × 9.8 m/s² × the slice’s volume π r² Δy." placeholder="the factor in front of Δy" data-wrong='[{"f":"1000*pi*(5*y/12)^2","m":"That’s the slice’s mass in kg. Its weight (a force, in N) is mass × 9.8."},{"f":"9800*pi*(5*y/12)","m":"The radius must be squared: a disk’s area is πr²."}]'> <span class="muted small">× $\Delta y$</span></label></p>
+        <div class="greveal">$F_{\text{slice}}=1000\cdot\pi\big(\frac5{12}y\big)^2\Delta y\cdot9.8$ newtons, as on notes p. 18.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 4 · The distance</span>
+        <p><label class="inline">The slice at height $y$ is pumped out of the top, so $d_{\text{slice}}=$ <input class="ans" data-vid="W-guided-d" data-kind="expr" data-var="y" data-answer="12-y" data-dom="0.5,11.5" data-show="12 − y" data-wrong='[{"f":"y","m":"That’s how high the slice already is. It still has to go from y up to 12."}]'></label></p>
+        <div class="greveal">$d_{\text{slice}}=12-y$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 5 · Integrate</span>
+        <p><label class="inline">$W=\int_0^{12}1000\cdot\pi\big(\tfrac{5}{12}y\big)^2\cdot9.8\cdot(12-y)\,dy=$ <input class="ans" data-vid="W-guided-val" data-units="J" data-answer="9236282.401553992" data-exact="2,940,000π J" data-wrong='[{"v":942477.796076938,"m":"That’s 300,000π: the 9.8 is missing, so it’s in kg·m, not joules."},{"v":27708847.20466198,"m":"That uses distance y instead of 12 − y: 8,820,000π."}]'></label></p>
+        <div class="greveal">Pull out the constants: $9800\pi\cdot\frac{25}{144}\int_0^{12}(12y^2-y^3)\,dy=9800\pi\cdot\frac{25}{144}\big(6912-5184\big)=9800\pi\cdot\frac{25}{144}\cdot1728=2{,}940{,}000\pi\approx9.24\times10^6$ J.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 6 · Sanity check</span>
+        <div class="mcq" data-qid="W-g6"><div class="q">The water weighs $9800\cdot\frac13\pi(5^2)(12)=980{,}000\pi$ N. Its center of mass is $\frac34$ of the way up from the vertex (textbook Example 3.8.9), at $y=9$. Does $2{,}940{,}000\pi$ make sense?</div>
+          <div class="opts">
+            <button class="opt" data-correct>Yes: the center of mass rises $12-9=3$ m, and $980{,}000\pi\times3=2{,}940{,}000\pi$</button>
+            <button class="opt" data-why="That would lift all the water the full 12 m, but most of it is near the top, where the cone is wide.">No: it should be $980{,}000\pi\times12$</button>
+            <button class="opt" data-why="Weight × the rise of the center of mass is exactly how much work it takes (textbook after Example 3.9.15).">You can't check work with a center of mass</button>
+          </div></div>
+        <div class="greveal">Most of the water in a vertex-down cone sits near the wide top, so it barely needs lifting: the work is only a quarter of “weight × 12”.</div>
+      </div>
+      <div class="takeaway"><b>Takeaway.</b> Slice horizontally. For the slice at height $y$: radius from similar triangles, weight = density × 9.8 × $\pi r^2\Delta y$, distance = (destination) − $y$. Integrate over the heights where there's water. Units: J.</div>
+    </div>
+
+    <div class="problem" data-pid="W-indep" data-topic="W" data-level="4" data-title="Independent attempt" data-src="Your turn: textbook §3.9 Suggested Ex. 7" data-help="A number, with or without its unit (ft-lb). Commas are fine." data-prompt="A rectangular tank has length 20 feet, width 8 feet, and height 30 feet. It contains water up to a height of 10 feet. Find the work required to pump all of the water to the top of the tank. The weight-density of water is 62.4 lb/ft^3.">
+      <div class="p-body">A rectangular tank has length 20 ft, width 8 ft and height 30 ft. It contains water up to a height of 10 ft (the rest is empty). Find the work required to pump all of the water to the top of the tank. Water weighs 62.4 lb/ft³.</div>
+      <div class="answers"><label>Work <input class="ans" data-vid="W-indep" data-units="ft-lb" data-answer="2496000" data-exact="2,496,000 ft-lb" data-wrong='[{"v":24460800,"m":"That multiplies by 9.8. 62.4 lb/ft³ is already a weight per volume; 9.8 is only for kg/m³."},{"v":4492800,"m":"Those limits go to 30 ft, the tank’s height. The water only fills 0 ≤ y ≤ 10."},{"v":499200,"m":"That uses the slice’s height y as its distance. It has to rise from y to the top, 30 − y."},{"v":2995200,"m":"That lifts all the water the full 30 ft. The water starts between 0 and 10 ft up, so each slice rises 30 − y."}]'></label></div>
+      <ol class="know">
+        <li>Which way do you slice, and what is the volume of a slice at height $y$?</li>
+        <li>What does that slice weigh? (Is 62.4 a mass or a weight?)</li>
+        <li>How far does it rise, and over which heights do you integrate?</li>
+      </ol>
+      <div class="hint">Every horizontal slice is a $20\times8$ rectangle, so its volume is $160\,\Delta y$ ft³.</div>
+      <div class="hint">Weight $62.4\cdot160\,\Delta y=9984\,\Delta y$ lb. Distance $30-y$. Water from $y=0$ to $y=10$.</div>
+      <div class="hint">$W=9984\int_0^{10}(30-y)\,dy$.</div>
+      <div class="solution">
+        <p>$W=9984\Big[30y-\frac{y^2}2\Big]_0^{10}=9984\cdot250=2{,}496{,}000$ ft-lb.</p>
+        <p style="margin:0"><b>Check with §3.8:</b> the water weighs $9984\cdot10=99{,}840$ lb, and its center of mass rises from 5 ft to 30 ft: $99{,}840\times25=2{,}496{,}000$ ✓.</p>
+      </div>
+      <div class="reflect"><h5>Compare your approach</h5>
+        <label><input type="checkbox"> I sliced horizontally and wrote the slice's weight with no 9.8 (lb/ft³ is a weight).</label>
+        <label><input type="checkbox"> I used the distance $30-y$ and the limits $0$ to $10$ (where the water is).</label>
+        <label><input type="checkbox"> I checked the answer with weight × the rise of the center of mass.</label>
+        <p class="small muted" style="margin:6px 0 0">The clue to recognize next time: <b>“pump the water out” → horizontal slices → (weight of slice) × (destination − y), integrated over the water's depth</b>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 5 COMPARE -->
+  <div class="stage" id="W-compare">
+    <div class="stage-head"><span class="n">Stage 5 · Compare</span><h3>Tempting approaches vs. correct reasoning</h3></div>
+    <div class="vs">
+      <div class="tempt"><h5>✗ Tempting</h5>“The rope weighs 100 lb and it ends up 50 ft higher, so $W=Fd=100\times50=5000$ ft-lb” for the rope pulled onto the roof.</div>
+      <div class="right"><h5>✓ Correct</h5>The piece at height $y$ rises $50-y$, so $W=\int_0^{50}2(50-y)\,dy=2500$ ft-lb (notes p. 16). $W=Fd$ needs every piece to move the same distance (notes p. 15).</div>
+      <div class="clue"><b>Clue for next time:</b> before writing $W=Fd$, ask whether every part of the object moves the same distance under the same force. If not, slice.</div>
+    </div>
+
+    <div class="spot" data-sid="W-spot1">
+      <p><b>Spot the error.</b> “A force of 10 lb holds a spring stretched 4 in beyond its natural length. Find the work to stretch it 6 in beyond its natural length.” (notes p. 21)</p>
+      <button class="sline"><span class="ln">Line 1</span><span>$F(4)=4k=10$, so $k=2.5$.</span></button>
+      <button class="sline"><span class="ln">Line 2</span><span>$W=\int_0^6 2.5x\,dx=1.25x^2\Big|_0^6$.</span></button>
+      <button class="sline"><span class="ln">Line 3</span><span>$=45$.</span></button>
+      <button class="sline" data-bad><span class="ln">Line 4</span><span>So $W=45$ ft-lb.</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout warn"><div class="label">What went wrong</div><p style="margin:0">Lines 1–3 are consistent, but they work in inches: $k=2.5$ lb/<b>in</b>, so the 45 is in <b>inch-pounds</b>. 45 in-lb $=\frac{45}{12}=3.75$ ft-lb. The notes convert first (4 in $=\frac13$ ft, 6 in $=\frac12$ ft), get $k=30$ lb/ft, and find $W=\frac{15}4$ ft-lb. The units label is where it went wrong.</p></div>
+    </div>
+
+    <div class="spot" data-sid="W-spot2">
+      <p><b>Spot the error.</b> A cone with its vertex <b>up</b> has height 100 ft and base radius 20 ft, filled to 80 ft with liquid weighing 75 lb/ft³. Pump it all to the top (notes p. 19):</p>
+      <button class="sline"><span class="ln">Line 1</span><span>Slice horizontally. The slice at height $y$ has thickness $\Delta y$.</span></button>
+      <button class="sline" data-bad><span class="ln">Line 2</span><span>Similar triangles: $\frac{r}{20}=\frac{y}{100}$, so $r=\frac y5$.</span></button>
+      <button class="sline"><span class="ln">Line 3</span><span>The slice weighs $75\pi r^2\Delta y$ and rises $100-y$.</span></button>
+      <button class="sline"><span class="ln">Line 4</span><span>$W=\int_0^{80}75\pi\big(\frac y5\big)^2(100-y)\,dy$ ft-lb.</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout warn"><div class="label">What went wrong</div><p style="margin:0">Line 2 is the vertex-<em>down</em> ratio. With the vertex at the top, the radius is 20 at the bottom ($y=0$) and shrinks to 0 at $y=100$. The distance from the vertex is $100-y$: $\frac{r}{20}=\frac{100-y}{100}$, so $r=\frac{100-y}5$ (notes p. 19). The wrong radius gives $20{,}480{,}000\pi$ instead of $74{,}880{,}000\pi$ ft-lb. Check a radius at both ends before using it.</p></div>
+    </div>
+
+    <h4 style="margin-top:22px">Common mistakes: why they happen and how to prevent them</h4>
+    <details class="mistake"><summary>Using $W=Fd$ when pieces move different distances</summary><div class="m-body"><p><b>Why it happens</b><br>$W=Fd$ is the formula you know, and the total weight and height are right there in the problem.</p><p><b>Prevent it</b><br>Ask whether the whole object moves together (p. 15) or piece by piece (p. 16). If piece by piece, slice.</p></div></details>
+    <details class="mistake"><summary>Integrating over the tank's height instead of the liquid's depth</summary><div class="m-body"><p><b>Why it happens</b><br>The tank's height is the biggest number in the problem.</p><p><b>Prevent it</b><br>The integral adds up the slices that exist. On p. 17 the water is 9 m deep in a 12 m tank: $\int_0^9$. The textbook calls this “a common mistake” (Example 3.9.15).</p></div></details>
+    <details class="mistake"><summary>The wrong distance: $y$, or forgetting the spout</summary><div class="m-body"><p><b>Why it happens</b><br>$y$ is the variable you just wrote down.</p><p><b>Prevent it</b><br>Distance = destination − where the slice is. On p. 17: $12-y+2=14-y$.</p></div></details>
+    <details class="mistake"><summary>Multiplying by 9.8 (or 32) when the density is already a weight</summary><div class="m-body"><p><b>Why it happens</b><br>Metric examples (pp. 17–18) always have the 9.8.</p><p><b>Prevent it</b><br>Look at the units. kg/m³ is a mass density: × 9.8 gives N/m³. lb/ft³ is a weight density: use it as is (p. 19).</p></div></details>
+    <details class="mistake"><summary>A cone's radius from the wrong similar triangle</summary><div class="m-body"><p><b>Why it happens</b><br>Vertex-up and vertex-down cones look alike on paper.</p><p><b>Prevent it</b><br>Check the radius at the bottom and at the top: vertex down gives 0 at $y=0$ (p. 18); vertex up gives the full radius at $y=0$ (p. 19).</p></div></details>
+    <details class="mistake"><summary>Not converting inches to feet before finding $k$</summary><div class="m-body"><p><b>Why it happens</b><br>The problem gives inches, and the arithmetic works either way.</p><p><b>Prevent it</b><br>Convert first (p. 21: 4 in $=\frac13$ ft). Otherwise your answer is in inch-pounds.</p></div></details>
+    <details class="mistake"><summary>Integrating the leaky bucket's force with respect to time</summary><div class="m-body"><p><b>Why it happens</b><br>The leak is given per second, so $F=32-0.2t$ comes out in $t$.</p><p><b>Prevent it</b><br>Work is force × <em>distance</em>: $W=\int F\,dy$. Change variables with $y=2t$ first: $F=32-0.1y$ (p. 23). Integrating $\int_0^{50}F\,dt$ gives 1350, which is in lb·s, not ft-lb.</p></div></details>
+    <details class="mistake"><summary>Leaving off the units</summary><div class="m-body"><p><b>Why it happens</b><br>The integral gives a bare number.</p><p><b>Prevent it</b><br>Every answer in the notes' §3.9 ends with its unit: (ft-lb), (J), (N/m). Pounds × feet = ft-lb; newtons × metres = J.</p></div></details>
+  </div>
+
+  <!-- ============================== 6 PRACTICE -->
+  <div class="stage" id="W-practice">
+    <div class="stage-head"><span class="n">Stage 6 · Practice</span><h3>Practice: standard applications</h3></div>
+    <p class="muted">Professor's examples to redo, textbook exercises and new variants. You may type the unit after the number (e.g. <kbd>2500 ft-lb</kbd>, <kbd>20 J</kbd>, <kbd>30 N/m</kbd>); commas are fine.</p>
+
+    <div class="problem" data-pid="W-p1" data-topic="W" data-title="Practice 1" data-src="3.7–3.9 notes p. 16 · redo it" data-help="A number, with or without its unit." data-prompt="A rope hangs from a tall building. The rope weighs 2 lb/ft and is 50 ft long. How much work is required to pull the entire rope to the top of the building?">
+      <div class="p-body">A rope hangs from a tall building. The rope weighs 2 lb/ft and is 50 ft long. How much work is required to pull the entire rope to the top of the building?</div>
+      <div class="answers"><label>Work <input class="ans" data-vid="W-p1" data-units="ft-lb" data-answer="2500" data-exact="2500 ft-lb" data-wrong='[{"v":5000,"m":"That is W = Fd with every piece rising 50 ft, which is the helicopter problem (notes p. 15). Here the piece at height y only rises 50 − y."}]'></label></div>
+      <div class="hint">Put $y=0$ at the bottom of the rope. A piece of length $\Delta y$ at height $y$ weighs $2\Delta y$ lb.</div>
+      <div class="hint">It rises $50-y$ ft. $W=\int_0^{50}2(50-y)\,dy$.</div>
+      <div class="solution">$W=\big(100y-y^2\big)\Big|_0^{50}=5000-2500=2500$ ft-lb, as on notes p. 16. Check: 100 lb × the 25 ft its center of mass rises.</div>
+    </div>
+
+    <div class="problem" data-pid="W-p2" data-topic="W" data-title="Practice 2" data-src="3.7–3.9 notes p. 17 · set up, then evaluate" data-help="The upper limit is a number; the distance is an expression in y. The work can have commas and a unit." data-prompt="A rectangular tank with a square base of side 5 m and height 12 m is 3/4 full of water. Find an integral for the work required to pump all of the water out of a spout 2 m above the top of the tank, and evaluate it. Density of water is 1000 kg/m^3.">
+      <div class="p-body">A rectangular tank with a square base of side length 5 m and height 12 m is $\frac34$ full of water. Find an integral that calculates the work required to pump all of the water out of a spout 2 m above the top of the tank, then evaluate it. Density of water is 1000 kg/m³.</div>
+      <div class="answers">
+        <label>upper limit <input class="ans" data-label="upper limit" data-vid="W-p2-b" data-answer="9" data-exact="9" data-wrong='[{"v":12,"m":"That’s the tank’s height. The tank is only ¾ full: the water goes up to 9 m."}]'></label>
+        <label>distance $d(y)=$ <input class="ans" data-label="d(y)" data-vid="W-p2-d" data-kind="expr" data-var="y" data-answer="14-y" data-dom="0.5,8.5" data-show="14 − y" data-wrong='[{"f":"12-y","m":"That pumps to the top of the tank. The spout is 2 m higher: 12 − y + 2."},{"f":"y","m":"That’s how high the slice already is, not how far it still has to rise."}]'></label>
+        <label>Work <input class="ans" data-label="W" data-vid="W-p2" data-units="J" data-answer="20947500" data-exact="20,947,500 J" data-wrong='[{"v":2137500,"m":"The 9.8 is missing: 1000 kg/m³ is a mass density. Weight = mass × 9.8."},{"v":23520000,"m":"That integrates up to 12 m, but the water only reaches 9 m."},{"v":16537500,"m":"That uses 12 − y: the spout is 2 m above the top, so the distance is 14 − y."}]'></label>
+      </div>
+      <div class="hint">Each slice is a $5\times5$ square of thickness $\Delta y$: $F_{\text{slice}}=1000\cdot25\,\Delta y\cdot9.8$ N.</div>
+      <div class="hint">$W=\int_0^9 25000\cdot9.8\cdot(14-y)\,dy=245{,}000\Big[14y-\frac{y^2}2\Big]_0^9$.</div>
+      <div class="solution">$W=\int_0^9 1000\cdot5^2\cdot9.8\cdot(14-y)\,dy$ (notes p. 17) $=245{,}000\,(126-40.5)=245{,}000\cdot85.5=20{,}947{,}500$ J $\approx2.09\times10^7$ J.</div>
+    </div>
+
+    <div class="problem" data-pid="W-p3" data-topic="W" data-title="Practice 3" data-src="3.7–3.9 notes p. 19 · set up, then evaluate" data-help="r is an expression in y. The work can be exact (e.g. 74880000pi) or a decimal, with ft-lb." data-prompt="A tank in the shape of a right circular cone (vertex pointing up) has height 100 ft and base radius 20 ft. It is filled to a height of 80 ft with a liquid weighing 75 lb/ft^3. Set up and evaluate an integral for the work required to pump all the liquid to the top.">
+      <div class="p-body">A tank in the shape of a right circular cone, vertex pointing up, has height 100 ft and base radius 20 ft. It is filled to a height of 80 ft with a liquid weighing 75 lb/ft³. Set up an integral for the work required to pump all the liquid to the top, then evaluate it.</div>
+      <div class="answers">
+        <label>radius $r(y)=$ <input class="ans" data-label="r(y)" data-vid="W-p3-r" data-kind="expr" data-var="y" data-answer="(100-y)/5" data-dom="1,79" data-show="(100 − y)/5" data-wrong='[{"f":"y/5","m":"That’s the vertex-down ratio. With the vertex up, r = 20 at the bottom and 0 at the top."}]'></label>
+        <label>Work <input class="ans" data-label="W" data-vid="W-p3" data-units="ft-lb" data-answer="235242457.9008037" data-exact="74,880,000π ft-lb" data-wrong='[{"v":2305376087.427876,"m":"That multiplies by 9.8. 75 lb/ft³ is already a weight per volume."},{"v":64339817.54551897,"m":"That uses r = y/5, the radius of a vertex-down cone."}]'></label>
+      </div>
+      <div class="hint">$\frac{100-y}{100}=\frac{r}{20}$: the distance from the vertex, $100-y$, is to the full height as $r$ is to the full radius.</div>
+      <div class="hint">$W=\int_0^{80}75\pi\big(\frac{100-y}5\big)^2(100-y)\,dy=3\pi\int_0^{80}(100-y)^3\,dy$.</div>
+      <div class="solution">With $u=100-y$: $3\pi\int_{20}^{100}u^3\,du=\frac{3\pi}4\big(100^4-20^4\big)=74{,}880{,}000\pi\approx2.35\times10^8$ ft-lb. The notes stop at the integral; this is its value (SymPy, mpmath and Wolfram agree).</div>
+    </div>
+
+    <div class="problem" data-pid="W-p4" data-topic="W" data-title="Practice 4" data-src="3.7–3.9 notes p. 21 · redo it" data-help="Numbers, with or without units." data-prompt="A force of 10 lb is required to hold a spring stretched 4 inches beyond its natural length. How much work is required to stretch it 6 inches beyond its natural length?">
+      <div class="p-body">A force of 10 lb is required to hold a spring stretched 4 inches beyond its natural length. Find the spring constant (in lb/ft) and the work required to stretch it 6 inches beyond its natural length.</div>
+      <div class="answers">
+        <label>$k=$ <input class="ans" data-label="k" data-vid="W-p4-k" data-units="lb/ft" data-answer="30" data-exact="30 lb/ft" data-wrong='[{"v":2.5,"m":"That’s k in lb per inch. Convert first: 4 in = 1/3 ft."}]'></label>
+        <label>Work <input class="ans" data-label="W" data-vid="W-p4-W" data-units="ft-lb" data-answer="3.75" data-exact="15/4 ft-lb" data-wrong='[{"v":45,"m":"45 is the work in inch-pounds. 45 in-lb = 45/12 = 3.75 ft-lb."},{"v":7.5,"m":"That’s F × d with the final force, 15 lb × ½ ft. The force grows from 0, so the work is half that: ∫kx dx."}]'></label>
+      </div>
+      <div class="hint">4 in $=\frac13$ ft and 6 in $=\frac12$ ft. $F(\frac13)=\frac13k=10$.</div>
+      <div class="hint">$W=\int_0^{1/2}30x\,dx$.</div>
+      <div class="solution">$k=30$ lb/ft. $W=15x^2\Big|_0^{1/2}=\frac{15}4$ ft-lb, as on notes p. 21.</div>
+    </div>
+
+    <div class="problem" data-pid="W-p5" data-topic="W" data-title="Practice 5" data-src="3.7–3.9 notes p. 21 · redo it (textbook Additional Ex. 9)" data-help="A number, with or without its unit." data-prompt="Calculate the work required to compress a spring 2 meters from equilibrium when the spring constant is k = 10 N/m.">
+      <div class="p-body">Calculate the work required to compress a spring 2 meters from equilibrium when the spring constant is $k=10$ N/m.</div>
+      <div class="answers"><label>Work <input class="ans" data-vid="W-p5" data-units="J" data-answer="20" data-exact="20 J" data-wrong='[{"v":-20,"m":"Compressing a spring takes positive work: from 0 to −2 both the displacement and the force kx are negative, so their product is positive."},{"v":40,"m":"That’s F × d with the final force, 20 N × 2 m. The force grows from 0: W = ∫kx dx."}]'></label></div>
+      <div class="hint">Compression means $x$ goes from $0$ to $-2$. $F(x)=10x$.</div>
+      <div class="solution">$W=\int_0^{-2}10x\,dx=5x^2\Big|_0^{-2}=20$ J (notes p. 21). Stretching 2 m would also take 20 J.</div>
+    </div>
+
+    <div class="problem" data-pid="W-p6" data-topic="W" data-title="Practice 6" data-src="3.7–3.9 notes p. 22 · redo it" data-help="A number, with or without its unit." data-prompt="The total work required to stretch a spring from its equilibrium position to 4 meters past the equilibrium is 240 Joules. Find the spring constant k.">
+      <div class="p-body">The total work required to stretch a spring from its equilibrium position to 4 meters past equilibrium is 240 J. Find the spring constant $k$.</div>
+      <div class="answers"><label>$k=$ <input class="ans" data-vid="W-p6" data-units="N/m" data-answer="30" data-exact="30 N/m" data-wrong='[{"v":15,"m":"That uses W = F × d with the final force 4k: 16k = 240. The force grows from 0, so W = ∫₀⁴ kx dx = 8k."}]'></label></div>
+      <div class="hint">$W=\int_0^4kx\,dx=\frac12kx^2\Big|_0^4$.</div>
+      <div class="solution">$8k=240$, so $k=30$ N/m (notes p. 22).</div>
+    </div>
+
+    <div class="problem" data-pid="W-p7" data-topic="W" data-title="Practice 7" data-src="3.7–3.9 notes p. 23 · redo it" data-help="A number, with or without its unit." data-prompt="A leaky bucket weighs 2 lb and is filled with 30 lb of water to be lifted 100 ft in the air. The bucket loses water at a constant rate of 0.2 lb/sec and is traveling 2 ft/sec. How much work is done in lifting the bucket 100 feet? Ignore the rope.">
+      <div class="p-body">A leaky bucket weighs 2 lb and is filled with 30 lb of water, to be lifted 100 ft. The bucket loses water at a constant rate of 0.2 lb/s and travels at 2 ft/s. How much work is done in lifting the bucket 100 feet? Ignore the weight of the rope.</div>
+      <div class="answers"><label>Work <input class="ans" data-vid="W-p7" data-units="ft-lb" data-answer="2700" data-exact="2700 ft-lb" data-wrong='[{"v":3200,"m":"That ignores the leak: 32 lb × 100 ft. The bucket gets lighter on the way up."},{"v":1350,"m":"That integrates F = 32 − 0.2t with respect to t. Work is ∫F dy: change variables with y = 2t first."},{"v":2200,"m":"That uses the final weight, 22 lb, the whole way. The weight goes from 32 lb down to 22 lb."}]'></label></div>
+      <div class="hint">At $t=0$ the force is 32 lb, and it drops 0.2 lb every second: $F=32-0.2t$.</div>
+      <div class="hint">The bucket rises 2 ft/s, so $y=2t$ and $t=\frac y2$. Write $F$ in terms of $y$.</div>
+      <div class="solution">$F=32-0.1y$, so $W=\int_0^{100}(32-0.1y)\,dy=\big(32y-0.05y^2\big)\Big|_0^{100}=3200-500=2700$ ft-lb (notes p. 23). The bucket reaches the top after 50 s, having lost 10 lb, so the water never runs out.</div>
+    </div>
+
+    <div class="problem" data-pid="W-p8" data-topic="W" data-title="Practice 8" data-src="3.7–3.9 notes p. 24 · textbook Example 3.9.8" data-help="A number, with or without its unit." data-prompt="x(t) = 4 - t^2 is the position function, in meters, of a 10 kg object moving along the x-axis between t = 0 and t = 3 seconds. Calculate the work done in displacing the object from x(0) = 4 meters to x(3) = -5 meters.">
+      <div class="p-body">$x(t)=4-t^2$ is the position function, in meters, of a 10 kg object moving along the $x$-axis between times $t=0$ and $t=3$ seconds. Calculate the work done in displacing the object from $x(0)=4$ m to $x(3)=-5$ m.</div>
+      <div class="answers"><label>Work <input class="ans" data-vid="W-p8" data-units="J" data-answer="180" data-exact="180 J" data-wrong='[{"v":-180,"m":"Kinetic energy is ½mv², with v squared, so the change here is positive: the object speeds up from 0 to 6 m/s."}]'></label></div>
+      <div class="hint">“Total work = change in kinetic energy” (notes p. 24): $W=\frac12mv(3)^2-\frac12mv(0)^2$.</div>
+      <div class="hint">$v(t)=x'(t)=-2t$ m/s (§3.1: velocity is the derivative of position).</div>
+      <div class="solution">$v(0)=0$ and $v(3)=-6$, so $W=\frac12\cdot10\cdot36-0=180$ J. The direction of motion doesn't matter: kinetic energy uses $v^2$.</div>
+    </div>
+
+    <div class="problem" data-pid="W-p9" data-topic="W" data-title="Practice 9" data-src="Textbook §3.9 Suggested Ex. 6 · like notes p. 23" data-help="A number, with or without its unit." data-prompt="You lift a bucket of sand 60 feet at a constant velocity of 4 ft/s. The bucket initially contains 80 lb of sand, leaking at 0.5 lb per second. How much work is done lifting the bucket of sand? Ignore the bucket and rope.">
+      <div class="p-body">You lift a bucket of sand 60 feet at a constant velocity of 4 ft/s. It starts with 80 lb of sand, which leaks out at 0.5 lb per second. How much work is done lifting the sand? (Ignore the bucket and the rope.)</div>
+      <div class="answers"><label>Work <input class="ans" data-vid="W-p9" data-units="ft-lb" data-answer="4575" data-exact="4575 ft-lb" data-wrong='[{"v":4800,"m":"That ignores the leak: 80 lb × 60 ft."},{"v":3900,"m":"That takes the leak as 0.5 lb per foot. It’s 0.5 lb per second, and at 4 ft/s that is 0.125 lb per foot."}]'></label></div>
+      <div class="hint">$F=80-0.5t$ and $y=4t$.</div>
+      <div class="solution">$F=80-0.5\cdot\frac y4=80-\frac y8$, so $W=\int_0^{60}\big(80-\frac y8\big)\,dy=4800-\frac{3600}{16}=4575$ ft-lb.</div>
+    </div>
+
+    <div class="problem" data-pid="W-p10" data-topic="W" data-title="Practice 10" data-src="Textbook §3.9 Suggested Ex. 5" data-help="Numbers, with or without units." data-prompt="A force of 39 N is required to hold a spring stretched 0.3 m past equilibrium. How much work is required to compress the spring 0.5 m from its equilibrium position?">
+      <div class="p-body">A force of 39 N is required to hold a spring stretched 0.3 m past equilibrium. Find $k$, and the work required to compress the spring 0.5 m from equilibrium.</div>
+      <div class="answers">
+        <label>$k=$ <input class="ans" data-label="k" data-vid="W-p10-k" data-units="N/m" data-answer="130" data-exact="130 N/m"></label>
+        <label>Work <input class="ans" data-label="W" data-vid="W-p10-W" data-units="J" data-answer="16.25" data-exact="65/4 J" data-wrong='[{"v":19.5,"m":"That treats 39 N as a constant force over 0.5 m. The force is kx, which changes."}]'></label>
+      </div>
+      <div class="hint">$k=\frac{39}{0.3}$.</div>
+      <div class="hint">$W=\int_0^{-0.5}kx\,dx=\frac12k(0.5)^2$.</div>
+      <div class="solution">$k=130$ N/m and $W=65\cdot0.25=16.25$ J. A stretch and a compression of the same size take the same work.</div>
+    </div>
+  </div>
+
+  <!-- ============================== 7 MASTER -->
+  <div class="stage" id="W-master">
+    <div class="stage-head"><span class="n">Stage 7 · Master</span><h3>Mastery check</h3></div>
+    <p class="muted">No hints are offered until you've committed to an answer. This checks recognition, understanding, unfamiliar problems, and whether you can explain why.</p>
+    <div class="mcq" data-qid="W-m1" data-topic="W" data-level="1" data-count data-multi data-multimsg="At least one choice is off. You need an integral when the force changes along the way, or when different pieces move different distances.">
+      <div class="q"><b>Recognition.</b> Which of these need an integral, rather than just $W=Fd$? Select all that apply.</div>
+      <div class="opts cols-2">
+        <button class="opt" data-correct>pulling a hanging chain up onto a roof</button>
+        <button class="opt">lifting a 50 lb box onto a 4 ft shelf</button>
+        <button class="opt" data-correct>stretching a spring 3 inches</button>
+        <button class="opt" data-correct>lifting a leaking bucket to the top of a well</button>
+        <button class="opt">a helicopter lifting a hanging rope 50 ft higher</button>
+        <button class="opt" data-correct>pumping water out of a full tank</button>
+      </div>
+      <div class="why callout why"><div class="label">Why</div><p style="margin:0">A chain on a roof and a tank: different pieces rise different distances (slice the object). A spring and a leaky bucket: the force changes along the path (∫F dx). The box and the helicopter rope move as a whole under a constant force, so $W=Fd$ (notes p. 15).</p></div>
+    </div>
+    <div class="mcq" data-qid="W-m2" data-topic="W" data-level="2" data-count>
+      <div class="q"><b>Understanding.</b> Two identical cones, radius 5 m and height 12 m, are full of water and emptied over their tops. One has its vertex down (notes p. 18), the other its vertex up. Which takes more work?</div>
+      <div class="opts">
+        <button class="opt" data-correct data-why="Right: with the vertex up, the wide part, and most of the water, is at the bottom and has to rise the farthest. Its center of mass is at height 3 (a quarter of the way up) instead of 9, so it rises 9 m instead of 3 m: three times the work.">the vertex-up cone</button>
+        <button class="opt" data-why="In the vertex-down cone most of the water is near the wide top, so it barely needs lifting.">the vertex-down cone</button>
+        <button class="opt" data-why="They hold the same water, but it sits at different heights, so it rises different distances.">they're the same, since the volumes are equal</button>
+      </div>
+    </div>
+    <div class="problem" data-pid="W-m3" data-topic="W" data-level="6" data-title="Unfamiliar problem" data-src="Textbook §3.9 Additional Ex. 7 · a force in two pieces" data-help="A number, with or without its unit." data-prompt="A bucket of sand is lifted 120 ft at a constant 2 ft/s. It starts with 50 lb of sand, leaking 1 lb per second, until only 1 lb of residual sand remains, which then stays. Ignore the bucket and rope. How much work is done?">
+      <div class="p-body">You lift a bucket of sand 120 ft at a constant 2 ft/s. It starts with 50 lb of sand and leaks 1 lb per second, until only 1 lb of sand is left, which then stays in the bucket. How much work is done lifting the sand? (Ignore the bucket and the rope.)</div>
+      <div class="answers"><label>Work <input class="ans" data-vid="W-m3" data-units="ft-lb" data-answer="2521" data-exact="2521 ft-lb" data-wrong='[{"v":2400,"m":"That lets the weight keep falling the whole way, F = 50 − y/2 on [0, 120]. The sand stops leaking when 1 lb is left. When is that, and how high is the bucket then?"}]'></label></div>
+      <div class="hint">$F=50-t$ lb and $y=2t$, so $F=50-\frac y2$, until $F=1$.</div>
+      <div class="hint">$50-\frac y2=1$ at $y=98$ ft. After that, $F=1$ lb for the last 22 ft.</div>
+      <div class="solution">$W=\int_0^{98}\big(50-\frac y2\big)\,dy+\int_{98}^{120}1\,dy=\big(4900-2401\big)+22=2521$ ft-lb. A force given in pieces gives an integral in pieces, like splitting $|v|$ at a turning point (§3.1).</div>
+    </div>
+    <div class="problem" data-pid="W-m4" data-topic="W" data-level="6" data-title="Unfamiliar problem" data-src="Textbook §3.9 Additional Ex. 1 · uses long division (§1.3)" data-help="Exact (e.g. 8 + ln(5)) or decimals." data-prompt="Calculate the work done by the force F(x) = (x^2 + x + 1)/(x + 1) newtons moving a particle from x = 0 to x = 4 meters.">
+      <div class="p-body">Calculate the work done by the force $F(x)=\dfrac{x^2+x+1}{x+1}$ newtons on a particle as it moves from $x=0$ to $x=4$ meters.</div>
+      <div class="answers"><label>Work <input class="ans" data-vid="W-m4" data-units="J" data-answer="9.609437912434" data-exact="8 + ln 5 J" data-wrong='[{"v":1.609437912434,"m":"That’s only the remainder part, ln 5. After dividing, the quotient x also has to be integrated."},{"v":8,"m":"That’s only the quotient part, ∫₀⁴x dx. The remainder 1/(x + 1) adds ln 5."}]'></label></div>
+      <div class="hint">The top's degree is at least the bottom's, so divide first (§1.3): $\frac{x^2+x+1}{x+1}=x+\frac1{x+1}$.</div>
+      <div class="solution">$W=\int_0^4\Big(x+\frac1{x+1}\Big)\,dx=\Big[\frac{x^2}2+\ln|x+1|\Big]_0^4=8+\ln5\approx9.609$ J.</div>
+    </div>
+    <div class="explain card" data-eid="W-explain" data-topic="W">
+      <h4>Explain why (Level 7)</h4>
+      <p>Why does pulling a 50 ft hanging rope onto a roof take half the work of lifting the same rope 50 ft with a helicopter? Explain with slices, and check it with the center of mass.</p>
+      <textarea aria-label="Your explanation"></textarea>
+      <div class="model callout why"><div class="label">A model explanation</div><p style="margin:0">$W=Fd$ only works when every part of the object moves the same distance under the same force. With the helicopter, the whole rope rises 50 ft together, so $W=100\cdot50=5000$ ft-lb (notes p. 15). When the rope is pulled onto the roof, different pieces travel different distances: the piece at height $y$ only has $50-y$ ft to go. So cut the rope into thin pieces. Each one weighs $2\Delta y$ lb and rises $50-y$ ft, so its work is $2(50-y)\Delta y$. Adding them up gives $\int_0^{50}2(50-y)\,dy=2500$ ft-lb (notes p. 16). The bottom piece goes 50 ft, the top piece almost 0, and on average a piece goes 25 ft: half. The center of mass says the same thing: the rope's center of mass starts 25 ft below the roof and ends on it, so $W=(\text{weight})\times(\text{rise of the center of mass})=100\times25=2500$ ft-lb.</p></div>
+    </div>
+  </div>
+</section>

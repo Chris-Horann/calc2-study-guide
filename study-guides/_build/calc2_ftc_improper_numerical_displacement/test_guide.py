@@ -24,7 +24,8 @@ def num(s):
 
 with sync_playwright() as p:
     browser = p.chromium.launch(channel="msedge", headless=True)
-    ctx = browser.new_context(viewport={"width": 1400, "height": 1000}, device_scale_factor=1)
+    # reduced motion: the guide's smooth scrolling otherwise fights Playwright's scroll-into-view and makes clicks flaky
+    ctx = browser.new_context(viewport={"width": 1400, "height": 1000}, device_scale_factor=1, reduced_motion="reduce")
     page = ctx.new_page()
     errors = []
     page.on("pageerror", lambda e: errors.append("pageerror: " + str(e)))
@@ -35,9 +36,10 @@ with sync_playwright() as p:
     ok("no page/console errors on load", not errors, "; ".join(errors[:5]))
     ok("KaTeX: no render errors", page.locator(".katex-error").count() == 0, str(page.locator(".katex-error").count()))
     ok("KaTeX: math present", page.locator(".katex").count() > 2500, str(page.locator(".katex").count()))
-    ok("10 topics in the navigation", page.locator(".nav a .letter.sec").count() == 10, str(page.locator(".nav a .letter.sec").count()))
-    ok("11 diagnostic questions", page.locator("#diagnostic .mcq").count() == 11)
-    ok("concept map: 23 concepts", page.locator("#concept-map .node").count() == 23, str(page.locator("#concept-map .node").count()))
+    ok("14 topics in the navigation", page.locator(".nav a .letter.sec").count() == 14, str(page.locator(".nav a .letter.sec").count()))
+    ok("15 diagnostic questions", page.locator("#diagnostic .mcq").count() == 15)
+    ok("concept map: 31 concepts", page.locator("#concept-map .node").count() == 31, str(page.locator("#concept-map .node").count()))
+    ok("every topic has a nav level tag and tick that the app updates", all(page.locator(f"#lvl-{T}").count() == 1 and page.locator(f"#tick-{T}").count() == 1 for T in "UPRABCDELVSKGW"))
     ok("every nav link has a target", page.evaluate("() => [...document.querySelectorAll('.nav a[href^=\"#\"]')].every(a => document.getElementById(a.getAttribute('href').slice(1)))"))
     ok("every in-page link has a target", page.evaluate("() => [...document.querySelectorAll('main a[href^=\"#\"]')].filter(a => !document.getElementById(a.getAttribute('href').slice(1))).map(a => a.getAttribute('href'))") == [])
     n_prob = page.locator(".problem").count()
@@ -257,6 +259,128 @@ with sync_playwright() as p:
     page.evaluate("() => document.querySelector('#widget-volume')._set(1, -1, 10)")
     ok("Widget V moved axis: the R, r description says 2x + 1 and x + 1, and 12π", all(s in page.locator("#widget-volume .w-line").first.inner_text() for s in ("2x + 1", "x + 1", "12π")), page.locator("#widget-volume .w-line").first.inner_text()[:120])
 
+    # ---------------------------------------------------------------- widget S: cylindrical shells (vs mpmath; direct quadrature, not the widget's J0/J1 shortcut)
+    def rel(js, ref, scale=None): return abs(js - float(ref)) / max(1.0, abs(float(ref if scale is None else scale)))   # relative to the size of the quantity (or of the object)
+    SPre = [(0, 0, 1, lambda x: x - x * x, lambda x: 0 * x), (1, 1, 3, lambda x: 4 * x - x * x, lambda x: 3 + 0 * x), (4, 1, 3, lambda x: 4 * x - x * x, lambda x: 3 + 0 * x),
+            (5, -2, 1, lambda x: 3 - x, lambda x: x * x + 1), (-2, 0, 2, lambda x: mp.sqrt(8 * x) + 1, lambda x: x * x + 1), (0, 0, 1, lambda x: 2 - x, mp.sqrt)]
+    worstS, nS = 0.0, 0
+    for k, (c0, a, b, up, lo) in enumerate(SPre):
+        h = lambda x: up(x) - lo(x)
+        for c in sorted({c0, a - 2, a - 0.5, a, b, b + 1.5}):
+            for n in (1, 3, 8, 40):
+                sv = a + 0.37 * (b - a)
+                last = page.evaluate("([k,c,n,s]) => { const r = document.querySelector('#widget-shell'); r._set(k, c, n, s); return r._last; }", [k, c, n, sv])
+                cc = mp.mpf(c); g = lambda x: 2 * mp.pi * abs(x - cc) * h(x); ds = mp.mpf(b - a) / n
+                ref_sum = mp.fsum(g(a + j * ds) * ds for j in range(1, n + 1)); ref_exact = mp.quad(g, [a, (a + b) / 2, b])
+                i = min(max(int(math.floor((sv - a) / float(ds) + 0.5)), 1), n); xs = a + i * ds
+                worstS = max(worstS, rel(last["sum"], ref_sum), rel(last["exact"], ref_exact), abs(last["r"] - float(abs(xs - cc))), abs(last["h"] - float(h(xs)))); nS += 1
+                if not last["valid"]: worstS = 1.0
+    ok(f"Widget S: shell sums, exact volumes, r and h match mpmath ({nS} preset/axis/n combinations)", worstS < 1e-9, f"worst {worstS:.2e}")
+    expS = {0: math.pi / 6, 1: 8 * math.pi / 3, 2: 16 * math.pi / 3, 3: 99 * math.pi / 2, 4: 232 * math.pi / 15, 5: 8 * math.pi / 15}
+    for k, v in expS.items():
+        last = page.evaluate("k => { const r = document.querySelector('#widget-shell'); r._set(k); return r._last; }", k)
+        ok(f"Widget S preset {k}: default-axis volume = the guide's answer", abs(last["exact"] - v) < 1e-12, f"{last['exact']} vs {v}")
+    last = page.evaluate("() => { const r = document.querySelector('#widget-shell'); r._set(1, 2, 6); return r._last; }")
+    ok("Widget S refuses an axis through the region (x = 2 inside [1, 3])", last["valid"] is False and page.locator("#widget-shell .notice.warn:visible").count() == 1)
+    page.evaluate("() => document.querySelector('#widget-shell')._set(0)")
+
+    # ---------------------------------------------------------------- widget K: mass (vs mpmath)
+    KPre = [("wire", 0, 2, lambda x: 3 * x * x, None, None), ("wire", 0, 4, lambda x: mp.e ** (-x), None, None), ("wire", 3, 4, lambda x: 2 * mp.e ** (3 * x), None, None),
+            ("plate", 0, 2, lambda x: x, lambda x: x - x * x, lambda x: -x), ("plate", -1, 1, lambda x: mp.mpf(3) ** x, lambda x: 2 - x * x, lambda x: x * x),
+            ("plate", 0, 3, lambda x: x * x + 1, lambda x: 0 * x, lambda x: 2 * x - 6)]
+    worstK, nK = 0.0, 0
+    for k, (kind, a, b, d, up, lo) in enumerate(KPre):
+        lam = d if kind == "wire" else (lambda d, up, lo: (lambda x: d(x) * (up(x) - lo(x))))(d, up, lo)
+        M = mp.quad(lam, [a, (a + b) / 2, b])
+        xm = mp.findroot(lambda t: mp.quad(lam, [a, t]) - M / 2, (a + b) / 2)
+        for n in (1, 5, 8, 40):
+            dx = mp.mpf(b - a) / n; ref_sum = mp.fsum(lam(a + j * dx) * dx for j in range(1, n + 1))
+            for fc in (0.0, 0.3, 0.5, 0.77, 1.0):
+                c = a + fc * (b - a)
+                last = page.evaluate("([k,n,c]) => { const r = document.querySelector('#widget-mass'); r._set(k, n, c); return r._last; }", [k, n, c])
+                left = mp.quad(lam, [a, c]) if c > a else mp.mpf(0)
+                i = min(max(math.ceil((c - a) / float(dx) - 1e-9), 1), n); xi = a + i * dx
+                pm = d(xi) * dx * (1 if kind == "wire" else (up(xi) - lo(xi)))
+                worstK = max(worstK, rel(last["sum"], ref_sum), rel(last["exact"], M), rel(last["left"], left, M), rel(last["right"], M - left, M), abs(last["xm"] - float(xm)), rel(last["pieceMass"], pm)); nK += 1
+    ok(f"Widget K: piece sums, exact mass, mass left/right of the cut, xₘ and one piece's mass match mpmath ({nK} preset/n/cut combinations)", worstK < 1e-8, f"worst {worstK:.2e}")
+    expK = {0: (8, 4 ** (1 / 3)), 1: (1 - math.exp(-4), math.log(2 / (1 + math.exp(-4)))), 2: (2 / 3 * (math.exp(12) - math.exp(9)), math.log((math.exp(12) + math.exp(9)) / 2) / 3), 3: (4 / 3, None), 5: (22.5, None)}
+    for k, (Mv, xv) in expK.items():
+        last = page.evaluate("k => { const r = document.querySelector('#widget-mass'); r._set(k); return r._last; }", k)
+        ok(f"Widget K preset {k}: mass (and xₘ) = the guide's answer", rel(last["exact"], Mv) < 1e-12 and (xv is None or abs(last["xm"] - xv) < 1e-12), f"{last['exact']}, {last['xm']}")
+    last = page.evaluate("() => { const r = document.querySelector('#widget-mass'); r._set(0, 8, 1); return r._last; }")
+    ok("Widget K notes p. 2 cut at x = 1: 1 of the 8 units on the left (the What-to-notice numbers)", abs(last["left"] - 1) < 1e-9 and abs(last["right"] - 7) < 1e-9, str(last))
+    last = page.evaluate("() => { const r = document.querySelector('#widget-mass'); r._set(1, 8, 2); return r._last; }")
+    ok("Widget K textbook Ex. 3.7.6 cut at x = 2: 1 − e⁻² and e⁻² − e⁻⁴", abs(last["left"] - (1 - math.exp(-2))) < 1e-9 and abs(last["right"] - (math.exp(-2) - math.exp(-4))) < 1e-9, str(last))
+    page.evaluate("() => document.querySelector('#widget-mass')._set(0)")
+
+    # ---------------------------------------------------------------- widget G: balance / center of mass (vs mpmath)
+    GPre = [("points", [(0, 30), (3, 60)], 0, 3), ("wire", lambda x: 4 * x * x + 2, 0, 3), ("wire", lambda x: 2 * mp.e ** (3 * x), 3, 4), ("wire", lambda x: mp.e ** (-x), 0, 4),
+            ("plate", (lambda x: x * x, lambda x: 2 / (x * x), lambda x: 0 * x), 1, 2), ("plate", (lambda x: x, lambda x: x * x, lambda x: 1 + 0 * x), 1, 2),
+            ("plate", (lambda x: mp.mpf(2) ** x, lambda x: 2 * x + 3, lambda x: x * x), -1, 3), ("plate", (lambda x: 1 + 0 * x, lambda x: 2 * x, lambda x: 0 * x), 0, 3)]
+    worstG, nG, verdicts = 0.0, 0, []
+    for k, (kind, spec, a, b) in enumerate(GPre):
+        if kind == "points":
+            M = mp.fsum(m for _, m in spec); Mx = mp.fsum(x * m for x, m in spec); My = mp.mpf(0); xm = None
+        else:
+            if kind == "wire": lam = spec; mid = lambda x: 0 * x
+            else:
+                d, up, lo = spec; lam = (lambda d, up, lo: (lambda x: d(x) * (up(x) - lo(x))))(d, up, lo); mid = (lambda up, lo: (lambda x: (up(x) + lo(x)) / 2))(up, lo)
+            br = [a, (a + b) / 2, b]
+            M = mp.quad(lam, br); Mx = mp.quad(lambda x: x * lam(x), br); My = mp.quad(lambda x: mid(x) * lam(x), br) if kind == "plate" else mp.mpf(0)
+            xm = mp.findroot(lambda t: mp.quad(spec, [a, t]) - M / 2, (a + b) / 2) if kind == "wire" else None
+        xbar, ybar = Mx / M, My / M
+        for c in (a, a + 0.3 * (b - a), float(xbar), b):
+            for dd in ((float(ybar), float(ybar) + 0.4) if kind == "plate" else (0,)):
+                last = page.evaluate("([k,c,d]) => { const r = document.querySelector('#widget-balance'); r._set(k, c, d); return r._last; }", [k, c, dd])
+                errs = [rel(last["M"], M), rel(last["Mx"], Mx), rel(last["xbar"], xbar), rel(last["net"], Mx - c * M, abs(Mx) + abs(c * M))]
+                if kind == "plate": errs += [rel(last["My"], My), rel(last["ybar"], ybar), rel(last["netY"], My - dd * M, abs(My) + abs(dd * M))]
+                if xm is not None: errs.append(abs(last["xm"] - float(xm)))
+                worstG = max(worstG, *errs); nG += 1
+                want = "balanced" if abs(c - float(xbar)) < 1e-12 else ("tips right" if c < float(xbar) else "tips left")
+                verdicts.append(last["verdict"] == want)
+    ok(f"Widget G: M, x̄M, ȳM, x̄, ȳ, both moments about the knife edges and xₘ match mpmath ({nG} preset/edge combinations)", worstG < 1e-8, f"worst {worstG:.2e}")
+    ok("Widget G: balanced exactly at x̄, tips toward the heavy side elsewhere", all(verdicts), f"{verdicts.count(False)} wrong verdicts")
+    expG = {0: (2, None), 1: (15 / 7, None), 2: ((11 * math.exp(12) - 8 * math.exp(9)) / (3 * (math.exp(12) - math.exp(9))), None), 3: ((1 - 5 * math.exp(-4)) / (1 - math.exp(-4)), None),
+            4: (1.5, 0.5), 5: (232 / 135, 2), 7: (2, 2)}
+    for k, (xv, yv) in expG.items():
+        last = page.evaluate("k => { const r = document.querySelector('#widget-balance'); r._set(k); return r._last; }", k)
+        ok(f"Widget G preset {k}: center of mass = the guide's answer", abs(last["xbar"] - xv) < 1e-12 and (yv is None or abs(last["ybar"] - yv) < 1e-12), f"{last['xbar']}, {last['ybar']}")
+    page.evaluate("() => document.querySelector('#widget-balance')._set(0)")
+
+    # ---------------------------------------------------------------- widget W: work (vs mpmath); slicing presets also checked as weight × rise of the center of mass
+    g98 = mp.mpf("9.8")
+    WPre = [("heli", lambda y: 2 + 0 * y, None, 50, 0, 50), ("rope", lambda y: 2 + 0 * y, None, 50, 0, 50),
+            ("box", lambda y: 1000 * g98 * 25 + 0 * y, 12, 9, 2, None), ("down", lambda y: 1000 * g98 * mp.pi * (5 * y / 12) ** 2, 12, 12, 0, None),
+            ("up", lambda y: 75 * mp.pi * ((100 - y) / 5) ** 2, 100, 80, 0, None), ("box", lambda y: mp.mpf("62.4") * 64 * mp.pi + 0 * y, 30, 10, 0, None),
+            ("spring", lambda x: 30 * x, None, (0, 0.5), None, None), ("bucket", lambda y: 32 - y / 10, None, (0, 100), None, None)]
+    worstW, nW = 0.0, 0
+    for k, (shape, w, H, lvl, ex0, top) in enumerate(WPre):
+        if shape in ("spring", "bucket"):
+            a, b = lvl
+            for n in (1, 4, 10, 40):
+                last = page.evaluate("([k,n]) => { const r = document.querySelector('#widget-work'); r._set(k, n); return r._last; }", [k, n])
+                dx = mp.mpf(b - a) / n
+                worstW = max(worstW, rel(last["exact"], mp.quad(w, [a, b])), rel(last["sum"], mp.fsum(w(a + j * dx) * dx for j in range(1, n + 1)))); nW += 1
+            continue
+        combos = [(lvl, ex0)] if shape in ("heli", "rope") else [(lvl, ex0), (H / 2, ex0), (H, 0), (lvl, H / 8)]
+        for L_, E_ in combos:
+            dest = 50 if shape == "rope" else (None if shape == "heli" else H + E_)
+            dist = (lambda y: 50 + 0 * y) if shape == "heli" else (lambda dest: (lambda y: dest - y))(dest)
+            om = (lambda w, dist: (lambda y: w(y) * dist(y)))(w, dist)
+            exact = mp.quad(om, [0, L_ / 2, L_]); wt = mp.quad(w, [0, L_]); yb = mp.quad(lambda y: y * w(y), [0, L_]) / wt
+            for n in (1, 6, 25):
+                last = page.evaluate("([k,n,l,e]) => { const r = document.querySelector('#widget-work'); r._set(k, n, 0.6, l, e); return r._last; }", [k, n, L_, E_])
+                dy = mp.mpf(L_) / n; ref_sum = mp.fsum(om(j * dy) * dy for j in range(1, n + 1))
+                worstW = max(worstW, rel(last["exact"], exact), rel(last["sum"], ref_sum), rel(last["weight"], wt), abs(last["ybar"] - float(yb)), rel(last["cm"], exact)); nW += 1
+    ok(f"Widget W: exact work, Riemann sums, weight, center-of-mass height and the weight × rise check match mpmath ({nW} preset/depth/spout/n combinations)", worstW < 1e-8, f"worst {worstW:.2e}")
+    expW = {0: 5000, 1: 2500, 2: 20947500, 3: 2940000 * math.pi, 4: 74880000 * math.pi, 5: 998400 * math.pi, 6: 3.75, 7: 2700}
+    for k, v in expW.items():
+        last = page.evaluate("k => { const r = document.querySelector('#widget-work'); r._set(k); return r._last; }", k)
+        ok(f"Widget W preset {k}: default work = the guide's answer", rel(last["exact"], v) < 1e-12, f"{last['exact']} vs {v}")
+    last = page.evaluate("() => { const r = document.querySelector('#widget-work'); r._set(7, 10); return r._last; }")
+    ok("Widget W leaky bucket, n = 10: the bars give 2700 − 500/n = 2650 (the What-to-notice formula)", abs(last["sum"] - 2650) < 1e-9, str(last["sum"]))
+    page.evaluate("() => document.querySelector('#widget-work')._set(0)")
+
     # ---------------------------------------------------------------- typed antiderivatives (browser end-to-end)
     def answer1(pid, value):
         prob = page.locator(f'.problem[data-pid="{pid}"]')
@@ -349,6 +473,73 @@ with sync_playwright() as p:
     fb = answer("D-indep", ["5", "13"]); ok("D-indep 5 and 13 -> correct", "good" in (fb.get_attribute("class") or ""))
     fb = answer("A-p2", ["0", "0"]); ok("A-p2 total=0 -> 'net integral' message", "net integral" in fb.inner_text())
 
+    # ---------------------------------------------------------------- new topics S, K, G, W: answers, units, gating, guided steps, multi-selects
+    good = lambda fb: "good" in (fb.get_attribute("class") or "")
+    fb = answer("S-indep", ["2pi/3"]); ok("S-indep h = x -> 'the top curve only' message", "top curve only" in fb.inner_text(), fb.inner_text()[:90])
+    fb = answer("S-indep", ["pi/6"]); ok("S-indep π/6 -> correct", good(fb))
+    fb = answer("K-indep", ["9"]); ok("K-indep 9 -> 'that is the triangle’s area'", "area" in fb.inner_text(), fb.inner_text()[:90])
+    fb = answer("K-indep", ["-22.5"]); ok("K-indep −22.5 -> 'the strip height has the wrong sign'", "wrong sign" in fb.inner_text(), fb.inner_text()[:90])
+    fb = answer("K-indep", ["22.5"]); ok("K-indep 22.5 with no unit -> correct, with a 'write the units too' reminder", good(fb) and "write the units too" in fb.inner_text(), fb.inner_text()[:140])
+    fb = answer("K-indep", ["45/2 kg"]); ok("K-indep '45/2 kg' -> correct, no unit reminder", good(fb) and "units" not in fb.inner_text(), fb.inner_text()[:140])
+    fb = answer("K-indep", ["22.5 lb"]); ok("K-indep '22.5 lb' -> the number is accepted, but told the unit is kg", good(fb) and "check the units" in fb.inner_text(), fb.inner_text()[:140])
+    fb = answer("G-indep", ["1/3", "11/20", "0.9"]); ok("G-indep ȳ without the ½ -> targeted message", "½ is missing" in fb.inner_text(), fb.inner_text()[:90])
+    fb = answer("G-indep", ["1/3", "11/20", "9/20"]); ok("G-indep (1/3, 11/20, 9/20) -> correct", good(fb))
+    fb = answer("G-p1", ["(2/3)(e^12-e^9)", "(2/9)(11e^12-8e^9)", "11.157"]); ok("G-p1 x̄ ≈ 11.16 (the notes' p. 9 slip) -> 'not on the wire'", "not on the wire" in fb.inner_text(), fb.inner_text()[:90])
+    fb = answer("G-p1", ["(2/3)(e^12-e^9)", "(2/9)(11e^12-8e^9)", "(11e^12-8e^9)/(3(e^12-e^9))"]); ok("G-p1 exact forms in e^12, e^9 -> correct", good(fb))
+    fb = answer("W-indep", ["24460800"]); ok("W-indep × 9.8 -> 'already a weight' message", "already a weight" in fb.inner_text(), fb.inner_text()[:90])
+    fb = answer("W-indep", ["2,496,000 ft-lb"]); ok("W-indep '2,496,000 ft-lb' (commas and a unit) -> correct", good(fb) and "units" not in fb.inner_text(), fb.inner_text()[:140])
+    fb = answer("W-p4", ["2.5", "45"]); ok("W-p4 k and W left in inches -> both targeted messages", "lb per inch" in fb.inner_text() and "inch-pounds" in fb.inner_text(), fb.inner_text()[:160])
+    fb = answer("W-p4", ["30 lb/ft", "15/4 ft·lb"]); ok("W-p4 '30 lb/ft' and '15/4 ft·lb' -> correct, no unit reminder", good(fb) and "units" not in fb.inner_text(), fb.inner_text()[:140])
+    fb = answer("W-p8", ["180 N·m"]); ok("W-p8 '180 N·m' -> correct (N·m counts as J)", good(fb) and "check the units" not in fb.inner_text(), fb.inner_text()[:140])
+    fb = answer("W-p7", ["1350"]); ok("W-p7 ∫F dt = 1350 -> 'change variables with y = 2t'", "y = 2t" in fb.inner_text(), fb.inner_text()[:90])
+    fb = answer("F-W3", ["6860"]); ok("F-W3 whole cable lifted 10 m -> targeted message", "10 − y" in fb.inner_text(), fb.inner_text()[:90])
+    fb = answer("F-W3", ["5880 J"]); ok("F-W3 '5880 J' -> correct", good(fb))
+    mk = page.locator('.problem[data-pid="mixed-K1"]')
+    ok("mixed-K1: answer box hidden until the method is chosen", not mk.locator(".answers").is_visible())
+    mk.locator(".mcq .opt").first.click(); page.wait_for_timeout(40)
+    fb = answer("mixed-K1", ["14/3 kg"]); ok("mixed-K1 '14/3 kg' accepted after choosing the method", good(fb))
+    ok("tryouts present in S, K, G and W", all(page.locator(f"#{T}-explore .tryout").count() >= 1 for T in "SKGW"))
+
+    def gnext(G, i): G.locator(".gstep").nth(i).get_by_role("button", name="Next step →").click(); page.wait_for_timeout(50)
+    def gmcq(G, i): G.locator(".gstep").nth(i).locator(".opt").first.click(); page.wait_for_timeout(30); gnext(G, i)
+    def ginput(G, i, val):
+        s_ = G.locator(".gstep").nth(i); s_.locator("input.ans").fill(val); s_.get_by_role("button", name="Check").click(); page.wait_for_timeout(30); return s_
+    gk = page.locator('.guided[data-gid="K-guided"]')
+    s_ = ginput(gk, 0, "2"); ok("guided K step 1: upper limit 2 accepted", s_.locator(".greveal").is_visible()); gnext(gk, 0)
+    gmcq(gk, 1)
+    s_ = ginput(gk, 2, "x - x^2"); ok("guided K step 3: top curve only -> targeted message", "only the top curve" in s_.locator(".feedback").inner_text(), s_.locator(".feedback").inner_text()[:90])
+    s_ = ginput(gk, 2, "2x - x^2"); ok("guided K step 3: 2x − x² accepted", s_.locator(".greveal").is_visible()); gnext(gk, 2)
+    s_ = ginput(gk, 3, "x(2x-x^2)"); ok("guided K step 4: x(2x − x²) accepted", s_.locator(".greveal").is_visible()); gnext(gk, 3)
+    s_ = ginput(gk, 4, "-4/3"); ok("guided K step 5: −4/3 -> 'a negative mass' message", "negative mass" in s_.locator(".feedback").inner_text(), s_.locator(".feedback").inner_text()[:90])
+    s_ = ginput(gk, 4, "4/3"); ok("guided K step 5: 4/3 accepted", s_.locator(".greveal").is_visible())
+    gg = page.locator('.guided[data-gid="G-guided"]')
+    ginput(gg, 0, "42"); gnext(gg, 0)
+    s_ = ginput(gg, 1, "4x^2+2"); ok("guided G step 2: the mass integrand -> 'times its position x' message", "position x" in s_.locator(".feedback").inner_text(), s_.locator(".feedback").inner_text()[:90])
+    s_ = ginput(gg, 1, "4x^3+2x"); ok("guided G step 2: 4x³ + 2x accepted", s_.locator(".greveal").is_visible()); gnext(gg, 1)
+    ginput(gg, 2, "90"); gnext(gg, 2)
+    s_ = ginput(gg, 3, "42/90"); ok("guided G step 4: M/x̄M -> 'Upside down'", "Upside down" in s_.locator(".feedback").inner_text(), s_.locator(".feedback").inner_text()[:90])
+    s_ = ginput(gg, 3, "15/7"); ok("guided G step 4: 15/7 accepted", s_.locator(".greveal").is_visible())
+    gw = page.locator('.guided[data-gid="W-guided"]')
+    gmcq(gw, 0)
+    s_ = ginput(gw, 1, "12y/5"); ok("guided W step 2: 12y/5 -> 'the ratio is upside down'", "upside down" in s_.locator(".feedback").inner_text(), s_.locator(".feedback").inner_text()[:90])
+    s_ = ginput(gw, 1, "5y/12"); ok("guided W step 2: r = 5y/12 accepted", s_.locator(".greveal").is_visible()); gnext(gw, 1)
+    s_ = ginput(gw, 2, "1000pi(5y/12)^2"); ok("guided W step 3: the slice's mass -> 'mass × 9.8' message", "9.8" in s_.locator(".feedback").inner_text(), s_.locator(".feedback").inner_text()[:90])
+    s_ = ginput(gw, 2, "1000*pi*(5y/12)^2*9.8"); ok("guided W step 3: weight 1000·π(5y/12)²·9.8 accepted", s_.locator(".greveal").is_visible()); gnext(gw, 2)
+    s_ = ginput(gw, 3, "12-y"); ok("guided W step 4: distance 12 − y accepted", s_.locator(".greveal").is_visible()); gnext(gw, 3)
+    s_ = ginput(gw, 4, "2940000pi J"); ok("guided W step 5: '2940000pi J' accepted", s_.locator(".greveal").is_visible())
+
+    for qid, right, wrong, frag in (("G-m1", (0, 1, 2), 3, "constant density or a symmetry"), ("W-m1", (0, 2, 3, 5), 1, "different pieces move different distances")):
+        q = page.locator(f'.mcq[data-qid="{qid}"]')
+        q.locator(".opt").nth(wrong).click(); q.get_by_role("button", name="Check selection").click(); page.wait_for_timeout(30)
+        ok(f"multi-select {qid} wrong selection -> the topic's own message", frag in q.locator(".feedback").inner_text(), q.locator(".feedback").inner_text()[:100])
+        q.locator(".opt").nth(wrong).click()
+        for i in right: q.locator(".opt").nth(i).click()
+        q.get_by_role("button", name="Check selection").click(); page.wait_for_timeout(30)
+        ok(f"multi-select {qid} right selection -> correct", "good" in (q.locator(".feedback .fb").first.get_attribute("class") or ""))
+    s = page.locator('.spot[data-sid="K-spot1"]')
+    s.locator(".sline[data-bad]").click(); page.wait_for_timeout(30)
+    ok("spot K-spot1: explanation shown after finding the error", s.locator(".spot-explain").is_visible())
+
     # hint flow on a fresh problem
     prob = page.locator('.problem[data-pid="A-p4"]')
     prob.get_by_role("button", name="I'm stuck").click(); page.wait_for_timeout(40)
@@ -390,7 +581,7 @@ with sync_playwright() as p:
 
     # mastery report reflects L4 for topic A (A-indep solved alone); level needs L1..L3 too so just check the cell
     cells = page.locator("#masteryReport .c")
-    ok("mastery report rendered 70 cells (10 topics × 7 levels)", cells.count() == 70, str(cells.count()))
+    ok("mastery report rendered 98 cells (14 topics × 7 levels)", cells.count() == 98, str(cells.count()))
     ok("mastery report: §2.4 (4th row) 'Solve alone' ✓", cells.nth(24).inner_text().strip() == "✓", cells.nth(24).inner_text())
     ok("mastery report: §1.1 substitution 'Solve alone' ✓ (U-indep solved without hints)", cells.nth(3).inner_text().strip() == "✓", cells.nth(3).inner_text())
 
@@ -414,6 +605,7 @@ with sync_playwright() as p:
         loc = page.locator(sel).first; loc.scroll_into_view_if_needed(); page.wait_for_timeout(120)
         loc.screenshot(path=str(SHOTS / name))
     shot("#widget-area", "dark_widgetA.png")
+    for wid in ("widget-shell", "widget-mass", "widget-balance", "widget-work"): shot(f"#{wid}", f"dark_{wid}.png")
     page.click("#themeBtn"); page.wait_for_timeout(80)   # -> auto (headless default = light)
     page.evaluate("() => { document.documentElement.setAttribute('data-theme','light'); }")
     page.evaluate("() => window.scrollTo(0,0)"); page.wait_for_timeout(100)
@@ -451,14 +643,30 @@ with sync_playwright() as p:
     page.evaluate("() => document.querySelector('#widget-volume')._set(1, 0, 8)"); shot("#widget-volume", "light_widgetV.png")
     page.evaluate("() => document.querySelector('#widget-volume')._set(5, 0, 8)"); shot("#widget-volume", "light_widgetV_yaxis.png")
     shot("#report", "light_report_10.png")
+    for T in "SKGW":
+        shot(f"#{T}-learn", f"light_{T}_learn.png"); shot(f"#{T}-understand", f"light_{T}_understand.png"); shot(f"#{T}-compare", f"light_{T}_compare.png")
+    page.evaluate("() => document.querySelector('#widget-shell')._set(3)"); shot("#widget-shell", "light_widgetS.png")
+    page.evaluate("() => document.querySelector('#widget-mass')._set(2, 8, 3.785)"); shot("#widget-mass", "light_widgetK.png")
+    page.evaluate("() => document.querySelector('#widget-mass')._set(4, 12)"); shot("#widget-mass", "light_widgetK_plate.png")
+    page.evaluate("() => document.querySelector('#widget-balance')._set(1, 1.5)"); shot("#widget-balance", "light_widgetG.png")
+    page.evaluate("() => document.querySelector('#widget-balance')._set(6)"); shot("#widget-balance", "light_widgetG_plate.png")
+    page.evaluate("() => document.querySelector('#widget-work')._set(4, 10)"); shot("#widget-work", "light_widgetW.png")
+    page.evaluate("() => document.querySelector('#widget-work')._set(7, 10)"); shot("#widget-work", "light_widgetW_bucket.png")
+    page.evaluate("() => document.querySelector('#widget-work')._set(6, 10)"); shot("#widget-work", "light_widgetW_spring.png")
+    shot('.guided[data-gid="W-guided"]', "light_guided_W.png")
+    shot('.problem[data-pid="K-indep"]', "light_problem_K.png")
+    shot("#report", "light_report_14.png")
     # mobile
-    m = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2).new_page()
+    m = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, reduced_motion="reduce").new_page()
     m.goto(URL); m.wait_for_timeout(600); m.screenshot(path=str(SHOTS / "mobile_top.png"))
     m.locator("#widget-numeric").scroll_into_view_if_needed(); m.wait_for_timeout(200); m.locator("#widget-numeric").screenshot(path=str(SHOTS / "mobile_widgetC.png"))
     m.locator("#widget-path").scroll_into_view_if_needed(); m.wait_for_timeout(200); m.locator("#widget-path").screenshot(path=str(SHOTS / "mobile_widgetE.png"))
     m.locator("#widget-parts").scroll_into_view_if_needed(); m.wait_for_timeout(200); m.locator("#widget-parts").screenshot(path=str(SHOTS / "mobile_widgetP.png"))
     m.locator("#widget-arc").scroll_into_view_if_needed(); m.wait_for_timeout(200); m.locator("#widget-arc").screenshot(path=str(SHOTS / "mobile_widgetL.png"))
     m.locator("#widget-volume").scroll_into_view_if_needed(); m.wait_for_timeout(200); m.locator("#widget-volume").screenshot(path=str(SHOTS / "mobile_widgetV.png"))
+    for wid in ("widget-shell", "widget-mass", "widget-balance", "widget-work"):
+        m.locator(f"#{wid}").scroll_into_view_if_needed(); m.wait_for_timeout(200); m.locator(f"#{wid}").screenshot(path=str(SHOTS / f"mobile_{wid}.png"))
+    ok("mobile: no horizontal page scroll at 390 px", m.evaluate("() => document.documentElement.scrollWidth <= window.innerWidth + 1"), str(m.evaluate("() => [document.documentElement.scrollWidth, window.innerWidth]")))
     browser.close()
 
 print(f"\n{sum(1 for r in results if r[1])}/{len(results)} checks passed")

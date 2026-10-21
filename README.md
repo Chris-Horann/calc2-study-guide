@@ -1,19 +1,20 @@
 # Calc 2 study guide
 
-An interactive study guide for Calc 2 (integral calculus), built from the lecture notes for §1.1–§3.5 and the matching sections of the course textbook. It covers:
+An interactive study guide for Calc 2 (integral calculus), built from the lecture notes for §1.1–§3.9 and the matching sections of the course textbook. It covers:
 - integration techniques;
 - the Fundamental Theorem and signed area;
 - improper and numerical integrals;
 - displacement and distance in 1D, 2D and 3D;
 - arc length;
-- volume by disks and washers.
+- volume by disks, washers and cylindrical shells;
+- mass and density, center of mass, and work.
 
 Each topic teaches the idea first, then asks you to use it. Hints come one step at a time, and solutions stay hidden until you ask for them.
 
 ## Open the guide
 
 1. Click the green **Code** button near the top of this page, choose **Download ZIP**, and unzip it. (Or `git clone` the repository.)
-2. Open `study-guides/calc2_study_guide_1.1-3.3.html` in a web browser by double-clicking it. It works offline, and there's nothing to install. The filename is historical: the guide now runs through §3.5.
+2. Open `study-guides/calc2_study_guide_1.1-3.3.html` in a web browser by double-clicking it. It works offline, and there's nothing to install. The filename is historical: the guide now runs through §3.9.
 3. Your answers, hints used and progress are saved in that browser only. **Reset progress** in the sidebar clears them.
 
 ## Topics
@@ -30,6 +31,10 @@ Each topic teaches the idea first, then asks you to use it. Hints come one step 
 | §3.3 | Motion in 2D and 3D | `#E` |
 | §3.3 | Arc length | `#L` |
 | §3.5 | Volume: disks and washers | `#V` |
+| §3.5 | Volume: cylindrical shells | `#S` |
+| §3.7 | Mass and density | `#K` |
+| §3.8 | Center of mass and moments | `#G` |
+| §3.9 | Work | `#W` |
 
 Add the code to the end of the address to jump straight to a topic, for example `calc2_study_guide_1.1-3.3.html#L`. The guide also has:
 - a concept map and a diagnostic quiz;
@@ -52,7 +57,7 @@ Add the code to the end of the address to jump straight to a topic, for example 
 ## What's in this repository
 
 - `study-guides/calc2_study_guide_1.1-3.3.html` is the guide itself, one self-contained file.
-- `study-guides/_build/calc2_ftc_improper_numerical_displacement/` holds the guide's source: `parts/`, `app.js` and `styles.css`. It also holds `build.js`, which renders the math with KaTeX and writes the guide, and `test_guide.py`, a headless-browser test suite.
+- `study-guides/_build/calc2_ftc_improper_numerical_displacement/` holds the guide's source: `parts/`, `app.js` and `styles.css`. It also holds `build.js`, which renders the math with KaTeX and writes the guide, `test_guide.py`, a headless-browser test suite, and `js_eval.js` / `js_eval_num.js`, which run the guide's own answer grader on every expression and numeric answer key.
 - `study-guides/verification/` holds the Jupyter notebooks that check every answer with SymPy/mpmath and Wolfram Language.
 - `materials/notes/NOTES_INDEX.md` indexes the lecture notes by topic, with page references.
 - `COURSE_MAP.md` shows the course's progression and how the topics depend on each other.
@@ -64,10 +69,10 @@ Add the code to the end of the address to jump straight to a topic, for example 
 cd study-guides/_build/calc2_ftc_improper_numerical_displacement
 npm install              # KaTeX, used to render the math at build time
 node build.js            # writes study-guides/calc2_study_guide_1.1-3.3.html
-python test_guide.py     # needs Playwright with Microsoft Edge, and mpmath
+python -X utf8 test_guide.py   # needs Playwright with Microsoft Edge, and mpmath
 ```
 
-The verification notebooks need Python with SymPy and mpmath, plus Node for the check that runs the guide's own answer grader.
+The verification notebooks need Python with SymPy, mpmath, NumPy and SciPy, plus Node for the checks that run the guide's own answer grader.
 
 ## What's not included
 

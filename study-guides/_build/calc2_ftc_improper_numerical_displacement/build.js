@@ -7,7 +7,7 @@ const katex = require('katex');
 
 const SRC = __dirname;
 const OUT = path.resolve(SRC, '..', '..', 'calc2_study_guide_1.1-3.3.html');
-const PARTS = ['00-head.html', '10-start.html', '12-U.html', '14-P.html', '16-R.html', '20-A.html', '30-B.html', '40-C.html', '50-D.html', '55-E.html', '57-L.html', '58-V.html', '60-mixed.html', '70-final.html', '90-tail.html']
+const PARTS = ['00-head.html', '10-start.html', '12-U.html', '14-P.html', '16-R.html', '20-A.html', '30-B.html', '40-C.html', '50-D.html', '55-E.html', '57-L.html', '58-V.html', '59-S.html', '59a-K.html', '59b-G.html', '59c-W.html', '60-mixed.html', '70-final.html', '90-tail.html']
   .filter(p => fs.existsSync(path.join(SRC, 'parts', p)));
 
 let tpl = PARTS.map(p => fs.readFileSync(path.join(SRC, 'parts', p), 'utf8')).join('\n');
@@ -61,7 +61,7 @@ while ((a = ansRe.exec(tpl))) {
     const g = k => { const r = new RegExp(`data-${k}="([^"]*)"`).exec(a[1]); return r ? r[1] : undefined; };
     const wr0 = /data-wrong='([^']*)'/.exec(a[1]);
     let wl = []; try { wl = wr0 ? JSON.parse(wr0[1]) : []; } catch (e) {}
-    const rec = { vid: vid[1], answer: ans[1], kind: g('kind') || 'num', var: g('var'), integrand: g('integrand'), dom: g('dom'), exact: g('exact'), tol: g('tol'), wrong: wl };
+    const rec = { vid: vid[1], answer: ans[1], kind: g('kind') || 'num', var: g('var'), integrand: g('integrand'), dom: g('dom'), exact: g('exact'), tol: g('tol'), units: g('units'), wrong: wl };
     if (rec.kind === 'anti' && !(rec.integrand && rec.dom && rec.var)) problems.push('anti input needs data-integrand, data-dom, data-var: ' + vid[1]);
     if (rec.kind === 'expr' && !(rec.dom && rec.var)) problems.push('expr input needs data-dom, data-var: ' + vid[1]);
     full.push(rec);

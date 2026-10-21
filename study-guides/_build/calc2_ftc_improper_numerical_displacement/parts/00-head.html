@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Calc 2 Study Guide §1.1–§3.5: Integration Techniques, the FTC, Improper &amp; Numerical Integrals, Motion, Arc Length &amp; Volume</title>
-<meta name="description" content="Interactive study guide built from the lecture notes 1.1-3.1(some).pdf, 3.1rest-3.3.pdf and rest3.3-3.5.pdf (textbook §1.1, §1.3, §2.4-2.6, §3.1, §3.3, §3.5).">
+<title>Calc 2 Study Guide §1.1–§3.9: Integration Techniques, the FTC, Improper &amp; Numerical Integrals, Motion, Arc Length, Volume, Mass &amp; Work</title>
+<meta name="description" content="Interactive study guide built from the lecture notes 1.1-3.1(some).pdf, 3.1rest-3.3.pdf, rest3.3-3.5.pdf, MATH1342_Fall 2026_Section 12_0.pdf and 3.7_3.9.pdf (textbook §1.1, §1.3, §2.4-2.6, §3.1, §3.3, §3.5, §3.7, §3.8, §3.9).">
 <style>/*__KATEX_CSS__*/</style>
 <style>/*__STYLES__*/</style>
 </head>
@@ -20,7 +20,7 @@
 <aside class="sidebar" aria-label="Guide navigation">
   <div class="brand">
     <div class="brand-mark" aria-hidden="true">∫</div>
-    <div><div class="brand-title">Calc 2 Study Guide</div><div class="brand-sub">Notes §1.1–§3.5 · Text §1.1, 1.3, 2.4–2.6, 3.1, 3.3, 3.5</div></div>
+    <div><div class="brand-title">Calc 2 Study Guide</div><div class="brand-sub">Notes §1.1–§3.9 · Text §1.1, 1.3, 2.4–2.6, 3.1, 3.3, 3.5, 3.7–3.9</div></div>
   </div>
   <div class="progress-card">
     <div class="progress-top"><span>Your progress</span><strong id="meterText">0%</strong></div>
@@ -45,6 +45,11 @@
     <div class="nav-group">Length &amp; volume</div>
     <a href="#L"><span class="letter sec" aria-hidden="true">3.3</span><span style="flex:1">Arc length</span><span class="tag" id="lvl-L">L0</span><span class="tick" id="tick-L" aria-hidden="true"></span></a>
     <a href="#V"><span class="letter sec" aria-hidden="true">3.5</span><span style="flex:1">Volume: disks &amp; washers</span><span class="tag" id="lvl-V">L0</span><span class="tick" id="tick-V" aria-hidden="true"></span></a>
+    <a href="#S"><span class="letter sec" aria-hidden="true">3.5</span><span style="flex:1">Volume: cylindrical shells</span><span class="tag" id="lvl-S">L0</span><span class="tick" id="tick-S" aria-hidden="true"></span></a>
+    <div class="nav-group">Mass, balance &amp; work</div>
+    <a href="#K"><span class="letter sec" aria-hidden="true">3.7</span><span style="flex:1">Mass &amp; density</span><span class="tag" id="lvl-K">L0</span><span class="tick" id="tick-K" aria-hidden="true"></span></a>
+    <a href="#G"><span class="letter sec" aria-hidden="true">3.8</span><span style="flex:1">Center of mass</span><span class="tag" id="lvl-G">L0</span><span class="tick" id="tick-G" aria-hidden="true"></span></a>
+    <a href="#W"><span class="letter sec" aria-hidden="true">3.9</span><span style="flex:1">Work</span><span class="tag" id="lvl-W">L0</span><span class="tick" id="tick-W" aria-hidden="true"></span></a>
     <div class="nav-group">Put it together</div>
     <a href="#mixed"><span class="letter" aria-hidden="true">⇄</span>Mixed practice</a>
     <a href="#final"><span class="letter" aria-hidden="true">✓</span>Final mastery check</a>
@@ -62,9 +67,9 @@
 <div class="wrap">
 
 <header class="hero" id="top">
-  <div class="kicker">Calc 2 · Built from your lecture notes: <code>1.1-3.1(some).pdf</code>, <code>3.1rest-3.3.pdf</code> and <code>rest3.3-3.5.pdf</code></div>
-  <h1>Integration Techniques, the FTC, Improper &amp; Numerical Integrals, Motion, Arc Length and Volume</h1>
-  <p class="lede">An interactive guide to your course from §1.1 to §3.5: every section that appears in your lecture notes. Nothing here asks you to memorize a formula you couldn't rebuild. Each topic asks you to <em>think first</em>, then shows you why the mathematics works and how to recognize when to use it.</p>
+  <div class="kicker">Calc 2 · Built from your lecture notes: <code>1.1-3.1(some).pdf</code>, <code>3.1rest-3.3.pdf</code>, <code>rest3.3-3.5.pdf</code>, <code>MATH1342_Fall 2026_Section 12_0.pdf</code> and <code>3.7_3.9.pdf</code></div>
+  <h1>Integration Techniques, the FTC, Improper &amp; Numerical Integrals, Motion, Arc Length, Volume, Mass and Work</h1>
+  <p class="lede">An interactive guide to your course from §1.1 to §3.9: every section that appears in your lecture notes. Nothing here asks you to memorize a formula you couldn't rebuild. Each topic asks you to <em>think first</em>, then shows you why the mathematics works and how to recognize when to use it.</p>
   <div class="flow" aria-label="How every topic is organized">
     <span>1 Learn</span><i>→</i><span>2 Understand</span><i>→</i><span>3 Explore</span><i>→</i><span>4 Attempt</span><i>→</i><span>5 Compare</span><i>→</i><span>6 Practice</span><i>→</i><span>7 Master</span>
   </div>
@@ -81,14 +86,18 @@
         <li><b>§3.1</b> Displacement &amp; distance traveled (notes pp. 40–41; new notes pp. 1–3)</li>
         <li><b>§3.3</b> Motion in the plane and in space (new notes pp. 4–7; 3.3–3.5 notes p. 1)</li>
         <li><b>§3.3</b> Arc length (3.3–3.5 notes pp. 2–4)</li>
-        <li><b>§3.5</b> Volume by slicing: disks and washers (3.3–3.5 notes pp. 5–7)</li>
+        <li><b>§3.5</b> Volume by slicing: disks and washers (3.3–3.5 notes pp. 5–7; MATH1342 notes pp. 1–4)</li>
+        <li><b>§3.5</b> Volume by cylindrical shells (MATH1342 notes pp. 5–9)</li>
+        <li><b>§3.7</b> Mass and density: wires, plates, the mass midpoint (3.7–3.9 notes pp. 1–5)</li>
+        <li><b>§3.8</b> Center of mass and moments (3.7–3.9 notes pp. 6–13)</li>
+        <li><b>§3.9</b> Work: ropes, tanks, springs, the leaky bucket (3.7–3.9 notes pp. 14–24)</li>
       </ul>
-      <p class="small muted" style="margin:6px 0 0">“New notes” means <code>3.1rest-3.3.pdf</code>; “3.3–3.5 notes” means <code>rest3.3-3.5.pdf</code>.</p>
+      <p class="small muted" style="margin:6px 0 0">“New notes” means <code>3.1rest-3.3.pdf</code>; “3.3–3.5 notes” means <code>rest3.3-3.5.pdf</code>; “MATH1342 notes” means <code>MATH1342_Fall 2026_Section 12_0.pdf</code>; “3.7–3.9 notes” means <code>3.7_3.9.pdf</code>.</p>
     </div>
     <div class="card tight">
       <h4>Not covered here</h4>
-      <p class="small" style="margin:0 0 6px">Only sections that appear in your notes are included. <b>§1.2</b> (trig integrals and trig substitution), <b>§2.1–§2.3</b>, <b>§3.2</b> (area in the plane) and <b>§3.4</b> (polar coordinates) aren't in your notes, so they're left out. From §3.3, arc length for $x=f(y)$, arc-length parameterization and the polar exercises aren't in your notes either. From §3.5, the <b>cylindrical shell</b> method isn't in your notes yet: they stop at disks and washers.</p>
-      <p class="small muted" style="margin:0">Also left out: textbook-only material your notes don't use, such as initial-value problems, cyclic integration by parts ($e^x\sin x$), comparison tests, error-bound formulas, average velocity, and surface area (§3.6).</p>
+      <p class="small" style="margin:0 0 6px">Only sections that appear in your notes are included. <b>§1.2</b> (trig integrals and trig substitution), <b>§2.1–§2.3</b>, <b>§3.2</b> (area in the plane) and <b>§3.4</b> (polar coordinates) aren't in your notes, so they're left out. From §3.3, arc length for $x=f(y)$, arc-length parameterization and the polar exercises aren't in your notes either. From §3.5, the textbook's general-cone discussion isn't in your notes either. <b>§3.6</b> (surface area) and <b>§3.10</b> (hydrostatic pressure) aren't in your notes. From §3.7–§3.9, the notes don't cover the density of 3D solids, a density that depends on $y$, potential energy, or objects whose mass changes in Newton's law.</p>
+      <p class="small muted" style="margin:0">Also left out: textbook-only material your notes don't use, such as initial-value problems, cyclic integration by parts ($e^x\sin x$), comparison tests, error-bound formulas, average velocity, working with slugs (the English unit of mass; they appear only as the unit in textbook Examples 3.7.6 and 3.8.5), and the centroid of a cone (quoted once, as a check, in §3.9).</p>
     </div>
   </div>
   <div class="card tight">

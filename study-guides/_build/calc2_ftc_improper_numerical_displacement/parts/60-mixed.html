@@ -2,7 +2,7 @@
   <div class="topic-banner">
     <div class="topic-letter" aria-hidden="true">⇄</div>
     <div><h2>Mixed practice: no labels</h2>
-    <div class="sources">Practice Levels 5–6: decide the method yourself (CLAUDE.md §14). All ten topics, interleaved on purpose.</div></div>
+    <div class="sources">Practice Levels 5–6: decide the method yourself (CLAUDE.md §14). All fourteen topics, interleaved on purpose.</div></div>
   </div>
   <div class="callout big"><div class="label">How this works</div><p style="margin:0">Each problem first asks <b>what kind of problem it is</b>. The answer box opens only after you commit to a method, because choosing the method is the skill being practiced. Your first choice counts toward Level 5 in your mastery report.</p></div>
 
@@ -301,6 +301,111 @@
     <div class="answers"><label>Answer <input class="ans" data-accept="div" data-vid="M9" data-answer="1.570796326795" data-exact="π/2"></label></div>
     <div class="hint">An antiderivative is $\sin^{-1}\frac x2$ (notes p. 1). Use $\lim_{b\to2^-}$.</div>
     <div class="solution">$\lim_{b\to2^-}\sin^{-1}\frac b2-0=\frac\pi2.$ It converges.</div>
+  </div>
+
+  <div class="problem" data-pid="mixed-S1" data-mixed="S" data-topic="mixed" data-title="Mixed 27" data-help="Exact (e.g. 63pi/2) or decimals." data-prompt="The region between y = x^2 and y = x + 2 is spun about the line x = 4. Find the volume of the solid.">
+    <div class="p-body">The region between $y=x^2$ and $y=x+2$ is spun about the line $x=4$. Find the volume of the solid.</div>
+    <div class="mcq" data-qid="mixed-S1-class"><div class="q">Which setup is right?</div><div class="opts">
+      <button class="opt" data-correct data-why="Right: the axis is vertical, so the vertical strip at x is parallel to it and spins into a shell. r = 4 − x and h = (x + 2) − x² (MATH1342 notes pp. 7–9).">$2\pi\int_{-1}^{2}(4-x)\,(x+2-x^2)\,dx$</button>
+      <button class="opt" data-why="That is the washer method, which is for a horizontal axis. The strip at x is parallel to the axis x = 4, so it makes a thin cylinder, not a ring.">$\pi\int_{-1}^{2}\big[(x+2)^2-x^4\big]\,dx$</button>
+      <button class="opt" data-why="That uses r = x, the distance from the y-axis. r is the distance from the axis, which is x = 4.">$2\pi\int_{-1}^{2}x\,(x+2-x^2)\,dx$</button></div></div>
+    <div class="answers"><label>Volume <input class="ans" data-vid="M-S1" data-answer="98.960168588078" data-exact="63π/2" data-wrong='[{"v":14.137166941154,"m":"That is the answer with r = x (9π/2), measured from the y-axis. The axis is x = 4: r = 4 − x."},{"v":-98.960168588078,"m":"Negative: r = x − 4 is negative on [−1, 2]. Use the distance 4 − x."}]'></label></div>
+    <div class="hint">The curves meet where $x^2=x+2$, so $(x-2)(x+1)=0$: $x=-1$ and $x=2$. The line is on top between them.</div>
+    <div class="hint">$h=(x+2)-x^2$ and $r=4-x$. Expand: $(4-x)(2+x-x^2)=x^3-5x^2+2x+8$.</div>
+    <div class="solution">$V=2\pi\int_{-1}^{2}\big(x^3-5x^2+2x+8\big)\,dx=2\pi\Big[\frac{x^4}4-\frac{5x^3}3+x^2+8x\Big]_{-1}^{2}=2\pi\Big(\frac{32}3+\frac{61}{12}\Big)=\frac{63\pi}2\approx98.96$.</div>
+  </div>
+
+  <div class="problem" data-pid="mixed-V4" data-mixed="V" data-topic="mixed" data-title="Mixed 28" data-help="Exact (e.g. 117pi/5) or decimals." data-prompt="The region between y = x^2 and y = x + 2 is spun about the line y = -1. Find the volume of the solid.">
+    <div class="p-body">The <em>same</em> region, between $y=x^2$ and $y=x+2$, is now spun about the line $y=-1$. Find the volume of the solid.</div>
+    <div class="mcq" data-qid="mixed-V4-class"><div class="q">Which setup is right?</div><div class="opts">
+      <button class="opt" data-correct data-why="Right: the axis is horizontal, so the vertical strip at x is perpendicular to it and spins into a ring. Distances from y = −1: add 1 to each curve (MATH1342 notes p. 4).">$\pi\int_{-1}^{2}\big[(x+3)^2-(x^2+1)^2\big]\,dx$</button>
+      <button class="opt" data-why="With the vertical strip at x and a horizontal axis, the strip is perpendicular to the axis, so it makes a ring, not a shell. Shells about a horizontal axis would need horizontal strips and dy.">$2\pi\int_{-1}^{2}(x+1)\,(x+2-x^2)\,dx$</button>
+      <button class="opt" data-why="Those radii are measured from the x-axis. The axis is y = −1, so add 1 to each curve.">$\pi\int_{-1}^{2}\big[(x+2)^2-x^4\big]\,dx$</button></div></div>
+    <div class="answers"><label>Volume <input class="ans" data-vid="M-V4" data-answer="73.513268094001" data-exact="117π/5" data-wrong='[{"v":45.238934211693,"m":"That is the answer about the x-axis (72π/5). Measure R and r from the line y = −1."},{"v":25.446900494077,"m":"That is π∫(R − r)² (81π/10). A washer’s area is π(R² − r²)."}]'></label></div>
+    <div class="hint">The region is the same as in Mixed 27, but the axis is horizontal this time. The curves still meet at $x=-1$ and $x=2$.</div>
+    <div class="hint">The axis is below the region. $R=(x+2)-(-1)=x+3$ and $r=x^2-(-1)=x^2+1$.</div>
+    <div class="solution">$V=\pi\int_{-1}^{2}\big(-x^4-x^2+6x+8\big)\,dx=\pi\Big[-\frac{x^5}5-\frac{x^3}3+3x^2+8x\Big]_{-1}^{2}=\pi\Big(\frac{284}{15}+\frac{67}{15}\Big)=\frac{117\pi}5\approx73.51$. One region, two axes, two methods: shells for the vertical axis (Mixed 27), washers for the horizontal one.</div>
+  </div>
+
+  <div class="problem" data-pid="mixed-S3" data-mixed="S" data-topic="mixed" data-title="Mixed 29" data-help="Exact (e.g. pi*(e-1)) or decimals." data-prompt="The region under y = e^(x^2) for 0 &lt;= x &lt;= 1 is spun about the y-axis. Find the volume of the solid.">
+    <div class="p-body">The region under $y=e^{x^2}$ for $0\le x\le1$ is spun about the $y$-axis. Find the volume of the solid.</div>
+    <div class="mcq" data-qid="mixed-S3-class"><div class="q">What kind of problem is this?</div><div class="opts">
+      <button class="opt" data-correct data-why="Right: the axis is vertical, so use shells: r = x, h = e^(x²). The integrand x·e^(x²) has an inside/derivative pair, so substitute u = x² (notes pp. 3–6).">Shells, $2\pi\int_0^1x\,e^{x^2}\,dx$, then substitution</button>
+      <button class="opt" data-why="That is the volume about the x-axis. The axis here is the y-axis, so the strip at x is parallel to it.">Washers, $\pi\int_0^1\big(e^{x^2}\big)^2\,dx$</button>
+      <button class="opt" data-why="e^(x²) is the strip’s height h. The radius is the distance from the y-axis, which is x.">Shells with $r=e^{x^2}$</button></div></div>
+    <div class="answers"><label>Volume <input class="ans" data-vid="M-S3" data-answer="5.398141569084" data-exact="π(e − 1)" data-wrong='[{"v":2.699070784542,"m":"The 2 in 2π is missing: π∫x e^(x²) dx would be π(e − 1)/2. A shell has length 2πr."}]'></label></div>
+    <div class="hint">$r=x$ and $h=e^{x^2}$, so $V=2\pi\int_0^1x\,e^{x^2}\,dx$.</div>
+    <div class="hint">$u=x^2$, $du=2x\,dx$. The limits $0$ and $1$ stay $0$ and $1$.</div>
+    <div class="solution">$2\pi\int_0^1x\,e^{x^2}\,dx=\pi\int_0^1e^u\,du=\pi(e-1)\approx5.398$. A shell is the natural choice: washers would need $x=\sqrt{\ln y}$, split into the pieces $0\le y\le1$ and $1\le y\le e$.</div>
+  </div>
+
+  <div class="problem" data-pid="mixed-K1" data-mixed="K" data-topic="mixed" data-title="Mixed 30" data-help="Exact (e.g. 14/3) or decimals, with or without kg." data-prompt="A thin rod lies along 1 &lt;= x &lt;= 4 (meters) with density delta(x) = sqrt(x) kg/m. Find its mass.">
+    <div class="p-body">A thin rod lies along $1\le x\le4$ (metres) with density $\delta(x)=\sqrt x$ kg/m. Find its mass.</div>
+    <div class="mcq" data-qid="mixed-K1-class"><div class="q">What kind of problem is this?</div><div class="opts">
+      <button class="opt" data-correct data-why="Right: a varying density along a wire. Each piece has mass √x dx, so M = ∫₁⁴ √x dx (§3.7, 3.7–3.9 notes p. 1).">Mass of a wire: $\int_1^4\sqrt x\,dx$</button>
+      <button class="opt" data-why="That is the balance point (§3.8), a position. The question asks how much mass there is.">Center of mass: $\int_1^4x\sqrt x\,dx\big/\int_1^4\sqrt x\,dx$</button>
+      <button class="opt" data-why="That would be the length of the curve y = √x (§3.3). The rod is straight; √x is its density, not its shape.">Arc length: $\int_1^4\sqrt{1+\big(\frac{1}{2\sqrt x}\big)^2}\,dx$</button></div></div>
+    <div class="answers"><label>Mass <input class="ans" data-vid="M-K1" data-units="kg" data-answer="4.666666666667" data-exact="14/3 kg" data-wrong='[{"v":6,"m":"That is density × length with the density at the right end, √4 · 3. The density changes along the rod, so integrate."}]'></label></div>
+    <div class="hint">$\int\sqrt x\,dx=\frac23x^{3/2}+C$.</div>
+    <div class="solution">$M=\frac23x^{3/2}\Big|_1^4=\frac23(8-1)=\frac{14}3\approx4.667$ kg.</div>
+  </div>
+
+  <div class="problem" data-pid="mixed-G1" data-mixed="G" data-topic="mixed" data-title="Mixed 31" data-help="Exact (e.g. 93/35) or decimals, with or without m." data-prompt="Where does the rod of Mixed 30 (1 &lt;= x &lt;= 4, density sqrt(x) kg/m) balance?">
+    <div class="p-body">Where does the rod of Mixed 30 ($1\le x\le4$, density $\sqrt x$ kg/m) balance?</div>
+    <div class="mcq" data-qid="mixed-G1-class"><div class="q">What do you compute?</div><div class="opts">
+      <button class="opt" data-correct data-why="Right: “balance” means the center of mass, the moment divided by the mass (§3.8, 3.7–3.9 notes p. 7).">$\bar x=\int_1^4x\sqrt x\,dx\Big/\int_1^4\sqrt x\,dx$</button>
+      <button class="opt" data-why="That point has half the mass on each side (§3.7). Balance depends on the lever arms too, so it is a different point.">the mass midpoint: solve $\int_1^{t}\sqrt x\,dx=\frac73$</button>
+      <button class="opt" data-why="The middle is the balance point only for a constant density. Here the right end is twice as dense as the left.">the middle of the rod, $x=2.5$</button></div></div>
+    <div class="answers"><label>$\bar x=$ <input class="ans" data-vid="M-G1" data-units="m" data-answer="2.657142857143" data-exact="93/35 m" data-wrong='[{"v":2.5,"m":"That is the middle of the rod. The density √x is larger on the right, so the balance point is right of 2.5."},{"v":2.725680889248,"m":"That is the mass midpoint (half the mass on each side), not the balance point."}]'></label></div>
+    <div class="hint">$M=\frac{14}3$ (Mixed 30). $\bar xM=\int_1^4x^{3/2}\,dx=\frac25x^{5/2}\Big|_1^4$.</div>
+    <div class="solution">$\bar xM=\frac25(32-1)=\frac{62}5$, so $\bar x=\frac{62}5\cdot\frac3{14}=\frac{93}{35}\approx2.657$ m. (The mass midpoint is $4.5^{2/3}\approx2.726$, a different point.)</div>
+  </div>
+
+  <div class="problem" data-pid="mixed-W1" data-mixed="W" data-topic="mixed" data-title="Mixed 32" data-help="Exact (e.g. 490000pi) or decimals, with or without J." data-prompt="A cylindrical tank of radius 2 m and height 5 m is full of water (1000 kg/m^3). Find the work needed to pump all of the water out over the top.">
+    <div class="p-body">A cylindrical tank of radius 2 m and height 5 m is full of water (density 1000 kg/m³). Find the work needed to pump all the water out over the top.</div>
+    <div class="mcq" data-qid="mixed-W1-class"><div class="q">Which set-up is right?</div><div class="opts">
+      <button class="opt" data-correct data-why="Right: slice horizontally. A slice at height y weighs 1000 · 9.8 · 4π Δy N and rises 5 − y m (§3.9, 3.7–3.9 notes p. 17).">$\int_0^5 1000\cdot9.8\cdot4\pi\,(5-y)\,dy$</button>
+      <button class="opt" data-why="That is the tank’s volume (§3.5), in m³. Work also needs the weight and how far each slice rises.">$\int_0^5\pi\cdot2^2\,dy$</button>
+      <button class="opt" data-why="That lifts all the water the full 5 m. The water near the top only has to rise a little.">$1000\cdot9.8\cdot20\pi\cdot5$</button></div></div>
+    <div class="answers"><label>Work <input class="ans" data-vid="M-W1" data-units="J" data-answer="1539380.400259" data-exact="490,000π J" data-wrong='[{"v":3078760.800518,"m":"That lifts every slice the full 5 m: weight × height. A slice at height y only rises 5 − y."}]'></label></div>
+    <div class="hint">Every slice is a disk of radius 2: weight $1000\cdot9.8\cdot4\pi\,\Delta y=39{,}200\pi\,\Delta y$ N.</div>
+    <div class="solution">$W=39{,}200\pi\int_0^5(5-y)\,dy=39{,}200\pi\cdot12.5=490{,}000\pi\approx1.54\times10^6$ J. Check with §3.8: the water weighs $39{,}200\pi\cdot5$ N and its center of mass rises 2.5 m.</div>
+  </div>
+
+  <div class="problem" data-pid="mixed-K2" data-mixed="K" data-topic="mixed" data-title="Mixed 33" data-help="Exact (e.g. 3/20) or decimals." data-prompt="A thin plate occupies the region between y = sqrt(x) and y = x^2, with area density delta(x) = x. Find its mass.">
+    <div class="p-body">A thin plate occupies the region between $y=\sqrt x$ and $y=x^2$, with area density $\delta(x)=x$. Find its mass.</div>
+    <div class="mcq" data-qid="mixed-K2-class"><div class="q">Which integral is it?</div><div class="opts">
+      <button class="opt" data-correct data-why="Right: density × strip height × width. The curves meet at x = 0 and 1, and √x is on top between them (§3.7, 3.7–3.9 notes p. 3).">$\int_0^1x\,\big(\sqrt x-x^2\big)\,dx$</button>
+      <button class="opt" data-why="That is the volume of the solid made by spinning the region about the y-axis (shells, §3.5). It happens to be 2π × the mass here, because δ = x plays the role of r.">$2\pi\int_0^1x\,\big(\sqrt x-x^2\big)\,dx$</button>
+      <button class="opt" data-why="That is the washer volume about the x-axis (§3.5). Nothing is being spun: it is a flat plate.">$\pi\int_0^1\big(x-x^4\big)\,dx$</button></div></div>
+    <div class="answers"><label>Mass <input class="ans" data-vid="M-K2" data-answer="0.15" data-exact="3/20" data-wrong='[{"v":0.9424777960769,"m":"That is the shell volume about the y-axis, 2π times the mass. Nothing is spun here."}]'></label></div>
+    <div class="hint">$\sqrt x=x^2$ at $x=0$ and $x=1$. At $x=\frac14$: $\sqrt x=0.5$ and $x^2=0.0625$.</div>
+    <div class="solution">$M=\int_0^1\big(x^{3/2}-x^3\big)\,dx=\frac25-\frac14=\frac3{20}$. Same integrand as the shell volume about the $y$-axis, without the $2\pi$: a density of $x$ weights each strip by its distance from the $y$-axis, just like a shell's radius does.</div>
+  </div>
+
+  <div class="problem" data-pid="mixed-W2" data-mixed="W" data-topic="mixed" data-title="Mixed 34" data-help="A number, with or without J." data-prompt="It takes 6 J of work to stretch a spring 0.2 m beyond its natural length. How much more work does it take to stretch it from 0.2 m to 0.4 m beyond its natural length?">
+    <div class="p-body">It takes 6 J of work to stretch a spring 0.2 m beyond its natural length. How much work does it take to stretch it from 0.2 m to 0.4 m beyond its natural length?</div>
+    <div class="mcq" data-qid="mixed-W2-class"><div class="q">What's the plan?</div><div class="opts">
+      <button class="opt" data-correct data-why="Right: Hooke’s law. ∫₀^0.2 kx dx = 6 gives k, then integrate kx from 0.2 to 0.4 (§3.9, 3.7–3.9 notes pp. 20–22).">Find $k$ from $\int_0^{0.2}kx\,dx=6$, then compute $\int_{0.2}^{0.4}kx\,dx$</button>
+      <button class="opt" data-why="The spring pulls harder the further it is stretched, so the second 0.2 m takes more work than the first.">It's another 0.2 m, so another 6 J</button>
+      <button class="opt" data-why="F = kx changes as the spring stretches; there is no single force to multiply by the distance.">$W=Fd$ with $F=6$</button></div></div>
+    <div class="answers"><label>Work <input class="ans" data-vid="M-W2" data-units="J" data-answer="18" data-exact="18 J" data-wrong='[{"v":6,"m":"The second 0.2 m takes more work than the first: the force kx keeps growing."},{"v":24,"m":"That is the work from 0 to 0.4 m. Subtract the 6 J already done from 0 to 0.2 m."}]'></label></div>
+    <div class="hint">$\frac12k(0.2)^2=6$, so $k=300$ N/m.</div>
+    <div class="solution">$W=\frac12\cdot300\big(0.4^2-0.2^2\big)=150\cdot0.12=18$ J. Doubling the stretch quadruples the work (24 J from 0), so the second 0.2 m costs three times the first.</div>
+  </div>
+
+  <div class="problem" data-pid="mixed-G2" data-mixed="G" data-topic="mixed" data-title="Mixed 35" data-help="Exact fractions or decimals." data-prompt="A square plate occupies 0 &lt;= x &lt;= 2, 0 &lt;= y &lt;= 2 with area density delta(x) = x. Find its center of mass.">
+    <div class="p-body">A square plate occupies $0\le x\le2$, $0\le y\le2$, with area density $\delta(x)=x$. Find its center of mass $(\bar x,\bar y)$.</div>
+    <div class="mcq" data-qid="mixed-G2-class"><div class="q">Which coordinates need an integral?</div><div class="opts">
+      <button class="opt" data-correct data-why="Right: every vertical strip runs from 0 to 2 with one density, so each balances at y = 1, and so does the plate. But the density grows with x, so x̄ needs ∫x δ (f − g) dx / M (§3.8).">Only $\bar x$; $\bar y=1$ because every strip's midpoint is at $y=1$</button>
+      <button class="opt" data-why="The square is symmetric, but the density x is not symmetric left to right: the right side is heavier.">Neither: both are 1 by symmetry</button>
+      <button class="opt" data-why="ȳ needs no integral here: each vertical strip has constant density and the same midpoint height, 1.">Both, with the factor $y$ in each</button></div></div>
+    <div class="answers">
+      <label>$\bar x=$ <input class="ans" data-label="x̄" data-vid="M-G2-x" data-answer="1.333333333333" data-exact="4/3" data-wrong='[{"v":1,"m":"The square’s middle is x = 1, but the density x makes the right side heavier."}]'></label>
+      <label>$\bar y=$ <input class="ans" data-label="ȳ" data-vid="M-G2-y" data-answer="1" data-exact="1"></label>
+    </div>
+    <div class="hint">$dm=x\cdot(2-0)\,dx=2x\,dx$, so $M=\int_0^22x\,dx=4$.</div>
+    <div class="solution">$\bar xM=\int_0^22x^2\,dx=\frac{16}3$, so $\bar x=\frac43$. Each strip's midpoint is $\frac{2+0}2=1$, so $\bar y=1$ (check: $\bar yM=\int_0^21\cdot2x\,dx=4$).</div>
   </div>
 
 </section>

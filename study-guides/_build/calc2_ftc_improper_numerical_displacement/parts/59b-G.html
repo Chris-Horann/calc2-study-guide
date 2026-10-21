@@ -1,0 +1,462 @@
+<section id="G" class="topic">
+  <div class="topic-banner">
+    <div class="topic-letter sec" aria-hidden="true">3.8</div>
+    <div><h2>Center of mass and moments</h2>
+    <div class="sources">3.7–3.9 notes pp. 6–13 · Textbook §3.8 (Definition 3.8.1; Propositions 3.8.3, 3.8.6; Remark 3.8.4; Examples 3.8.5, 3.8.7, 3.8.8; Suggested Ex. 1–6; Additional Ex. 10, 11, 13)</div></div>
+  </div>
+  <nav class="stagebar" data-topic="G" aria-label="Stages in §3.8 (center of mass)">
+    <a href="#G-learn"><span class="n">1</span>Learn</a><a href="#G-understand"><span class="n">2</span>Understand</a><a href="#G-explore"><span class="n">3</span>Explore</a><a href="#G-attempt"><span class="n">4</span>Attempt</a><a href="#G-compare"><span class="n">5</span>Compare</a><a href="#G-practice"><span class="n">6</span>Practice</a><a href="#G-master"><span class="n">7</span>Master</a>
+  </nav>
+
+  <!-- ============================== 1 LEARN -->
+  <div class="stage" id="G-learn">
+    <div class="stage-head"><span class="n">Stage 1 · Learn</span><h3>The big idea</h3></div>
+    <div class="callout big">
+      <div class="label">Big idea</div>
+      <p>The <b>center of mass</b> is the balance point: “the point where we can place the fulcrum to balance” (3.7–3.9 notes p. 6). On a seesaw, two masses balance when $m_1d_1=m_2d_2$: a heavy mass close to the fulcrum balances a light one far away. Solving for the fulcrum gives $\bar x=\dfrac{m_1x_1+m_2x_2}{m_1+m_2}$, a <b>weighted average</b> of the positions, where each position counts as much as the mass sitting there.</p>
+      <p style="margin:0">A wire or a plate is a huge number of tiny masses. Each piece contributes its mass to the bottom of that average and position × mass (its <b>moment</b>) to the top. Sums become integrals: $\bar x=\dfrac{\int x\,dm}{\int dm}=\dfrac{\bar xM}{M}$. The bottom is the mass from §3.7; the top is the new part.</p>
+    </div>
+    <div class="card tight">
+      <div class="small muted" style="margin-bottom:6px"><b>What to notice:</b> on the left, the 60 kg child sits half as far from the fulcrum as the 30 kg child, so $30\cdot2=60\cdot1$ and the seesaw balances at $x=2$, not at the middle, $x=1.5$. On the right (notes p. 12), each vertical strip of the plate is replaced by one dot at the strip's midpoint, with a size that shows the strip's mass. The center of mass $(\frac32,\frac12)$ is the weighted average of those dots.</div>
+      <div data-fig="seesaw"></div>
+    </div>
+    <div class="grid-2">
+      <div class="callout why">
+        <div class="label">An everyday version</div>
+        <p style="margin:0">Balance a hammer on one finger. You don't hold it at the middle of the handle; you hold it near the heavy head. Carrying a long plank, you grip it at its balance point so neither end drops. Both are the center of mass: the place where the turning effect of everything on the left exactly cancels everything on the right.</p>
+      </div>
+      <div class="callout">
+        <div class="label">Three questions to ask every time</div>
+        <ol style="margin:0">
+          <li><b>What is the total mass $M$?</b> The §3.7 integral: $\int\delta\,dx$ or $\int\delta(f-g)\,dx$.</li>
+          <li><b>What is the moment?</b> Multiply each piece's mass by its position: $x$ for $\bar x$, and the strip's midpoint height $\frac{f+g}2$ for $\bar y$.</li>
+          <li><b>Divide.</b> $\bar x=\bar xM/M$ and $\bar y=\bar yM/M$. Then check: is it inside the object's range, and on the heavier side?</li>
+        </ol>
+      </div>
+    </div>
+    <label class="toggle"><input type="checkbox" data-self="G"> I can explain why the center of mass is a moment divided by a mass, and why $\bar y$ uses $\frac{f(x)+g(x)}{2}$.</label>
+  </div>
+
+  <!-- ============================== 2 UNDERSTAND -->
+  <div class="stage" id="G-understand">
+    <div class="stage-head"><span class="n">Stage 2 · Understand</span><h3>What it's built from, and why it works</h3></div>
+    <div class="grid-2">
+      <div class="card tight">
+        <h4>Prerequisite map</h4>
+        <div class="tree"><ul><li class="root">Center of mass
+          <ul>
+            <li>Weighted averages<br><span class="qc">Quick check: scores 90 (weight 3) and 60 (weight 1). The weighted average? <details class="qcheck"><summary>show</summary>$\frac{3\cdot90+1\cdot60}{4}=82.5$, closer to the heavily weighted 90.</details></span></li>
+            <li>The seesaw, $m_1d_1=m_2d_2$<br><span class="qc">Quick check: 30 kg sits 2 m from the fulcrum. Where does 60 kg balance it? <details class="qcheck"><summary>show</summary>1 m from the fulcrum on the other side: $30\cdot2=60\cdot1$.</details></span></li>
+            <li><a href="#K-understand">Mass from density (§3.7)</a>: the denominator, $M$</li>
+            <li>The midpoint of a segment<br><span class="qc">Quick check: a strip runs from $y=1$ up to $y=5$. Its midpoint? <details class="qcheck"><summary>show</summary>$\frac{1+5}2=3$. In general $\frac{f(x)+g(x)}2$.</details></span></li>
+            <li><a href="#P-learn">Integration by parts (§1.1)</a>, for moments like $\int2xe^{3x}\,dx$ (notes p. 9)</li>
+          </ul></li></ul></div>
+      </div>
+      <div class="card tight">
+        <h4>From the seesaw to an integral <span class="small muted">(3.7–3.9 notes pp. 6–7)</span></h4>
+        $$m_1(\bar x-x_1)=m_2(x_2-\bar x)\ \Rightarrow\ (m_1+m_2)\,\bar x=m_1x_1+m_2x_2\ \Rightarrow\ \bar x=\frac{\sum m_ix_i}{\sum m_i}$$
+        $$\text{wire: }\ \bar x\approx\frac{\sum x_i\,\delta(x_i)\Delta x}{\sum\delta(x_i)\Delta x}\ \longrightarrow\ \frac{\int_a^b x\,\delta(x)\,dx}{\int_a^b\delta(x)\,dx}$$
+        <p class="small" style="margin:6px 0 0">Each piece of wire is a point mass $\delta(x_i)\Delta x$ at position $x_i$. So the wire is “$n$ masses on a line”, and the point-mass formula applies. The labels in green on the notes: the top is <b>$\bar xM$, the $x$-component of the moment</b>; the bottom is <b>$M$, the total mass</b>.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>Why balance means “moment ÷ mass”</h4>
+      <p>Put a knife edge under the object at $x=c$. A bit of mass $dm$ at position $x$ turns the object with strength $(x-c)\,dm$: positive on the right, negative on the left. It balances when the total turning effect is zero:</p>
+      $$\int(x-c)\,dm=0\ \iff\ \int x\,dm=c\int dm\ \iff\ c=\frac{\int x\,dm}{\int dm}=\frac{\bar xM}{M}.$$
+      <p style="margin:0">That's $m_1d_1=m_2d_2$ again, with every bit of mass included. It also explains the name: $\bar xM$ is literally $\bar x$ times $M$. The whole object behaves like a single mass $M$ sitting at $\bar x$.</p>
+    </div>
+
+    <div class="card">
+      <h4>Why $\bar y$ uses the strip's midpoint, $\frac{f(x)+g(x)}{2}$</h4>
+      <p style="margin:0">For $\bar x$, every point of a vertical strip has the same $x$, so the strip's position is just $x$. For $\bar y$, the points of a strip have different heights, from $g(x)$ up to $f(x)$. But the density is constant along the strip (it depends only on $x$), so the strip balances at its middle, $y_i=\frac{f(x_i)+g(x_i)}2$ (notes p. 11). Replace each strip by a point mass at its midpoint and average again: $\bar y=\dfrac{\int\frac{f+g}2\,\delta\,(f-g)\,dx}{\int\delta\,(f-g)\,dx}$. The textbook writes the top as $\int\delta\,\frac{f^2-g^2}{2}\,dx$, which is the same thing because $(f+g)(f-g)=f^2-g^2$.</p>
+    </div>
+
+    <div class="formula-card">
+      <div class="fc-title">Center of mass of a wire <span>3.7–3.9 notes p. 7 · textbook Prop. 3.8.3</span></div>
+      $$\bar x=\frac{\htmlClass{fp fp-3}{\int_a^b\htmlClass{fp fp-1}{x}\,\htmlClass{fp fp-2}{\delta(x)\,dx}}}{\htmlClass{fp fp-4}{\int_a^b\delta(x)\,dx}}$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="The piece’s <b>position</b>: its distance from x = 0, the lever arm of its turning effect.">x: position</button>
+        <button class="fp-chip" data-part="2" data-explain="The <b>mass of a tiny piece</b>, dm = δ(x) dx (§3.7).">δ(x) dx: mass of a piece</button>
+        <button class="fp-chip" data-part="3" data-explain="<b>x̄M, the x-component of the moment</b>: position × mass, added over every piece (green label, notes p. 7).">top: x̄M</button>
+        <button class="fp-chip" data-part="4" data-explain="<b>M, the total mass.</b> Dividing by it turns a sum of position × mass into an average position.">bottom: M</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+      <div class="fc-meta">
+        <div><b>When it applies</b>A wire along $a\le x\le b$ with density $\delta(x)$. For point masses, replace the integrals with sums: $\sum m_ix_i/\sum m_i$ (notes p. 6).</div>
+        <div><b>Watch out</b>You can't cancel $\delta(x)$ between the two integrals (textbook Remark 3.8.4), unless $\delta$ is a constant.</div>
+      </div>
+    </div>
+
+    <div class="formula-card">
+      <div class="fc-title">Center of mass of a plate <span>3.7–3.9 notes pp. 10–11 · textbook Prop. 3.8.6</span></div>
+      $$\bar x=\frac{\int_a^b\htmlClass{fp fp-1}{x}\,\delta(x)\,[f(x)-g(x)]\,dx}{M},\qquad \bar y=\frac{\int_a^b\htmlClass{fp fp-2}{\tfrac{f(x)+g(x)}{2}}\,\delta(x)\,\htmlClass{fp fp-3}{[f(x)-g(x)]}\,dx}{\htmlClass{fp fp-4}{M}}$$
+      <div class="fp-chips">
+        <button class="fp-chip" data-part="1" data-explain="For x̄, the strip’s <b>position</b> is x: every point of a vertical strip has the same x.">x: strip position (for x̄)</button>
+        <button class="fp-chip" data-part="2" data-explain="For ȳ, the strip’s position is its <b>midpoint height</b>, halfway between the bottom g(x) and the top f(x). It is a height, not a length.">(f + g)/2: strip midpoint (for ȳ)</button>
+        <button class="fp-chip" data-part="3" data-explain="The strip’s <b>height</b>, top minus bottom. It is part of the strip’s mass, δ(x)[f − g] dx, so it appears in M, x̄M and ȳM.">f − g: strip height</button>
+        <button class="fp-chip" data-part="4" data-explain="The plate’s <b>total mass</b>, M = ∫δ(x)[f − g] dx (§3.7). Both coordinates divide by the same M.">M: total mass</button>
+      </div>
+      <div class="fp-explain">Hover over or tap a part to see what it means.</div>
+      <div class="fc-meta">
+        <div><b>When it applies</b>A plate between $y=g(x)$ and $y=f(x)$, $f\ge g$, with density depending only on $x$. The tops are $\bar xM$ and $\bar yM$ (notes pp. 10–11).</div>
+        <div><b>Watch out</b>$\frac{f+g}2$ (the midpoint) is not $f-g$ (the height), and it isn't $f$ (the top). Don't forget the $\frac12$.</div>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <div class="label">A notation trap</div>
+      <p style="margin:0">Your professor writes the moments as <b>$\bar xM$</b> and <b>$\bar yM$</b>, so $\bar x=\bar xM/M$ reads off directly. The textbook calls the same quantities $M_x$ and $M_y$. Many other books (e.g. Stewart, OpenStax) use the <em>opposite</em> subscripts: their $M_y=\int x\,dm$ is “the moment about the $y$-axis”. If you look something up online, check which integral the symbol stands for. The professor's notation can't be swapped by accident.</p>
+    </div>
+
+    <div class="card">
+      <h4>Recognition: what does the problem want?</h4>
+      <div class="table-scroll"><table>
+        <thead><tr><th>You notice…</th><th>So you…</th></tr></thead>
+        <tbody>
+          <tr><td>Point masses on a line (a seesaw)</td><td>Weighted average: $\bar x=\sum m_ix_i/\sum m_i$ (notes p. 6).</td></tr>
+          <tr><td>“Center of mass” of a wire with density $\delta(x)$</td><td>$M$ first, then $\bar xM=\int x\,\delta\,dx$, then divide (notes pp. 8–9).</td></tr>
+          <tr><td>“Center of mass” of a plate between curves</td><td>Intersections and the top curve; then $M$, $\bar xM$ (factor $x$) and $\bar yM$ (factor $\frac{f+g}2$) (notes pp. 12–13).</td></tr>
+          <tr><td>The density is constant, or “centroid”</td><td>The density cancels: the center depends only on the shape. A uniform wire balances at its middle.</td></tr>
+          <tr><td>The object <em>and</em> its density are symmetric about a line</td><td>The center of mass is on that line; no integral needed for that coordinate.</td></tr>
+          <tr><td>“Half the mass on each side”</td><td>That's the mass midpoint $x_m$ (§3.7), a different point.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout warn" style="margin-bottom:0">
+        <div class="label">Tempting alternative, and why to reject it</div>
+        <p style="margin:0">“$\delta(x)$ is on the top and the bottom, so cancel it: $\bar x=\frac{\int x\,dx}{\int dx}$.” That's the middle of the wire, whatever the density, which can't be right: a wire with a heavy right end balances to the right. Integrals don't cancel like fractions (textbook Remark 3.8.4). Only a <em>constant</em> density can be pulled out of both and cancelled.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 3 EXPLORE -->
+  <div class="stage" id="G-explore">
+    <div class="stage-head"><span class="n">Stage 3 · Explore</span><h3>Balance explorer</h3></div>
+    <div class="widget">
+      <div class="w-head"><h4>Slide a knife edge under a seesaw, a wire or a plate, and find where it balances</h4><span class="small muted">presets · knife-edge position · strips · show the center</span></div>
+      <div class="w-sub">Top: the object on a knife edge at $x=c$. A beam tilts toward the side with more moment; for a plate, each strip is drawn as one dot at its midpoint (sized by its mass). Bottom: the turning effect of the mass about the edge, $(x-c)\times$(mass per unit $x$). It is zero in total exactly when $c=\bar x$. Turn on “show the center of mass” to check yourself.</div>
+      <div id="widget-balance">
+        <div class="w-formula">$$30(\bar x-0)=60(3-\bar x)\ \Rightarrow\ \bar x=\frac{30\cdot0+60\cdot3}{30+60}=2$$</div>
+        <div class="w-formula">$$M=\int_0^3(4x^2+2)\,dx=42,\quad \bar xM=\int_0^3x(4x^2+2)\,dx=90,\quad \bar x=\tfrac{90}{42}=\tfrac{15}{7}$$</div>
+        <div class="w-formula">$$M=\tfrac23\big(e^{12}-e^9\big),\quad \bar xM=\int_3^4 2xe^{3x}dx=\tfrac29\big(11e^{12}-8e^9\big),\quad \bar x=\frac{11e^{12}-8e^9}{3(e^{12}-e^9)}\approx3.719$$</div>
+        <div class="w-formula">$$M=1-e^{-4},\quad \bar xM=\int_0^4xe^{-x}dx=1-5e^{-4},\quad \bar x=\frac{1-5e^{-4}}{1-e^{-4}}\approx0.925$$</div>
+        <div class="w-formula">$$M=\int_1^2x^2\cdot\tfrac{2}{x^2}dx=2,\quad \bar xM=3,\quad \bar yM=\int_1^2\tfrac{1}{x^2}\cdot x^2\cdot\tfrac{2}{x^2}dx=1,\quad(\bar x,\bar y)=\big(\tfrac32,\tfrac12\big)$$</div>
+        <div class="w-formula">$$M=\int_1^2x(x^2-1)\,dx=\tfrac94,\quad \bar x=\tfrac{232}{135}\approx1.719,\quad \bar y=\frac{\int_1^2\frac{x^2+1}{2}\,x(x^2-1)\,dx}{9/4}=2$$</div>
+        <div class="w-formula">$$M=\int_{-1}^{3}2^x(2x+3-x^2)\,dx,\quad \bar x=\frac{\int x\,2^x(2x+3-x^2)\,dx}{M}\approx1.527,\quad \bar y=\frac{\int\frac{x^2+2x+3}{2}\,2^x(2x+3-x^2)\,dx}{M}\approx4.534$$</div>
+        <div class="w-formula">$$\delta=1:\quad \bar x=\frac{\int_0^3x\cdot2x\,dx}{\int_0^32x\,dx}=\frac{18}{9}=2,\qquad \bar y=\frac{\int_0^3x\cdot2x\,dx}{9}=2$$</div>
+      </div>
+      <div class="try"><h5>What to notice</h5><ol>
+        <li>With <b>3.7–3.9 notes p. 6: seesaw, 30 kg and 60 kg</b>, start the edge at the middle, $x=1.5$: the beam tips toward the 60 kg child. Slide it right until the moment is 0. It balances at $x=2$, where $30\cdot2=60\cdot1$.</li>
+        <li>With <b>3.7–3.9 notes p. 8: wire, δ = 4x² + 2</b>, the balance point is $\frac{15}7\approx2.143$, right of the middle (1.5). The bottom graph's orange (left) and blue (right) areas match only there. The mass midpoint $x_m\approx2.308$ is a different point.</li>
+        <li><b>3.7–3.9 notes p. 9: wire, δ = 2e^(3x)</b> has $x_m\approx3.785$ but $\bar x\approx3.719$: the mass midpoint is right of the balance point. A long light tail on the left hardly changes where half the mass is, but its lever arm is long, so it pulls the balance point left. (A median vs. a mean.)</li>
+        <li><b>Textbook Ex. 3.8.5: wire, δ = e^(−x)</b> is the mirror image: $x_m\approx0.675$ is <em>left</em> of $\bar x\approx0.925$. The textbook calls $\bar x$ “almost 50% larger”; it's about 37% larger ($0.925/0.675\approx1.37$).</li>
+        <li>With <b>3.7–3.9 notes p. 12: plate under 2/x², δ = x²</b>, the dots (strip midpoints) all sit at height $\frac1{x^2}$, half the curve. Slide the second knife edge to $y=\frac12$ and the plate balances that way too. Notice the dots are all the same size: $\delta\cdot(f-g)=x^2\cdot\frac2{x^2}=2$ for every strip, so $\bar x$ is just the middle, $\frac32$.</li>
+        <li><b>Textbook Ex. 3.8.7: plate x² over y = 1, δ = x</b> gives $\bar y=2$ exactly. Each strip's midpoint is $\frac{x^2+1}2$, from 1 up to 2.5, and the heavy strips (large $x$) are the tall ones.</li>
+        <li><b>3.7–3.9 notes p. 13: plate 2x + 3 over x², δ = 2ˣ</b> is the professor's “set up only” example. The explorer evaluates it: $(\bar x,\bar y)\approx(1.527,4.534)$, pulled to the right because $2^x$ is 16 times larger at $x=3$ than at $x=-1$.</li>
+        <li><b>Textbook Ex. 3.8.8: triangle under y = 2x, constant δ</b>: with a constant density the center is the <b>centroid</b> $(2,2)$, a third of the way in from the right-angle corner $(3,0)$. Change nothing but the shape and it moves; change the constant density and it doesn't.</li>
+      </ol></div>
+    </div>
+
+    <div class="tryout" data-topic="G">
+      <div class="q">A 30 kg child sits at $x=0$ and a 60 kg child at $x=3$ (notes p. 6). Where must the fulcrum go?</div>
+      <div class="try-opts">
+        <button class="try-opt">$x=1.5$, halfway</button>
+        <button class="try-opt">$x=2$</button>
+        <button class="try-opt">$x=1$</button>
+      </div>
+      <div class="try-res" data-verdict="bad">Halfway ignores the masses. The 60 kg side has twice the turning effect at the same distance, so the seesaw tips right.</div>
+      <div class="try-res" data-verdict="good">$\bar x=\frac{30\cdot0+60\cdot3}{90}=2$. Check: $30\cdot2=60\cdot1$. The heavier child is closer to the fulcrum.</div>
+      <div class="try-res" data-verdict="bad">That's closer to the <em>lighter</em> child, so the heavy side has both more mass and a longer arm: it tips right even more.</div>
+    </div>
+
+    <div class="tryout" data-topic="G">
+      <div class="q">For the wire with $\delta(x)=2e^{3x}$ on $[3,4]$ (notes p. 9), which is larger: the mass midpoint $x_m$ or the center of mass $\bar x$?</div>
+      <div class="try-opts">
+        <button class="try-opt">$x_m$</button>
+        <button class="try-opt">$\bar x$</button>
+        <button class="try-opt">They're the same point</button>
+      </div>
+      <div class="try-res" data-verdict="good">$x_m\approx3.785>\bar x\approx3.719$. The light left part has a long lever arm, so it pulls the balance point left more than it moves the half-mass point.</div>
+      <div class="try-res" data-verdict="bad">Compute both: $\bar x\approx3.719$ and $x_m\approx3.785$. The balance point is the one pulled toward the long light tail.</div>
+      <div class="try-res" data-verdict="bad">They answer different questions: half the mass on each side, vs. zero total moment. They agree only in special cases, like a constant density or a symmetric one.</div>
+    </div>
+
+    <div class="tryout" data-topic="G">
+      <div class="q">For the plate under $y=\frac2{x^2}$, $1\le x\le2$, with $\delta=x^2$ (notes p. 12): in the $\bar yM$ integral, which factor multiplies each strip's mass $\delta\,(f-g)\,dx$?</div>
+      <div class="try-opts">
+        <button class="try-opt">$\dfrac{\frac{2}{x^2}+0}{2}$</button>
+        <button class="try-opt">$\dfrac{2}{x^2}$</button>
+        <button class="try-opt">$y$</button>
+        <button class="try-opt">$x$</button>
+      </div>
+      <div class="try-res" data-verdict="good">The strip's midpoint height, $\frac{f+g}2$. Then $\bar yM=\int_1^2\frac1{x^2}\cdot x^2\cdot\frac2{x^2}\,dx=1$ and $\bar y=\frac12$.</div>
+      <div class="try-res" data-verdict="bad">That's the <em>top</em> of the strip. It gives $\bar y=1$, as if all the mass sat at the top edge.</div>
+      <div class="try-res" data-verdict="bad">$y$ changes along the strip, so it isn't one number for the strip. The strip's own balance height is its midpoint.</div>
+      <div class="try-res" data-verdict="bad">That's the factor for $\bar xM$, not $\bar yM$.</div>
+    </div>
+  </div>
+
+  <!-- ============================== 4 ATTEMPT -->
+  <div class="stage" id="G-attempt">
+    <div class="stage-head"><span class="n">Stage 4 · Attempt</span><h3>Guided example, then your turn</h3></div>
+    <div class="guided" data-gid="G-guided">
+      <div class="g-intro"><span class="badge">Guided example</span>
+        <p style="margin-top:8px">A wire has density $\delta(x)=4x^2+2$ from $x=0$ to $x=3$. Find (1) the total mass $M$, (2) the $x$-component of the moment $\bar xM$, and (3) the $x$-coordinate of the center of mass $\bar x$. This is 3.7–3.9 notes p. 8.</p></div>
+      <div class="gstep"><span class="g-label">Step 1 · Mass</span>
+        <p><label class="inline">$M=\int_0^3(4x^2+2)\,dx=$ <input class="ans" data-vid="G-guided-M" data-answer="42" data-exact="42" placeholder="a number"></label></p>
+        <div class="greveal">$\big(\frac43x^3+2x\big)\Big|_0^3=36+6=42$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 2 · The moment's integrand</span>
+        <p><label class="inline">$\bar xM=\int_0^3$ <input class="ans" data-vid="G-guided-mom" data-kind="expr" data-var="x" data-answer="x*(4*x^2+2)" data-dom="0.5,2.5" data-show="x(4x² + 2) = 4x³ + 2x" placeholder="position × density" data-wrong='[{"f":"4*x^2+2","m":"That’s the mass integrand. The moment multiplies each piece’s mass by its position x."}]'> $dx$</label></p>
+        <div class="greveal">position × mass of a piece: $x\cdot(4x^2+2)\,dx=(4x^3+2x)\,dx$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 3 · Evaluate the moment</span>
+        <p><label class="inline">$\bar xM=$ <input class="ans" data-vid="G-guided-Mx" data-answer="90" data-exact="90" placeholder="a number"></label></p>
+        <div class="greveal">$\big(x^4+x^2\big)\Big|_0^3=81+9=90$.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 4 · Divide</span>
+        <p><label class="inline">$\bar x=\dfrac{\bar xM}{M}=$ <input class="ans" data-vid="G-guided-xbar" data-answer="2.142857142857" data-exact="15/7" placeholder="a number" data-wrong='[{"v":0.466666666667,"m":"Upside down: that is M ÷ x̄M = 42/90. The center of mass is the moment divided by the mass."},{"v":1.5,"m":"That’s the middle of the wire, which is the center only if the density is constant. Divide the moment by the mass."},{"v":90,"m":"That is the moment x̄M itself. Divide it by the mass M = 42."}]'></label></p>
+        <div class="greveal">$\frac{90}{42}=\frac{15}7\approx2.143$, as on notes p. 8.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 5 · Sanity check</span>
+        <div class="mcq" data-qid="G-g5"><div class="q">The wire runs from 0 to 3, so its middle is 1.5. Does $\bar x\approx2.14$ make sense?</div>
+          <div class="opts">
+            <button class="opt" data-correct>Yes: the density $4x^2+2$ grows to the right, so the balance point is right of the middle, and it's inside $[0,3]$</button>
+            <button class="opt" data-why="That’s only true for a constant density. Here the right end is up to 19 times denser than the left (38 vs 2).">No: a wire always balances at its middle</button>
+            <button class="opt" data-why="The heavy end pulls the balance point toward it, not away from it.">No: it should be left of the middle</button>
+          </div></div>
+        <div class="greveal">Two quick checks for any center of mass: it must lie within the object's range, and it leans toward the heavier side.</div>
+      </div>
+      <div class="gstep"><span class="g-label">Step 6 · Not the mass midpoint</span>
+        <div class="mcq" data-qid="G-g6"><div class="q">For this wire, $\int_0^{t}(4x^2+2)\,dx=21$ (half the mass) at $t\approx2.31$. Compared with $\bar x\approx2.14$:</div>
+          <div class="opts">
+            <button class="opt" data-correct>They differ: $x_m$ splits the mass in half, while $\bar x$ is where the moments cancel</button>
+            <button class="opt" data-why="Both are “centers” of a kind, but they answer different questions, and here they really are different numbers.">One of them must be a computing mistake; they should agree</button>
+            <button class="opt" data-why="x̄ divides the moment by the whole mass M. It isn’t defined by half the mass.">$\bar x$ is always the mass midpoint of the moment</button>
+          </div></div>
+        <div class="greveal">Notes p. 9 asks for both, for exactly this reason. Mass on the light left side sits far from the right end, so it has a long lever arm. It pulls the balance point left more than it shifts the half-mass point.</div>
+      </div>
+      <div class="takeaway"><b>Takeaway.</b> Mass first ($\int\delta\,dx$), then the moment (the same integrand times $x$), then divide: $\bar x=\bar xM/M$. Check that it lies on the object, toward its heavy side.</div>
+    </div>
+
+    <div class="problem" data-pid="G-indep" data-topic="G" data-level="4" data-title="Independent attempt" data-src="Your turn: textbook §3.8 Suggested Ex. 4" data-help="Exact fractions (e.g. 11/20) or decimals." data-prompt="A thin metal plate occupies the region between f(x) = x and g(x) = x^2 for 0 &lt;= x &lt;= 1, with area density delta(x) = 2x + 1. Find its total mass M and its center of mass (x-bar, y-bar).">
+      <div class="p-body">A thin metal plate occupies the region between $f(x)=x$ and $g(x)=x^2$ for $0\le x\le1$, with area density $\delta(x)=2x+1$. Find its total mass $M$ and its center of mass $(\bar x,\bar y)$.</div>
+      <div class="answers">
+        <label>$M=$ <input class="ans" data-label="M" data-vid="G-indep-M" data-answer="0.333333333333" data-exact="1/3" data-wrong='[{"v":0.166666666667,"m":"That is the area of the region. Multiply each strip by its density 2x + 1."}]'></label>
+        <label>$\bar x=$ <input class="ans" data-label="x̄" data-vid="G-indep-x" data-answer="0.55" data-exact="11/20" data-wrong='[{"v":0.5,"m":"That is the centroid’s x (the density ignored). Keep δ = 2x + 1 in both the moment and the mass."}]'></label>
+        <label>$\bar y=$ <input class="ans" data-label="ȳ" data-vid="G-indep-y" data-answer="0.45" data-exact="9/20" data-wrong='[{"v":0.9,"m":"The ½ is missing. The strip’s midpoint is (x + x²)/2."},{"v":0.55,"m":"That’s x̄. For ȳ, the factor is the strip’s midpoint height (x + x²)/2, not x."},{"v":0.4,"m":"That is the centroid’s y (the density ignored). Keep δ = 2x + 1."}]'></label>
+      </div>
+      <ol class="know">
+        <li>Which curve is on top for $0&lt;x&lt;1$? What's a strip's height, and its midpoint?</li>
+        <li>Write the strip's mass $\delta\,(f-g)\,dx$ and expand it.</li>
+        <li>Find $M$, $\bar xM$ (times $x$) and $\bar yM$ (times the midpoint), then divide.</li>
+      </ol>
+      <div class="hint">At $x=\frac12$: $x=0.5$, $x^2=0.25$. So $f=x$ is on top, the height is $x-x^2$, and the midpoint is $\frac{x+x^2}2$.</div>
+      <div class="hint">$\delta(f-g)=(2x+1)(x-x^2)=x+x^2-2x^3$. So $M=\int_0^1(x+x^2-2x^3)\,dx$.</div>
+      <div class="hint">$\bar yM=\int_0^1\frac{x+x^2}2(2x+1)(x-x^2)\,dx=\frac12\int_0^1(2x+1)(x^2-x^4)\,dx$.</div>
+      <div class="solution">
+        <p>$M=\frac12+\frac13-\frac12=\frac13$. $\bar xM=\int_0^1(x^2+x^3-2x^4)\,dx=\frac13+\frac14-\frac25=\frac{11}{60}$, so $\bar x=\frac{11}{60}\div\frac13=\frac{11}{20}$. $\bar yM=\frac12\int_0^1(2x^3+x^2-2x^5-x^4)\,dx=\frac12\big(\frac12+\frac13-\frac13-\frac15\big)=\frac3{20}$, so $\bar y=\frac{9}{20}$.</p>
+        <p style="margin:0"><b>Check:</b> with a constant density the centroid would be $(\frac12,\frac25)$. The density $2x+1$ is larger on the right, and the right-hand strips also sit higher, so both coordinates move up: $(0.55,0.45)$. Both are inside the region's box $[0,1]\times[0,1]$.</p>
+      </div>
+      <div class="reflect"><h5>Compare your approach</h5>
+        <label><input type="checkbox"> I found $M$ first and reused the strip's mass in both moments.</label>
+        <label><input type="checkbox"> I used the strip's midpoint $\frac{x+x^2}2$ for $\bar y$, with the $\frac12$.</label>
+        <label><input type="checkbox"> I checked that $(\bar x,\bar y)$ is inside the region's range and leans the right way.</label>
+        <p class="small muted" style="margin:6px 0 0">The clue to recognize next time: <b>“center of mass of a plate” → strip mass $\delta(f-g)\,dx$, then times $x$ for $\bar x$ and times $\frac{f+g}2$ for $\bar y$, each divided by $M$</b>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== 5 COMPARE -->
+  <div class="stage" id="G-compare">
+    <div class="stage-head"><span class="n">Stage 5 · Compare</span><h3>Tempting approaches vs. correct reasoning</h3></div>
+    <div class="vs">
+      <div class="tempt"><h5>✗ Tempting</h5>“$\delta$ is in the top and the bottom, so it cancels”: for $\delta=4x^2+2$ on $[0,3]$, $\bar x=\frac{\int_0^3x\,dx}{\int_0^3dx}=1.5$.</div>
+      <div class="right"><h5>✓ Correct</h5>$\bar x=\frac{\int_0^3x(4x^2+2)\,dx}{\int_0^3(4x^2+2)\,dx}=\frac{90}{42}=\frac{15}7\approx2.14$ (notes p. 8). Integrals don't cancel like fractions.</div>
+      <div class="clue"><b>Clue for next time:</b> if your center of mass ignores the density, it's the centroid. That's only correct when the density is constant (textbook Remark 3.8.4).</div>
+    </div>
+
+    <div class="spot" data-sid="G-spot1">
+      <p><b>Spot the error.</b> A student finds the center of mass of the plate between the $x$-axis and $y=\frac2{x^2}$, $1\le x\le2$, with density $\delta(x)=x^2$ (notes p. 12):</p>
+      <button class="sline"><span class="ln">Line 1</span><span>$M=\int_1^2x^2\big(\frac2{x^2}-0\big)\,dx=2x\big|_1^2=2$.</span></button>
+      <button class="sline"><span class="ln">Line 2</span><span>$\bar xM=\int_1^2x\cdot x^2\big(\frac2{x^2}-0\big)\,dx=x^2\big|_1^2=3$.</span></button>
+      <button class="sline" data-bad><span class="ln">Line 3</span><span>$\bar yM=\int_1^2\frac2{x^2}\cdot x^2\big(\frac2{x^2}-0\big)\,dx=\int_1^2\frac4{x^2}\,dx=2$.</span></button>
+      <button class="sline"><span class="ln">Line 4</span><span>$(\bar x,\bar y)=\big(\frac32,1\big)$.</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout warn"><div class="label">What went wrong</div><p style="margin:0">Line 3 multiplies each strip by its <em>top</em>, $\frac2{x^2}$, as if all of the strip's mass were at the upper edge. The strip balances at its midpoint, $\frac{2/x^2+0}{2}=\frac1{x^2}$. So $\bar yM=\int_1^2\frac2{x^2}\,dx=1$ and $\bar y=\frac12$, as on notes p. 12. Doubling the factor doubled $\bar y$.</p></div>
+    </div>
+
+    <div class="spot" data-sid="G-spot2">
+      <p><b>Spot the error.</b> A student finds the center of mass of the wire $3\le x\le4$ with density $\delta(x)=2e^{3x}$ (notes p. 9):</p>
+      <button class="sline"><span class="ln">Line 1</span><span>$M=\frac23\big(e^{12}-e^9\big)$.</span></button>
+      <button class="sline"><span class="ln">Line 2</span><span>By parts: $\int2xe^{3x}\,dx=\frac23xe^{3x}-\frac29e^{3x}+C$.</span></button>
+      <button class="sline" data-bad><span class="ln">Line 3</span><span>$\bar xM=\Big(\frac23xe^{3x}-\frac29e^{3x}\Big)\Big|_3^4=\frac23\big(11e^{12}-8e^9\big)$.</span></button>
+      <button class="sline"><span class="ln">Line 4</span><span>$\bar x=\dfrac{\frac23(11e^{12}-8e^9)}{\frac23(e^{12}-e^9)}=\dfrac{11e^{12}-8e^9}{e^{12}-e^9}\approx11.16$.</span></button>
+      <div class="spot-msg" aria-live="polite"></div>
+      <div class="spot-explain callout warn"><div class="label">What went wrong</div><p style="margin:0">Line 3's coefficient. At $x=4$: $\frac83e^{12}-\frac29e^{12}=\frac{22}9e^{12}$; at $x=3$: $2e^9-\frac29e^9=\frac{16}9e^9$. So $\bar xM=\frac29\big(11e^{12}-8e^9\big)$, a third of what's written. Line 4 then gives $\bar x\approx11.16$, which is <b>not on the wire</b> ($3\le x\le4$). That's the red flag. The correct value is $\bar x=\frac{11e^{12}-8e^9}{3(e^{12}-e^9)}\approx3.719$.</p></div>
+    </div>
+    <div class="callout discrepancy"><div class="label">⚠ Discrepancy in the notes (p. 9, part 3)</div><p class="small" style="margin:0">Notes p. 9 writes $\bar xM=\frac23\big(11e^{12}-8e^9\big)$; it should be $\frac{2}{9}\big(11e^{12}-8e^9\big)\approx383{,}439.6$. The antiderivative on the right of the page, $\frac23xe^{3x}-\frac29e^{3x}+C$, is correct, and so is the final answer in part 4, $\bar x=\frac{11e^{12}-8e^9}{3(e^{12}-e^9)}\approx3.719$: the extra 3 in its denominator is the missing factor. Checked with SymPy, mpmath and Wolfram.</p></div>
+
+    <h4 style="margin-top:22px">Common mistakes: why they happen and how to prevent them</h4>
+    <details class="mistake"><summary>Cancelling $\delta(x)$ between the two integrals</summary><div class="m-body"><p><b>Why it happens</b><br>It looks like a fraction with the same factor on top and bottom.</p><p><b>Prevent it</b><br>Integrals add up products; you can't cancel inside them. Only a constant density factors out and cancels (textbook Remark 3.8.4).</p></div></details>
+    <details class="mistake"><summary>Dividing by the length or area instead of the mass</summary><div class="m-body"><p><b>Why it happens</b><br>“Average position” suggests dividing by the size of the object.</p><p><b>Prevent it</b><br>The weights in this average are masses, so you divide by the total mass $M$. Dividing by the area only works for a constant density (then it's the centroid).</p></div></details>
+    <details class="mistake"><summary>Using $f$ (or $y$) instead of $\frac{f+g}2$ for $\bar y$</summary><div class="m-body"><p><b>Why it happens</b><br>The top curve is the most visible thing in the sketch.</p><p><b>Prevent it</b><br>Ask: where does <em>this strip</em> balance? At its middle, $\frac{f+g}2$ (notes p. 11). Check the $\frac12$.</p></div></details>
+    <details class="mistake"><summary>Leaving the strip height out of the moments</summary><div class="m-body"><p><b>Why it happens</b><br>The extra factors $x$ and $\frac{f+g}2$ draw attention away from the rest.</p><p><b>Prevent it</b><br>Every moment is position × (the same strip mass as in $M$). Write $dm=\delta(f-g)\,dx$ once and reuse it.</p></div></details>
+    <details class="mistake"><summary>Reporting $\bar xM$, or the mass midpoint, as the answer</summary><div class="m-body"><p><b>Why it happens</b><br>Notes pp. 8–9 ask for $M$, $x_m$, $\bar xM$ and $\bar x$ separately, and they're easy to mix up.</p><p><b>Prevent it</b><br>$\bar x$ must be a position on the object. A huge number (like 90 or 383,440) is a moment, not a position.</p></div></details>
+    <details class="mistake"><summary>A coefficient slip in integration by parts</summary><div class="m-body"><p><b>Why it happens</b><br>$\int e^{3x}dx=\frac13e^{3x}$, and the $\frac13$ appears twice in $\int xe^{3x}dx$. Notes p. 9 itself writes $\frac23$ where $\frac29$ belongs.</p><p><b>Prevent it</b><br>Differentiate your antiderivative to check it, and check that $\bar x$ lands on the object.</p></div></details>
+  </div>
+
+  <!-- ============================== 6 PRACTICE -->
+  <div class="stage" id="G-practice">
+    <div class="stage-head"><span class="n">Stage 6 · Practice</span><h3>Practice: standard applications</h3></div>
+    <p class="muted">Professor's examples to redo, textbook exercises, and new variants. Exact forms like <kbd>15/7</kbd> or <kbd>(11e^12-8e^9)/(3(e^12-e^9))</kbd> are accepted, as are decimals.</p>
+
+    <div class="problem" data-pid="G-p1" data-topic="G" data-title="Practice 1" data-src="3.7–3.9 notes p. 9 · redo it (with the corrected moment)" data-help="Exact forms with e^12 and e^9, or decimals." data-prompt="A thin wire lies between x = 3 and x = 4 with density delta(x) = 2e^(3x). Find the total mass M, the x-component of the moment x-bar M, and the center of mass x-bar.">
+      <div class="p-body">A thin wire lies between $x=3$ and $x=4$ with density $\delta(x)=2e^{3x}$. Find the total mass $M$, the $x$-component of the moment $\bar xM$, and the $x$-coordinate of the center of mass $\bar x$.</div>
+      <div class="answers">
+        <label>$M=$ <input class="ans" data-label="M" data-vid="G-p1-M" data-answer="103101.138327619" data-exact="(2/3)(e¹² − e⁹)"></label>
+        <label>$\bar xM=$ <input class="ans" data-label="x̄M" data-vid="G-p1-Mx" data-answer="383439.563152987" data-exact="(2/9)(11e¹² − 8e⁹)" data-wrong='[{"v":1150318.68945896,"m":"That is (2/3)(11e¹² − 8e⁹), three times too big: the slip on notes p. 9. Evaluate (2/3)xe^(3x) − (2/9)e^(3x) at 4 and 3 carefully."}]'></label>
+        <label>$\bar x=$ <input class="ans" data-label="x̄" data-vid="G-p1-x" data-answer="3.719062363158" data-exact="(11e¹² − 8e⁹)/(3(e¹² − e⁹))" data-wrong='[{"v":11.157187089474,"m":"That is not on the wire (3 ≤ x ≤ 4), a sure sign the moment is too big. Check its coefficient: (2/9), not (2/3)."},{"v":3.785146723671,"m":"That is the mass midpoint xₘ (half the mass on each side), not the balance point."},{"v":3.5,"m":"That’s the middle of the wire. The density grows fast to the right, so the balance point is further right."}]'></label>
+      </div>
+      <div class="hint">$M=\int_3^42e^{3x}\,dx=\frac23e^{3x}\Big|_3^4$.</div>
+      <div class="hint">By parts with $u=x$, $dv=e^{3x}dx$: $\int2xe^{3x}dx=2\big(\frac13xe^{3x}-\frac19e^{3x}\big)+C$.</div>
+      <div class="solution">$M=\frac23(e^{12}-e^9)\approx103{,}101.14$. $\bar xM=\big(\frac83-\frac29\big)e^{12}-\big(2-\frac29\big)e^9=\frac29(11e^{12}-8e^9)\approx383{,}439.56$. $\bar x=\frac{11e^{12}-8e^9}{3(e^{12}-e^9)}\approx3.7191$, which is on the wire and toward its heavy right end. (Notes p. 9 writes the moment as $\frac23(\ldots)$, a slip; its final $\bar x$ is right.)</div>
+    </div>
+
+    <div class="problem" data-pid="G-p2" data-topic="G" data-title="Practice 2" data-src="3.7–3.9 notes p. 12 · redo it" data-help="Exact fractions or decimals." data-prompt="Find the center of mass of a thin plate between the x-axis and y = 2/x^2 for 1 &lt;= x &lt;= 2. The plate has density delta(x) = x^2.">
+      <div class="p-body">Find the center of mass of a thin plate between the $x$-axis and $y=\frac2{x^2}$ for $1\le x\le2$. The plate has density $\delta(x)=x^2$.</div>
+      <div class="answers">
+        <label>$\bar x=$ <input class="ans" data-label="x̄" data-vid="G-p2-x" data-answer="1.5" data-exact="3/2" data-wrong='[{"v":1.386294361120,"m":"That is the centroid’s x, 2 ln 2 (the density ignored). Keep δ = x² in both integrals."}]'></label>
+        <label>$\bar y=$ <input class="ans" data-label="ȳ" data-vid="G-p2-y" data-answer="0.5" data-exact="1/2" data-wrong='[{"v":1,"m":"That uses the top of each strip, 2/x², instead of its midpoint (2/x² + 0)/2."}]'></label>
+      </div>
+      <div class="hint">The strip mass is $\delta(f-g)\,dx=x^2\cdot\frac2{x^2}\,dx=2\,dx$, the same for every strip.</div>
+      <div class="hint">$\bar yM=\int_1^2\frac{2/x^2+0}{2}\cdot2\,dx=\int_1^2\frac2{x^2}\,dx$.</div>
+      <div class="solution">$M=2$, $\bar xM=\int_1^22x\,dx=3$, $\bar yM=\big(-\frac2x\big)\Big|_1^2=1$. So $(\bar x,\bar y)=(\frac32,\frac12)$, as on notes p. 12. Every strip has the same mass, so $\bar x$ is simply the middle of $[1,2]$.</div>
+    </div>
+
+    <div class="problem" data-pid="G-p3" data-topic="G" data-title="Practice 3" data-src="3.7–3.9 notes p. 13 · set up only (redo it)" data-help="Limits are numbers. Type expressions in x, e.g. 2^x*(...)." data-prompt="A metal plate is enclosed by y = x^2 and y = 2x + 3, with density delta(x) = 2^x. Set up the integrals for its total mass and for the coordinates of its center of mass.">
+      <div class="p-body">A metal plate is enclosed by the curves $y=x^2$ and $y=2x+3$, with density $\delta(x)=2^x$. (1) Find an integral for the total mass. (2) Find integrals for $\bar x$ and $\bar y$. <b>Set up only.</b> Fill in the pieces.</div>
+      <div class="answers">
+        <label>lower limit <input class="ans" data-label="a" data-vid="G-p3-a" data-answer="-1" data-exact="−1"></label>
+        <label>upper limit <input class="ans" data-label="b" data-vid="G-p3-b" data-answer="3" data-exact="3"></label>
+        <label>mass integrand <input class="ans" data-label="dm/dx" data-vid="G-p3-dm" data-kind="expr" data-var="x" data-answer="2^x*(2*x+3-x^2)" data-dom="-0.9,2.9" data-show="2ˣ(2x + 3 − x²)" data-wrong='[{"f":"2^x*(x^2-2*x-3)","m":"Bottom minus top. The notes test x = 0: x² = 0 is below 2x + 3 = 3."},{"f":"2*x+3-x^2","m":"The density 2ˣ is missing: that’s the strip height alone."}]'></label>
+        <label>factor for $\bar y$ <input class="ans" data-label="ȳ factor" data-vid="G-p3-yf" data-kind="expr" data-var="x" data-answer="(x^2+2*x+3)/2" data-dom="-0.9,2.9" data-show="(x² + 2x + 3)/2" data-wrong='[{"f":"2*x+3","m":"That’s the top of the strip. Use its midpoint: (top + bottom)/2."},{"f":"x^2+2*x+3","m":"The ½ is missing: the midpoint is (top + bottom)/2."},{"f":"(2*x+3-x^2)/2","m":"That’s half the strip’s height, measured from the bottom. The midpoint’s y-coordinate is (top + bottom)/2."}]'></label>
+      </div>
+      <div class="hint">$x^2=2x+3$ gives $(x-3)(x+1)=0$. Test $x=0$ to see which curve is on top.</div>
+      <div class="hint">The factor for $\bar x$ is $x$; for $\bar y$ it's the strip's midpoint, $\frac{\text{top}+\text{bottom}}2$.</div>
+      <div class="solution"><p>$M=\int_{-1}^{3}2^x(2x+3-x^2)\,dx$, $\ \bar x=\dfrac{\int_{-1}^{3}x\cdot2^x(2x+3-x^2)\,dx}{M}$, $\ \bar y=\dfrac{\int_{-1}^{3}\frac{x^2+2x+3}{2}\cdot2^x(2x+3-x^2)\,dx}{M}$, exactly as on notes p. 13.</p>
+        <p style="margin:0">For checking only (the notes stop at the set-up): $M\approx25.725$, $\bar x\approx1.5265$, $\bar y\approx4.5339$ (SymPy, mpmath and Wolfram agree). The point lies inside the region, which runs from $(-1,1)$ to $(3,9)$.</p></div>
+    </div>
+
+    <div class="problem" data-pid="G-p4" data-topic="G" data-title="Practice 4" data-src="3.7–3.9 notes p. 6 · new variant (point masses)" data-help="An exact fraction or a decimal." data-prompt="Masses of 2 kg, 5 kg and 3 kg sit at x = -1, x = 2 and x = 6 on a light rod. Find the center of mass.">
+      <div class="p-body">Masses of 2 kg, 5 kg and 3 kg sit at $x=-1$, $x=2$ and $x=6$ (metres) on a light rod. Where is the center of mass?</div>
+      <div class="answers"><label>$\bar x=$ <input class="ans" data-vid="G-p4" data-units="m" data-answer="2.6" data-exact="13/5 m" data-wrong='[{"v":2.333333333333,"m":"That is the plain average of the positions, (−1 + 2 + 6)/3. Weight each position by its mass."}]'></label></div>
+      <div class="hint">$\bar x=\dfrac{\sum m_ix_i}{\sum m_i}$ (notes p. 6).</div>
+      <div class="solution">$\bar x=\frac{2(-1)+5(2)+3(6)}{2+5+3}=\frac{26}{10}=2.6$ m.</div>
+    </div>
+
+    <div class="problem" data-pid="G-p5" data-topic="G" data-title="Practice 5" data-src="Textbook §3.8 Example 3.8.5 · uses integration by parts" data-help="Exact (e.g. (1-5e^(-4))/(1-e^(-4))) or decimals." data-prompt="A wire lies along the x-axis from x = 0 to x = 4 feet with length-density e^(-x) slugs/ft. Find its center of mass.">
+      <div class="p-body">A wire lies along the $x$-axis from $x=0$ to $x=4$ feet with density $\delta(x)=e^{-x}$ slugs/ft (the wire of Practice 3 in §3.7). Find its center of mass.</div>
+      <div class="answers"><label>$\bar x=$ <input class="ans" data-vid="G-p5" data-units="ft" data-answer="0.925370558545" data-exact="(1 − 5e⁻⁴)/(1 − e⁻⁴) ft" data-wrong='[{"v":0.674997252642,"m":"That is the mass midpoint xₘ from §3.7. The balance point is different: it divides the moment by the mass."},{"v":2,"m":"That’s the middle of the wire. Most of the mass is near x = 0."}]'></label></div>
+      <div class="hint">$M=1-e^{-4}$. For the moment, $\int xe^{-x}\,dx=-xe^{-x}-e^{-x}+C$ (by parts).</div>
+      <div class="solution">$\bar xM=\big(-xe^{-x}-e^{-x}\big)\Big|_0^4=1-5e^{-4}$, so $\bar x=\frac{1-5e^{-4}}{1-e^{-4}}\approx0.9254$ ft, about 37% larger than the mass midpoint $x_m\approx0.6750$. (The textbook says “almost 50% larger”, which overstates it: the ratio is $1.37$.)</div>
+    </div>
+
+    <div class="problem" data-pid="G-p6" data-topic="G" data-title="Practice 6" data-src="Textbook §3.8 Suggested Ex. 2" data-help="Exact fractions or decimals." data-prompt="Suppose delta(x) = 3x^2 + 2x + 4 is the density of a wire on 2 &lt;= x &lt;= 7. Find the x-component of the moment and the center of mass.">
+      <div class="p-body">A wire lies on $2\le x\le7$ with density $\delta(x)=3x^2+2x+4$. Find (a) the $x$-component of the moment $\bar xM$ and (b) the center of mass $\bar x$.</div>
+      <div class="answers">
+        <label>(a) $\bar xM=$ <input class="ans" data-label="(a) x̄M" data-vid="G-p6-Mx" data-answer="2102.083333333333" data-exact="25225/12"></label>
+        <label>(b) $\bar x=$ <input class="ans" data-label="(b) x̄" data-vid="G-p6-x" data-answer="5.255208333333" data-exact="1009/192" data-wrong='[{"v":4.5,"m":"That’s the middle of the wire. Divide the moment by the mass M = ∫(3x² + 2x + 4) dx."}]'></label>
+      </div>
+      <div class="hint">$M=\big[x^3+x^2+4x\big]_2^7=420-20=400$.</div>
+      <div class="hint">$\bar xM=\int_2^7(3x^3+2x^2+4x)\,dx=\Big[\frac34x^4+\frac23x^3+2x^2\Big]_2^7$.</div>
+      <div class="solution">$\bar xM=\frac{25529}{12}-\frac{304}{12}=\frac{25225}{12}\approx2102.08$, so $\bar x=\frac{25225/12}{400}=\frac{1009}{192}\approx5.2552$, right of the middle (4.5) because the density grows.</div>
+    </div>
+
+    <div class="problem" data-pid="G-p7" data-topic="G" data-title="Practice 7" data-src="Textbook §3.8 Suggested Ex. 6 · symmetry" data-help="Exact fractions or decimals." data-prompt="A thin plate occupies the triangle with vertices (0, 0), (1, 1) and (1, -1), with area density delta(x) = 2 - x^2. Find its mass and its center of mass.">
+      <div class="p-body">A thin plate occupies the triangle with vertices $(0,0)$, $(1,1)$ and $(1,-1)$, with area density $\delta(x)=2-x^2$. Find $M$, $\bar x$ and $\bar y$.</div>
+      <div class="answers">
+        <label>$M=$ <input class="ans" data-label="M" data-vid="G-p7-M" data-answer="1.5" data-exact="3/2"></label>
+        <label>$\bar x=$ <input class="ans" data-label="x̄" data-vid="G-p7-x" data-answer="0.622222222222" data-exact="28/45" data-wrong='[{"v":0.666666666667,"m":"That is the triangle’s centroid, 2/3 (the density ignored). The density 2 − x² is larger near x = 0, which pulls x̄ left."}]'></label>
+        <label>$\bar y=$ <input class="ans" data-label="ȳ" data-vid="G-p7-y" data-answer="0" data-exact="0"></label>
+      </div>
+      <div class="hint">Top $f=x$, bottom $g=-x$, so the height is $2x$ and the midpoint is $0$.</div>
+      <div class="hint">$M=\int_0^1(2-x^2)(2x)\,dx$, $\ \bar xM=\int_0^1x(2-x^2)(2x)\,dx$.</div>
+      <div class="solution">$M=\int_0^1(4x-2x^3)\,dx=2-\frac12=\frac32$. $\bar xM=\int_0^1(4x^2-2x^4)\,dx=\frac43-\frac25=\frac{14}{15}$, so $\bar x=\frac{14}{15}\cdot\frac23=\frac{28}{45}\approx0.622$. Every strip's midpoint is at $y=\frac{x+(-x)}2=0$, so $\bar y=0$ without integrating: the plate and its density are symmetric about the $x$-axis.</div>
+    </div>
+
+    <div class="problem" data-pid="G-p8" data-topic="G" data-title="Practice 8" data-src="Textbook §3.8 Example 3.8.7" data-help="Exact fractions or decimals." data-prompt="A thin plate occupies the region bounded above and on the left by y = x^2, on the right by x = 2 and below by y = 1, with area density delta(x) = x. Find its center of mass.">
+      <div class="p-body">A thin plate occupies the region bounded on the top and left by $y=x^2$, on the right by $x=2$, and below by $y=1$. Its density is $\delta(x)=x$ kg/m². Find its center of mass.</div>
+      <div class="answers">
+        <label>$\bar x=$ <input class="ans" data-label="x̄" data-vid="G-p8-x" data-answer="1.718518518519" data-exact="232/135"></label>
+        <label>$\bar y=$ <input class="ans" data-label="ȳ" data-vid="G-p8-y" data-answer="2" data-exact="2" data-wrong='[{"v":1.95,"m":"That is the centroid’s y (the density ignored). Keep δ = x: the tall strips on the right are also the dense ones."}]'></label>
+      </div>
+      <div class="hint">$y=x^2$ meets $y=1$ at $x=1$, so the plate runs from $x=1$ to $x=2$. Height $x^2-1$, midpoint $\frac{x^2+1}2$.</div>
+      <div class="hint">$dm=x(x^2-1)\,dx$. $M=\int_1^2(x^3-x)\,dx=\frac94$.</div>
+      <div class="solution">$\bar xM=\int_1^2(x^4-x^2)\,dx=\frac{58}{15}$, so $\bar x=\frac{58}{15}\cdot\frac49=\frac{232}{135}\approx1.7185$. $\bar yM=\frac12\int_1^2(x^5-x)\,dx=\frac92$, so $\bar y=\frac92\cdot\frac49=2$.</div>
+    </div>
+
+    <div class="problem" data-pid="G-p9" data-topic="G" data-title="Practice 9" data-src="Textbook §3.8 Additional Ex. 13 · constant density (a centroid)" data-help="Exact fractions or decimals." data-prompt="Find the centroid (constant density) of the region between f(x) = sqrt(x) and g(x) = x for 0 &lt;= x &lt;= 1.">
+      <div class="p-body">Find the centroid (the center of mass with constant density) of the region between $f(x)=\sqrt x$ and $g(x)=x$ for $0\le x\le1$.</div>
+      <div class="answers">
+        <label>$\bar x=$ <input class="ans" data-label="x̄" data-vid="G-p9-x" data-answer="0.4" data-exact="2/5"></label>
+        <label>$\bar y=$ <input class="ans" data-label="ȳ" data-vid="G-p9-y" data-answer="0.5" data-exact="1/2"></label>
+      </div>
+      <div class="hint">With a constant density $\delta$, it cancels: $\bar x=\frac{\int x(f-g)\,dx}{\int(f-g)\,dx}$, and the same for $\bar y$. The bottom is the area.</div>
+      <div class="hint">Area $=\int_0^1(\sqrt x-x)\,dx=\frac16$. $\int_0^1\frac{f^2-g^2}2\,dx=\frac12\int_0^1(x-x^2)\,dx$.</div>
+      <div class="solution">$\int_0^1x(\sqrt x-x)\,dx=\frac25-\frac13=\frac1{15}$, so $\bar x=\frac{1/15}{1/6}=\frac25$. $\frac12\int_0^1(x-x^2)\,dx=\frac1{12}$, so $\bar y=\frac{1/12}{1/6}=\frac12$. Check that it's inside the region: at $x=0.4$ the region runs from $y=0.4$ up to $\sqrt{0.4}\approx0.63$, and $\bar y=0.5$ is in between.</div>
+    </div>
+  </div>
+
+  <!-- ============================== 7 MASTER -->
+  <div class="stage" id="G-master">
+    <div class="stage-head"><span class="n">Stage 7 · Master</span><h3>Mastery check</h3></div>
+    <p class="muted">No hints are offered until you've committed to an answer. This checks recognition, understanding, unfamiliar problems, and whether you can explain why.</p>
+    <div class="mcq" data-qid="G-m1" data-topic="G" data-level="1" data-count data-multi data-multimsg="At least one choice is off. You can skip the integral only when a constant density or a symmetry makes the balance point obvious.">
+      <div class="q"><b>Recognition.</b> For which of these can you find $\bar x$ <b>without</b> integrating? Select all that apply.</div>
+      <div class="opts cols-2">
+        <button class="opt" data-correct>a wire on $[2,8]$ with constant density</button>
+        <button class="opt" data-correct>3 kg at $x=1$ and 3 kg at $x=7$</button>
+        <button class="opt" data-correct>a wire on $[-1,1]$ with density $1+x^2$</button>
+        <button class="opt">a wire on $[0,2]$ with density $3x^2$</button>
+        <button class="opt">a wire on $[0,4]$ with density $e^{-x}$</button>
+      </div>
+      <div class="why callout why"><div class="label">Why</div><p style="margin:0">A constant density balances at the middle (5). Equal masses balance halfway between them (4). A density that's symmetric about 0 on a symmetric interval balances at 0. The densities $3x^2$ and $e^{-x}$ are lopsided, so you need the integrals: $\int x\cdot3x^2dx/\int3x^2dx=\frac32$, and $\frac{1-5e^{-4}}{1-e^{-4}}\approx0.925$ (Practice 5).</p></div>
+    </div>
+    <div class="mcq" data-qid="G-m2" data-topic="G" data-level="2" data-count>
+      <div class="q"><b>Understanding.</b> Why does the $\bar y$ integral for a plate use $\frac{f(x)+g(x)}{2}$?</div>
+      <div class="opts">
+        <button class="opt" data-correct data-why="Right: the density is constant along a vertical strip, so the strip balances at its middle, and the whole strip can be treated as one point mass there (notes p. 11).">It's the $y$-coordinate of each strip's own center of mass, because the density is constant along the strip</button>
+        <button class="opt" data-why="The strip’s height is f − g. The midpoint is a position, (f + g)/2.">It's the height of each strip</button>
+        <button class="opt" data-why="It averages the two boundary curves at one x, not any areas.">It's the average of the areas under $f$ and $g$</button>
+        <button class="opt" data-why="It changes the answer: using f instead of (f + g)/2 gives the wrong ȳ (see the spot-the-error item).">It's a shortcut that gives the same answer as using $f$</button>
+      </div>
+    </div>
+    <div class="problem" data-pid="G-m3" data-topic="G" data-level="6" data-title="Unfamiliar problem" data-src="Textbook §3.8 Suggested Ex. 1 · point masses in the plane" data-help="Exact fractions (e.g. 1/22) or decimals." data-prompt="Masses 3, 6, 4 and 9 sit at the points (-1, 0), (0, 1), (1, 0) and (0, -1). Find the center of mass of the system.">
+      <div class="p-body">Masses $3$, $6$, $4$ and $9$ sit at the points $(-1,0)$, $(0,1)$, $(1,0)$ and $(0,-1)$ in the plane. Find the center of mass $(\bar x,\bar y)$ of the system.</div>
+      <div class="answers">
+        <label>$\bar x=$ <input class="ans" data-label="x̄" data-vid="G-m3-x" data-answer="0.045454545455" data-exact="1/22"></label>
+        <label>$\bar y=$ <input class="ans" data-label="ȳ" data-vid="G-m3-y" data-answer="-0.136363636364" data-exact="−3/22" data-wrong='[{"v":-0.75,"m":"That divides by 4, the number of masses. Divide by the total mass, 22."}]'></label>
+      </div>
+      <div class="hint">The seesaw formula works one coordinate at a time: $\bar x=\frac{\sum m_ix_i}{\sum m_i}$ and $\bar y=\frac{\sum m_iy_i}{\sum m_i}$.</div>
+      <div class="hint">$\sum m_i=22$. For $\bar x$ only the masses on the $x$-axis have $x\ne0$.</div>
+      <div class="solution">$\bar x=\frac{3(-1)+4(1)}{22}=\frac1{22}$ and $\bar y=\frac{6(1)+9(-1)}{22}=-\frac3{22}$. The point is a little right (4 beats 3) and below (9 beats 6) the origin.</div>
+    </div>
+    <div class="problem" data-pid="G-m4" data-topic="G" data-level="6" data-title="Unfamiliar problem" data-src="Textbook §3.8 Additional Ex. 11 · geometry helps" data-help="Exact (e.g. 16/(3pi)) or decimals." data-prompt="Find the centroid (constant density) of the half-disk under y = sqrt(16 - x^2), -4 &lt;= x &lt;= 4.">
+      <div class="p-body">Find the centroid (constant density) of the half-disk under $y=\sqrt{16-x^2}$, $-4\le x\le4$.</div>
+      <div class="answers">
+        <label>$\bar x=$ <input class="ans" data-label="x̄" data-vid="G-m4-x" data-answer="0" data-exact="0"></label>
+        <label>$\bar y=$ <input class="ans" data-label="ȳ" data-vid="G-m4-y" data-answer="1.697652726313" data-exact="16/(3π)" data-wrong='[{"v":2,"m":"That’s half the radius. The half-disk is wider near its base, so its centroid is lower than 2."}]'></label>
+      </div>
+      <div class="hint">Symmetry gives $\bar x$. For $\bar y$ you need the area, which you know from geometry: half of $\pi\cdot4^2$.</div>
+      <div class="hint">$\bar y=\frac{1}{A}\int_{-4}^4\frac{f^2-0^2}{2}\,dx=\frac1{8\pi}\int_{-4}^4\frac{16-x^2}{2}\,dx$. No square root survives.</div>
+      <div class="solution">$\bar x=0$ by symmetry. $\int_{-4}^4\frac{16-x^2}2\,dx=\frac12\big(128-\frac{128}3\big)=\frac{128}3$, so $\bar y=\frac{128/3}{8\pi}=\frac{16}{3\pi}\approx1.698$, a bit below half the radius. Writing the midpoint factor as $\frac{f^2-g^2}{2}$ (textbook Prop. 3.8.6) is what makes the square root disappear.</div>
+    </div>
+    <div class="explain card" data-eid="G-explain" data-topic="G">
+      <h4>Explain why (Level 7)</h4>
+      <p>Why is the center of mass $\bar x=\bar xM/M$? And why isn't it the same point as the mass midpoint from §3.7?</p>
+      <textarea aria-label="Your explanation"></textarea>
+      <div class="model callout why"><div class="label">A model explanation</div><p style="margin:0">An object balances on a knife edge at $c$ when the turning effects cancel: every bit of mass $dm$ at $x$ pushes with strength $(x-c)\,dm$, so balance means $\int(x-c)\,dm=0$. Rearranged, $c=\int x\,dm\big/\int dm$: the moment divided by the mass. For two masses that's $m_1d_1=m_2d_2$ (notes p. 6), and for a wire it's $\int x\delta\,dx\big/\int\delta\,dx$ (notes p. 7). It's a weighted average of position, with mass as the weight. The mass midpoint is a different question: where is half the mass on each side? It ignores how far the mass is from the cut. A small amount of mass far away counts a lot toward balance (long lever arm) but only a little toward half the mass. So the two points differ unless the density is constant or symmetric: on notes p. 9, $x_m\approx3.785$ while $\bar x\approx3.719$. It's like a median versus a mean.</p></div>
+    </div>
+  </div>
+</section>
